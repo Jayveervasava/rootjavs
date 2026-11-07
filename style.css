@@ -803,7 +803,7 @@ details.faq p{color:var(--muted);padding-bottom:16px;margin:0}
 .bugcode code{white-space:pre}
 .nav{gap:0;min-width:0}
 .nav a{white-space:nowrap}
-@media (max-width:1360px){.nav a{font-size:13.5px;padding:7px 7px}.xpchip .x{display:none}}
-@media (max-width:1180px){.nav a{font-size:13px;padding:6px 5px}.hdr .btn.ghost{display:none}}
+@media (max-width:1360px){.nav a{font-size:13.5px;padding:7px 7px}}
+@media (max-width:1180px){.nav a{font-size:13px;padding:6px 5px}.hdr .btn.ghost{display:none}.xpchip .x{display:none}}
 .ftr .socials a{width:34px;height:34px}
 .socials svg{width:17px;height:17px}
