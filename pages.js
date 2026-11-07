@@ -10,7 +10,7 @@ const head=(eyebrow,title,sub,crumbs)=>`<div class="page-head fade">${crumbs?`<d
 const gate=(title,text,href,label)=>`<div class="card" style="max-width:620px;margin:40px auto;text-align:center;padding:36px"><span class="icon gold" style="margin:0 auto 14px">${I("lock")}</span><h2 style="font-size:24px;margin-bottom:10px">${title}</h2><p class="muted">${text}</p>${href?`<a class="btn pri" href="${href}">${label}</a>`:""}</div>`;
 
 /* ================= HOME ================= */
-PAGES.home=()=>{
+PAGES.homeClassic=()=>{
   const cheat=window.RJ_CHEATS.slice(0,4);
   app().innerHTML=`
   <section class="hero">
@@ -61,7 +61,10 @@ PAGES.home=()=>{
 
   <section class="sec"><div class="cta"><div><span class="eyebrow">Get started</span><h2 style="margin-top:10px">Your first certificate is a few lessons away.</h2></div><div class="row"><a class="btn pri lg" href="login.html?mode=signup">Create free account</a><a class="btn lg" href="courses.html">Browse courses</a></div></div></section>`;
   $$("[data-cheat]").forEach(b=>b.onclick=()=>RJ.cheatPDF(window.RJ_CHEATS.find(x=>x.id===b.dataset.cheat)));
-  // hero demos
+  RJ.homeDemos();
+};
+/* live lab preview (Excel / Word / PowerPoint / Terminal), used by both home pages */
+RJ.homeDemos=()=>{
   const demos={
     xl(){ const rows=[["Riya",78,85],["Aman",45,52],["Priya",91,88],["Karan",62,48]];
       const draw=()=>{ const tot=rows.map(r=>r[1]+r[2]); $("#demo").innerHTML=`<div class="fbar" style="border:1px solid var(--line);border-radius:8px 8px 0 0"><span class="addr">D2</span><span class="fx">fx</span><input readonly value="=SUM(B2:C2)"></div>
@@ -132,6 +135,131 @@ PAGES.courseClassic=()=>{
   $("#allpdf").onclick=()=>RJ.coursePDF(c);
 };
 
+
+/* ================= HOME (v2 design: terminal theme, from rootjavs_home_demo.html) ================= */
+PAGES.home=()=>{
+  if(RJ.qp("classic")==="1"||!RJ.CATALOG.length) return PAGES.homeClassic();
+  document.body.classList.add("is-home");
+  const CAT=RJ.CATALOG, TR=RJ.TRACKS, READY=CAT.filter(e=>e.ready);
+  const xp=RJ.xp(), rank=RJ.rankOf(xp), ri=RJ.RANKS.indexOf(rank), next=RJ.RANKS[ri+1];
+  const who=S.user?S.user.name.split(" ")[0].toLowerCase().replace(/[^a-z0-9._-]/g,"")||"student":"guest";
+  const done=C.filter(c=>c.lessons.length&&RJ.progress(c).complete).length;
+  const badges=Object.keys(S.certs||{}).length+(ri>0?ri:0);
+  const RC=k=>k[3];
+  app().innerHTML=`<div class="nh">
+  <section class="nh-hero">
+    <div class="nh-copy">
+      <span class="eyebrow">Cyber security · AI · Code</span>
+      <h1>Learn to <span class="c-rd glowr">hack</span>.<br>From <span class="c-cy">user</span> to <span class="c-bl">root</span>.</h1>
+      <p class="lead">Learn computers the way hackers learn them: by doing. Read the notes, break things in safe labs, pass the exams and climb from guest to root.</p>
+      <div class="nh-ladder" aria-label="Rank ladder">${RJ.RANKS.map((k,i)=>`<b style="color:${RC(k)}">${k[0]}${k[0]==="root"?" 👑":""}</b>`).join("<span>→</span>")}</div>
+      <div class="row"><a class="btn pri lg" href="#nh-courses">Browse ${CAT.length} courses ${I("arrow")}</a><a class="btn lg" href="#nh-daily">Play Phish or Not?</a></div>
+      <div class="trust"><span>${I("checkc")} No installs</span><span>${I("checkc")} PDF notes</span><span>${I("checkc")} Practical exams</span><span>${I("checkc")} Certificates</span></div>
+    </div>
+    <div class="glow-win nh-term" aria-label="Interactive terminal">
+      <div class="ml-bar"><span class="d" style="background:#FF5F57"></span><span class="d" style="background:#FEBC2E"></span><span class="d" style="background:#28C840"></span><span class="ml-url">🔒 ${esc(who)}@rootjavs: ~</span></div>
+      <div class="nh-screen" id="scr" role="log" aria-live="polite"></div>
+      <form class="nh-prompt" id="pf" autocomplete="off"><label for="cmd">${esc(who)}@rootjavs:~$</label><input id="cmd" spellcheck="false" autocapitalize="off" placeholder="type help"></form>
+      <div class="nh-chips">${["whoami","ls tracks","rank","courses","sudo su","help"].map(c=>`<button type="button" data-c="${c}">${c}</button>`).join("")}</div>
+    </div>
+  </section>
+
+  <div class="nh-nums"><div><b>${CAT.length}</b><span>courses in ${TR.length} tracks</span></div><div><b>${READY.length}</b><span>full courses open now</span></div><div><b>${CAT.filter(e=>e.track==="Cyber Security").length}</b><span>cyber security courses</span></div><div><b>5</b><span>ranks to root</span></div></div>
+
+  <section class="nh-sec" id="nh-courses"><header><span class="eyebrow">Courses</span><h2>${CAT.length} courses. Pick a track.</h2><p class="lead">Every course has notes, a PDF, quizzes, a mission lab, theory and practical exams, and a certificate. Full courses open right away; the others show their syllabus while lessons are being added.</p></header>
+    <div class="filters" id="nhf" role="tablist" aria-label="Tracks">${["All",...TR].map((t,i)=>`<button role="tab" class="${i?'':'on'}" aria-selected="${!i}" data-t="${esc(t)}">${esc(t)} <span class="cnt">${t==="All"?CAT.length:CAT.filter(e=>e.track===t).length}</span></button>`).join("")}</div>
+    <label class="search" style="margin-top:6px;max-width:560px"><span class="sr-only">Search courses</span>${I("search")}<input id="nhq" placeholder="Search courses, e.g. linux, python, forensics"></label>
+    <p class="small muted mono" id="nhc" style="margin:14px 0 10px"></p><div class="nh-cgrid" id="nhg"></div>
+    <div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="nhm">Show more</button><a class="btn" href="courses.html">Full catalogue ${I("arrow")}</a></div></section>
+
+  <section class="nh-sec" id="nh-labs"><header><span class="eyebrow">Live labs</span><h2>Don't just read it. <span class="c-rd glowr">Break</span> it.</h2><p class="lead">Every course has a lab that works right in your browser. Try one here.</p></header>
+    <div class="appwin glow-win">
+      <div class="bar" role="tablist"><button class="on" data-demo="xl"><i style="background:#1E9E5A"></i>Excel</button><button data-demo="wd"><i style="background:#2F64F0"></i>Word</button><button data-demo="pp"><i style="background:#E8692C"></i>PowerPoint</button><button data-demo="tm"><i style="background:#7C8BA8"></i>Terminal</button></div>
+      <div class="body" id="demo"></div><div class="foot"><span id="demoHint"></span><span>live lab preview</span></div></div>
+    <div class="row" style="margin-top:16px"><a class="btn" href="labs.html">${I("flask")} All labs</a><a class="btn" href="lab.html?c=linux-fundamentals&mode=practice">${I("terminal")} Linux mission lab</a></div></section>
+
+  <section class="nh-sec" id="nh-pdfs"><header><span class="eyebrow">PDF library</span><h2>Notes and cheat sheets you can keep.</h2><p class="lead">Every course comes with a full notes PDF. Cheat sheets fit on one page, made for revision before an exam or an interview.</p></header>
+    <div class="nh-pgrid">${window.RJ_CHEATS.slice(0,8).map(cs=>`<div class="nh-pdf"><span class="pg"><span>${esc(cs.cat)}</span><b class="c-yl">PDF</b></span><h3>${esc(cs.title)}</h3><p>${esc(cs.desc)}</p><button class="btn sm" data-cheat="${cs.id}">${I("download")} Download</button></div>`).join("")}</div>
+    <div class="row" style="margin-top:16px"><a class="btn" href="cheatsheets.html">All cheat sheets ${I("arrow")}</a></div></section>
+
+  <section class="nh-sec" id="nh-ranks"><header><span class="eyebrow">Your rank</span><h2>Every lesson earns XP. XP earns access.</h2><p class="lead">Ranks follow real Linux privilege levels. Start as a guest with no rights. Reach root and you own the system. Lesson +50 · lab +150 · final exam +200 · practical exam +300.</p></header>
+    <div class="nh-ladder2">${RJ.RANKS.map((k,j)=>`<div class="rung ${j<ri?"done":j===ri?"now":""}"><span class="nm" style="color:${RC(k)}">${k[0]}${k[0]==="root"?" 👑":""}</span><span class="th">${k[1].toLocaleString("en-IN")} XP</span><p>${k[2]}</p></div>`).join("")}</div>
+    <div class="nh-meter"><div class="lbl"><span>${rank[0]} · <span class="c-yl">${xp.toLocaleString("en-IN")} XP</span></span><span>${next?`${(next[1]-xp).toLocaleString("en-IN")} XP to ${next[0]}`:"you are root"}</span></div><div class="track"><div class="fill" style="width:${next?Math.min(100,(xp-rank[1])/(next[1]-rank[1])*100):100}%"></div></div></div></section>
+
+  <section class="nh-sec" id="nh-tree"><header><span class="eyebrow">Skill tree</span><h2>Pick a branch. Unlock the next node.</h2><p class="lead">Basics is the trunk. Cyber Security is the first branch on purpose. Full courses are open now; the rest light up as lessons are added.</p></header>
+    <div class="nh-tree-scroll"><div class="nh-tree"><a class="node ${RJ.course("computer-fundamentals")&&RJ.progress(RJ.course("computer-fundamentals")).complete?"done":"open"}" href="course.html?c=computer-fundamentals-new"><b>Basics</b>Computer Fundamentals</a><div class="trunk"></div>
+      <div class="branches">${TR.filter(t=>t!=="Basics").map(t=>{ const ns=CAT.filter(e=>e.track===t).sort((a,b)=>(b.ready-a.ready)||(a.no-b.no)).slice(0,3);
+        return `<div class="col ${ns.some(e=>e.ready)?"lit":""}"><span class="head">${esc(t)}</span>${ns.map((e,j)=>{ const c=e.course, st=c&&c.lessons.length&&RJ.progress(c).complete?"done":e.ready?"open":"locked"; return (j?`<div class="stem ${st!=="locked"?"lit":""}"></div>`:"")+`<a class="node ${st}" href="course.html?c=${e.siteId}"><b>${esc(e.title.replace(/\s*\(.*\)$/,""))}</b>${st==="done"?"completed":st==="open"?"open now":"syllabus"}</a>`; }).join("")}</div>`; }).join("")}</div></div></div>
+    <div class="nh-legend"><span class="l1">completed</span><span class="l2">open now</span><span class="l3">syllabus only</span></div></section>
+
+  <section class="nh-sec"><header><span class="eyebrow">Inside every course</span><h2>Read it. Try it. Prove it.</h2></header>
+    <div class="nh-flow">${[["Interactive notes","Diagrams, flip cards and a PDF to keep."],["Quiz + practice","Instant feedback with the reason behind every answer."],["Mission lab","A lab in your browser and a story to solve."],["Exams + certificate","Theory and practical exams, then a certificate anyone can verify."]].map((x,i)=>`<div class="step2"><span class="n c-cy mono">step ${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
+
+  <section class="nh-sec" id="nh-daily"><header><span class="eyebrow">Today on rootjavs</span><h2>Spot the <span class="c-rd glowr">scam</span> before it spots you.</h2></header>
+    <div class="nh-duo"><div class="nh-box" id="daily"></div><div class="nh-box" id="phish"></div></div></section>
+
+  <section class="nh-sec" id="nh-arcade"><header><span class="eyebrow">rootjavs Arcade</span><h2>Games that teach the real thing.</h2><p class="lead">Each game is tied to a course. Phish or Not? is playable now; the others are being built.</p></header>
+    <div class="nh-arcade">${[["?!","Phish or Not?","Spot the scam message before it spots you.","Cyber Security",1],["***","Password Crack Race","See how long an attacker needs to break yours.","Cyber Security"],["$_","Command Speed Run","Type the right Linux command before the timer ends.","Linux"],["⇄","Packet Journey","Route data through routers to the right server.","Networking"],["0x","Decode It","Binary, hex and Base64 hide a message. Find it.","Cryptography"],["{!}","Spot the Bug","Find the security flaw in a few lines of code.","Secure Coding"],["[#]","Cyber Escape Room","Use clues and commands to unlock the room.","Ethical Hacking"],["Aa","Typing Defender","Type falling words before they hit the ground.","Typing Mastery"]].map(g=>`<div class="game ${g[4]?"live":""}"><span class="ic c-mg mono">${g[0]}</span><h3>${g[1]}</h3><p>${g[2]}</p><span class="xp mono">${g[3]} · ${g[4]?'<a href="#nh-daily">play now</a>':"being built"}</span></div>`).join("")}</div></section>
+
+  <section class="nh-sec"><div class="nh-cardrow">
+    <div class="rcard" aria-label="Your rank card"><div class="top-l mono">rootjavs · rank card</div><div style="display:grid;gap:10px"><div class="who">@${esc(who)}</div><div class="big mono" style="color:${RC(rank)}">${rank[0]}</div></div>
+      <div class="stats mono"><div>XP<b class="c-yl">${xp.toLocaleString("en-IN")}</b></div><div>Streak<b>🔥 ${RJ.streak()}</b></div><div>Courses<b>${done}</b></div><div>Badges<b>${badges}</b></div></div><div class="foot mono">from user to root</div></div>
+    <div style="display:grid;gap:14px;min-width:0"><span class="eyebrow">Your rank card</span><h2>Level up, then show it.</h2><p class="lead">This card updates with your real progress: lessons, labs and exams you pass on rootjavs. Certificates carry an ID that anyone can check.</p>
+      <div class="row"><a class="btn pri" href="dashboard.html">${I("user")} My dashboard</a><a class="btn" href="verify.html">${I("shield")} Verify a certificate</a></div></div></div></section>
+
+  <section class="nh-sec"><div class="grid g2" style="gap:40px;align-items:start"><div><span class="eyebrow">FAQ</span><h2 style="margin-top:10px">Questions, answered</h2><p class="muted" style="margin-top:12px">Still curious? <a href="faq.html">Read the full FAQ</a> or <a href="contact.html">contact us</a>.</p></div>
+   <div>${window.RJ_FAQ.slice(0,5).map(f=>`<details class="faq"><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></div></section>
+  </div>`;
+
+  /* courses grid */
+  let t="All", shown=12;
+  const drawC=()=>{ const q=$("#nhq").value.trim().toLowerCase(); const list=CAT.filter(e=>(t==="All"||e.track===t)&&(!q||(e.title+" "+e.track).toLowerCase().includes(q)));
+    $("#nhc").textContent=`${list.length} course${list.length===1?"":"s"}${t==="All"?"":" in "+t}`;
+    $("#nhg").innerHTML=list.slice(0,shown).map(e=>`<a class="nh-cc ${e.ready?"ready":""}" href="course.html?c=${e.siteId}"><span class="ct mono">#${e.no} · ${esc(e.track)}</span><span class="cn">${esc(e.title)}</span><span class="cf mono">${e.ready?`<span class="c-cy">● full course</span>`:"syllabus · lessons being added"}${e.course&&e.course.dupOf?' · <span class="vtag new">new version</span>':e.course&&e.course.hasNew?' · <span class="vtag old">old version</span>':""}</span></a>`).join("")||`<p class="muted">No course matches. Try another word.</p>`;
+    $("#nhm").hidden=list.length<=shown; };
+  $$("#nhf button").forEach(b=>b.onclick=()=>{ t=b.dataset.t; shown=12; $$("#nhf button").forEach(x=>{ x.classList.toggle("on",x===b); x.setAttribute("aria-selected",x===b); }); drawC(); });
+  $("#nhq").oninput=()=>{ shown=12; drawC(); }; $("#nhm").onclick=()=>{ shown+=12; drawC(); }; drawC();
+  $$("[data-cheat]").forEach(b=>b.onclick=()=>RJ.cheatPDF(window.RJ_CHEATS.find(x=>x.id===b.dataset.cheat)));
+  RJ.homeDemos();
+
+  /* hero terminal */
+  const scr=$("#scr"), RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const line=(h,c)=>{ const d=document.createElement("div"); if(c) d.className=c; d.innerHTML=h; scr.appendChild(d); scr.scrollTop=scr.scrollHeight; };
+  const boot=[["rootjavs OS 1.0 · booting…","c-mu"],[`[ <span class="c-cy">ok</span> ] mounting /courses ........ ${CAT.length} found`],[`[ <span class="c-cy">ok</span> ] full courses open ...... ${READY.length}`],[`[ <span class="c-cy">ok</span> ] starting labs: linux · python · sql · office`],[`[ <span class="c-yl">!!</span> ] user detected with rank: <span style="color:${RC(rank)}">${rank[0]}</span>`],[""],[`Welcome, ${esc(who)}. Type <span class="c-cy">help</span> or tap a command below.`]];
+  let bi=0; (function nx(){ if(bi>=boot.length) return; line(boot[bi][0],boot[bi][1]); bi++; setTimeout(nx,RM?0:220); })();
+  const CMD={
+    help:()=>[`Commands: <span class="c-cy">whoami</span> · <span class="c-cy">ls tracks</span> · <span class="c-cy">courses</span> · <span class="c-cy">rank</span> · <span class="c-cy">xp</span> · <span class="c-cy">date</span> · <span class="c-cy">sudo su</span> · <span class="c-cy">start</span> · <span class="c-cy">clear</span>`],
+    whoami:()=>[who,`<span class="c-mu">rank ${rank[0]}. Climb to root to own the system.</span>`],
+    "ls tracks":()=>[TR.map(x=>`<span class="c-bl">${x.toLowerCase().replace(/\s+/g,"-")}/</span>`).join("  "),`<span class="c-mu">${CAT.length} courses across ${TR.length} tracks</span>`],
+    ls:()=>CMD["ls tracks"](),
+    courses:()=>[...READY.slice(0,12).map(e=>`  <span class="c-yl">#${String(e.no).padStart(3," ")}</span>  <a href="course.html?c=${e.siteId}">${esc(e.title)}</a>`),`<span class="c-mu">${READY.length} full courses open now</span>`],
+    rank:()=>[`rank: <span style="color:${RC(rank)}">${rank[0]}</span> · xp: <span class="c-yl">${xp}</span>`,next?`next: ${next[0]} at ${next[1].toLocaleString("en-IN")} XP`:"you are root"],
+    xp:()=>[`<span class="c-yl">${xp} XP</span> · streak 🔥 ${RJ.streak()} days`],
+    date:()=>[new Date().toString()],
+    "sudo su":()=>[`<span class="c-rd">[sudo] permission denied:</span> ${esc(who)} is not in the sudoers file.`,`<span class="c-mu">This incident will be reported. Earn 1,000 XP to become a sudoer.</span>`],
+    start:()=>{ setTimeout(()=>location.href=`course.html?c=cyber-security-fundamentals`,300); return ["Opening Cyber Security Fundamentals…"]; },
+    clear:()=>{ scr.innerHTML=""; return []; }
+  };
+  const run=raw=>{ const c=raw.trim().toLowerCase().replace(/\s+/g," "); if(!c) return; line(`<span class="c-cy">${esc(who)}@rootjavs:~$</span> ${esc(c)}`); const f=CMD[c]; if(f) f().forEach(x=>line(x)); else line(`<span class="c-rd">${esc(c.split(" ")[0])}: command not found.</span> Try <span class="c-cy">help</span>.`); };
+  $("#pf").onsubmit=e=>{ e.preventDefault(); run($("#cmd").value); $("#cmd").value=""; };
+  $$(".nh-chips button").forEach(b=>b.onclick=()=>run(b.dataset.c));
+
+  /* daily challenge: one question per day, +50 XP once per day */
+  const DQ=[["Which port does HTTPS use by default?",["80","443","22","8080"],1,"HTTPS listens on 443. Port 80 is plain HTTP and 22 is SSH."],["Which command shows the current folder in Linux?",["ls","cd","pwd","whoami"],2,"pwd means print working directory."],["What does the A in the CIA triad stand for?",["Access","Availability","Authority","Audit"],1,"Confidentiality, Integrity and Availability."],["Which one is a strong password?",["password123","Riya@2004","correct-horse-battery-staple-91","qwerty"],2,"Long passphrases are much harder to crack than short words with a symbol."],["A bank SMS asks for your OTP to stop a block. What should you do?",["Reply with the OTP","Call the number in the SMS","Ignore it and check in the official app","Forward it to friends"],2,"Banks never ask for an OTP. Check only through the official app or number."],["Which file permission lets only the owner read and write?",["777","644","600","755"],2,"600 = rw for the owner and nothing for anyone else."],["What does SQL stand for?",["Structured Query Language","Simple Question Logic","System Query Link","Secure Query Layer"],0,"SQL is the Structured Query Language used to work with databases."]];
+  const today=new Date().toISOString().slice(0,10), dn=Math.floor(Date.now()/864e5)%DQ.length, dq=DQ[dn], dkey="daily-"+today;
+  $("#daily").innerHTML=`<div class="tag"><span>Daily challenge</span><b class="c-yl">+50 XP</b></div><p class="q">${esc(dq[0])}</p><div class="opts">${dq[1].map((o,i)=>`<button type="button" data-a="${i}">${esc(o)}</button>`).join("")}</div><p class="fb" id="dfb">${S.bonus&&S.bonus.done[dkey]?"Done for today. Come back tomorrow for a new one.":"Answer to keep your 🔥 streak."}</p>`;
+  $$("#daily [data-a]").forEach(b=>b.onclick=()=>{ $$("#daily [data-a]").forEach(x=>{ x.disabled=true; if(+x.dataset.a===dq[2]) x.classList.add("right"); });
+    if(+b.dataset.a===dq[2]){ $("#dfb").textContent="Correct. "+dq[3]; RJ.touch(); RJ.addBonus(dkey,50); RJ.paintXp(); } else { b.classList.add("wrong"); $("#dfb").textContent="Not quite. "+dq[3]; } });
+
+  /* Phish or Not? */
+  const P=[{f:"From: SBI Alerts <alerts@sbi-secure-kyc.top>",b:"Your account will be blocked today. Update KYC now: sbi-secure-kyc.top/verify",scam:true,why:"Scam. Banks never use domains like .top, and fake urgency is a classic trick."},{f:"From: GitHub <noreply@github.com>",b:"A new SSH key was added to your account. If this wasn't you, review it in Settings.",scam:false,why:"Legit. Real domain, no link to click, and it tells you to check settings yourself."},{f:"From: +91 98xxx xxx21 (WhatsApp)",b:"Congrats! You won ₹25,000 in the Amazon Diwali lucky draw. Share the OTP to claim.",scam:true,why:"Scam. No real company ever asks for your OTP."},{f:"From: Parul University <exam@paruluniversity.ac.in>",b:"Your hall ticket is available on the student portal. Log in through the official website.",scam:false,why:"Legit. Official domain, and it sends you to the portal you already know."}];
+  let pi=0, ps=0, lock=false;
+  const showP=()=>{ const p=P[pi]; $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">+20 XP each</b></div><div class="msg"><span class="from mono">${esc(p.f)}</span><span class="body">${esc(p.b)}</span></div><div class="opts"><button type="button" data-s="1">Scam</button><button type="button" data-s="0">Legit</button></div><p class="fb" id="pfb">Read the sender and the link. Then decide.</p><span class="score mono">Round ${pi+1} of ${P.length} · score ${ps}</span>`; lock=false;
+    $$("#phish [data-s]").forEach(b=>b.onclick=()=>{ if(lock) return; lock=true; const ok=(b.dataset.s==="1")===p.scam; b.classList.add(ok?"right":"wrong"); $("#pfb").textContent=p.why; $$("#phish [data-s]").forEach(x=>x.disabled=true);
+      if(ok){ ps++; RJ.addBonus("phish-"+pi,20); RJ.paintXp(); }
+      setTimeout(()=>{ pi++; if(pi<P.length) showP(); else $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">done</b></div><p class="q">${ps===P.length?"Perfect score. You think like a security analyst.":`${ps} of ${P.length} correct.`}</p><p class="fb">Learn the warning signs in Cyber Security Fundamentals.</p><div class="row"><a class="btn sm pri" href="course.html?c=cyber-security-fundamentals">Open the course</a><button class="btn sm" id="pagain">Play again</button></div>`, $("#pagain")&&($("#pagain").onclick=()=>{ pi=0; ps=0; showP(); }); },RM?500:1400); }); };
+  showP();
+};
 
 /* ================= COURSES (catalogue of all courses) ================= */
 const catCard=e=>{ const c=e.course, st=c&&RJ.started(c);

@@ -67,3 +67,13 @@ All files sit in the root folder: HTML pages, `style.css` (design system), `data
 and the bundled libraries `jspdf.umd.min.js`, `xlsx.full.min.js`, `pptxgen.bundle.js`.
 
 © rootjavs · Founded by Jayveer Vasava · Vadodara, Gujarat
+
+## Course catalogue (v2, 2026-11)
+- `content/catalog.json` is the master list: every course with its number, track (category), status and, when written, a short description, level, hours and "what you will learn" points.
+- Full courses live in `content/courses/<track-folder>/<id>.json` (folders: cyber-security, ai, cloud, development, career, basics, emerging-tech).
+- **To make a course live:** check the file with `python3 tools/validate.py <file>`, put it in its folder, and set `"status": "ready"` for it in `catalog.json`. Nothing else is needed.
+- Courses that are not ready open an overview page (syllabus) with "Lessons are being added".
+- The 7 original courses in `data.js` are kept unchanged. If a ready catalogue course has the same id as an old one, the new one opens as `<id>-new` and both are shown.
+- `course-loader.js` reads the catalogue and course files, `mission-lab.js` runs the labs and practical exams of the new courses.
+- The site must be served over http(s) (GitHub Pages does this). Opening `index.html` by double-click still shows the old courses, but not the catalogue.
+- The previous home page is still available at `index.html?classic=1`.
