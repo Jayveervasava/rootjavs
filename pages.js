@@ -95,7 +95,7 @@ PAGES.home=()=>{
 };
 
 /* ================= COURSES ================= */
-PAGES.courses=()=>{
+PAGES.coursesClassic=()=>{
   const cats=["All","Computer Basics","Office","Coming soon"];
   app().innerHTML=head("Course catalogue","All courses",`${C.length} courses live, ${TL()} lessons, every one with notes, a lab and exams.`)+
    `<div class="row" style="justify-content:space-between;margin-bottom:6px"><div class="filters" id="flt" style="margin:0">${cats.map((c,i)=>`<button class="${i?'':'on'}" data-f="${c}">${c}</button>`).join("")}</div><label class="search"><span class="sr-only">Search courses</span>${I("search")}<input id="q" placeholder="Search courses"></label></div><div class="grid g3" id="list" style="margin-top:20px"></div>`;
@@ -107,7 +107,7 @@ PAGES.courses=()=>{
 };
 
 /* ================= COURSE ================= */
-PAGES.course=()=>{
+PAGES.courseClassic=()=>{
   const c=RJ.course(RJ.qp("c")); if(!c){ app().innerHTML=gate("Course not found","This course does not exist or has moved.","courses.html","Browse courses"); return; }
   document.title=c.title+" · rootjavs";
   const p=RJ.progress(c); const next=c.lessons.findIndex((_,i)=>!RJ.lessonPassed(c.id,i)); const nx=next<0?0:next;
@@ -130,6 +130,71 @@ PAGES.course=()=>{
     <div class="card"><span class="icon">${I("quiz")}</span><h3 style="font-size:19px;margin:14px 0 8px">Final theory exam</h3><p class="muted small">10 questions from the whole course, 15-minute timer, question navigator. Pass mark 60%.</p>${p.allLessons?`<a class="btn sm pri" href="exam.html?c=${c.id}">Start exam</a>`:`<span class="chip">${I("lock")} Pass all lessons first</span>`}</div>
     <div class="card"><span class="icon gold">${I("target")}</span><h3 style="font-size:19px;margin:14px 0 8px">Practical exam</h3><p class="muted small">New tasks in the lab, checked automatically. Complete all of them to pass.</p>${p.prac?`<span class="chip ok">${I("check")} Passed</span>`:p.allLessons?`<a class="btn sm pri" href="lab.html?c=${c.id}&mode=exam">Start practical</a>`:`<span class="chip">${I("lock")} Pass all lessons first</span>`}</div></div></section>`;
   $("#allpdf").onclick=()=>RJ.coursePDF(c);
+};
+
+
+/* ================= COURSES (catalogue of all courses) ================= */
+const catCard=e=>{ const c=e.course, st=c&&RJ.started(c);
+  const chip=e.ready?(st?`<span class="chip blue">In progress</span>`:`<span class="chip ok">${I("check")} Full course</span>`):`<span class="chip">${e.status==="partial"?"Lessons in progress":"Lessons being added"}</span>`;
+  const tag=c&&c.dupOf?' · <span class="vtag new">New version</span>':c&&c.hasNew?' · <span class="vtag old">Old version</span>':"";
+  return `<a class="card hover ccard ${e.ready?"":"planned"}" href="course.html?c=${e.siteId}">
+   <div class="top"><span class="icon ${e.ready?"cyan":""}">${I((c&&c.icon)||({"Cyber Security":"shield","AI":"spark","Cloud":"cloud","Development":"code","Career":"target","Basics":"laptop","Emerging Tech":"cpu"})[e.track]||"book")}</span>${chip}</div>
+   <div><span class="eyebrow" style="font-size:11px">#${e.no} · ${esc(e.track)}${tag}</span><h3 style="margin-top:6px">${esc(e.title)}</h3></div>
+   ${e.short?`<p>${esc(e.short)}</p>`:""}
+   <div class="meta">${e.level?`<span>${I("bolt")} ${esc(e.level)}</span>`:""}${e.hours?`<span>${I("clock")} ${e.hours} h</span>`:""}<span>${I("flask")} Lab</span><span>${I("award")} Certificate</span></div></a>`; };
+PAGES.courses=()=>{
+  if(!RJ.CATALOG.length) return PAGES.coursesClassic();
+  const tracks=["All",...RJ.TRACKS], all=RJ.CATALOG, ready=all.filter(e=>e.ready).length;
+  let f=decodeURIComponent((location.hash||"").slice(1))||"All"; if(!tracks.includes(f)) f="All";
+  app().innerHTML=head("Course catalogue","All courses",`${all.length} courses in ${RJ.TRACKS.length} tracks. ${ready} are fully open now with notes, labs and exams; the rest show their syllabus while lessons are being added.`)+
+   `<div class="filters" id="flt" style="margin:0 0 14px">${tracks.map(t=>`<button class="${t===f?'on':''}" data-f="${esc(t)}">${esc(t)} <span class="cnt">${t==="All"?all.length:all.filter(e=>e.track===t).length}</span></button>`).join("")}</div>
+    <div class="row" style="justify-content:space-between"><label class="search" style="flex:1;max-width:520px"><span class="sr-only">Search courses</span>${I("search")}<input id="q" placeholder="Search courses, e.g. linux, python, forensics"></label>
+    <label class="row small muted" style="gap:8px"><input type="checkbox" id="onlyReady"> Only full courses</label></div>
+    <p class="small muted mono" id="cnt" style="margin:14px 0 0"></p><div class="grid g3" id="list" style="margin-top:14px"></div>`;
+  const draw=()=>{ const q=$("#q").value.trim().toLowerCase(), only=$("#onlyReady").checked;
+    const list=all.filter(e=>(f==="All"||e.track===f)&&(!only||e.ready)&&(!q||(e.title+" "+(e.short||"")+" "+e.track).toLowerCase().includes(q)));
+    $("#cnt").textContent=`${list.length} course${list.length===1?"":"s"}${f==="All"?"":" in "+f}`;
+    $("#list").innerHTML=list.map(catCard).join("")||`<p class="muted">No courses match your search.</p>`; };
+  $$("#flt button").forEach(b=>b.onclick=()=>{ f=b.dataset.f; history.replaceState(null,"",f==="All"?location.pathname:"#"+encodeURIComponent(f)); $$("#flt button").forEach(x=>x.classList.toggle("on",x===b)); draw(); });
+  $("#q").oninput=draw; $("#onlyReady").onchange=draw; draw();
+};
+
+/* ================= COURSE (overview for planned courses, extras for new ones) ================= */
+PAGES.course=()=>{
+  const id=RJ.qp("c"), e=RJ.entry&&RJ.entry(id);
+  if(e&&!e.ready) return overview(e);
+  const c=RJ.course(id);
+  if(c&&c.isNew&&!c.loaded){ app().innerHTML=gate("Course could not load","Please check your internet connection and reload the page.","courses.html","Browse courses"); return; }
+  PAGES.courseClassic();
+  if(!c) return;
+  const hero=$(".course-hero .row"); if(hero&&c.no) hero.insertAdjacentHTML("afterbegin",`<span class="chip">#${c.no}</span>`);
+  if(c.dupOf||c.hasNew){ const k=c.dupOf||c.hasNew; $(".course-hero > div").insertAdjacentHTML("beforeend",`<div class="status info" style="margin-top:16px">${I("info")} ${c.dupOf?"This is the new version of this course.":"This is the old version of this course."} <a href="course.html?c=${k}" style="margin-left:6px">Open the ${c.dupOf?"old":"new"} version</a></div>`); }
+  if(!c.isNew) return;
+  const xp=c.xp||RJ.XP, total=c.lessons.length*xp.lesson+xp.lab+xp.finalExam+xp.practicalExam;
+  const extra=`<section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">XP for this course</h2><div class="grid g4">${[["book",c.lessons.length+" lessons",c.lessons.length*xp.lesson],["flask","Mission lab",xp.lab],["quiz","Final exam",xp.finalExam],["target","Practical exam",xp.practicalExam]].map(k=>`<div class="card kpi"><span class="icon">${I(k[0])}</span><b style="margin-top:12px" class="xpv">+${k[2]} XP</b><span>${k[1]}</span></div>`).join("")}</div><p class="small muted" style="margin-top:10px">Complete everything to earn <b class="xpv">${total} XP</b> toward your rank.</p></section>
+   ${c.prerequisites&&c.prerequisites.length?`<section class="sec" style="margin-top:40px"><h2 style="font-size:22px;margin-bottom:12px">Before you start</h2><ul class="learn-list card">${c.prerequisites.map(x=>`<li>${I("check")}<span>${esc(x)}</span></li>`).join("")}</ul></section>`:""}
+   <section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">Revision kit</h2><div class="ltabs" role="tablist" id="rk">${[["cs","list","Cheat sheet"],["gl","book","Glossary"],["iv","user","Interview"]].map((t,i)=>`<button role="tab" class="${i?'':'on'}" aria-selected="${!i}" data-k="${t[0]}">${I(t[1])} ${t[2]}</button>`).join("")}</div><div id="rkp" class="fade"></div></section>`;
+  $("#app").insertAdjacentHTML("beforeend",extra);
+  const pane=k=>{ const P=$("#rkp");
+    if(k==="cs"){ const cs=c.cheatsheet; P.innerHTML=cs?`<div class="row" style="justify-content:space-between;margin-bottom:6px"><b>${esc(cs.title||c.title)}</b><button class="btn sm pri" id="csdl">${I("download")} PDF</button></div>${(cs.sections||[]).map(([n,rows])=>`<h4 style="font-size:14px;margin:16px 0 8px;color:var(--accent-2)">${esc(n)}</h4><div class="tbl"><table><tbody>${rows.map(r=>`<tr><td style="width:40%"><span class="mono" style="font-weight:700;font-size:13.5px">${esc(r[0])}</span></td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table></div>`).join("")}`:'<p class="muted">No cheat sheet.</p>';
+      const d=$("#csdl"); if(d) d.onclick=()=>RJ.cheatPDF({id:c.id,title:cs.title||c.title,cat:c.track,desc:`Quick reference for the ${c.title} course.`,sections:cs.sections||[]}); }
+    if(k==="gl") P.innerHTML=`<div class="card" style="padding:4px 24px">${(c.glossary||[]).map(g=>`<div class="gterm"><b>${esc(g[0])}</b><p>${esc(g[1])}</p></div>`).join("")}</div>`;
+    if(k==="iv") P.innerHTML=(c.interview||[]).map(x=>`<details class="faq"><summary>${esc(x[0])}</summary><p>${esc(x[1])}</p></details>`).join(""); };
+  $$("#rk button").forEach(b=>b.onclick=()=>{ $$("#rk button").forEach(x=>{ x.classList.toggle("on",x===b); x.setAttribute("aria-selected",x===b); }); pane(b.dataset.k); }); pane("cs");
+};
+const overview=e=>{
+  document.title=e.title+" · rootjavs";
+  const same=RJ.CATALOG.filter(x=>x.track===e.track&&x.ready&&x!==e).slice(0,3);
+  app().innerHTML=`<div class="crumbs"><a href="courses.html">Courses</a> / <a href="courses.html#${encodeURIComponent(e.track)}">${esc(e.track)}</a></div>
+  <div class="course-hero fade"><div>
+    <div class="row"><span class="chip">#${e.no}</span><span class="chip cyan">${esc(e.track)}</span>${e.level?`<span class="chip">${esc(e.level)}</span>`:""}</div>
+    <h1 style="font-size:clamp(30px,4.4vw,46px);margin:14px 0 12px">${esc(e.title)}</h1>
+    <p class="muted" style="font-size:18px;max-width:60ch">${esc(e.short||`A complete ${e.track} course on rootjavs with notes, a mission lab, exams and a certificate.`)}</p>
+    <div class="row" style="gap:18px;color:var(--muted);font-size:15px;margin:16px 0 22px">${e.hours?`<span class="row" style="gap:6px">${I("clock")}About ${e.hours} hours</span>`:""}<span class="row" style="gap:6px">${I("flask")}Mission lab</span><span class="row" style="gap:6px">${I("award")}Certificate</span></div>
+    <div class="status info">${I("info")} Lessons are being added. The syllabus below shows what this course will cover.</div></div>
+   <div class="card" style="background:var(--card-2)"><span class="eyebrow">Inside this course</span><ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px">${[["book","Interactive notes","Diagrams, flip cards and a PDF to keep"],["quiz","Quiz and practice","Feedback with the reason behind every answer"],["flask","Mission lab","A story-based lab in your browser"],["target","Theory and practical exams","Timed theory exam and a real scenario"],["award","Certificate","With an ID anyone can verify"]].map(k=>`<li style="display:grid;grid-template-columns:24px 1fr;gap:10px"><span style="color:var(--accent-2)">${I(k[0])}</span><span><b style="font-weight:600">${k[1]}</b><br><small class="muted">${k[2]}</small></span></li>`).join("")}</ul></div></div>
+  ${e.learn&&e.learn.length?`<section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">What you will learn</h2><div class="card"><ul class="learn-list">${e.learn.map(x=>`<li>${I("check")}<span>${esc(x)}</span></li>`).join("")}</ul></div></section>`:""}
+  ${same.length?`<section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">Start now with a full ${esc(e.track)} course</h2><div class="grid g3">${same.map(catCard).join("")}</div></section>`:""}`;
 };
 
 /* ================= LESSON ================= */
@@ -165,7 +230,7 @@ PAGES.lesson=()=>{
     pane.innerHTML=`<p class="muted">5 questions. Score 3 or more to pass this lesson.${sc!=null?` Your best: <b>${sc}/5</b>.`:""}</p><form id="qf">${L.quiz.map((q,k)=>`<div class="q"><fieldset><legend><span class="qn">QUESTION ${k+1}</span>${RJ.fmt(q[0])}</legend>${q[1].map((o,j)=>`<label class="opt" for="o${k}_${j}"><input type="radio" id="o${k}_${j}" name="q${k}" value="${j}"><span>${RJ.fmt(o)}</span></label>`).join("")}</fieldset></div>`).join("")}<div id="res"></div><div class="row"><button class="btn pri lg" type="submit">Submit answers</button></div></form>`;
     $("#qf").onsubmit=e=>{ e.preventDefault(); const fd=new FormData(e.target); const miss=L.quiz.filter((_,k)=>fd.get("q"+k)===null).length;
       if(miss){ $("#res").innerHTML=`<div class="status bad" style="margin-bottom:14px">${I("alert")} Answer all questions (${miss} left).</div>`; return; }
-      let s=0; L.quiz.forEach((q,k)=>{ const v=+fd.get("q"+k); if(v===q[2]) s++; q[1].forEach((_,j)=>{ const lb=$(`label[for="o${k}_${j}"]`); lb.classList.toggle("right",j===q[2]); lb.classList.toggle("wrong",j===v&&v!==q[2]); }); if(q[3]){ const fs=$$("#qf fieldset")[k]; if(fs&&!fs.querySelector(".why")) fs.insertAdjacentHTML("beforeend",`<p class="why">${I("info")} ${RJ.fmt(q[3])}</p>`); } }); });
+      let s=0; L.quiz.forEach((q,k)=>{ const v=+fd.get("q"+k); if(v===q[2]) s++; q[1].forEach((_,j)=>{ const lb=$(`label[for="o${k}_${j}"]`); lb.classList.toggle("right",j===q[2]); lb.classList.toggle("wrong",j===v&&v!==q[2]); }); if(q[3]){ const fs=$$("#qf fieldset")[k]; if(fs&&!fs.querySelector(".why")) fs.insertAdjacentHTML("beforeend",`<p class="why">${I("info")} ${RJ.fmt(q[3])}</p>`); } });
       RJ.setLesson(c.id,li,s); const ok=s>=RJ.PASS_LESSON, last=li===c.lessons.length-1;
       $("#res").innerHTML=`<div class="card" style="margin-bottom:16px"><div class="result"><div class="ring ${ok?'ok':'bad'}" style="--p:${s*20}"><b>${s}/5</b></div><div style="flex:1;min-width:200px"><h3 style="font-size:20px">${ok?"Lesson passed":"Not passed yet"}</h3><p class="muted" style="margin:6px 0 0">${ok?"Correct answers are highlighted in green.":"Review the green answers and the notes, then try again."}</p></div>
         <div class="row">${ok?(last?`<a class="btn pri" href="course.html?c=${c.id}">Go to final exams</a>`:`<a class="btn pri" href="lesson.html?c=${c.id}&l=${li+1}">Next lesson ${I("arrow")}</a>`):`<button type="button" class="btn" id="retry">Try again</button>`}</div></div></div>`;
