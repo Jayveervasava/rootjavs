@@ -120,7 +120,7 @@ RJ.issueCert = (c)=>{
 };
 
 /* ---------------- layout ---------------- */
-const NAV=[["courses.html","Courses"],["labs.html","Labs"],["mock-tests.html","Mock Tests"],["roadmaps.html","Roadmaps"],["cheatsheets.html","Cheat Sheets"],["typing-test.html","Typing Test"]];
+const NAV=[["courses.html","Courses"],["labs.html","Labs"],["challenges.html","Challenges"],["tools.html","Cyber Tools"],["roadmaps.html","Roadmaps"],["cheatsheets.html","Cheat Sheets"],["mock-tests.html","Mock Tests"],["typing-test.html","Typing Test"]];
 function theme(){ try{ return localStorage.getItem("rj_theme")||"dark"; }catch(e){ return "dark"; } }
 function applyTheme(t){ document.documentElement.setAttribute("data-theme",t); try{ localStorage.setItem("rj_theme",t);}catch(e){} const b=RJ.$("#themeBtn"); if(b) b.innerHTML=RJ.icon(t==="dark"?"sun":"moon"); }
 applyTheme(theme());
@@ -143,14 +143,28 @@ RJ.layout = ()=>{
   RJ.$("#themeBtn").onclick=()=>applyTheme(theme()==="dark"?"light":"dark"); applyTheme(theme());
   RJ.$("#menuBtn").onclick=()=>{ const m=RJ.$("#mnav"); m.classList.toggle("open"); RJ.$("#menuBtn").setAttribute("aria-expanded",m.classList.contains("open")); };
   const f=document.createElement("footer"); f.className="ftr";
-  f.innerHTML=`<div class="container"><div class="cols">
-    <div><a class="logo" href="index.html">${RJ.logo}<span>rootjavs</span></a><p class="muted small" style="margin-top:14px;max-width:32ch">Practical computer, Office and cyber security training. Learn it, practise it in the browser, prove it with exams.</p>
-      <p class="small muted" style="margin:0">Vadodara, Gujarat, India<br>Instagram: @rootjavs</p></div>
-    <div><h4>Learn</h4><a href="courses.html">All courses</a><a href="roadmaps.html">Career roadmaps</a><a href="labs.html">Hands-on labs</a><a href="mock-tests.html">Mock tests</a></div>
-    <div><h4>Resources</h4><a href="cheatsheets.html">Cheat sheets</a><a href="typing-test.html">Typing test</a><a href="interview.html">Interview questions</a><a href="glossary.html">Glossary</a></div>
+  const SOC=[["Instagram","https://www.instagram.com/rootjavs/",'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>'],
+    ["X","https://x.com/rootjavs",'<path d="M4 4l16 16M20 4L4 20"/>'],
+    ["YouTube","https://www.youtube.com/@RootJavs",'<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/>'],
+    ["WhatsApp channel","https://whatsapp.com/channel/0029Vb7H4qD4SpkDl0PwNg0J",'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.5 2 2.5 4 4.5 4.5"/>'],
+    ["Discord","https://discord.gg/Sq23TaSECC",'<path d="M7 7c3-1.3 7-1.3 10 0l2 9c-1.8 1.4-3.6 2-5 2l-1-1.6M7 7L5 16c1.8 1.4 3.6 2 5 2l1-1.6"/><circle cx="9.5" cy="12.5" r="1" fill="currentColor"/><circle cx="14.5" cy="12.5" r="1" fill="currentColor"/>'],
+    ["LinkedIn","https://www.linkedin.com/company/144118085/",'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.1M12 16v-3.2a2 2 0 0 1 4 0V16M12 10.5V16"/>'],
+    ["Email","mailto:rootjavs@gmail.com",'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/>']];
+  const TRK=["Cyber Security","AI","Cloud","Development","Career","Basics","Emerging Tech"];
+  f.innerHTML=`<div class="container"><div class="cols cols2">
+    <div class="fbrand"><a class="logo" href="index.html">${RJ.logo}<span>rootjavs</span></a><p class="muted small" style="margin-top:14px;max-width:34ch"><b style="color:var(--text)">From user to root.</b> Cyber security, AI, coding and computer basics. Learn it, practise it in safe labs, prove it with exams.</p>
+      <p class="small muted" style="margin:0 0 14px">Vadodara, Gujarat, India</p>
+      <div class="socials">${SOC.map(x=>`<a href="${x[1]}" ${x[1].startsWith("http")?'target="_blank" rel="noopener"':""} aria-label="${x[0]}" title="${x[0]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${x[2]}</svg></a>`).join("")}</div></div>
+    <div class="fcols">
+    <div><h4>Top courses</h4><a href="course.html?c=cyber-security-fundamentals">Cyber Security Fundamentals</a><a href="course.html?c=linux-fundamentals">Linux Fundamentals</a><a href="course.html?c=ai-security">AI Security</a><a href="course.html?c=malware-analysis">Malware Analysis</a><a href="course.html?c=prompt-engineering">Prompt Engineering</a><a href="courses.html">View all courses →</a></div>
+    <div><h4>Tracks</h4>${TRK.map(t=>`<a href="courses.html#${encodeURIComponent(t)}">${t}</a>`).join("")}</div>
+    <div><h4>Labs &amp; tools</h4><a href="labs.html">Hands-on labs</a><a href="challenges.html">Challenges</a><a href="tools.html">Cyber Tools</a><a href="typing-test.html">Typing test</a><a href="cheatsheets.html">Cheat sheets</a><a href="mock-tests.html">Mock tests</a></div>
+    <div><h4>Learn</h4><a href="courses.html">All courses</a><a href="roadmaps.html">Career roadmaps</a><a href="interview.html">Interview questions</a><a href="glossary.html">Glossary</a><a href="tools.html#alerts">Scam alerts</a><a href="contact.html?topic=course">Request a course</a></div>
     <div><h4>Account</h4><a href="dashboard.html">Dashboard</a><a href="certificate.html">My certificates</a><a href="verify.html">Verify a certificate</a><a href="login.html">Log in</a></div>
     <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
-  </div><div class="bottom"><span>© ${new Date().getFullYear()} rootjavs. All rights reserved.</span><span>Learn · Practise · Test · Certify</span></div></div>`;
+    </div></div>
+    <p class="ethic small">${RJ.icon("alert")} Practise hacking only in rootjavs labs or on systems you own or have written permission to test. Never on others.</p>
+  </div><div class="container"><div class="bottom"><span>© ${new Date().getFullYear()} rootjavs. All rights reserved.</span><span class="mono fexit">root@rootjavs:~$ exit<i class="cur"></i></span></div></div>`;
   document.body.appendChild(f);
 };
 

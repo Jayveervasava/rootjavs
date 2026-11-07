@@ -301,6 +301,146 @@ PAGES.homeV2=()=>{
   homeGames();
 };
 
+/* ================= HOME (old design + cyber feel, 2026-11) ================= */
+PAGES.homeWithExtras=PAGES.home;
+PAGES.home=()=>{
+  if(RJ.qp("v2")==="1") return PAGES.homeV2();
+  if(RJ.qp("classic")==="1"||!RJ.CATALOG.length||!RJ.cyber) return PAGES.homeClassic();
+  const CAT=RJ.CATALOG, TR=RJ.TRACKS, READY=CAT.filter(e=>e.ready), CY=RJ.cyber;
+  const xp=RJ.xp(), rank=RJ.rankOf(xp), ri=RJ.RANKS.indexOf(rank), next=RJ.RANKS[ri+1];
+  const P=cmd=>`<div class="tprompt mono"><span>root@rootjavs</span>:~$ ${cmd}</div>`;
+  const sh=(cmd,eb,h,p,link)=>`${P(cmd)}<div class="sec-head"><div><span class="eyebrow">${eb}</span><h2>${h}</h2>${p?`<p>${p}</p>`:""}</div>${link||""}</div>`;
+  const word=CY.today(CY.WORDS);
+  const plan=[["Day 1","What cyber security is","CIA triad, threats and risk"],["Day 2","Passwords and MFA","Make accounts hard to break"],["Day 3","Spot scams","Phishing, fake KYC and OTP fraud"],["Day 4","Linux basics","Your first terminal commands"],["Day 5","Networks","IP, ports, DNS and HTTPS"],["Day 6","Hashing and encryption","Keep data safe and unchanged"],["Day 7","Mini project","Secure your own accounts and devices"]];
+  app().innerHTML=`
+  <div class="ticker" id="tk" aria-label="Scam alerts"></div>
+  <section class="hero">
+    <div class="fade">
+      <span class="pill"><b>NEW</b> ${CAT.length} courses · Linux mission lab is live</span>
+      <h1>From <span class="grad">user</span> to <span class="grad">root</span>.</h1>
+      <p class="lead">Cyber security, AI, coding and computer basics. Learn it from clear notes, practise it in safe labs right in your browser, and prove it with exams and a certificate.</p>
+      <div class="row"><a class="btn pri lg" href="courses.html">Start learning free ${I("arrow")}</a><a class="btn lg" href="challenges.html">${I("target")} Try a challenge</a></div>
+      <div class="trust"><span>${I("checkc")} No installs</span><span>${I("checkc")} PDF notes</span><span>${I("checkc")} Practical exams</span><span>${I("checkc")} Certificates</span></div>
+    </div>
+    <div class="cwin glow-win fade" style="animation-delay:.12s">
+      <div class="cw-bar"><span class="d" style="background:#FF5F57"></span><span class="d" style="background:#FEBC2E"></span><span class="d" style="background:#28C840"></span>
+        <div class="cw-tabs" role="tablist">${[["sh","Linux"],["ph","Phishing"],["pw","Password"],["dc","Decode"]].map((t,i)=>`<button type="button" role="tab" class="${i?'':'on'}" aria-selected="${!i}" data-cw="${t[0]}">${t[1]}</button>`).join("")}</div></div>
+      <div class="cw-body" id="cw"></div>
+      <div class="cw-foot mono"><span id="cwHint">Find the hidden file and read the flag</span><span>live cyber lab · safe and offline</span></div>
+    </div>
+  </section>
+  <div class="band fade"><div><b>${CAT.length}</b><span>Courses in ${TR.length} tracks</span></div><div><b>${CAT.filter(e=>e.track==="Cyber Security").length}</b><span>Cyber security courses</span></div><div><b>${READY.length}</b><span>Full courses open now</span></div><div><b>5</b><span>Ranks from guest to root</span></div></div>
+
+  <section class="sec">${sh("ls courses/","Courses",`${CAT.length} courses. Pick a track.`,`${READY.length} full courses are open now with notes, labs and exams. The others show their syllabus while lessons are being added.`,`<a class="btn" href="courses.html">View all courses ${I("arrow")}</a>`)}
+    <div class="filters" id="nhf" style="margin:0 0 14px">${["All",...TR].map((t,i)=>`<button class="${i?'':'on'}" data-t="${esc(t)}">${esc(t)} <span class="cnt">${t==="All"?CAT.length:CAT.filter(e=>e.track===t).length}</span></button>`).join("")}</div>
+    <div class="nh-cgrid" id="nhg"></div><div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="nhm">Show more</button></div></section>
+
+  <section class="sec">${sh("cat start-here.txt","New to cyber security?","Start here: your first 7 days","Follow Cyber Security Fundamentals one lesson a day. No experience needed.",`<a class="btn pri" href="course.html?c=cyber-security-fundamentals">Start day 1 ${I("arrow")}</a>`)}
+    <div class="plan">${plan.map(d=>`<div class="card"><span class="mono small" style="color:var(--accent-2)">${d[0]}</span><h3 style="font-size:16px;margin:8px 0 4px">${d[1]}</h3><p class="muted small" style="margin:0">${d[2]}</p></div>`).join("")}</div></section>
+
+  <div class="nh">
+  <section class="sec">${sh("./skill-tree","Skill tree","Pick a branch. Unlock the next node.","Basics is the trunk. Full courses are open now; the rest light up as lessons are added.")}
+    <div class="nh-tree-scroll"><div class="nh-tree"><a class="node open" href="course.html?c=computer-fundamentals-new"><b>Basics</b>Computer Fundamentals</a><div class="trunk"></div>
+      <div class="branches">${TR.filter(t=>t!=="Basics").map(t=>{ const ns=CAT.filter(e=>e.track===t).sort((a,b)=>(b.ready-a.ready)||(a.no-b.no)).slice(0,3);
+        return `<div class="col ${ns.some(e=>e.ready)?"lit":""}"><span class="head">${esc(t)}</span>${ns.map((e,j)=>{ const st=e.ready?"open":"locked"; return (j?`<div class="stem ${st!=="locked"?"lit":""}"></div>`:"")+`<a class="node ${st}" href="course.html?c=${e.siteId}"><b>${esc(e.title.replace(/\s*\(.*\)$/,""))}</b>${st==="open"?"open now":"syllabus"}</a>`; }).join("")}</div>`; }).join("")}</div></div></div>
+    <div class="nh-legend"><span class="l2">open now</span><span class="l3">syllabus only</span></div></section>
+
+  <section class="sec" id="nh-daily">${sh("./today","Today on rootjavs","Daily challenge and Phish or Not?","Answer the daily question to keep your streak, then spot the scam messages.")}
+    <div class="nh-duo"><div class="nh-box" id="daily"></div><div class="nh-box" id="phish"></div></div>
+    <div class="card wotd"><span class="mono small" style="color:var(--accent-2)">TODAY'S WORD</span><div><b>${esc(word[0])}</b><span class="muted"> · ${esc(word[1])}</span></div><a class="btn sm" href="glossary.html">Glossary</a></div></section>
+
+  <section class="sec">${sh("whoami","Your rank","Every lesson earns XP. XP earns access.","Lesson +50 · lab +150 · final exam +200 · practical exam +300. Ranks follow real Linux privilege levels.",`<a class="btn" href="dashboard.html">My dashboard ${I("arrow")}</a>`)}
+    <div class="nh-ladder2">${RJ.RANKS.map((k,j)=>`<div class="rung ${j<ri?"done":j===ri?"now":""}"><span class="nm" style="color:${k[3]}">${k[0]}${k[0]==="root"?" 👑":""}</span><span class="th">${k[1].toLocaleString("en-IN")} XP</span><p>${k[2]}</p></div>`).join("")}</div>
+    <div class="nh-meter"><div class="lbl"><span>${rank[0]} · ${xp.toLocaleString("en-IN")} XP</span><span>${next?`${(next[1]-xp).toLocaleString("en-IN")} XP to ${next[0]}`:"you are root"}</span></div><div class="track"><div class="fill" style="width:${next?Math.min(100,(xp-rank[1])/(next[1]-rank[1])*100):100}%"></div></div></div></section>
+  </div>
+
+  <section class="sec">${sh("ls labs/office/","Office labs","Word, Excel and PowerPoint, right in your browser","Real tools for real office work. Files you create download in Office formats.",`<a class="btn" href="labs.html">All labs ${I("arrow")}</a>`)}
+    <div class="appwin">
+      <div class="bar" role="tablist"><button class="on" data-demo="xl"><i style="background:#1E9E5A"></i>Excel</button><button data-demo="wd"><i style="background:#2F64F0"></i>Word</button><button data-demo="pp"><i style="background:#E8692C"></i>PowerPoint</button><button data-demo="tm"><i style="background:#7C8BA8"></i>Terminal</button></div>
+      <div class="body" id="demo"></div><div class="foot"><span id="demoHint"></span><span>live lab preview</span></div></div></section>
+
+  <section class="sec">${sh("ls cheatsheets/","Free resources","Cheat sheets you will actually use","One-page PDFs for your desk, your phone and your exam revision.",`<a class="btn" href="cheatsheets.html">All cheat sheets ${I("arrow")}</a>`)}
+   <div class="grid g4">${window.RJ_CHEATS.slice(0,4).map(cs=>`<div class="card"><span class="icon">${I(cs.icon)}</span><h3 style="font-size:17px;margin:14px 0 6px">${esc(cs.title)}</h3><p class="muted small">${esc(cs.desc)}</p><button class="btn sm" data-cheat="${cs.id}">${I("download")} PDF</button></div>`).join("")}</div></section>
+
+  <section class="sec">${P("./verify --certificate")}<div class="grid g2" style="align-items:center;gap:40px">
+   <div class="cert-mini"><small>CERTIFICATE OF COMPLETION</small><h4>Cyber Security Fundamentals</h4><span class="small" style="color:#6A7390">awarded to</span><div class="nm">Riya Shah</div><small style="margin-top:8px">ID RJ-CS-261108-3F2A9</small><div class="seal">VERIFIED</div></div>
+   <div><span class="eyebrow">Certificates</span><h2 style="font-size:clamp(26px,3.4vw,38px);margin:10px 0 14px">Proof that you can do the work</h2><p class="muted">Certificates are issued only after you pass every lesson quiz, the final theory exam and the practical exam. Each one carries a unique ID that anyone can check on our verification page.</p>
+    <div class="row" style="margin-top:20px"><a class="btn pri" href="courses.html">Earn your first certificate</a><a class="btn" href="verify.html">${I("shield")} Verify a certificate</a></div></div></div></section>
+
+  <section class="sec">${P("man rootjavs")}<div class="grid g2" style="gap:40px;align-items:start"><div><span class="eyebrow">FAQ</span><h2 style="font-size:clamp(26px,3.4vw,38px);margin-top:10px">Questions, answered</h2><p class="muted" style="margin-top:12px">Still curious? <a href="faq.html">Read the full FAQ</a> or <a href="contact.html">contact us</a>.</p></div>
+   <div>${window.RJ_FAQ.slice(0,5).map(f=>`<details class="faq"><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></div></section>`;
+
+  CY.ticker($("#tk"));
+  const tabs={sh:["Find the hidden file and read the flag",el=>CY.shell(el,{id:"h"})],ph:["Scam or legit? Read the sender and the link",el=>CY.phish(el,{key:"hero-phish"})],pw:["How long would your password survive?",el=>CY.password(el)],dc:["Decode the hidden message",el=>CY.decode(el)]};
+  const open=k=>{ $$(".cw-tabs button").forEach(b=>{ b.classList.toggle("on",b.dataset.cw===k); b.setAttribute("aria-selected",b.dataset.cw===k); }); $("#cwHint").textContent=tabs[k][0]; tabs[k][1]($("#cw")); };
+  $$(".cw-tabs button").forEach(b=>b.onclick=()=>open(b.dataset.cw)); open("sh");
+  let t="All", shown=9;
+  const drawC=()=>{ const list=CAT.filter(e=>t==="All"||e.track===t);
+    $("#nhg").innerHTML=list.slice(0,shown).map(e=>`<a class="nh-cc ${e.ready?"ready":""}" href="course.html?c=${e.siteId}"><span class="ct mono">#${e.no} · ${esc(e.track)}</span><span class="cn">${esc(e.title)}</span><span class="cf mono">${e.ready?`<span style="color:var(--accent-2)">● full course</span>`:"syllabus · lessons being added"}</span></a>`).join("");
+    $("#nhm").hidden=list.length<=shown; };
+  $$("#nhf button").forEach(b=>b.onclick=()=>{ t=b.dataset.t; shown=9; $$("#nhf button").forEach(x=>x.classList.toggle("on",x===b)); drawC(); });
+  $("#nhm").onclick=()=>{ shown+=9; drawC(); }; drawC();
+  $$("[data-cheat]").forEach(b=>b.onclick=()=>RJ.cheatPDF(window.RJ_CHEATS.find(x=>x.id===b.dataset.cheat)));
+  RJ.homeDemos(); homeGames();
+};
+
+/* ================= CHALLENGES (CTF + games) ================= */
+PAGES.challenges=()=>{
+  const CY=RJ.cyber; if(!CY){ app().innerHTML=gate("Could not load","Please reload the page.","index.html","Home"); return; }
+  const done=k=>!!(S.bonus&&S.bonus.done&&S.bonus.done[k]);
+  const BUGS=[
+   {t:"Login query (Python)",code:['name = request.form["name"]','query = "SELECT * FROM users WHERE name = \'" + name + "\'"','rows = db.execute(query)','return render("profile.html", rows=rows)'],bug:1,why:"SQL injection. The user's input is glued into the SQL text, so typing ' OR '1'='1 changes the query. Fix: use a parameterised query, db.execute(\"... WHERE name = ?\", (name,))."},
+   {t:"Show a comment (JavaScript)",code:['const comment = getCommentFromServer();','const box = document.querySelector("#comment");','box.innerHTML = comment;','box.classList.add("visible");'],bug:2,why:"Cross-site scripting (XSS). innerHTML runs any HTML or script inside the comment. Fix: box.textContent = comment;"},
+   {t:"Config file (Python)",code:['import requests','API_KEY = "sk_live_51Hx9...REAL_SECRET"','def get_weather(city):','    return requests.get(URL, params={"q": city, "key": API_KEY})'],bug:1,why:"A secret key is written in the code. Anyone who sees the repository can steal it. Fix: read it from an environment variable and never commit it."}];
+  app().innerHTML=head("Challenges","Capture the flag","Small hacking puzzles you can solve safely in your browser. Every solved challenge gives XP.")+
+  `<div class="grid g2" style="gap:20px;align-items:start">
+    <div class="card chal"><div class="row" style="justify-content:space-between"><span class="chip cyan">Linux · Easy</span><span class="chip ${done("ctf-hidden-file")?"ok":""}">${done("ctf-hidden-file")?"Solved":"+30 XP"}</span></div><h2>Find the hidden file</h2><p class="muted small">Something is hiding in the home folder. Find it and read the flag.</p><div class="cwbox" id="c1"></div></div>
+    <div class="card chal"><div class="row" style="justify-content:space-between"><span class="chip cyan">Crypto · Easy</span><span class="chip">+15 XP each level</span></div><h2>Decode it</h2><p class="muted small">Base64, hex and binary hide three messages. Decode them all.</p><div class="cwbox" id="c2"></div></div>
+    <div class="card chal"><div class="row" style="justify-content:space-between"><span class="chip cyan">Scams · Easy</span><span class="chip">+20 XP each</span></div><h2>Phish or Not?</h2><p class="muted small">Five real-looking Indian messages. Which ones are scams?</p><div class="cwbox" id="c3"></div></div>
+    <div class="card chal"><div class="row" style="justify-content:space-between"><span class="chip cyan">Secure code · Medium</span><span class="chip">+20 XP each</span></div><h2>Spot the bug</h2><p class="muted small">Click the line with the security flaw.</p><div class="cwbox" id="c4"></div></div>
+   </div>
+   <section class="sec" style="margin-top:56px"><div class="sec-head"><div><span class="eyebrow">Arcade</span><h2 style="font-size:26px">More games are being built</h2><p>Each game will be tied to a course, so playing counts toward your rank.</p></div></div>
+    <div class="grid g4">${[["***","Password Crack Race","See how long an attacker needs to break a password.","tools.html","Try the password checker"],["$_","Command Speed Run","Type the right Linux command before the timer ends."],["⇄","Packet Journey","Route data through routers to the right server."],["[#]","Cyber Escape Room","Use clues and commands to unlock the room."],["Aa","Typing Defender","Type falling words before they hit the ground.","typing-test.html","Try the typing test"]].map(g=>`<div class="card"><span class="mono" style="color:var(--accent-2);font-weight:700;font-size:18px">${g[0]}</span><h3 style="font-size:17px;margin:10px 0 6px">${g[1]}</h3><p class="muted small">${g[2]}</p>${g[3]?`<a class="btn sm" href="${g[3]}">${g[4]}</a>`:'<span class="chip">Being built</span>'}</div>`).join("")}</div></section>
+   <p class="small muted" style="margin-top:28px">${I("shield")} These challenges are simulations for learning. Use what you learn only on systems you own or have written permission to test.</p>`;
+  CY.shell($("#c1"),{id:"c"}); CY.decode($("#c2")); CY.phish($("#c3"),{key:"ch-phish"});
+  let bi=0;
+  const bug=()=>{ const b=BUGS[bi], el=$("#c4");
+    el.innerHTML=`<p class="small" style="margin:0 0 8px"><b>${bi+1}/${BUGS.length} · ${esc(b.t)}</b></p><div class="bugcode">${b.code.map((l,i)=>`<button type="button" data-l="${i}"><span class="ln">${i+1}</span><code>${esc(l)}</code></button>`).join("")}</div><p class="cy-fb" data-fb>Which line is dangerous?</p>`;
+    el.querySelectorAll("[data-l]").forEach(x=>x.onclick=()=>{ const ok=+x.dataset.l===b.bug; x.classList.add(ok?"right":"wrong"); const fb=el.querySelector("[data-fb]");
+      if(ok){ fb.innerHTML=`<span class="c-cy">✓ Found it.</span> ${esc(b.why)} <span class="c-yl">+20 XP</span>`; if(RJ.addBonus("bug-"+bi,20)) RJ.paintXp(); el.querySelectorAll("[data-l]").forEach(y=>y.disabled=true);
+        setTimeout(()=>{ if(bi<BUGS.length-1){ bi++; bug(); } else el.innerHTML=`<p class="cy-big">All bugs found.</p><p class="cy-fb">Learn to write safe code in the Secure Coding course.</p><button class="btn sm" type="button" id="bagain">Play again</button>`, $("#bagain")&&($("#bagain").onclick=()=>{ bi=0; bug(); }); },3500); }
+      else fb.innerHTML=`<span class="c-rd">Not this one.</span> Look for user input or secrets.`; }); };
+  bug();
+};
+
+/* ================= CYBER TOOLS ================= */
+PAGES.tools=()=>{
+  const CY=RJ.cyber; if(!CY){ app().innerHTML=gate("Could not load","Please reload the page.","index.html","Home"); return; }
+  app().innerHTML=head("Free tools","Cyber Tools","Simple security tools that run only in your browser. Nothing you type here is saved or sent anywhere.")+
+  `<div class="grid g2" style="gap:20px;align-items:start">
+    <div class="card"><h2 class="th">${I("lock")} Password strength</h2><div class="cwbox" id="t1"></div></div>
+    <div class="card"><h2 class="th">${I("code")} Encode and decode</h2><div class="cwbox"><div class="row" style="gap:6px;margin-bottom:8px">${["Base64","Hex","Binary"].map((k,i)=>`<button type="button" class="btn sm ${i?'':'pri'}" data-k="${k}">${k}</button>`).join("")}</div>
+      <label class="sr-only" for="edIn">Text</label><textarea id="edIn" class="ml-text" rows="3" placeholder="Type or paste text"></textarea><div class="row" style="margin:8px 0"><button class="btn sm" type="button" id="enc">Encode</button><button class="btn sm" type="button" id="dec">Decode</button></div><div class="cy-code mono" id="edOut" aria-live="polite">Result appears here</div></div></div>
+    <div class="card"><h2 class="th">${I("shield")} Hash generator</h2><div class="cwbox"><label class="sr-only" for="hIn">Text to hash</label><textarea id="hIn" class="ml-text" rows="3" placeholder="Type text to see its hash"></textarea><div id="hOut" class="mono small" style="display:grid;gap:8px;margin-top:10px;word-break:break-all"></div><p class="small c-mu" style="margin:10px 0 0">Change one letter and the whole hash changes. That is how downloads and evidence files are checked.</p></div></div>
+    <div class="card"><h2 class="th">${I("globe")} Suspicious link checker</h2><div class="cwbox"><p class="small c-mu" style="margin:0 0 8px">Paste a link from an SMS or email. We only read its pattern; the link is never opened.</p><form class="cy-prompt" id="lf" autocomplete="off"><span class="mono">url&gt;</span><input id="lIn" spellcheck="false" placeholder="e.g. sbi-secure-kyc.top/verify"><button class="btn sm pri" type="submit">Check</button></form><div id="lOut" style="margin-top:10px"></div></div></div>
+   </div>
+   <section class="sec" style="margin-top:56px"><div class="sec-head"><div><span class="eyebrow">Reference</span><h2 style="font-size:26px">Common ports</h2><p>The ports every network and security learner should know.</p></div><label class="search"><span class="sr-only">Search ports</span>${I("search")}<input id="pq" placeholder="Search, e.g. 22 or ssh"></label></div><div class="tbl"><table><thead><tr><th>Port</th><th>Service</th><th>Used for</th></tr></thead><tbody id="pt"></tbody></table></div></section>
+   <section class="sec" id="alerts" style="margin-top:56px"><div class="sec-head"><div><span class="eyebrow">Stay safe</span><h2 style="font-size:26px">Scam alerts</h2><p>Common frauds in India right now and how to avoid them.</p></div></div>
+    <div class="grid g2">${CY.ALERTS.map(a=>`<div class="card" style="display:flex;gap:12px;align-items:flex-start"><span style="color:var(--bad);flex:none">${I("alert")}</span><p style="margin:0">${esc(a)}</p></div>`).join("")}</div></section>`;
+  CY.password($("#t1"));
+  let kind="Base64";
+  $$("[data-k]").forEach(b=>b.onclick=()=>{ kind=b.dataset.k; $$("[data-k]").forEach(x=>x.classList.toggle("pri",x===b)); });
+  $("#enc").onclick=()=>{ $("#edOut").textContent=CY.encodeAny(kind,$("#edIn").value)||"—"; };
+  $("#dec").onclick=()=>{ $("#edOut").textContent=CY.decodeAny(kind,$("#edIn").value)||"—"; };
+  const hs=async()=>{ const v=$("#hIn").value; if(!v){ $("#hOut").innerHTML=""; return; } const r=await Promise.all(["SHA-1","SHA-256","SHA-512"].map(a=>CY.hash(a,v))); $("#hOut").innerHTML=["SHA-1","SHA-256","SHA-512"].map((a,i)=>`<div><span class="c-cy">${a}</span><br>${r[i]}</div>`).join(""); };
+  $("#hIn").oninput=hs;
+  $("#lf").onsubmit=e=>{ e.preventDefault(); const v=$("#lIn").value; if(!v.trim()) return; const r=CY.checkLink(v);
+    $("#lOut").innerHTML=r.ok?`<div class="status ok" style="margin:0">${I("checkc")} No common warning signs found for <b>${esc(r.host)}</b>. That does not prove it is safe: if a message pushes you to act fast, check through the official app.</div>`
+      :`<div class="status bad" style="margin:0;display:block"><b>${r.flags.length} warning sign${r.flags.length>1?"s":""}${r.host?` for ${esc(r.host)}`:""}</b><ul style="margin:8px 0 0;padding-left:18px">${r.flags.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`; };
+  const pd=()=>{ const q=$("#pq").value.trim().toLowerCase(); $("#pt").innerHTML=CY.PORTS.filter(p=>!q||(p.join(" ")).toLowerCase().includes(q)).map(p=>`<tr><td class="mono"><b>${p[0]}</b></td><td>${esc(p[1])}</td><td>${esc(p[2])}</td></tr>`).join("")||'<tr><td colspan="3" class="muted">No port matches.</td></tr>'; };
+  $("#pq").oninput=pd; pd();
+};
+
 /* ================= COURSES (catalogue of all courses) ================= */
 const catCard=e=>{ const c=e.course, st=c&&RJ.started(c);
   const chip=e.ready?(st?`<span class="chip blue">In progress</span>`:`<span class="chip ok">${I("check")} Full course</span>`):`<span class="chip">${e.status==="partial"?"Lessons in progress":"Lessons being added"}</span>`;
@@ -616,27 +756,31 @@ PAGES.login=()=>{
 
 /* ================= STATIC PAGES ================= */
 PAGES.about=()=>{
-  app().innerHTML=head("About","Practical skills for every student","rootjavs is a learning platform that teaches computers, Office and cyber security the way they are used at work: by doing.")+
-  `<div class="grid g2" style="gap:24px"><div class="card"><span class="icon">${I("target")}</span><h2 style="font-size:22px;margin:14px 0 10px">Our mission</h2><p class="muted">Millions of students graduate without confidence on a computer. Videos and theory are not enough. We built rootjavs so that every learner, from someone holding a laptop for the first time to a future security analyst, learns by completing real tasks and proves it with real exams.</p></div>
-   <div class="card"><span class="icon cyan">${I("flask")}</span><h2 style="font-size:22px;margin:14px 0 10px">How we teach</h2><p class="muted">Short notes you can download. Browser labs that behave like the real tools. A theory exam and a practical exam for every course. Certificates with IDs that anyone can verify.</p></div>
-   <div class="card"><span class="icon gold">${I("user")}</span><h2 style="font-size:22px;margin:14px 0 10px">Founder</h2><p class="muted">rootjavs was founded by <b style="color:var(--text)">Jayveer Vasava</b>, an M.Tech Cyber Security student at Parul University, Vadodara, with industry internships in cyber security and web development.</p></div>
-   <div class="card"><span class="icon">${I("map")}</span><h2 style="font-size:22px;margin:14px 0 10px">What is next</h2><p class="muted">Web development, Python, Linux, networking, cyber security, cloud and AI security courses, a live Linux terminal lab and a phishing simulator are on the roadmap.</p><a class="btn sm" href="roadmaps.html">See the roadmaps</a></div></div>
-  <div class="band"><div><b>${C.length}</b><span>Live courses</span></div><div><b>${TL()}</b><span>Lessons</span></div><div><b>${C.reduce((n,c)=>n+c.lessons.length*5,0)}</b><span>Quiz questions</span></div><div><b>${window.RJ_CHEATS.length}</b><span>Cheat sheets</span></div></div>`;
+  const CAT=RJ.CATALOG||[];
+  app().innerHTML=head("About","From user to root","rootjavs is a free learning platform for cyber security, AI, coding and computer basics, taught the way skills are used at work: by doing.")+
+  `<div class="grid g2" style="gap:24px"><div class="card"><span class="icon">${I("target")}</span><h2 style="font-size:22px;margin:14px 0 10px">Our mission</h2><p class="muted">Many students finish college without real practical skills. Videos and theory are not enough. rootjavs helps every learner, from someone holding a laptop for the first time to a future security analyst, learn by completing real tasks and prove it with real exams.</p></div>
+   <div class="card"><span class="icon cyan">${I("flask")}</span><h2 style="font-size:22px;margin:14px 0 10px">How we teach</h2><p class="muted">Clear notes with a PDF, quizzes that explain every answer, a mission lab in your browser, a timed theory exam, a practical exam and a certificate anyone can verify. No videos to sit through and nothing to install.</p></div>
+   <div class="card"><span class="icon gold">${I("terminal")}</span><h2 style="font-size:22px;margin:14px 0 10px">Why "from user to root"</h2><p class="muted">On Linux, root is the account with full control. On rootjavs you start as a guest and climb through user, sudoer and admin to root by earning XP from lessons, labs and exams.</p></div>
+   <div class="card"><span class="icon">${I("map")}</span><h2 style="font-size:22px;margin:14px 0 10px">What we cover</h2><p class="muted">${CAT.length||149} courses in 7 tracks: Cyber Security, AI, Cloud, Development, Career, Basics and Emerging Tech. New lessons are added every week.</p><a class="btn sm" href="courses.html">Browse courses</a></div>
+   <div class="card"><span class="icon cyan">${I("shield")}</span><h2 style="font-size:22px;margin:14px 0 10px">Ethical by design</h2><p class="muted">We teach security to defend. Every lab is a safe simulation, and we ask learners to test only systems they own or have written permission to test.</p></div>
+   <div class="card"><span class="icon gold">${I("user")}</span><h2 style="font-size:22px;margin:14px 0 10px">Who is behind it</h2><p class="muted">rootjavs was founded by <b style="color:var(--text)">Jayveer Vasava</b> in Vadodara, Gujarat, India.</p><a class="btn sm" href="contact.html">Contact us</a></div></div>
+  <div class="band"><div><b>${CAT.length||149}</b><span>Courses</span></div><div><b>${CAT.filter(e=>e.ready).length||18}</b><span>Full courses open now</span></div><div><b>7</b><span>Tracks</span></div><div><b>5</b><span>Ranks to root</span></div></div>`;
 };
 PAGES.contact=()=>{
   app().innerHTML=head("Contact","Get in touch","Questions about courses, certificates, college workshops or partnerships? We usually reply within two working days.")+
   `<div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px" id="cg"><form class="card form" id="cf"><div class="grid g2" style="gap:14px"><div class="field"><label for="cn">Name</label><input id="cn" required autocomplete="name"></div><div class="field"><label for="ce">Email</label><input id="ce" type="email" required autocomplete="email"></div></div>
-    <div class="field"><label for="ct">Topic</label><select id="ct"><option>Course question</option><option>Certificate</option><option>College workshop</option><option>Partnership</option><option>Report a problem</option></select></div><div class="field"><label for="cm">Message</label><textarea id="cm" rows="6" required></textarea></div><div id="cres"></div><button class="btn pri" type="submit">${I("mail")} Send message</button></form>
-   <div class="grid" style="gap:14px;align-content:start"><div class="card"><span class="icon">${I("mail")}</span><h3 style="font-size:17px;margin:12px 0 4px">Email</h3><p class="muted small mono" style="margin:0;word-break:break-all">jayveervasava0710@gmail.com</p></div><div class="card"><span class="icon cyan">${I("star")}</span><h3 style="font-size:17px;margin:12px 0 4px">Instagram</h3><p class="muted small" style="margin:0">@rootjavs</p></div><div class="card"><span class="icon gold">${I("map")}</span><h3 style="font-size:17px;margin:12px 0 4px">Location</h3><p class="muted small" style="margin:0">Vadodara, Gujarat, India</p></div></div></div>`;
+    <div class="field"><label for="ct">Topic</label><select id="ct"><option>Course question</option><option value="Course request">Request a course</option><option>Certificate</option><option>Report a bug</option><option>College workshop</option><option>Partnership</option></select></div><div class="field"><label for="cm">Message</label><textarea id="cm" rows="6" required></textarea></div><div id="cres"></div><button class="btn pri" type="submit">${I("mail")} Send message</button></form>
+   <div class="grid" style="gap:14px;align-content:start"><div class="card"><span class="icon">${I("mail")}</span><h3 style="font-size:17px;margin:12px 0 4px">Email</h3><p class="muted small mono" style="margin:0;word-break:break-all">rootjavs@gmail.com</p></div><div class="card"><span class="icon cyan">${I("star")}</span><h3 style="font-size:17px;margin:12px 0 4px">Instagram</h3><p class="muted small" style="margin:0"><a href="https://www.instagram.com/rootjavs/" target="_blank" rel="noopener">@rootjavs</a> · <a href="https://x.com/rootjavs" target="_blank" rel="noopener">X</a> · <a href="https://whatsapp.com/channel/0029Vb7H4qD4SpkDl0PwNg0J" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://discord.gg/Sq23TaSECC" target="_blank" rel="noopener">Discord</a> · <a href="https://www.youtube.com/@RootJavs" target="_blank" rel="noopener">YouTube</a> · <a href="https://www.linkedin.com/company/144118085/" target="_blank" rel="noopener">LinkedIn</a></p></div><div class="card"><span class="icon gold">${I("map")}</span><h3 style="font-size:17px;margin:12px 0 4px">Location</h3><p class="muted small" style="margin:0">Vadodara, Gujarat, India</p></div></div></div>`;
   if(innerWidth<900) $("#cg").style.gridTemplateColumns="1fr";
+  if(RJ.qp("topic")==="course") $("#ct").value="Course request";
   $("#cf").onsubmit=e=>{ e.preventDefault(); const n=$("#cn").value.trim(), em=$("#ce").value.trim(), m=$("#cm").value.trim(); if(!n||!/\S+@\S+\.\S+/.test(em)||m.length<10){ $("#cres").innerHTML=`<div class="status bad" style="margin:0">${I("alert")} Fill in your name, a valid email and a message of at least 10 characters.</div>`; return; }
-    const body=encodeURIComponent(`Name: ${n}\nEmail: ${em}\n\n${m}`); location.href=`mailto:jayveervasava0710@gmail.com?subject=${encodeURIComponent("[rootjavs] "+$("#ct").value)}&body=${body}`;
+    const body=encodeURIComponent(`Name: ${n}\nEmail: ${em}\n\n${m}`); location.href=`mailto:rootjavs@gmail.com?subject=${encodeURIComponent("[rootjavs] "+$("#ct").value)}&body=${body}`;
     $("#cres").innerHTML=`<div class="status ok" style="margin:0">${I("check")} Your email app has opened with the message. Press send there to deliver it.</div>`; };
 };
 PAGES.faq=()=>{ app().innerHTML=`<div style="max-width:820px;margin:0 auto">${head("Help centre","Frequently asked questions","")}${window.RJ_FAQ.map(f=>`<details class="faq"><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}<div class="card" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><b>Still need help?</b><p class="muted small" style="margin:4px 0 0">Send us a message and we will get back to you.</p></div><a class="btn pri" href="contact.html">Contact us</a></div></div>`; };
-const legal=(t,secs)=>`<div style="max-width:780px;margin:0 auto">${head("Legal",t,"Last updated: October 2026")}<div class="notes">${secs.map(s=>`<h2>${s[0]}</h2><p>${s[1]}</p>`).join("")}</div></div>`;
-PAGES.privacy=()=>{ app().innerHTML=legal("Privacy Policy",[["What we collect","Your name and email when you create an account, and your learning progress: quiz scores, exam results, typing scores and certificates."],["Where it is stored","In this version, all data is stored in your own browser on your device. Nothing is sent to our servers. Clearing your browser data removes it."],["How we use it","Only to show your progress, issue certificates in your name and personalise your dashboard. We never sell personal data."],["Your choices","You can reset your progress from the dashboard at any time, or log out to remove your account details from this device."],["Contact","For privacy questions, email jayveervasava0710@gmail.com."]]); };
-PAGES.terms=()=>{ app().innerHTML=legal("Terms of Use",[["Using rootjavs","You may use the courses, labs and resources for personal learning. Do not copy or resell the content."],["Certificates","Certificates confirm completion of the course requirements on rootjavs. Attempting to forge or misuse a certificate is not allowed."],["Acceptable use","Use labs and tools only for learning. Security topics are taught for defensive and ethical purposes; never test systems you do not own or have permission to test."],["Changes","We may update courses and these terms. Continued use means you accept the latest version."],["Contact","Questions about these terms: jayveervasava0710@gmail.com."]]); };
+const legal=(t,secs)=>`<div style="max-width:780px;margin:0 auto">${head("Legal",t,"Last updated: November 2026")}<div class="notes">${secs.map(s=>`<h2>${s[0]}</h2><p>${s[1]}</p>`).join("")}</div></div>`;
+PAGES.privacy=()=>{ app().innerHTML=legal("Privacy Policy",[["What we collect","Your name and email when you create an account, and your learning progress: quiz scores, exam results, XP and rank, streak, daily challenge answers, typing scores and certificates."],["Where it is stored","In this version, all of it is stored in your own browser on your device. Nothing is sent to our servers. Clearing your browser data removes it, and your progress does not move to other devices yet."],["Cyber Tools and labs","Anything you type in the password checker, encoder, hash generator, link checker or labs stays on this page. It is not saved and not sent anywhere."],["How we use it","Only to show your progress, issue certificates in your name and personalise your dashboard. We never sell or share personal data."],["Links to other sites","Our Instagram, X, YouTube, WhatsApp, Discord and LinkedIn pages follow those companies' own privacy policies."],["Your choices","You can reset your progress from the dashboard at any time, or log out to remove your account details from this device."],["Contact","For privacy questions, email rootjavs@gmail.com."]]); };
+PAGES.terms=()=>{ app().innerHTML=legal("Terms of Use",[["Using rootjavs","You may use the courses, labs, tools and resources for personal learning. Do not copy or resell the content."],["Ethical use","Security topics are taught for defensive and ethical purposes. Use what you learn only on rootjavs labs or on systems you own or have written permission to test. Accessing other people's systems without permission is a crime under the Information Technology Act, 2000 and other laws."],["Labs and tools","Labs and challenges are safe simulations for practice. The Cyber Tools give simple guidance, not a guarantee: always confirm a suspicious message through the official app or number."],["Certificates","A rootjavs certificate confirms that you completed the course requirements on rootjavs. It is not a university degree or a government certification. Forging or misusing a certificate is not allowed."],["Content","We review our content, but it may contain mistakes. Please report anything wrong through the contact page."],["Changes","We may update courses and these terms. Continued use means you accept the latest version."],["Contact","Questions about these terms: rootjavs@gmail.com."]]); };
 PAGES.notfound=()=>{ app().innerHTML=gate("Page not found","The page you are looking for does not exist.","index.html","Go to home"); };
 
 document.addEventListener("DOMContentLoaded",()=>{ const p=document.body.dataset.page;
