@@ -412,308 +412,792 @@
    "id": "machine-learning",
    "title": "Machine Learning",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 14,
+   "short": "Build, train and evaluate machine learning models in Python, from linear regression to random forests.",
+   "learn": [
+    "Explain supervised, unsupervised and reinforcement learning with examples",
+    "Prepare data: clean it, encode categories and split it into train and test sets",
+    "Train regression and classification models with scikit-learn",
+    "Measure models with accuracy, precision, recall, F1 and RMSE",
+    "Avoid overfitting with cross-validation and regularisation",
+    "Finish a small end-to-end project and explain the results"
+   ]
   },
   {
    "no": 45,
    "id": "data-analysis-with-python",
    "title": "Data Analysis with Python",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 10,
+   "short": "Load, clean, analyse and chart real datasets with Python, pandas and Matplotlib.",
+   "learn": [
+    "Read CSV and Excel files into pandas DataFrames",
+    "Clean missing, duplicate and wrong values",
+    "Filter, group, sort and summarise data",
+    "Join several tables together",
+    "Draw clear charts with Matplotlib and Seaborn",
+    "Write a short data report with findings and charts"
+   ]
   },
   {
    "no": 46,
    "id": "sql-mastery",
    "title": "SQL Mastery",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 10,
+   "short": "Write SQL from simple SELECT queries to joins, subqueries and window functions on real data.",
+   "learn": [
+    "Create tables and insert, update and delete rows",
+    "Filter and sort data with WHERE and ORDER BY",
+    "Summarise data with GROUP BY, HAVING and aggregate functions",
+    "Combine tables with inner, left and self joins",
+    "Use subqueries, CTEs and window functions",
+    "Answer real business questions with your own queries"
+   ]
   },
   {
    "no": 47,
    "id": "statistics-for-data-science",
    "title": "Statistics for Data Science",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 9,
+   "short": "Learn the statistics every data analyst and ML engineer uses, with clear examples and Python.",
+   "learn": [
+    "Describe data with mean, median, mode, spread and percentiles",
+    "Understand probability and common distributions",
+    "Use sampling and the central limit theorem correctly",
+    "Run and read hypothesis tests and p-values",
+    "Measure relationships with correlation and simple regression",
+    "Avoid common mistakes when reading charts and numbers"
+   ]
   },
   {
    "no": 48,
    "id": "mathematics-for-ai",
    "title": "Mathematics for AI",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "The linear algebra, calculus and probability behind machine learning, explained step by step.",
+   "learn": [
+    "Work with vectors, matrices and matrix multiplication",
+    "Understand eigenvalues and why they matter for data",
+    "Use derivatives and the chain rule to see how models learn",
+    "Follow gradient descent step by step",
+    "Apply probability, Bayes' rule and expectation",
+    "Connect each topic to a real machine learning use"
+   ]
   },
   {
    "no": 49,
    "id": "deep-learning",
    "title": "Deep Learning",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 14,
+   "short": "Understand and build neural networks with PyTorch, from a single neuron to CNNs and transformers.",
+   "learn": [
+    "Explain neurons, layers, activations and loss functions",
+    "Train a network with backpropagation and an optimiser",
+    "Use PyTorch tensors, datasets and training loops",
+    "Build convolutional networks for images",
+    "Understand sequence models and the transformer idea",
+    "Improve results with regularisation, tuning and transfer learning"
+   ]
   },
   {
    "no": 50,
    "id": "nlp",
    "title": "NLP",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Teach computers to work with text: from tokenising and sentiment analysis to modern language models.",
+   "learn": [
+    "Clean and tokenise text in English and Indian languages",
+    "Represent words with bag of words, TF-IDF and embeddings",
+    "Build a text classifier for sentiment or spam",
+    "Extract names, places and dates with named entity recognition",
+    "Use pre-trained transformer models with Hugging Face",
+    "Evaluate an NLP model and explain its mistakes"
+   ]
   },
   {
    "no": 51,
    "id": "computer-vision",
    "title": "Computer Vision",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Make computers see: process images, detect objects and train image models with OpenCV and PyTorch.",
+   "learn": [
+    "Read, resize, filter and transform images with OpenCV",
+    "Detect edges, contours and faces",
+    "Train an image classifier with a CNN",
+    "Use transfer learning with pre-trained models",
+    "Run object detection with a modern model such as YOLO",
+    "Build a small vision project from camera input to result"
+   ]
   },
   {
    "no": 52,
    "id": "mlops",
    "title": "MLOps",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Take machine learning models from a notebook to production and keep them working.",
+   "learn": [
+    "Explain the ML life cycle and where projects usually fail",
+    "Track experiments and models with tools like MLflow",
+    "Package a model as an API with FastAPI and Docker",
+    "Automate training and deployment with CI/CD",
+    "Monitor models for data drift and falling accuracy",
+    "Plan retraining and versioning for data and models"
+   ]
   },
   {
    "no": 53,
    "id": "data-visualization-power-bi-tableau",
    "title": "Data Visualization (Power BI, Tableau)",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Turn data into clear dashboards with Power BI and Tableau that managers can act on.",
+   "learn": [
+    "Connect Power BI and Tableau to Excel and database sources",
+    "Clean and shape data with Power Query",
+    "Choose the right chart for each question",
+    "Build interactive dashboards with filters and drill-down",
+    "Write simple DAX measures for totals and growth",
+    "Design dashboards that are easy to read and share"
+   ]
   },
   {
    "no": 54,
    "id": "data-engineering",
    "title": "Data Engineering",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 12,
+   "short": "Build reliable data pipelines that collect, clean and store data for analytics and AI.",
+   "learn": [
+    "Explain batch and streaming pipelines and the ETL/ELT process",
+    "Model data for warehouses with star schemas",
+    "Write pipelines in Python and SQL",
+    "Schedule and monitor jobs with Apache Airflow",
+    "Work with cloud storage and data warehouses",
+    "Check data quality and handle pipeline failures"
+   ]
   },
   {
    "no": 55,
    "id": "big-data-hadoop-spark",
    "title": "Big Data (Hadoop, Spark)",
    "category": "AI",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Process very large datasets with Hadoop and Apache Spark.",
+   "learn": [
+    "Explain why big data needs distributed systems",
+    "Understand HDFS and the MapReduce idea",
+    "Write Spark jobs with DataFrames and PySpark",
+    "Use Spark SQL for analysis at scale",
+    "Tune jobs with partitioning and caching",
+    "Process a large public dataset end to end"
+   ]
   },
   {
    "no": 56,
    "id": "cloud-computing-fundamentals",
    "title": "Cloud Computing Fundamentals",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Understand what the cloud is, how it works and how companies use AWS, Azure and Google Cloud.",
+   "learn": [
+    "Explain IaaS, PaaS and SaaS with everyday examples",
+    "Compare public, private and hybrid cloud",
+    "Understand regions, availability zones and the shared responsibility model",
+    "Know the core services: compute, storage, databases and networking",
+    "Estimate cloud costs and avoid surprise bills",
+    "Launch and delete your first cloud resource safely"
+   ]
   },
   {
    "no": 57,
    "id": "aws",
    "title": "AWS",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build and run applications on Amazon Web Services, the most used cloud platform.",
+   "learn": [
+    "Set up an AWS account safely with IAM users, roles and MFA",
+    "Launch and manage EC2 virtual machines",
+    "Store files in S3 and set the right permissions",
+    "Create VPCs, subnets and security groups",
+    "Use RDS, Lambda and CloudWatch",
+    "Deploy a small web app and prepare for the Cloud Practitioner exam"
+   ]
   },
   {
    "no": 58,
    "id": "docker",
    "title": "Docker",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Package any application into containers that run the same on every machine.",
+   "learn": [
+    "Explain containers and how they differ from virtual machines",
+    "Run, stop and inspect containers",
+    "Write Dockerfiles and build your own images",
+    "Use volumes and networks",
+    "Run multi-container apps with Docker Compose",
+    "Push images to a registry and keep them small and secure"
+   ]
   },
   {
    "no": 59,
    "id": "kubernetes",
    "title": "Kubernetes",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 12,
+   "short": "Deploy, scale and manage containers in production with Kubernetes.",
+   "learn": [
+    "Explain the Kubernetes architecture: control plane, nodes and pods",
+    "Write Deployments, Services and ConfigMaps in YAML",
+    "Scale apps and roll out updates without downtime",
+    "Store data with volumes and handle secrets",
+    "Expose apps with Ingress",
+    "Debug common problems with kubectl"
+   ]
   },
   {
    "no": 60,
    "id": "ci-cd-github-actions",
    "title": "CI/CD (GitHub Actions)",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Automate testing, building and deployment of your projects with GitHub Actions.",
+   "learn": [
+    "Explain continuous integration and continuous delivery",
+    "Write GitHub Actions workflows in YAML",
+    "Run tests automatically on every push and pull request",
+    "Build and publish Docker images from a workflow",
+    "Deploy a website to GitHub Pages or a cloud service",
+    "Keep secrets safe and make pipelines fast"
+   ]
   },
   {
    "no": 61,
    "id": "microsoft-azure",
    "title": "Microsoft Azure",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build and manage cloud solutions on Microsoft Azure.",
+   "learn": [
+    "Navigate the Azure portal, subscriptions and resource groups",
+    "Manage identities with Microsoft Entra ID",
+    "Create virtual machines and virtual networks",
+    "Use Azure Storage, App Service and Azure SQL",
+    "Monitor resources and control costs",
+    "Prepare for the AZ-900 fundamentals exam"
+   ]
   },
   {
    "no": 62,
    "id": "google-cloud-gcp",
    "title": "Google Cloud (GCP)",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build, deploy and analyse on Google Cloud Platform.",
+   "learn": [
+    "Set up projects, billing and IAM on Google Cloud",
+    "Run virtual machines with Compute Engine",
+    "Deploy apps with Cloud Run and App Engine",
+    "Store data in Cloud Storage and Cloud SQL",
+    "Analyse data with BigQuery",
+    "Prepare for the Cloud Digital Leader exam"
+   ]
   },
   {
    "no": 63,
    "id": "terraform",
    "title": "Terraform",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Create and manage cloud infrastructure as code with Terraform.",
+   "learn": [
+    "Explain infrastructure as code and why teams use it",
+    "Write Terraform configuration with providers and resources",
+    "Use variables, outputs and modules",
+    "Plan, apply and destroy changes safely",
+    "Manage state files and work in a team",
+    "Build a small cloud setup fully from code"
+   ]
   },
   {
    "no": 64,
    "id": "serverless-computing",
    "title": "Serverless Computing",
    "category": "Cloud",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Build apps that scale automatically without managing servers, using functions and managed services.",
+   "learn": [
+    "Explain serverless and when it is the right choice",
+    "Write and deploy functions on AWS Lambda",
+    "Trigger functions from HTTP requests, files and schedules",
+    "Store data with managed databases such as DynamoDB",
+    "Handle logs, errors and cold starts",
+    "Build a small serverless API end to end"
+   ]
   },
   {
    "no": 65,
    "id": "programming-logic-flowcharts",
    "title": "Programming Logic & Flowcharts",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Learn to think like a programmer: break problems into steps with flowcharts and pseudocode before writing code.",
+   "learn": [
+    "Break a problem into clear, ordered steps",
+    "Draw flowcharts with the standard symbols",
+    "Write pseudocode for everyday problems",
+    "Use decisions, loops and variables in your logic",
+    "Trace an algorithm by hand to find mistakes",
+    "Turn a flowchart into a simple program"
+   ]
   },
   {
    "no": 66,
    "id": "git-github",
    "title": "Git & GitHub",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Track your code with Git and work with others on GitHub, the way real teams do.",
+   "learn": [
+    "Explain version control and why every developer uses it",
+    "Create repositories, stage changes and make commits",
+    "Work with branches and merge them",
+    "Push to GitHub and open pull requests",
+    "Fix common mistakes: undo commits and solve merge conflicts",
+    "Host a website free with GitHub Pages"
+   ]
   },
   {
    "no": 67,
    "id": "data-structures-algorithms",
    "title": "Data Structures & Algorithms",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 16,
+   "short": "Master the data structures and algorithms asked in placements and coding interviews.",
+   "learn": [
+    "Measure code with Big-O time and space complexity",
+    "Use arrays, strings, linked lists, stacks and queues",
+    "Work with hash maps, sets and heaps",
+    "Solve problems with trees and graphs",
+    "Apply sorting, searching, recursion and two pointers",
+    "Use dynamic programming and greedy approaches on common problems"
+   ]
   },
   {
    "no": 68,
    "id": "java-programming",
    "title": "Java Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 12,
+   "short": "Learn Java from the first program to object-oriented projects, the language most placements test.",
+   "learn": [
+    "Set up the JDK and write, compile and run Java programs",
+    "Use variables, data types, operators and control flow",
+    "Write methods and work with arrays and strings",
+    "Build classes with inheritance, interfaces and polymorphism",
+    "Handle exceptions and use the Collections framework",
+    "Build a small console project such as a library system"
+   ]
   },
   {
    "no": 69,
    "id": "c-programming",
    "title": "C Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 10,
+   "short": "Learn C, the language behind operating systems, and understand how programs use memory.",
+   "learn": [
+    "Write, compile and run C programs with GCC",
+    "Use data types, operators, conditions and loops",
+    "Write functions and understand scope",
+    "Work with arrays, strings and pointers",
+    "Manage memory with malloc and free",
+    "Use structures and file handling in a small project"
+   ]
   },
   {
    "no": 70,
    "id": "cpp-programming",
    "title": "C++ Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 12,
+   "short": "Learn C++ for problem solving, competitive programming and object-oriented design.",
+   "learn": [
+    "Write C++ programs with input, output and control flow",
+    "Use functions, references and pointers",
+    "Build classes with constructors, inheritance and polymorphism",
+    "Use the STL: vector, map, set, stack and queue",
+    "Apply templates and operator overloading",
+    "Solve practice problems with clean C++ code"
+   ]
   },
   {
    "no": 71,
    "id": "object-oriented-programming",
    "title": "Object-Oriented Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Understand classes, objects and the four pillars of OOP, with examples in Java and Python.",
+   "learn": [
+    "Explain classes and objects with real-world examples",
+    "Use encapsulation to protect data",
+    "Reuse code with inheritance",
+    "Write flexible code with polymorphism and abstraction",
+    "Read simple UML class diagrams",
+    "Answer common OOP interview questions"
+   ]
   },
   {
    "no": 72,
    "id": "typescript",
    "title": "TypeScript",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Add types to JavaScript and catch bugs before they reach users.",
+   "learn": [
+    "Set up TypeScript and the compiler",
+    "Use basic types, arrays, tuples and enums",
+    "Write interfaces and type aliases",
+    "Use generics and union types",
+    "Type functions, classes and modules",
+    "Add TypeScript to a React or Node.js project"
+   ]
   },
   {
    "no": 73,
    "id": "go-golang",
    "title": "Go (Golang)",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Learn Go, the simple and fast language used for cloud tools and backend services.",
+   "learn": [
+    "Install Go and write your first programs",
+    "Use types, slices, maps and structs",
+    "Handle errors the Go way",
+    "Write concurrent code with goroutines and channels",
+    "Build a small REST API with the standard library",
+    "Test Go code and organise it into modules"
+   ]
   },
   {
    "no": 74,
    "id": "rust",
    "title": "Rust",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Learn Rust, a fast language that prevents memory bugs at compile time.",
+   "learn": [
+    "Set up Rust with Cargo and write your first programs",
+    "Understand ownership, borrowing and lifetimes",
+    "Use structs, enums and pattern matching",
+    "Handle errors with Result and Option",
+    "Use traits, generics and collections",
+    "Build a small command-line tool"
+   ]
   },
   {
    "no": 75,
    "id": "competitive-programming",
    "title": "Competitive Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 12,
+   "short": "Train for contests on Codeforces, CodeChef and LeetCode with patterns and practice.",
+   "learn": [
+    "Read problems carefully and pick the right approach",
+    "Write fast input and output and avoid time limit errors",
+    "Use number theory, prefix sums and binary search",
+    "Apply graph algorithms: BFS, DFS and shortest paths",
+    "Solve dynamic programming problems step by step",
+    "Plan practice and contest strategy to raise your rating"
+   ]
   },
   {
    "no": 76,
    "id": "r-programming",
    "title": "R Programming",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Use R for statistics, data analysis and charts.",
+   "learn": [
+    "Install R and RStudio and write R scripts",
+    "Work with vectors, lists and data frames",
+    "Clean and transform data with dplyr",
+    "Make charts with ggplot2",
+    "Run basic statistical tests",
+    "Create a short report with R Markdown"
+   ]
   },
   {
    "no": 77,
    "id": "html-css",
    "title": "HTML & CSS",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Build your first websites with HTML and CSS, from structure to a styled, responsive page.",
+   "learn": [
+    "Write well-structured pages with semantic HTML",
+    "Add links, images, lists, tables and forms",
+    "Style pages with CSS selectors, colours and fonts",
+    "Lay out pages with Flexbox and Grid",
+    "Make pages work on phones with responsive design",
+    "Publish your own website online"
+   ]
   },
   {
    "no": 78,
    "id": "javascript",
    "title": "JavaScript",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 12,
+   "short": "Make web pages interactive with JavaScript, the language of the web.",
+   "learn": [
+    "Use variables, data types, conditions and loops",
+    "Write functions and work with arrays and objects",
+    "Change pages with the DOM and handle events",
+    "Fetch data from APIs with promises and async/await",
+    "Store data in the browser with localStorage",
+    "Build small projects such as a to-do app and a quiz"
+   ]
   },
   {
    "no": 79,
    "id": "react-js",
    "title": "React.js",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build fast, modern user interfaces with React.",
+   "learn": [
+    "Set up a React project with Vite",
+    "Write components with JSX and props",
+    "Manage state with useState and useEffect",
+    "Handle forms and lists",
+    "Add pages with React Router",
+    "Fetch data from APIs and deploy your app"
+   ]
   },
   {
    "no": 80,
    "id": "node-js-express",
    "title": "Node.js & Express",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build backend servers and APIs with Node.js and Express.",
+   "learn": [
+    "Understand how Node.js runs JavaScript on the server",
+    "Use npm packages and modules",
+    "Create routes and middleware in Express",
+    "Connect to a database such as MongoDB",
+    "Add user login with hashed passwords and tokens",
+    "Deploy a Node.js API online"
+   ]
   },
   {
    "no": 81,
    "id": "rest-apis",
    "title": "REST APIs",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Design, build and test REST APIs that apps and websites can rely on.",
+   "learn": [
+    "Explain HTTP methods, status codes and headers",
+    "Design clean API endpoints and resources",
+    "Send and receive JSON",
+    "Test APIs with Postman and curl",
+    "Add authentication, validation and error handling",
+    "Document an API with OpenAPI"
+   ]
   },
   {
    "no": 82,
    "id": "full-stack-mern-project",
    "title": "Full-Stack (MERN) Project",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 16,
+   "short": "Build and deploy a complete web app with MongoDB, Express, React and Node.js.",
+   "learn": [
+    "Plan features, pages and database design for a real app",
+    "Build a REST API with Express and MongoDB",
+    "Build the React frontend and connect it to the API",
+    "Add sign-up, login and protected pages",
+    "Handle file uploads, errors and loading states",
+    "Deploy the full app and add it to your portfolio"
+   ]
   },
   {
    "no": 83,
    "id": "next-js",
    "title": "Next.js",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Build fast, SEO-friendly React websites with Next.js.",
+   "learn": [
+    "Create pages and layouts with the App Router",
+    "Choose between server and client components",
+    "Fetch data on the server and cache it",
+    "Build API routes and server actions",
+    "Optimise images, fonts and metadata for SEO",
+    "Deploy a Next.js site"
+   ]
   },
   {
    "no": 84,
    "id": "system-design",
    "title": "System Design",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Design large systems that stay fast and reliable as users grow, as asked in senior interviews.",
+   "learn": [
+    "Gather requirements and estimate scale",
+    "Use load balancers, caches and CDNs",
+    "Choose between SQL and NoSQL databases",
+    "Scale with replication, sharding and queues",
+    "Design for failure and high availability",
+    "Walk through designs like a URL shortener and a chat app"
+   ]
   },
   {
    "no": 85,
    "id": "microservices",
    "title": "Microservices",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 8,
+   "short": "Split large applications into small services that teams can build and deploy on their own.",
+   "learn": [
+    "Compare monoliths and microservices honestly",
+    "Draw service boundaries around business areas",
+    "Connect services with REST, gRPC and message queues",
+    "Handle data, transactions and consistency across services",
+    "Run services with containers and an API gateway",
+    "Monitor and trace requests across services"
+   ]
   },
   {
    "no": 86,
    "id": "django",
    "title": "Django",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build complete web applications quickly with Python and Django.",
+   "learn": [
+    "Create a Django project and apps",
+    "Define models and work with the ORM",
+    "Write views, URLs and templates",
+    "Handle forms, users and login",
+    "Use the admin panel to manage data",
+    "Build a REST API with Django REST Framework and deploy it"
+   ]
   },
   {
    "no": 87,
    "id": "responsive-design-tailwind-css",
    "title": "Responsive Design & Tailwind CSS",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Make websites look great on every screen with responsive design and Tailwind CSS.",
+   "learn": [
+    "Apply mobile-first responsive design",
+    "Use media queries, Flexbox and Grid",
+    "Set up Tailwind CSS in a project",
+    "Style layouts with utility classes",
+    "Add dark mode and reusable components",
+    "Rebuild a real landing page that works on every device"
+   ]
   },
   {
    "no": 88,
@@ -739,56 +1223,144 @@
    "id": "seo-web-performance",
    "title": "SEO & Web Performance",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Help websites rank on Google and load fast on slow phones.",
+   "learn": [
+    "Explain how search engines crawl and rank pages",
+    "Write good titles, descriptions and headings",
+    "Add structured data, sitemaps and robots rules",
+    "Measure speed with Lighthouse and Core Web Vitals",
+    "Speed up images, fonts and scripts",
+    "Track results with Google Search Console"
+   ]
   },
   {
    "no": 90,
    "id": "flask",
    "title": "Flask",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Build small web apps and APIs with Python and Flask.",
+   "learn": [
+    "Create a Flask app with routes and templates",
+    "Handle forms and user input safely",
+    "Store data with SQLite and SQLAlchemy",
+    "Add user login and sessions",
+    "Build a JSON API",
+    "Deploy a Flask app online"
+   ]
   },
   {
    "no": 91,
    "id": "spring-boot",
    "title": "Spring Boot",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build production-style Java backends with Spring Boot.",
+   "learn": [
+    "Create a Spring Boot project and understand its structure",
+    "Build REST controllers and services",
+    "Use Spring Data JPA with a database",
+    "Validate input and handle errors",
+    "Add security with Spring Security",
+    "Test and package the application"
+   ]
   },
   {
    "no": 92,
    "id": "graphql",
    "title": "GraphQL",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 5,
+   "short": "Build and use GraphQL APIs that return exactly the data each screen needs.",
+   "learn": [
+    "Explain how GraphQL differs from REST",
+    "Write queries, mutations and variables",
+    "Design a schema with types and relations",
+    "Build a GraphQL server with Node.js",
+    "Use GraphQL from a React app",
+    "Handle errors, pagination and performance"
+   ]
   },
   {
    "no": 93,
    "id": "php-mysql",
    "title": "PHP & MySQL",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Build dynamic websites with PHP and MySQL.",
+   "learn": [
+    "Set up PHP and MySQL with XAMPP",
+    "Write PHP with variables, arrays, loops and functions",
+    "Handle forms and sessions",
+    "Connect to MySQL with PDO and prepared statements",
+    "Build login and CRUD pages",
+    "Organise code and deploy a PHP site"
+   ]
   },
   {
    "no": 94,
    "id": "angular",
    "title": "Angular",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build large single-page applications with Angular and TypeScript.",
+   "learn": [
+    "Set up an Angular project with the CLI",
+    "Build components, templates and data binding",
+    "Use services and dependency injection",
+    "Add routing and forms",
+    "Call APIs with HttpClient and RxJS",
+    "Structure and build an app for production"
+   ]
   },
   {
    "no": 95,
    "id": "vue-js",
    "title": "Vue.js",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Build friendly, reactive web interfaces with Vue.js.",
+   "learn": [
+    "Set up a Vue project with Vite",
+    "Write components with templates, props and events",
+    "Manage state with the Composition API",
+    "Add pages with Vue Router",
+    "Share state with Pinia",
+    "Fetch data and deploy your app"
+   ]
   },
   {
    "no": 96,
    "id": "wordpress",
    "title": "WordPress",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Build and manage professional websites with WordPress, without writing code.",
+   "learn": [
+    "Install WordPress and understand the dashboard",
+    "Create pages, posts and menus",
+    "Choose and customise themes",
+    "Add features with plugins",
+    "Build a business or portfolio site",
+    "Keep the site backed up, fast and updated"
+   ]
   },
   {
    "no": 97,
@@ -814,161 +1386,414 @@
    "id": "mysql",
    "title": "MySQL",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Store and query data with MySQL, one of the most used databases in India's IT industry.",
+   "learn": [
+    "Install MySQL and use MySQL Workbench",
+    "Create databases, tables and keys",
+    "Insert, update and delete data",
+    "Write queries with joins, grouping and subqueries",
+    "Use indexes, views and stored procedures",
+    "Back up and restore a database"
+   ]
   },
   {
    "no": 99,
    "id": "postgresql",
    "title": "PostgreSQL",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Work with PostgreSQL, the powerful open-source database used by modern apps.",
+   "learn": [
+    "Install PostgreSQL and use psql and pgAdmin",
+    "Design tables with constraints and data types",
+    "Write advanced queries with CTEs and window functions",
+    "Use JSON columns and full-text search",
+    "Speed up queries with indexes and EXPLAIN",
+    "Manage users, roles and backups"
+   ]
   },
   {
    "no": 100,
    "id": "mongodb",
    "title": "MongoDB",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Store flexible data in MongoDB, the most popular NoSQL database.",
+   "learn": [
+    "Explain documents, collections and when NoSQL fits",
+    "Insert, find, update and delete documents",
+    "Model data with embedding and references",
+    "Use the aggregation pipeline",
+    "Add indexes for speed",
+    "Connect MongoDB to a Node.js app"
+   ]
   },
   {
    "no": 101,
    "id": "flutter",
    "title": "Flutter",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build Android and iOS apps from one codebase with Flutter and Dart.",
+   "learn": [
+    "Set up Flutter and learn Dart basics",
+    "Build screens with widgets and layouts",
+    "Handle user input and navigation",
+    "Manage state in a growing app",
+    "Call APIs and store data on the device",
+    "Build and test an app for Android"
+   ]
   },
   {
    "no": 102,
    "id": "android-kotlin",
    "title": "Android (Kotlin)",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build native Android apps with Kotlin and Jetpack Compose.",
+   "learn": [
+    "Set up Android Studio and learn Kotlin basics",
+    "Build screens with Jetpack Compose",
+    "Handle navigation and app state",
+    "Store data with Room",
+    "Call web APIs with Retrofit",
+    "Test and publish an app"
+   ]
   },
   {
    "no": 103,
    "id": "react-native",
    "title": "React Native",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Build mobile apps for Android and iOS with React Native and JavaScript.",
+   "learn": [
+    "Set up React Native with Expo",
+    "Build screens with core components",
+    "Style layouts with Flexbox",
+    "Navigate between screens",
+    "Use device features and store data",
+    "Fetch data from APIs and build the app"
+   ]
   },
   {
    "no": 104,
    "id": "ios-swift",
    "title": "iOS (Swift)",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 12,
+   "short": "Build iPhone apps with Swift and SwiftUI.",
+   "learn": [
+    "Learn Swift basics in Xcode playgrounds",
+    "Build screens with SwiftUI views",
+    "Manage state and data flow",
+    "Navigate between screens and show lists",
+    "Fetch data from APIs and save it on the device",
+    "Test an app on the simulator"
+   ]
   },
   {
    "no": 105,
    "id": "software-engineering",
    "title": "Software Engineering",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Understand how software is planned, built, tested and maintained in real companies.",
+   "learn": [
+    "Compare SDLC models: waterfall, iterative and agile",
+    "Gather and write clear requirements",
+    "Design software with UML diagrams",
+    "Plan testing at unit, integration and system level",
+    "Estimate effort and manage risks",
+    "Maintain software with version control and documentation"
+   ]
   },
   {
    "no": 106,
    "id": "computer-organization-architecture",
    "title": "Computer Organization & Architecture",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "See how a computer works inside: from logic gates and the CPU to memory and input/output.",
+   "learn": [
+    "Represent numbers and characters in binary",
+    "Explain how the CPU fetches and executes instructions",
+    "Understand registers, the ALU and the control unit",
+    "Compare memory types and the cache hierarchy",
+    "Explain pipelining and its hazards",
+    "Understand input/output, interrupts and DMA"
+   ]
   },
   {
    "no": 107,
    "id": "discrete-mathematics",
    "title": "Discrete Mathematics",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "The maths of computer science: logic, sets, relations, graphs and counting.",
+   "learn": [
+    "Use propositional and predicate logic",
+    "Write simple proofs, including induction",
+    "Work with sets, relations and functions",
+    "Solve counting problems with permutations and combinations",
+    "Understand graphs and trees",
+    "Apply these ideas to real computing problems"
+   ]
   },
   {
    "no": 108,
    "id": "theory-of-computation",
    "title": "Theory of Computation",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Learn what computers can and cannot do with automata, grammars and Turing machines.",
+   "learn": [
+    "Design finite automata for simple languages",
+    "Convert between NFA, DFA and regular expressions",
+    "Use the pumping lemma to test languages",
+    "Write context-free grammars and pushdown automata",
+    "Understand Turing machines and decidability",
+    "Solve typical university exam questions"
+   ]
   },
   {
    "no": 109,
    "id": "compiler-design",
    "title": "Compiler Design",
    "category": "Development",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 10,
+   "short": "Understand how a compiler turns source code into machine code, phase by phase.",
+   "learn": [
+    "Explain the phases of a compiler",
+    "Build a lexical analyser with regular expressions",
+    "Understand top-down and bottom-up parsing",
+    "Perform semantic analysis and type checking",
+    "Generate intermediate code",
+    "Apply basic code optimisation"
+   ]
   },
   {
    "no": 110,
    "id": "technical-interview-prep",
    "title": "Technical Interview Prep",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Prepare for technical interviews at service and product companies, from the online test to the HR round.",
+   "learn": [
+    "Understand each round: online test, technical, managerial and HR",
+    "Practise the most asked coding and CS fundamentals questions",
+    "Explain your projects clearly and confidently",
+    "Solve problems aloud and think in front of an interviewer",
+    "Answer HR questions with the STAR method",
+    "Run mock interviews and learn from feedback"
+   ]
   },
   {
    "no": 111,
    "id": "resume-linkedin",
    "title": "Resume & LinkedIn",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 4,
+   "short": "Write a resume that passes ATS filters and build a LinkedIn profile that recruiters find.",
+   "learn": [
+    "Choose the right resume format for a fresher or experienced role",
+    "Write project and internship points with action verbs and results",
+    "Make a resume ATS-friendly",
+    "Build a strong LinkedIn headline, about section and featured work",
+    "Grow your network and message recruiters professionally",
+    "Show your GitHub and certificates the right way"
+   ]
   },
   {
    "no": 112,
    "id": "english-communication-for-tech",
    "title": "English Communication for Tech",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Speak and write clear English at work: emails, meetings, presentations and interviews.",
+   "learn": [
+    "Write clear, polite professional emails",
+    "Speak confidently in team meetings and stand-ups",
+    "Explain technical ideas in simple words",
+    "Present your work with a clear structure",
+    "Avoid common grammar and pronunciation mistakes",
+    "Prepare for LSRW-style English assessments"
+   ]
   },
   {
    "no": 113,
    "id": "aptitude-reasoning",
    "title": "Aptitude & Reasoning",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Clear the aptitude and reasoning rounds of campus placements with shortcuts and practice.",
+   "learn": [
+    "Solve percentages, profit and loss, and ratio questions quickly",
+    "Handle time, speed, distance, and work problems",
+    "Solve number series, coding-decoding and blood relations",
+    "Answer seating arrangement and puzzle questions",
+    "Read data interpretation charts fast",
+    "Manage time in a timed placement test"
+   ]
   },
   {
    "no": 114,
    "id": "freelancing",
    "title": "Freelancing",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Start earning as a freelancer: find clients, price your work and deliver professionally.",
+   "learn": [
+    "Choose a skill and a niche you can sell",
+    "Build a portfolio and profiles on freelance platforms",
+    "Write proposals that win projects",
+    "Price your work and agree on clear terms",
+    "Communicate with clients and handle revisions",
+    "Manage payments, invoices and basic taxes in India"
+   ]
   },
   {
    "no": 115,
    "id": "open-source-contribution",
    "title": "Open Source Contribution",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 5,
+   "short": "Make your first open-source contributions and grow your profile with real projects.",
+   "learn": [
+    "Understand how open-source projects are run",
+    "Find beginner-friendly issues",
+    "Fork, branch and open a good pull request",
+    "Respond to code review politely",
+    "Write documentation and tests as contributions",
+    "Prepare for programs such as GSoC and Hacktoberfest"
+   ]
   },
   {
    "no": 116,
    "id": "software-testing-selenium",
    "title": "Software Testing (Selenium)",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Test software manually and automate web testing with Selenium.",
+   "learn": [
+    "Explain testing types and the testing life cycle",
+    "Write clear test cases and bug reports",
+    "Set up Selenium WebDriver with Java or Python",
+    "Find elements and automate browser actions",
+    "Organise tests with TestNG or pytest and the page object model",
+    "Run tests in a CI pipeline"
+   ]
   },
   {
    "no": 117,
    "id": "agile-scrum",
    "title": "Agile & Scrum",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 4,
+   "short": "Work in agile teams: sprints, stand-ups, user stories and retrospectives.",
+   "learn": [
+    "Explain agile values and why teams use them",
+    "Understand Scrum roles, events and artefacts",
+    "Write user stories with acceptance criteria",
+    "Estimate work and plan a sprint",
+    "Track progress with Jira-style boards",
+    "Run a useful sprint review and retrospective"
+   ]
   },
   {
    "no": 118,
    "id": "product-management",
    "title": "Product Management",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Learn how product managers decide what to build, why, and for whom.",
+   "learn": [
+    "Explain the product manager's role in a tech company",
+    "Find user problems through research and interviews",
+    "Write a clear product requirements document",
+    "Prioritise features with simple frameworks",
+    "Define and track product metrics",
+    "Work with design and engineering to launch features"
+   ]
   },
   {
    "no": 119,
    "id": "startup-basics",
    "title": "Startup Basics",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 5,
+   "short": "Turn an idea into a startup: validate it, build a first version and find early users.",
+   "learn": [
+    "Find and test a real problem worth solving",
+    "Build a minimum viable product cheaply",
+    "Understand business models and pricing",
+    "Reach your first users and learn from them",
+    "Know the basics of company registration in India and Startup India",
+    "Prepare a simple pitch deck"
+   ]
   },
   {
    "no": 120,
    "id": "digital-marketing",
    "title": "Digital Marketing",
    "category": "Career",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Promote products online with social media, SEO, content and ads.",
+   "learn": [
+    "Explain the digital marketing funnel",
+    "Plan content for Instagram, LinkedIn and YouTube",
+    "Understand SEO basics for websites",
+    "Run small ad campaigns with clear budgets",
+    "Measure results with analytics",
+    "Build a simple marketing plan for a real product"
+   ]
   },
   {
    "no": 121,
@@ -1001,147 +1826,378 @@
    "id": "advanced-excel",
    "title": "Advanced Excel",
    "category": "Basics",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Go beyond basics in Excel with lookups, PivotTables, dashboards and automation.",
+   "learn": [
+    "Use XLOOKUP, INDEX-MATCH and advanced IF formulas",
+    "Clean data with text functions and Power Query",
+    "Summarise data with PivotTables and PivotCharts",
+    "Build interactive dashboards with slicers",
+    "Use what-if analysis, data validation and conditional formatting",
+    "Record simple macros to automate repeated work"
+   ]
   },
   {
    "no": 124,
    "id": "google-workspace",
    "title": "Google Workspace",
    "category": "Basics",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 4,
+   "short": "Work smarter with Gmail, Drive, Docs, Sheets, Slides, Forms and Meet.",
+   "learn": [
+    "Organise Gmail with labels, filters and templates",
+    "Store and share files safely in Google Drive",
+    "Write and collaborate in Google Docs",
+    "Use formulas and charts in Google Sheets",
+    "Make presentations in Slides and surveys in Forms",
+    "Plan and run meetings with Calendar and Meet"
+   ]
   },
   {
    "no": 125,
    "id": "tally",
    "title": "Tally",
    "category": "Basics",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Keep business accounts in Tally Prime, including GST, the way Indian offices do.",
+   "learn": [
+    "Understand basic accounting terms and double entry",
+    "Create a company, ledgers and groups in Tally Prime",
+    "Record sales, purchase, payment and receipt vouchers",
+    "Manage stock items and inventory",
+    "Set up GST and create GST invoices",
+    "Read and print balance sheet and profit and loss reports"
+   ]
   },
   {
    "no": 126,
    "id": "graphic-design-canva-photoshop",
    "title": "Graphic Design (Canva, Photoshop)",
    "category": "Basics",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Design posts, posters and thumbnails with Canva and Photoshop.",
+   "learn": [
+    "Apply design basics: layout, colour, typography and contrast",
+    "Design social media posts and posters in Canva",
+    "Use brand kits and templates without looking generic",
+    "Edit photos with layers, masks and adjustments in Photoshop",
+    "Remove backgrounds and retouch images",
+    "Export the right sizes and formats for each platform"
+   ]
   },
   {
    "no": 127,
    "id": "video-editing",
    "title": "Video Editing",
    "category": "Basics",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Edit clean, engaging videos and reels with free and professional tools.",
+   "learn": [
+    "Plan a video with a simple script and shot list",
+    "Cut, trim and arrange clips on a timeline",
+    "Add text, transitions and music",
+    "Fix colour and audio levels",
+    "Edit vertical reels and shorts for social media",
+    "Export with the right settings for each platform"
+   ]
   },
   {
    "no": 128,
    "id": "blockchain-fundamentals",
    "title": "Blockchain Fundamentals",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 6,
+   "short": "Understand how blockchains work: blocks, hashing, consensus and real uses beyond crypto.",
+   "learn": [
+    "Explain what a blockchain is and why it is hard to change",
+    "Understand hashing, blocks and chains",
+    "Compare proof of work and proof of stake",
+    "Explain wallets, keys and transactions",
+    "Compare public and private blockchains",
+    "Judge where blockchain helps and where it does not"
+   ]
   },
   {
    "no": 129,
    "id": "cryptocurrency-basics",
    "title": "Cryptocurrency Basics",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 4,
+   "short": "Learn how cryptocurrencies work and how to stay safe, without hype.",
+   "learn": [
+    "Explain how Bitcoin and other cryptocurrencies work",
+    "Understand wallets, private keys and seed phrases",
+    "Know how exchanges work and their risks",
+    "Recognise common crypto scams and frauds",
+    "Understand the basic tax and legal position in India",
+    "Make informed, careful decisions"
+   ]
   },
   {
    "no": 130,
    "id": "ethereum-smart-contracts",
    "title": "Ethereum & Smart Contracts",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Understand Ethereum and how smart contracts run code on a blockchain.",
+   "learn": [
+    "Explain the Ethereum network, accounts and gas",
+    "Understand what smart contracts can and cannot do",
+    "Use a wallet and a test network",
+    "Read and deploy a simple contract with Remix",
+    "Interact with contracts from a web page",
+    "Understand common contract risks"
+   ]
   },
   {
    "no": 131,
    "id": "solidity-programming",
    "title": "Solidity Programming",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Write smart contracts in Solidity, the main language of Ethereum.",
+   "learn": [
+    "Write contracts with variables, functions and modifiers",
+    "Use mappings, structs, arrays and events",
+    "Handle Ether payments safely",
+    "Test contracts with Hardhat or Foundry",
+    "Avoid common bugs such as reentrancy",
+    "Deploy a contract to a test network"
+   ]
   },
   {
    "no": 132,
    "id": "web3-frontend",
    "title": "Web3 Frontend",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Connect websites to the blockchain with wallets and smart contracts.",
+   "learn": [
+    "Connect a site to MetaMask and other wallets",
+    "Read contract data with ethers.js",
+    "Send transactions and handle confirmations",
+    "Show balances, tokens and NFTs",
+    "Handle network switching and errors",
+    "Build a small dApp interface with React"
+   ]
   },
   {
    "no": 133,
    "id": "dapp-development",
    "title": "DApp Development",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Advanced",
+   "hours": 12,
+   "short": "Build a complete decentralised application: contract, frontend, testing and deployment.",
+   "learn": [
+    "Plan a dApp and decide what goes on-chain",
+    "Write and test the smart contracts",
+    "Build the frontend and wallet connection",
+    "Store files with IPFS",
+    "Deploy contracts and the frontend",
+    "Review the dApp for security and gas costs"
+   ]
   },
   {
    "no": 134,
    "id": "nfts-token-standards",
    "title": "NFTs & Token Standards",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 5,
+   "short": "Understand tokens and NFTs and create your own on a test network.",
+   "learn": [
+    "Explain fungible and non-fungible tokens",
+    "Understand the ERC-20, ERC-721 and ERC-1155 standards",
+    "Create a token with OpenZeppelin",
+    "Mint an NFT with metadata on IPFS",
+    "Understand royalties and marketplaces",
+    "Spot common NFT scams"
+   ]
   },
   {
    "no": 135,
    "id": "defi-basics",
    "title": "DeFi Basics",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 5,
+   "short": "Understand decentralised finance: exchanges, lending and stablecoins, and their risks.",
+   "learn": [
+    "Explain what DeFi is and how it differs from banks",
+    "Understand stablecoins and how they keep their value",
+    "Learn how decentralised exchanges and liquidity pools work",
+    "Understand lending, borrowing and collateral",
+    "Recognise the main risks: bugs, hacks and price swings",
+    "Read a DeFi project carefully before trusting it"
+   ]
   },
   {
    "no": 136,
    "id": "digital-electronics",
    "title": "Digital Electronics",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Learn the basics of digital circuits: number systems, logic gates, flip-flops and counters.",
+   "learn": [
+    "Convert between binary, octal, decimal and hexadecimal",
+    "Use logic gates and Boolean algebra",
+    "Simplify circuits with Karnaugh maps",
+    "Design adders, multiplexers and decoders",
+    "Understand flip-flops, registers and counters",
+    "Simulate circuits online"
+   ]
   },
   {
    "no": 137,
    "id": "arduino-raspberry-pi",
    "title": "Arduino & Raspberry Pi",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Build hardware projects with Arduino and Raspberry Pi, from blinking an LED to smart devices.",
+   "learn": [
+    "Set up an Arduino and write your first sketch",
+    "Read sensors and control LEDs, motors and buzzers",
+    "Set up a Raspberry Pi with Linux",
+    "Control GPIO pins with Python",
+    "Send sensor data over Wi-Fi",
+    "Build a small project such as a smart plant monitor"
+   ]
   },
   {
    "no": 138,
    "id": "embedded-systems",
    "title": "Embedded Systems",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 10,
+   "short": "Program microcontrollers in C to build reliable embedded devices.",
+   "learn": [
+    "Explain what embedded systems are and where they are used",
+    "Program microcontrollers in embedded C",
+    "Use GPIO, timers and interrupts",
+    "Communicate with UART, I2C and SPI",
+    "Understand real-time operating systems",
+    "Debug and test embedded code"
+   ]
   },
   {
    "no": 139,
    "id": "iot",
    "title": "IoT",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Connect devices to the internet and build Internet of Things systems from sensor to dashboard.",
+   "learn": [
+    "Explain the IoT architecture from devices to cloud",
+    "Read sensors with ESP32 or Raspberry Pi",
+    "Send data with MQTT and HTTP",
+    "Store and show data on a cloud dashboard",
+    "Control devices remotely",
+    "Secure IoT devices and data"
+   ]
   },
   {
    "no": 140,
    "id": "robotics-basics",
    "title": "Robotics Basics",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 8,
+   "short": "Learn how robots sense, think and move, and build a simple robot.",
+   "learn": [
+    "Understand the parts of a robot: sensors, controller and actuators",
+    "Control DC motors, servos and motor drivers",
+    "Use distance and line sensors",
+    "Program simple behaviours such as line following",
+    "Understand robot kinematics at a basic level",
+    "Build and test a small wheeled robot"
+   ]
   },
   {
    "no": 141,
    "id": "game-development-unity",
    "title": "Game Development (Unity)",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Beginner",
+   "hours": 12,
+   "short": "Make 2D and 3D games with Unity and C#.",
+   "learn": [
+    "Navigate the Unity editor, scenes and game objects",
+    "Write C# scripts for movement and controls",
+    "Use physics, collisions and triggers",
+    "Add animation, sound and user interface",
+    "Build levels and game logic",
+    "Export a game for PC, web or Android"
+   ]
   },
   {
    "no": 142,
    "id": "ar-vr",
    "title": "AR / VR",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 8,
+   "short": "Build augmented and virtual reality experiences with Unity.",
+   "learn": [
+    "Explain AR, VR and mixed reality and where they are used",
+    "Set up Unity for AR and VR projects",
+    "Place 3D objects in the real world with AR Foundation",
+    "Build a simple VR scene with interaction",
+    "Design comfortable, easy-to-use XR experiences",
+    "Test on a phone or headset"
+   ]
   },
   {
    "no": 143,
    "id": "quantum-computing-basics",
    "title": "Quantum Computing Basics",
    "category": "Emerging Tech",
-   "status": "planned"
+   "status": "planned",
+   "level": "Intermediate",
+   "hours": 6,
+   "short": "Understand qubits, superposition and quantum circuits, and run your first quantum program.",
+   "learn": [
+    "Explain how quantum computers differ from normal computers",
+    "Understand qubits, superposition and entanglement",
+    "Read and build simple quantum circuits",
+    "Use Qiskit to run circuits on a simulator",
+    "Understand famous algorithms such as Grover's at a high level",
+    "Know what quantum computing can and cannot do today"
+   ]
   }
  ]
 }
