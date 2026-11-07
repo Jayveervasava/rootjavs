@@ -1,0 +1,2163 @@
+{
+ "id": "ui-ux-design-figma",
+ "title": "UI/UX Design (Figma)",
+ "category": "Development",
+ "level": "Beginner",
+ "hours": 10,
+ "short": "Research users, design accessible screens and build clickable prototypes and a reusable design system in Figma.",
+ "prerequisites": [],
+ "learn": [
+  "Explain the difference between UX and UI and follow the design thinking process",
+  "Plan flows, wireframes and navigation using research and usability heuristics",
+  "Apply layout, typography, colour and accessibility rules to a screen",
+  "Build screens in Figma using frames, constraints, text and styles",
+  "Create auto layout components, variants and variables for a design system",
+  "Prototype, test with users, hand off to developers and present a portfolio case study"
+ ],
+ "lessons": [
+  {
+   "title": "UX Foundations: Users, Research and Process",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "UX and UI: two different jobs"
+    },
+    {
+     "p": "Open any payment app on your phone. The way the screen looks, with its colours, icons and spacing, is the **User Interface (UI)**. The way the whole experience feels, such as how quickly you can pay a shop owner, whether you understand an error message and whether you trust the app with your money, is the **User Experience (UX)**."
+    },
+    {
+     "p": "A simple comparison: UX is the plan of a house, with rooms in sensible places and a door that opens where you expect. UI is the paint, the furniture and the light fittings. A beautiful house with the kitchen inside the bathroom is a UX failure. A well-planned house with broken walls is a UI failure. A professional designer needs both."
+    },
+    {
+     "tbl": [
+      [
+       "",
+       "UX design",
+       "UI design"
+      ],
+      [
+       "Main question",
+       "Does this solve the right problem in an easy way?",
+       "Does this look clear, consistent and pleasant?"
+      ],
+      [
+       "Typical work",
+       "Research, user flows, wireframes, testing",
+       "Colour, typography, icons, components, spacing"
+      ],
+      [
+       "Output",
+       "Journey maps, flows, low-fidelity screens",
+       "High-fidelity screens and a design system"
+      ],
+      [
+       "Success measure",
+       "Tasks completed, time taken, errors, satisfaction",
+       "Clarity, consistency, accessibility"
+      ]
+     ]
+    },
+    {
+     "h": "Who is the user?"
+    },
+    {
+     "p": "The most common design mistake is designing for yourself. A college student in Vadodara, a shopkeeper in Surat and a retired teacher in Pune use the same UPI app very differently. They differ in phone quality, internet speed, language comfort, eyesight and fear of making a mistake. Good design starts by learning about these people, not by opening a design tool."
+    },
+    {
+     "h": "The design process"
+    },
+    {
+     "p": "Many teams follow the **design thinking** process. The stages are not a straight line. You often go back when testing shows you were wrong."
+    },
+    {
+     "ol": [
+      "**Empathize:** study the users through interviews, observation and surveys.",
+      "**Define:** write the problem clearly, for example: first-time senior citizens struggle to confirm a train ticket refund.",
+      "**Ideate:** generate many possible solutions without judging them early.",
+      "**Prototype:** make a cheap, quick version of the best ideas.",
+      "**Test:** watch real users try it, then improve and repeat."
+     ]
+    },
+    {
+     "diagram": "Animated loop of five circles: Empathize, Define, Ideate, Prototype, Test. A glowing dot travels around the loop. At the Test circle the dot can jump back to any earlier circle when the student clicks a Failed test button, showing that design is iterative."
+    },
+    {
+     "h": "User research methods"
+    },
+    {
+     "p": "Research answers one question: what do people really need and do? There are two broad types."
+    },
+    {
+     "ul": [
+      "**Qualitative research** explains why. Examples: one-to-one interviews, observing a person using an app, diary studies. Small numbers of people give deep insight.",
+      "**Quantitative research** measures how many. Examples: surveys, analytics, A/B tests. Large numbers of people give reliable counts."
+     ]
+    },
+    {
+     "p": "Good interview questions are open and neutral. Ask: Tell me about the last time you booked a train ticket. Do not ask: Don't you think the booking page is confusing? The second question puts an answer in the person's mouth, which is called a **leading question**."
+    },
+    {
+     "tip": "Listen for what people do, not only for what they say. People often describe a tidy process and then behave very differently. Observation shows the truth."
+    },
+    {
+     "h": "Personas"
+    },
+    {
+     "p": "A **persona** is a realistic but fictional person that represents a group of users. It keeps the team focused on real needs. A good persona is built from research, not imagination."
+    },
+    {
+     "ul": [
+      "**Name and short background:** Meena, 21, second-year B.Com student in Vadodara.",
+      "**Goals:** pay mess fees and split trip costs with friends quickly.",
+      "**Frustrations:** payment fails on weak mobile data and she is unsure whether money was deducted.",
+      "**Context:** uses a mid-range Android phone, mostly outdoors, often with one hand."
+     ]
+    },
+    {
+     "h": "User journey map"
+    },
+    {
+     "p": "A journey map follows a persona through all the steps of reaching a goal. For each step it records what the user does, thinks and feels. The low points show where design can help most."
+    },
+    {
+     "tbl": [
+      [
+       "Stage",
+       "Action",
+       "Feeling",
+       "Opportunity"
+      ],
+      [
+       "Discover",
+       "Hears about a refund option from a friend",
+       "Curious",
+       "Make the refund link visible on the ticket page"
+      ],
+      [
+       "Request",
+       "Fills the refund form",
+       "Confused by many fields",
+       "Reduce fields and explain each one"
+      ],
+      [
+       "Wait",
+       "Does not know the status",
+       "Anxious",
+       "Show a clear status tracker"
+      ],
+      [
+       "Receive",
+       "Money arrives in the account",
+       "Relieved",
+       "Send a confirmation message"
+      ]
+     ]
+    },
+    {
+     "h": "Problem statements and user stories"
+    },
+    {
+     "p": "A clear problem statement keeps design honest. Use this pattern: [User] needs a way to [goal] because [reason]. Example: A first-time traveller needs a way to see refund status because waiting without information causes worry and repeated calls to support."
+    },
+    {
+     "p": "A **user story** describes a feature from the user's side: As a [type of user], I want to [do something], so that [benefit]. Developers and designers both use stories to agree on what to build."
+    },
+    {
+     "h": "Ethics and honesty in design"
+    },
+    {
+     "p": "Designers have power over people's choices. A **dark pattern** is an interface trick that pushes users to do something against their interest, such as a hidden cancel button, a pre-ticked box that shares data, or a fake countdown timer. These harm trust and, in India, may attract action under consumer protection rules. Honest design makes the best choice for the user also the easy choice."
+    },
+    {
+     "p": "Always get consent before recording or photographing research participants, tell them how their data will be used, and keep personal details private."
+    },
+    {
+     "flip": [
+      [
+       "UX or UI: which one covers how a whole task feels?",
+       "UX. UI covers the visible look of the screens."
+      ],
+      [
+       "What are the five design thinking stages?",
+       "Empathize, Define, Ideate, Prototype, Test."
+      ],
+      [
+       "Qualitative versus quantitative research?",
+       "Qualitative explains why with few people. Quantitative measures how many with many people."
+      ],
+      [
+       "What is a leading question?",
+       "A question that suggests the answer the interviewer hopes to hear."
+      ],
+      [
+       "What is a dark pattern?",
+       "An interface trick that pushes users into choices that are against their interest."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Choose an app you use daily. Interview two people about the last time they used it. Write one persona and a four-stage journey map with feelings and one improvement idea for the lowest point."
+    }
+   ],
+   "quiz": [
+    [
+     "Which statement best describes UX design?",
+     [
+      "Choosing brand colours",
+      "Shaping the whole experience of reaching a goal",
+      "Writing back-end code",
+      "Drawing icons only"
+     ],
+     1,
+     "UX covers the full experience. Colours and icons belong mainly to UI."
+    ],
+    [
+     "Which research method mainly tells you why users behave as they do?",
+     [
+      "Large survey",
+      "Analytics dashboard",
+      "One-to-one interview",
+      "A/B test"
+     ],
+     2,
+     "Interviews are qualitative and reveal reasons. The others mostly measure how many."
+    ],
+    [
+     "Which of these is a leading question?",
+     [
+      "Tell me about your last booking.",
+      "What was hardest about the form?",
+      "Don't you find the form confusing?",
+      "How did you pay?"
+     ],
+     2,
+     "It suggests the answer. The other questions are open and neutral."
+    ],
+    [
+     "What is the main purpose of a persona?",
+     [
+      "To decorate the report",
+      "To represent a group of real users and keep the team focused",
+      "To replace testing",
+      "To list every user's name"
+     ],
+     1,
+     "A persona summarises research on a user group so decisions stay user-focused."
+    ],
+    [
+     "A fake countdown timer that pressures users to buy is an example of:",
+     [
+      "A user story",
+      "A dark pattern",
+      "A journey map",
+      "A wireframe"
+     ],
+     1,
+     "It manipulates users and is a dark pattern."
+    ]
+   ],
+   "practice": [
+    "Write a problem statement for students who forget exam hall ticket details, using the pattern from the lesson.",
+    "Prepare five neutral interview questions about how people split bills with friends.",
+    "Find one dark pattern in a website or app you know and write how you would redesign it honestly."
+   ]
+  },
+  {
+   "title": "Information Architecture, Wireframes and Usability Heuristics",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "Organising information"
+    },
+    {
+     "p": "A user who cannot find a feature may as well not have it. **Information architecture (IA)** is the practice of organising content so that people can find things and understand where they are. A supermarket does this with aisles and signs. An app does it with menus, labels and navigation."
+    },
+    {
+     "h": "Card sorting and site maps"
+    },
+    {
+     "p": "To learn how users group things, use **card sorting**. Write each feature on a card, such as Pay, Check balance, Scan QR, Recharge and History. Ask five to ten people to group the cards and name each group. Their groups show you the mental model users already hold."
+    },
+    {
+     "p": "The result is a **site map** or app map: a tree that shows every main screen and how it is reached. Keep important things within two or three taps of the home screen, and use labels that users themselves would say. Prefer Pay Bills over Utility Disbursement."
+    },
+    {
+     "diagram": "Interactive card sorting board. Twelve feature cards of a payment app float on the left. The student drags them into group boxes, names each box, and the board then turns the grouping into a tree-shaped site map with the home screen at the top."
+    },
+    {
+     "h": "User flows"
+    },
+    {
+     "p": "A **user flow** is a diagram of the steps a user takes to complete one task, including decisions and error paths. Example: Pay a shop by scanning a QR code."
+    },
+    {
+     "ol": [
+      "Open app on the home screen.",
+      "Tap Scan, then point the camera at the QR code.",
+      "Decision: is the QR readable? If not, show a message and offer manual entry.",
+      "Enter the amount and confirm the receiver name.",
+      "Enter the secret PIN.",
+      "Decision: payment success? If yes, show confirmation. If no, show the reason and a retry option."
+     ]
+    },
+    {
+     "p": "Flows expose problems early. If a task needs ten steps, you will see it on paper before any screen is designed."
+    },
+    {
+     "h": "Wireframes"
+    },
+    {
+     "p": "A **wireframe** is a simple, mostly grey drawing of a screen that shows layout and priority but not final colours or images. Its purpose is to discuss structure cheaply. It is far easier to move a box in a sketch than to redo a finished design."
+    },
+    {
+     "tbl": [
+      [
+       "Fidelity",
+       "Look",
+       "Used for",
+       "Time"
+      ],
+      [
+       "Paper sketch",
+       "Pencil drawing",
+       "Exploring many ideas quickly",
+       "Minutes"
+      ],
+      [
+       "Low-fidelity wireframe",
+       "Grey boxes and placeholder text",
+       "Checking layout and flow",
+       "Hours"
+      ],
+      [
+       "High-fidelity mockup",
+       "Real colours, fonts and images",
+       "Final visual review and development hand-off",
+       "Days"
+      ],
+      [
+       "Interactive prototype",
+       "Clickable screens",
+       "Usability testing",
+       "Days"
+      ]
+     ]
+    },
+    {
+     "tip": "Sketch at least six different layouts for the main screen in ten minutes before choosing one. The first idea is rarely the best one."
+    },
+    {
+     "h": "Visual hierarchy"
+    },
+    {
+     "p": "Users do not read a screen; they scan it. **Visual hierarchy** guides the eye to the most important element first using size, weight, colour, contrast, spacing and position. On a payment confirmation screen the amount and the success message should be the largest items, and a secondary action such as Share receipt should be smaller."
+    },
+    {
+     "h": "Laws that explain behaviour"
+    },
+    {
+     "ul": [
+      "**Fitts's law:** the time to reach a target depends on its distance and size. Make important buttons large and easy to reach with a thumb.",
+      "**Hick's law:** more choices mean slower decisions. Avoid a home screen with twenty equal options.",
+      "**Jakob's law:** users spend most of their time on other apps, so they expect yours to work like those. Follow familiar patterns unless you have a strong reason.",
+      "**Miller's idea of chunking:** people remember small groups more easily, which is why long card numbers and phone numbers are shown in groups."
+     ]
+    },
+    {
+     "h": "Ten usability heuristics"
+    },
+    {
+     "p": "Jakob Nielsen's ten heuristics are rules of thumb for reviewing any interface. A **heuristic evaluation** means checking a design against them to find problems without needing users."
+    },
+    {
+     "tbl": [
+      [
+       "Heuristic",
+       "Meaning",
+       "Example"
+      ],
+      [
+       "1 Visibility of system status",
+       "Always tell users what is happening",
+       "Progress bar while a ticket is booked"
+      ],
+      [
+       "2 Match with the real world",
+       "Use words and ideas users know",
+       "Say Cart, not Item Aggregation"
+      ],
+      [
+       "3 User control and freedom",
+       "Give an easy way out and undo",
+       "Undo after deleting a message"
+      ],
+      [
+       "4 Consistency and standards",
+       "Same thing looks and works the same way",
+       "Primary button always the same colour"
+      ],
+      [
+       "5 Error prevention",
+       "Stop mistakes before they happen",
+       "Confirm before sending a large payment"
+      ],
+      [
+       "6 Recognition rather than recall",
+       "Show options instead of making users remember",
+       "Show recent payees"
+      ],
+      [
+       "7 Flexibility and efficiency",
+       "Shortcuts for experts, simple for beginners",
+       "Saved addresses for repeat orders"
+      ],
+      [
+       "8 Aesthetic and minimalist design",
+       "Remove unneeded information",
+       "Hide rarely used settings"
+      ],
+      [
+       "9 Help users recover from errors",
+       "Plain-language errors with a fix",
+       "Card declined: check expiry date"
+      ],
+      [
+       "10 Help and documentation",
+       "Easy to search and task-focused",
+       "Short in-app help for refunds"
+      ]
+     ]
+    },
+    {
+     "h": "Writing the words in the interface"
+    },
+    {
+     "p": "Interface text is part of design, often called **UX writing**. Use short, clear and active words. Compare an error message: Transaction failed due to error code 504, with Payment did not go through. Your money has not been deducted. Please try again. The second message tells the user what happened, what it means for them and what to do next."
+    },
+    {
+     "warn": "Never blame the user in an error message. Avoid words such as invalid, illegal or wrong. Say what is needed, for example: Enter a 10-digit mobile number."
+    },
+    {
+     "h": "Mobile first"
+    },
+    {
+     "p": "A large share of Indian internet users reach the web mostly on phones. **Mobile-first design** means you design the small screen first, which forces you to decide what really matters, and then expand the layout for tablets and desktops."
+    },
+    {
+     "flip": [
+      [
+       "What is a wireframe?",
+       "A simple grey layout of a screen showing structure and priority without final styling."
+      ],
+      [
+       "State Hick's law.",
+       "More choices make decisions slower."
+      ],
+      [
+       "What is a heuristic evaluation?",
+       "Reviewing a design against usability rules of thumb to find problems."
+      ],
+      [
+       "Why use card sorting?",
+       "To learn how users group and name things, which shapes navigation."
+      ],
+      [
+       "Which heuristic supports an Undo button?",
+       "User control and freedom."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Draw a user flow for ordering a meal in a food app, including one error path. Then sketch three different home screen layouts on paper and review each against two heuristics."
+    }
+   ],
+   "quiz": [
+    [
+     "Which method helps discover how users group features?",
+     [
+      "A/B testing",
+      "Card sorting",
+      "Colour theory",
+      "Code review"
+     ],
+     1,
+     "Card sorting reveals users' mental models for navigation labels and groups."
+    ],
+    [
+     "A progress bar during payment follows which heuristic?",
+     [
+      "Error prevention",
+      "Visibility of system status",
+      "Consistency and standards",
+      "Help and documentation"
+     ],
+     1,
+     "It tells users what the system is doing."
+    ],
+    [
+     "Why are low-fidelity wireframes useful?",
+     [
+      "They are the final design",
+      "They allow cheap discussion of layout and flow",
+      "They replace user research",
+      "They contain all colours"
+     ],
+     1,
+     "They make structural change easy and cheap."
+    ],
+    [
+     "Showing recent payees rather than asking users to type the name again supports:",
+     [
+      "Recognition rather than recall",
+      "Aesthetic design",
+      "Hick's law only",
+      "Dark patterns"
+     ],
+     0,
+     "Users recognise a visible option instead of remembering it."
+    ],
+    [
+     "Which error message is best?",
+     [
+      "Invalid input",
+      "Error 504",
+      "Enter a 10-digit mobile number",
+      "You entered the wrong number"
+     ],
+     2,
+     "It states what is needed without blaming the user. The others are vague or accusing."
+    ]
+   ],
+   "practice": [
+    "Run a heuristic evaluation of any app screen and list three problems with the heuristic each one breaks.",
+    "Rewrite three error messages from an app you use so that they explain the problem and the next step.",
+    "Create a site map with at most four main sections for a college events app."
+   ]
+  },
+  {
+   "title": "Visual Design: Layout, Typography, Colour and Accessibility",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Design is communication"
+    },
+    {
+     "p": "Visual design is not decoration. Every choice of size, colour and spacing tells the user what to look at, what to trust and what to do. This lesson gives you rules that make screens look professional, even if you do not consider yourself artistic."
+    },
+    {
+     "h": "The principles of visual design"
+    },
+    {
+     "ul": [
+      "**Contrast:** differences that make important things stand out.",
+      "**Alignment:** elements share edges, so the screen looks ordered.",
+      "**Repetition:** the same style is used for the same kind of element.",
+      "**Proximity:** related items sit close together and unrelated items sit far apart.",
+      "**White space:** empty space around items gives rest and focus. It is not wasted space."
+     ]
+    },
+    {
+     "h": "Layout and the grid"
+    },
+    {
+     "p": "A **grid** is an invisible set of columns and gutters that keeps elements aligned. On mobile, designers often use four columns. On desktop they commonly use twelve. Margins keep content away from the screen edge."
+    },
+    {
+     "p": "Spacing should follow a system. The popular **8-point grid** means all sizes and gaps are multiples of 8 (8, 16, 24, 32, 40...), with 4 allowed for fine detail. A system removes guesswork and makes a design look consistent and easier to build."
+    },
+    {
+     "diagram": "Split view of one screen. On the left, elements placed with random gaps (13, 21, 9 pixels) and a red alignment warning. On the right, the same elements snapped to an 8-point grid with a translucent grid overlay and green alignment guides. A slider fades between the two."
+    },
+    {
+     "h": "Typography"
+    },
+    {
+     "p": "Most screens are mostly text, so typography is a major part of design."
+    },
+    {
+     "ul": [
+      "**Typeface and font:** a typeface is the design family, for example Inter or Roboto. A font is one style of it, such as Inter Bold at 16 pixels.",
+      "**Limit the families:** one or two typefaces are enough for nearly every product.",
+      "**Type scale:** choose a small set of sizes with clear steps, for example 12, 14, 16, 20, 24 and 32.",
+      "**Weight:** use regular for body text and semibold or bold for headings and key numbers.",
+      "**Line height:** about 1.4 to 1.6 times the text size for body text keeps lines easy to read.",
+      "**Line length:** about 45 to 75 characters per line is comfortable for reading paragraphs."
+     ]
+    },
+    {
+     "p": "Body text on mobile is usually at least 16 pixels. If users must zoom to read, the design has failed."
+    },
+    {
+     "p": "Think about language too. A product for Indian users may need to show Hindi, Gujarati or Tamil. Choose a typeface that supports these scripts, and leave extra space because some scripts need more height and width than English."
+    },
+    {
+     "h": "Colour"
+    },
+    {
+     "p": "A colour palette for a product usually has these parts:"
+    },
+    {
+     "tbl": [
+      [
+       "Role",
+       "Purpose",
+       "Example use"
+      ],
+      [
+       "Primary",
+       "Brand and main actions",
+       "Main buttons, active tabs"
+      ],
+      [
+       "Secondary",
+       "Support and variety",
+       "Highlights, charts"
+      ],
+      [
+       "Neutral",
+       "Text, borders, backgrounds",
+       "Greys from near-white to near-black"
+      ],
+      [
+       "Success",
+       "Positive result",
+       "Payment successful"
+      ],
+      [
+       "Warning",
+       "Needs attention",
+       "Low balance"
+      ],
+      [
+       "Error",
+       "Problem or danger",
+       "Payment failed, invalid field"
+      ]
+     ]
+    },
+    {
+     "p": "A good rule is the **60-30-10 rule**: about 60 percent neutral background, 30 percent secondary and 10 percent accent colour. The accent colour then truly stands out."
+    },
+    {
+     "p": "Colours carry meaning that varies by culture. Red often means danger in software, but in Indian weddings it is a colour of celebration. Do not rely on culture alone; always back colour with text or icons."
+    },
+    {
+     "h": "Accessibility"
+    },
+    {
+     "p": "Accessibility means that people with different abilities can use your product, including people with low vision, colour blindness, hearing loss, motor difficulty or an old phone. It also helps everyone: nobody reads a dim screen clearly in bright sunlight."
+    },
+    {
+     "p": "The Web Content Accessibility Guidelines (**WCAG**) set measurable targets. Key ones for designers:"
+    },
+    {
+     "ul": [
+      "**Contrast ratio:** normal text needs at least 4.5 to 1 against its background. Large text needs at least 3 to 1. Light grey text on white often fails.",
+      "**Do not use colour alone:** a red border on an error field must also have an error message or an icon, because some users cannot tell red from green.",
+      "**Touch targets:** make tappable items at least about 44 by 44 points (Apple) or 48 by 48 dp (Google Material), with space between them.",
+      "**Text size and zoom:** layouts should still work when users increase the system font size.",
+      "**Labels and alternative text:** icons need text labels, and meaningful images need descriptions for screen readers.",
+      "**Focus order:** keyboard and screen reader users must move through elements in a logical order."
+     ]
+    },
+    {
+     "warn": "Contrast and colour-blindness checks are required, not optional. Test every text and background pair with a contrast checker, and do it before the client or developer sees the design."
+    },
+    {
+     "h": "Icons, images and consistency"
+    },
+    {
+     "ul": [
+      "Use one icon set with the same stroke width and corner style.",
+      "Pair icons with labels unless the icon is universally understood, such as a magnifying glass for search.",
+      "Use real, relevant images with proper rights. Never copy images from the internet without permission.",
+      "Keep corner radius, shadow and border style the same across components."
+     ]
+    },
+    {
+     "h": "Reviewing your own screen"
+    },
+    {
+     "p": "Try the **squint test**: blur your eyes or zoom out and see what stands out. If the most important element is not the first thing you notice, adjust the hierarchy. Then run the **grayscale test**: convert the screen to grayscale and check whether it is still understandable without colour."
+    },
+    {
+     "tip": "When a screen looks messy, do not add more. Remove one thing, align edges and increase spacing. Most visual problems are solved by subtraction."
+    },
+    {
+     "flip": [
+      [
+       "What is the 8-point grid?",
+       "A spacing system where sizes and gaps are multiples of 8."
+      ],
+      [
+       "Minimum contrast ratio for normal text under WCAG AA?",
+       "4.5 to 1."
+      ],
+      [
+       "Why not use colour alone to show an error?",
+       "Some users cannot distinguish colours; add text or an icon."
+      ],
+      [
+       "Recommended body text line height?",
+       "About 1.4 to 1.6 times the font size."
+      ],
+      [
+       "What does the 60-30-10 rule suggest?",
+       "About 60 percent neutral, 30 percent secondary and 10 percent accent colour."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Pick five text and background colour pairs from an app. Check each one with a contrast checker, note which fail the 4.5 to 1 rule and choose a darker or lighter replacement for each failure."
+    }
+   ],
+   "quiz": [
+    [
+     "The 8-point grid is mainly used to:",
+     [
+      "Limit images to 8 per page",
+      "Keep spacing and sizes consistent",
+      "Choose 8 colours",
+      "Set the number of fonts"
+     ],
+     1,
+     "It makes sizes and gaps multiples of 8 for consistency and easier development."
+    ],
+    [
+     "Which contrast ratio is the WCAG AA minimum for normal text?",
+     [
+      "2 to 1",
+      "3 to 1",
+      "4.5 to 1",
+      "10 to 1"
+     ],
+     2,
+     "Normal text needs at least 4.5 to 1. Large text needs 3 to 1."
+    ],
+    [
+     "Why add an error message next to a red input border?",
+     [
+      "Red is not allowed",
+      "Some users cannot perceive the colour difference",
+      "It saves space",
+      "It is a brand rule"
+     ],
+     1,
+     "Colour must not be the only signal of an error."
+    ],
+    [
+     "What is a comfortable line length for paragraphs?",
+     [
+      "10 characters",
+      "45 to 75 characters",
+      "150 characters",
+      "200 characters"
+     ],
+     1,
+     "That range is easiest to read without losing the line."
+    ],
+    [
+     "Which fix usually improves a cluttered screen first?",
+     [
+      "Add more colours",
+      "Add more decoration",
+      "Remove items and increase spacing",
+      "Reduce text to 8 pixels"
+     ],
+     2,
+     "Subtraction and spacing clarify hierarchy."
+    ]
+   ],
+   "practice": [
+    "Create a type scale of six sizes for a mobile app and say where each size is used.",
+    "Build a colour palette with one primary, three neutrals and success, warning and error colours, then test the contrast of text on each.",
+    "Apply the grayscale test to a screenshot of any app and note two improvements."
+   ]
+  },
+  {
+   "title": "Figma Basics: Canvas, Frames, Shapes and Text",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "What is Figma?"
+    },
+    {
+     "p": "**Figma** is a design tool that runs in the browser and also as a desktop app. Because the file lives online, several people can work on the same design at once, and a developer or client can open it with a link. It is used by many product teams to design websites and apps. A free plan is available for learners; plan limits change from time to time, so check the current pricing page when you sign up."
+    },
+    {
+     "p": "Practise on your own account with your own sample projects. Do not upload a client's confidential designs to a personal account without permission."
+    },
+    {
+     "h": "The Figma workspace"
+    },
+    {
+     "ul": [
+      "**Canvas:** the large, infinite area where you design.",
+      "**Layers panel (left):** lists every object and page. It shows the structure of your file.",
+      "**Properties panel (right):** shows size, position, colour, text style and effects of the selected object.",
+      "**Toolbar (top):** tools such as Move, Frame, Shape, Pen, Text and comments.",
+      "**Pages:** a file can contain several pages, for example Research, Wireframes, Final Designs and Components."
+     ]
+    },
+    {
+     "diagram": "Annotated screenshot-style diagram of the Figma window. Hovering over each region (canvas, layers panel, properties panel, toolbar, pages list) highlights it and shows a one-line description. A small quiz mode hides the labels and asks the student to click the correct area."
+    },
+    {
+     "h": "Frames: the foundation"
+    },
+    {
+     "p": "A **frame** is a container, like an artboard, that represents a screen. Press [[F]] to choose the Frame tool and pick a preset such as a phone or desktop size from the right panel. A common phone frame is about 390 pixels wide, and desktop designs often start near 1440 pixels wide. Frames can hold other frames, which is how you build a screen out of sections."
+    },
+    {
+     "p": "Frames can **clip content**, so anything outside the frame is hidden, and they can have their own background, layout grid and constraints. Use frames for screens and sections. Use groups only to move objects together quickly."
+    },
+    {
+     "h": "Essential tools and shortcuts"
+    },
+    {
+     "tbl": [
+      [
+       "Action",
+       "Windows",
+       "Mac"
+      ],
+      [
+       "Move tool",
+       "[[V]]",
+       "[[V]]"
+      ],
+      [
+       "Frame tool",
+       "[[F]]",
+       "[[F]]"
+      ],
+      [
+       "Rectangle",
+       "[[R]]",
+       "[[R]]"
+      ],
+      [
+       "Ellipse",
+       "[[O]]",
+       "[[O]]"
+      ],
+      [
+       "Line",
+       "[[L]]",
+       "[[L]]"
+      ],
+      [
+       "Text",
+       "[[T]]",
+       "[[T]]"
+      ],
+      [
+       "Pen tool",
+       "[[P]]",
+       "[[P]]"
+      ],
+      [
+       "Duplicate",
+       "[[Ctrl]] + [[D]]",
+       "[[Cmd]] + [[D]]"
+      ],
+      [
+       "Group",
+       "[[Ctrl]] + [[G]]",
+       "[[Cmd]] + [[G]]"
+      ],
+      [
+       "Zoom to fit all",
+       "[[Shift]] + [[1]]",
+       "[[Shift]] + [[1]]"
+      ],
+      [
+       "Zoom to selection",
+       "[[Shift]] + [[2]]",
+       "[[Shift]] + [[2]]"
+      ]
+     ]
+    },
+    {
+     "p": "Hold [[Alt]] (Option on Mac) while hovering over another object to see the distance between objects. Hold [[Alt]] while dragging an object to make a copy. These two habits save a lot of time."
+    },
+    {
+     "h": "Shapes, fills, strokes and effects"
+    },
+    {
+     "p": "Almost every interface element is built from simple shapes. A button is a rectangle with rounded corners and a text layer. A profile picture is an ellipse with an image fill."
+    },
+    {
+     "ul": [
+      "**Fill:** the colour, gradient or image inside a shape.",
+      "**Stroke:** the border, with a colour, width and position (inside, centre or outside).",
+      "**Corner radius:** controls how round the corners are. A consistent radius gives a consistent style.",
+      "**Effects:** drop shadow, inner shadow and blur. Use shadows lightly, mainly to show that something is raised, such as a card or a popup."
+     ]
+    },
+    {
+     "h": "Working with text"
+    },
+    {
+     "p": "Press [[T]], click on the canvas and type. In the properties panel you can set typeface, weight, size, line height, letter spacing and alignment. Text can be a **fixed width** box, which wraps lines, or **auto width**, which grows with content. For buttons use auto width and for paragraphs use fixed width."
+    },
+    {
+     "tip": "Always use real text in your designs, not Lorem ipsum. Real names, amounts in rupees and realistic lengths show problems early, such as a long Gujarati name that breaks a card layout."
+    },
+    {
+     "h": "Constraints and layout grids"
+    },
+    {
+     "p": "**Constraints** tell an object how to behave when its parent frame is resized. Options include Left, Right, Left and Right, Top, Bottom, Center and Scale. A back button pinned to Left and Top stays in the corner. A search bar set to Left and Right stretches when the screen gets wider."
+    },
+    {
+     "p": "A **layout grid** can be added to a frame, as columns, rows or a square grid, to keep alignment. For a mobile frame, a four-column grid with 16 pixel margins is a common start."
+    },
+    {
+     "h": "Styles"
+    },
+    {
+     "p": "A **style** saves a set of properties so you can reuse it. Figma supports colour styles, text styles, effect styles and grid styles. If you change the style, every object that uses it updates. This is the first step towards a consistent design."
+    },
+    {
+     "ol": [
+      "Select a text layer and set the heading look you want.",
+      "In the Text section of the properties panel, choose the option to create a style.",
+      "Name it clearly, such as Heading/H1, so styles are grouped in a folder.",
+      "Apply the style to other headings. Later, change the style once and all headings follow."
+     ]
+    },
+    {
+     "h": "Naming and organising"
+    },
+    {
+     "p": "A tidy file is a professional file. Name frames by screen, such as Home, Pay-QR and Payment-Success. Give layers clear names, delete unused objects and keep one flow per page or in labelled sections. A teammate should understand your file without a lecture."
+    },
+    {
+     "h": "Images and exporting"
+    },
+    {
+     "p": "Drag an image from your computer onto the canvas, or use it as a fill. To export, select a frame or object, go to the Export section of the properties panel, add an export setting and choose the format and scale. Use **PNG** or **JPG** for pictures, **SVG** for icons and logos, and **PDF** for documents. Scales such as 1x, 2x and 3x help developers support screens with different pixel density."
+    },
+    {
+     "warn": "Use images, icons and fonts only when you have the right to use them. Free libraries have licences too. Check the licence before using a resource in client work."
+    },
+    {
+     "flip": [
+      [
+       "What is a frame in Figma?",
+       "A container that works like a screen or a section, which can hold other objects."
+      ],
+      [
+       "Shortcut for the Frame tool?",
+       "F."
+      ],
+      [
+       "What does a constraint control?",
+       "How an object moves or stretches when its parent frame is resized."
+      ],
+      [
+       "Why use styles?",
+       "To reuse properties so a single change updates every object using the style."
+      ],
+      [
+       "Which export format suits icons?",
+       "SVG."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Create a 390 by 844 frame called Login. Add a heading, two input fields, a button and a link, using a four-column layout grid. Create a text style for the heading and a colour style for the button, then name every layer."
+    }
+   ],
+   "quiz": [
+    [
+     "Which Figma object is used to represent a screen?",
+     [
+      "Group",
+      "Frame",
+      "Comment",
+      "Boolean"
+     ],
+     1,
+     "A frame is the container used for screens. Groups are for moving objects together."
+    ],
+    [
+     "What does the constraint Left and Right do when the frame becomes wider?",
+     [
+      "The object disappears",
+      "The object stretches with the frame",
+      "The object stays in the centre",
+      "The object turns into text"
+     ],
+     1,
+     "Pinning both sides makes the object stretch."
+    ],
+    [
+     "Why use real content instead of Lorem ipsum?",
+     [
+      "It is required by Figma",
+      "It shows layout problems early",
+      "It reduces file size",
+      "It improves colour contrast"
+     ],
+     1,
+     "Realistic text reveals overflow and wrapping issues."
+    ],
+    [
+     "Which export format is best for scalable icons?",
+     [
+      "JPG",
+      "PNG at 1x",
+      "SVG",
+      "GIF"
+     ],
+     2,
+     "SVG is vector based, so it scales without losing quality."
+    ],
+    [
+     "What is the benefit of text styles?",
+     [
+      "They lock the file",
+      "One change updates all linked text",
+      "They add animation",
+      "They create variants"
+     ],
+     1,
+     "Styles keep type consistent and easy to update."
+    ]
+   ],
+   "practice": [
+    "Set up a file with three pages named Wireframes, Final and Components and add one frame to each.",
+    "Build a button with a rectangle and text layer, then use Alt-drag to create a secondary version.",
+    "Create three colour styles and three text styles and name them using the folder pattern shown in the lesson."
+   ]
+  },
+  {
+   "title": "Auto Layout, Components, Variants and Design Systems",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Designing like a builder"
+    },
+    {
+     "p": "Real products have hundreds of screens that share the same buttons, cards and forms. If you draw each button by hand, one colour change means hundreds of edits. Professional designers build reusable parts and rules. Figma gives three big tools for this: **auto layout**, **components** and **variables**."
+    },
+    {
+     "h": "Auto layout"
+    },
+    {
+     "p": "**Auto layout** makes a frame arrange its children automatically, like flexible boxes. Select objects and press [[Shift]] + [[A]] to add auto layout. The frame then resizes when its content changes. Add more text to a button and the button grows."
+    },
+    {
+     "ul": [
+      "**Direction:** horizontal or vertical stacking.",
+      "**Gap between items:** the space between children, for example 8 or 16.",
+      "**Padding:** the space between the content and the frame edge.",
+      "**Alignment:** where the children sit inside the frame.",
+      "**Resizing:** Hug contents (the frame shrinks to fit), Fill container (the object expands to fill space) or Fixed (a set size)."
+     ]
+    },
+    {
+     "diagram": "Interactive auto layout playground. A button frame holds an icon and a label. The student edits the label text and watches the frame grow, then changes direction from horizontal to vertical, adjusts gap and padding sliders, and toggles between Hug, Fill and Fixed to see the effect on size."
+    },
+    {
+     "p": "Auto layout frames can be nested. A product card may be a vertical frame containing an image, a text block (itself a vertical frame) and a row of buttons (a horizontal frame). This is similar to how developers build layouts with flexbox in CSS, which makes your design easier to convert into code."
+    },
+    {
+     "h": "Components and instances"
+    },
+    {
+     "p": "A **component** is a master object. Each copy of it is an **instance**. When you change the main component, all instances update. Create a component by selecting an object and using [[Ctrl]] + [[Alt]] + [[K]] on Windows or [[Cmd]] + [[Option]] + [[K]] on Mac."
+    },
+    {
+     "p": "Instances can have **overrides**: you can change text, image or colour in one instance without changing the master. For example, every button instance has a different label, but all share the same shape and padding."
+    },
+    {
+     "h": "Variants and component properties"
+    },
+    {
+     "p": "One button needs many states: default, hover, pressed, disabled and loading. It also needs several types: primary, secondary and ghost. Instead of many separate components, use **variants**, which group all versions into one component set."
+    },
+    {
+     "tbl": [
+      [
+       "Variant property",
+       "Values"
+      ],
+      [
+       "Type",
+       "Primary, Secondary, Ghost"
+      ],
+      [
+       "State",
+       "Default, Hover, Pressed, Disabled"
+      ],
+      [
+       "Size",
+       "Small, Medium, Large"
+      ]
+     ]
+    },
+    {
+     "p": "**Component properties** let you expose controls for the people using the component: a text property for the label, a boolean property to show or hide an icon, and an instance-swap property to choose the icon. The result is a button that a teammate can adjust from the right panel without breaking the design."
+    },
+    {
+     "h": "Variables"
+    },
+    {
+     "p": "**Variables** store values that you reuse: colours, numbers, text and true or false values. Instead of typing a hex code into every shape, you create a variable such as color/primary and apply it. Change the variable and every use updates."
+    },
+    {
+     "p": "Variables can have **modes**. A colour variable can have a Light mode value and a Dark mode value. Switching the mode of a frame switches the entire screen to the dark theme with no redrawing. Modes can also hold different languages or sizes, for example an English and a Hindi version of the same label."
+    },
+    {
+     "tbl": [
+      [
+       "Tool",
+       "Best used for"
+      ],
+      [
+       "Styles",
+       "Text styles, effects and simple colour sets"
+      ],
+      [
+       "Variables",
+       "Colour tokens, spacing, radius, themes, modes"
+      ],
+      [
+       "Components",
+       "Reusable interface parts with behaviour and states"
+      ],
+      [
+       "Auto layout",
+       "Flexible spacing and resizing rules inside components"
+      ]
+     ]
+    },
+    {
+     "h": "What is a design system?"
+    },
+    {
+     "p": "A **design system** is a shared set of rules, parts and guidelines that lets many people build a consistent product. It usually has three layers."
+    },
+    {
+     "ol": [
+      "**Design tokens:** the smallest decisions, such as colours, font sizes, spacing and radius, saved as variables.",
+      "**Components:** buttons, inputs, cards, navigation bars and dialogs built from tokens.",
+      "**Guidelines:** written rules on when and how to use each part, including accessibility rules."
+     ]
+    },
+    {
+     "p": "A helpful way to organise components is **atomic design**. Atoms are the smallest parts such as a label or icon. Molecules combine atoms, such as a search field with an icon and button. Organisms combine molecules into larger sections, such as a header. Templates and pages then place organisms on a screen."
+    },
+    {
+     "p": "Well-known companies share public design systems, such as Google's Material Design and Apple's Human Interface Guidelines. Reading them is an excellent way to learn what good components look like. Use them as learning references and follow their licence terms."
+    },
+    {
+     "h": "Building your first button component"
+    },
+    {
+     "ol": [
+      "Create a rectangle and a text layer and apply your colour and text styles or variables.",
+      "Select both and press [[Shift]] + [[A]] to add auto layout, then set padding of 12 vertical and 24 horizontal and a corner radius of 8.",
+      "Create a component from the frame.",
+      "Add variant properties for Type and State and design each combination.",
+      "Add a text property for the label, then publish or place the component on your Components page."
+     ]
+    },
+    {
+     "tip": "Name variant properties and values exactly as a developer would write them. Developers can then map Primary, Hover and Disabled directly to code with no guessing."
+    },
+    {
+     "warn": "Do not detach an instance just to change something quickly. A detached object no longer follows the master, and over time the design system breaks into many small differences."
+    },
+    {
+     "h": "Keeping systems healthy"
+    },
+    {
+     "ul": [
+      "Review the system regularly and remove components nobody uses.",
+      "Document changes so that designers and developers know what is new.",
+      "Test components with long text, short text, missing images and different languages.",
+      "Check accessibility inside each component, for example the contrast of every state."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "Shortcut to add auto layout?",
+       "Shift + A."
+      ],
+      [
+       "Component versus instance?",
+       "A component is the master. An instance is a copy that follows it."
+      ],
+      [
+       "What is a variant?",
+       "One version of a component, such as a Primary button in a Hover state, grouped in a component set."
+      ],
+      [
+       "What do variable modes allow?",
+       "Switching all values between sets, such as Light and Dark themes."
+      ],
+      [
+       "Name the three layers of a design system.",
+       "Tokens, components and guidelines."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Build a button component with Type (Primary, Secondary) and State (Default, Disabled) variants, a text property for the label and a boolean property for an icon. Then place five instances in a screen and change only their labels."
+    }
+   ],
+   "quiz": [
+    [
+     "What does the Hug contents setting do in auto layout?",
+     [
+      "Fixes the frame size",
+      "Makes the frame shrink or grow to fit its content",
+      "Stretches the object to fill the parent",
+      "Removes padding"
+     ],
+     1,
+     "Hug contents sizes the frame to its children. Fill container stretches an object to its parent."
+    ],
+    [
+     "Changing the main component will:",
+     [
+      "Change nothing",
+      "Update all linked instances",
+      "Delete overrides only",
+      "Export the file"
+     ],
+     1,
+     "Instances follow their master, except for properties that were overridden."
+    ],
+    [
+     "Which feature groups button states such as Default, Hover and Disabled?",
+     [
+      "Layout grid",
+      "Variants",
+      "Constraints",
+      "Export settings"
+     ],
+     1,
+     "Variants collect versions of one component in a component set."
+    ],
+    [
+     "Variable modes are most useful for:",
+     [
+      "Light and Dark themes",
+      "Exporting PDFs",
+      "Drawing vector paths",
+      "Adding comments"
+     ],
+     0,
+     "A mode swaps the values of variables, so one design can show several themes."
+    ],
+    [
+     "Why avoid detaching an instance?",
+     [
+      "It increases file size by 10x",
+      "It stops following the master and causes inconsistency",
+      "It deletes the component",
+      "Figma forbids it"
+     ],
+     1,
+     "A detached copy no longer updates with the system."
+    ]
+   ],
+   "practice": [
+    "Create a card with auto layout containing an image, a title, a price and a button, and test it with a very long title.",
+    "Create colour variables with Light and Dark modes and apply them to one screen, then switch the mode.",
+    "List the tokens, components and guidelines you would include in a design system for a college events app."
+   ]
+  },
+  {
+   "title": "Prototyping, Developer Handoff, Testing and Your Portfolio",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "From static screens to a living prototype"
+    },
+    {
+     "p": "A **prototype** is a clickable model of your design. It lets people try the flow before any code exists. In Figma you switch from the Design tab to the Prototype tab in the right panel, then connect frames with arrows."
+    },
+    {
+     "p": "A good prototype is only as detailed as the question you want to answer. To test whether users can find the refund option, you need only the screens along that path. Do not spend days on animation if the question is about navigation."
+    },
+    {
+     "h": "Connections, triggers and actions"
+    },
+    {
+     "p": "Each connection has three parts: a **trigger** that starts it, an **action** that happens, and an **animation** that shows the change."
+    },
+    {
+     "tbl": [
+      [
+       "Part",
+       "Options (examples)"
+      ],
+      [
+       "Trigger",
+       "On click or tap, On drag, While hovering, After delay, Mouse enter or leave"
+      ],
+      [
+       "Action",
+       "Navigate to, Back, Scroll to, Open overlay, Close overlay, Open link"
+      ],
+      [
+       "Animation",
+       "Instant, Dissolve, Smart animate, Move in, Push, Slide in"
+      ]
+     ]
+    },
+    {
+     "ul": [
+      "Use **Navigate to** for moving between screens.",
+      "Use **Open overlay** for a bottom sheet, popup or menu that appears over the current screen.",
+      "Use **Scroll to** or fixed elements for long pages and sticky headers.",
+      "Use **Smart animate** to animate between two frames that have layers with the same names, for example a toggle moving from off to on."
+     ]
+    },
+    {
+     "diagram": "Prototype flow map. Four phone frames (Home, Scan, Confirm, Success) are connected by arrows labelled On tap. The student presses Play and a hand icon taps through the flow. A second view shows two toggle frames with the same layer names and a smooth Smart animate transition between them."
+    },
+    {
+     "p": "Set a **starting frame** for the flow, and name flows clearly, such as Pay by QR. Use the preview in the corner or the Present button to try it on your computer. You can also open it on a phone to test with the real touch feel."
+    },
+    {
+     "h": "Micro-interactions and motion"
+    },
+    {
+     "p": "A **micro-interaction** is a small response to an action, such as a heart icon filling when you tap it or a button showing a spinner during payment. Good motion explains what is happening, guides attention and confirms an action. It should be quick, usually a few hundred milliseconds."
+    },
+    {
+     "warn": "Too much animation can slow a product and can make some users feel unwell. Respect users who ask their device to reduce motion, and never use flashing content."
+    },
+    {
+     "h": "Handoff to developers"
+    },
+    {
+     "p": "Handoff means giving developers everything they need to build your design correctly. Figma's **Dev Mode** is a view made for this. Developers can inspect sizes, spacing, colours, text styles and component properties, copy code snippets and download assets. A design can be marked as ready for development so developers know which screens are final. Dev Mode may need a paid seat, so check the current plan details for your team."
+    },
+    {
+     "ol": [
+      "Clean the file: remove hidden layers, name everything and use components and variables.",
+      "Place final screens in a clearly labelled section and mark them ready for development.",
+      "Show all states: empty, loading, error, success and disabled. Developers must build all of them.",
+      "Add notes on behaviour that cannot be seen, such as what happens when the network fails.",
+      "Set up export settings for icons and images in the right formats and scales.",
+      "Walk the developer through the flow and answer questions early."
+     ]
+    },
+    {
+     "tip": "Design the unhappy paths too. An empty cart, a slow connection and a failed payment are real states that users will meet every day."
+    },
+    {
+     "h": "Usability testing"
+    },
+    {
+     "p": "**Usability testing** means watching real users try to complete tasks with your prototype. It is the most reliable way to learn whether a design works."
+    },
+    {
+     "ol": [
+      "**Plan:** choose two to five key tasks, such as: Book a ticket to Pune for Friday.",
+      "**Recruit:** find people who are similar to your real users. Five users often reveal most of the major problems in one round, so run small rounds repeatedly.",
+      "**Run:** give the task, not the steps. Ask the participant to think aloud. Stay quiet, observe and take notes. Do not help or defend the design.",
+      "**Measure:** task success rate, time on task, number of errors and a satisfaction rating. A common questionnaire is the System Usability Scale (SUS).",
+      "**Analyse:** group the problems, rate their severity and fix the worst first.",
+      "**Repeat:** test again after changes."
+     ]
+    },
+    {
+     "p": "Always get permission before recording a test, tell participants that you are testing the design and not them, and protect their personal information."
+    },
+    {
+     "tbl": [
+      [
+       "Finding",
+       "Severity",
+       "Fix"
+      ],
+      [
+       "Three of five users missed the Pay button",
+       "High",
+       "Increase size and contrast, move it to the thumb zone"
+      ],
+      [
+       "Two users did not understand the label Disburse",
+       "Medium",
+       "Change the label to Send money"
+      ],
+      [
+       "One user wanted a darker theme",
+       "Low",
+       "Add to the backlog"
+      ]
+     ]
+    },
+    {
+     "h": "A/B testing and analytics"
+    },
+    {
+     "p": "After launch, numbers tell you what is happening at scale. An **A/B test** shows version A to half of the users and version B to the other half, then compares a chosen measure such as the share of users who complete payment. Analytics show where users drop out of a flow, but not why, so combine numbers with interviews and observation."
+    },
+    {
+     "h": "Building your portfolio"
+    },
+    {
+     "p": "A design portfolio is your proof of skill. Recruiters in India and abroad look for your thinking more than for pretty screens. Aim for two to four strong **case studies**."
+    },
+    {
+     "ul": [
+      "**Problem:** who the user is and what hurt.",
+      "**Role and timeline:** what you personally did.",
+      "**Research:** how you learned about users, with a few real findings.",
+      "**Process:** sketches, flows, wireframes and why you made key choices.",
+      "**Solution:** final screens, the design system and the prototype link.",
+      "**Results:** testing results or lessons learned, even for a student project."
+     ]
+    },
+    {
+     "p": "Good starter projects: redesign a confusing public service flow such as a refund screen, design a campus events app or build a design system for a small business. Mark clearly that a redesign is a personal practice project and not an official work of the organisation. Use original work only and give credit when you use any resource."
+    },
+    {
+     "flip": [
+      [
+       "What are the three parts of a prototype connection?",
+       "Trigger, action and animation."
+      ],
+      [
+       "When do you use Smart animate?",
+       "To animate smoothly between frames with matching layer names."
+      ],
+      [
+       "Why design empty and error states?",
+       "Because users will meet them, and developers must build them."
+      ],
+      [
+       "Why test with five users, repeatedly?",
+       "Five users reveal most major issues, and repeated small rounds catch what changes missed."
+      ],
+      [
+       "What should a case study explain?",
+       "The problem, your role, research, process, solution and results."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Build a four-screen prototype of a refund request flow. Ask three people to complete the task while thinking aloud, record success, time and problems, then fix the two worst problems and write a short case study."
+    }
+   ],
+   "quiz": [
+    [
+     "Which action is best for a bottom sheet that appears over the current screen?",
+     [
+      "Navigate to",
+      "Open overlay",
+      "Scroll to",
+      "Open link"
+     ],
+     1,
+     "Open overlay places a frame on top of the current screen."
+    ],
+    [
+     "Smart animate works best when:",
+     [
+      "Frames have layers with matching names",
+      "Frames are exported as PDF",
+      "There is no trigger",
+      "Only text is used"
+     ],
+     0,
+     "Smart animate matches layers with the same name between frames and animates their differences."
+    ],
+    [
+     "Why should handoff include empty, loading and error states?",
+     [
+      "To increase file size",
+      "Developers must build every state users will see",
+      "Figma requires it",
+      "It replaces testing"
+     ],
+     1,
+     "Real users meet these states often."
+    ],
+    [
+     "During a usability test, the facilitator should:",
+     [
+      "Explain how to complete each task",
+      "Stay quiet and observe while the user thinks aloud",
+      "Defend the design",
+      "End the test after the first error"
+     ],
+     1,
+     "Helping or defending hides real problems."
+    ],
+    [
+     "An A/B test is used to:",
+     [
+      "Compare two versions on a chosen measure",
+      "Check colour contrast",
+      "Export assets",
+      "Rename layers"
+     ],
+     0,
+     "Half the users see A and half see B so the results can be compared."
+    ]
+   ],
+   "practice": [
+    "Create a prototype with one overlay and one Smart animate toggle and share it with a friend using a link.",
+    "Write a usability test plan with three tasks and the measures you will record.",
+    "Outline a case study for a project of your choice using the six headings from the lesson."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "simulator",
+  "name": "Mission: Redesign the Refund Screen",
+  "story": "You are a junior designer at a ticket-booking startup. Users complain that the refund screen is confusing and they keep calling support. Your mission is to find the problems, plan a better flow and review your design against usability rules. Use only the sample screen provided in the rootjavs simulator and your own files.",
+  "steps": [
+   {
+    "goal": "Read the sample refund screen. Write the main user goal in one sentence using the pattern: [User] needs a way to [goal] because [reason].",
+    "hint": "The user wants to see and request a refund for a cancelled ticket.",
+    "check": "Sentence names a user, the goal of requesting or tracking a refund and a reason"
+   },
+   {
+    "goal": "The screen shows 9 equal-sized buttons. Which law explains why users freeze, and what should you do?",
+    "hint": "More choices slow decisions.",
+    "check": "Hick's law; reduce the choices and highlight one primary action"
+   },
+   {
+    "goal": "The error message says Error 504. Rewrite it so it tells the user what happened and what to do next.",
+    "hint": "Explain the result, the effect on money and a next step. Do not blame the user.",
+    "check": "Message says the refund request did not go through, money is safe and the user can try again"
+   },
+   {
+    "goal": "The status text is light grey (#BBBBBB) on white. State whether it passes the WCAG AA rule for normal text and what to do.",
+    "hint": "Normal text needs a contrast ratio of at least 4.5 to 1.",
+    "check": "It fails; use a darker grey so the ratio is at least 4.5 to 1"
+   },
+   {
+    "goal": "The Request refund button is 28 by 28 pixels. What minimum touch target size would you set?",
+    "hint": "Apple suggests about 44 points and Material suggests 48 dp.",
+    "check": "About 44 by 44 points or 48 by 48 dp"
+   },
+   {
+    "goal": "Choose the spacing values for a card using the 8-point grid: pick the best padding from 10, 13, 16 or 19.",
+    "hint": "Multiples of 8 are preferred.",
+    "check": "16"
+   },
+   {
+    "goal": "Order the steps of the improved refund user flow: Enter reason, Open booking, Confirm request, Tap Request refund, See status tracker.",
+    "hint": "Start at the booking and finish with feedback.",
+    "check": "Open booking, Tap Request refund, Enter reason, Confirm request, See status tracker"
+   },
+   {
+    "goal": "Which heuristic says users should be able to cancel a request they started by mistake?",
+    "hint": "It is about giving an exit.",
+    "check": "User control and freedom"
+   },
+   {
+    "goal": "Name the two missing states a developer needs besides the success screen.",
+    "hint": "Think about slow network and no data.",
+    "check": "Any two of: loading, error, empty"
+   },
+   {
+    "goal": "Choose the correct Figma feature for each: stretching a search bar with the screen width, and Light and Dark themes.",
+    "hint": "One is a constraint and one is a variable mode.",
+    "check": "Constraints (Left and Right); variable modes"
+   },
+   {
+    "goal": "You tested the new design with 5 users. 4 completed the task. Calculate the task success rate.",
+    "hint": "Divide completed by total and write as a percentage.",
+    "check": "80 percent"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which activity belongs mainly to UX design?",
+   [
+    "Choosing an icon set",
+    "Picking a shadow colour",
+    "Planning the steps of a task so it is easy to complete",
+    "Exporting an image"
+   ],
+   2,
+   "UX shapes the overall experience. The others are UI or production tasks."
+  ],
+  [
+   "What is the first stage of the design thinking process?",
+   [
+    "Prototype",
+    "Empathize",
+    "Test",
+    "Ideate"
+   ],
+   1,
+   "The process starts by understanding the users."
+  ],
+  [
+   "A survey of 2,000 users measuring satisfaction is:",
+   [
+    "Quantitative research",
+    "Qualitative research",
+    "A persona",
+    "A wireframe"
+   ],
+   0,
+   "It measures how many, so it is quantitative."
+  ],
+  [
+   "Which is the best interview question?",
+   [
+    "Wouldn't a bigger button be better?",
+    "You find this app easy, right?",
+    "Do you like blue?",
+    "Tell me about the last time you paid a bill."
+   ],
+   3,
+   "It is open and neutral. The others lead the user or ask trivial questions."
+  ],
+  [
+   "A persona should be built from:",
+   [
+    "Imagination only",
+    "Research data",
+    "The designer's own habits",
+    "Competitor logos"
+   ],
+   1,
+   "Personas must represent real research findings."
+  ],
+  [
+   "A journey map's lowest emotional point shows:",
+   [
+    "The easiest thing to ignore",
+    "A technical bug",
+    "The best opportunity for improvement",
+    "The brand colour"
+   ],
+   2,
+   "Pain points are where design can help most."
+  ],
+  [
+   "Which technique helps decide navigation labels and groups?",
+   [
+    "Heuristic evaluation",
+    "Card sorting",
+    "Contrast checking",
+    "Smart animate"
+   ],
+   1,
+   "Card sorting reveals how users group and name items."
+  ],
+  [
+   "Which law says that more choices slow decision making?",
+   [
+    "Fitts's law",
+    "Jakob's law",
+    "Murphy's law",
+    "Hick's law"
+   ],
+   3,
+   "Hick's law links choice count with decision time."
+  ],
+  [
+   "Making a frequently used button larger and closer to the thumb follows:",
+   [
+    "Fitts's law",
+    "Hick's law",
+    "The 60-30-10 rule",
+    "Atomic design"
+   ],
+   0,
+   "Fitts's law relates target size and distance to the time to reach it."
+  ],
+  [
+   "Which heuristic is supported by showing recent contacts in a payment app?",
+   [
+    "Recognition rather than recall",
+    "Error prevention",
+    "Help and documentation",
+    "Consistency only"
+   ],
+   0,
+   "Users recognise options instead of remembering names."
+  ],
+  [
+   "Which wireframe fidelity is best for exploring many ideas in minutes?",
+   [
+    "Paper sketch",
+    "High-fidelity mockup",
+    "Interactive prototype",
+    "Design system"
+   ],
+   0,
+   "Sketches are the fastest and cheapest."
+  ],
+  [
+   "What does the 8-point grid help with?",
+   [
+    "Image compression",
+    "Consistent spacing and sizes",
+    "Font licensing",
+    "Animation speed"
+   ],
+   1,
+   "All spacing values are multiples of 8."
+  ],
+  [
+   "The minimum WCAG AA contrast ratio for large text is:",
+   [
+    "1.5 to 1",
+    "4.5 to 1",
+    "3 to 1",
+    "7 to 1"
+   ],
+   2,
+   "Large text needs 3 to 1. Normal text needs 4.5 to 1."
+  ],
+  [
+   "A suitable recommended line height for body text is about:",
+   [
+    "1.4 to 1.6 times the size",
+    "0.8 times the size",
+    "1.0 times the size",
+    "3 times the size"
+   ],
+   0,
+   "That range is easy to read."
+  ],
+  [
+   "Why should an error never be shown by colour alone?",
+   [
+    "Colour costs more to print",
+    "Red is banned",
+    "Screens cannot show red",
+    "Some users cannot distinguish the colours"
+   ],
+   3,
+   "Add text or icons for users with colour vision difficulty."
+  ],
+  [
+   "In Figma, which tool makes a container that represents a screen?",
+   [
+    "Pen",
+    "Line",
+    "Comment",
+    "Frame"
+   ],
+   3,
+   "Frames work as screens or sections."
+  ],
+  [
+   "Which constraint setting makes an object stretch horizontally with its frame?",
+   [
+    "Left",
+    "Right",
+    "Center",
+    "Left and Right"
+   ],
+   3,
+   "Pinning both sides stretches the object."
+  ],
+  [
+   "Which export format is best for an icon that must scale cleanly?",
+   [
+    "JPG",
+    "Low-quality PNG",
+    "GIF",
+    "SVG"
+   ],
+   3,
+   "SVG is a vector format."
+  ],
+  [
+   "Auto layout resizing option that makes a frame shrink to its content is:",
+   [
+    "Fixed",
+    "Fill container",
+    "Hug contents",
+    "Clip content"
+   ],
+   2,
+   "Hug contents fits the frame to its children."
+  ],
+  [
+   "What is an instance of a component?",
+   [
+    "The master file",
+    "A copy that follows the master",
+    "A prototype link",
+    "A colour style"
+   ],
+   1,
+   "Instances update when the master changes."
+  ],
+  [
+   "Variants are used to:",
+   [
+    "Export PDFs",
+    "Add comments",
+    "Group versions of a component such as states and types",
+    "Create layout grids"
+   ],
+   2,
+   "Variants keep all versions in one component set."
+  ],
+  [
+   "Which feature lets one design switch between Light and Dark themes?",
+   [
+    "Constraints",
+    "Pen tool",
+    "Variable modes",
+    "Overlay"
+   ],
+   2,
+   "Modes switch variable values."
+  ],
+  [
+   "In a prototype, which action shows a bottom sheet above the current screen?",
+   [
+    "Open overlay",
+    "Navigate to",
+    "Back",
+    "Open link"
+   ],
+   0,
+   "An overlay appears on top of the existing frame."
+  ],
+  [
+   "After five users test a design and several fail the same task, the next step is to:",
+   [
+    "Ignore it",
+    "Fix the most severe problems and test again",
+    "Blame the participants",
+    "Launch immediately"
+   ],
+   1,
+   "Testing is iterative, so fix and retest."
+  ],
+  [
+   "An A/B test compares:",
+   [
+    "Two fonts only",
+    "Two designers",
+    "Two file formats",
+    "Two versions on a chosen measure"
+   ],
+   3,
+   "Each group sees one version and results are compared."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "A college in Gujarat wants a simple events app. You are the designer. Build the core design in Figma using only your own account and original or properly licensed resources.",
+  "tasks": [
+   {
+    "task": "Write a persona and a problem statement for a first-year student who misses events because notices are scattered.",
+    "check": "Persona has goals, frustrations and context; problem statement follows [User] needs a way to [goal] because [reason]"
+   },
+   {
+    "task": "Draw a user flow for registering for an event, including one error path.",
+    "check": "Flow has start, steps, at least one decision and an error path"
+   },
+   {
+    "task": "Create three low-fidelity wireframes: Home, Event details and Registration success.",
+    "check": "Three frames exist with clear hierarchy and real text"
+   },
+   {
+    "task": "Create a mobile frame with a four-column grid, a type scale, and colour variables for primary, neutral, success and error.",
+    "check": "Frame about 390 pixels wide, grid applied, at least four colour variables and a type scale"
+   },
+   {
+    "task": "Build a Register button component with Primary and Disabled variants using auto layout.",
+    "check": "Component set with two variants, auto layout padding and a text property"
+   },
+   {
+    "task": "Check contrast of all text and background pairs in the Home screen and fix any pair below 4.5 to 1.",
+    "check": "Contrast values noted and failing pairs replaced"
+   },
+   {
+    "task": "Create a clickable prototype of the registration flow and test it with three people, noting success rate and two problems.",
+    "check": "Prototype link works and notes include success rate and two findings"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "UI/UX Design and Figma Quick Reference",
+  "sections": [
+   [
+    "Process",
+    [
+     [
+      "Empathize",
+      "Learn about users"
+     ],
+     [
+      "Define",
+      "Write the problem clearly"
+     ],
+     [
+      "Ideate",
+      "Generate many ideas"
+     ],
+     [
+      "Prototype",
+      "Make a testable model"
+     ],
+     [
+      "Test",
+      "Observe users and improve"
+     ]
+    ]
+   ],
+   [
+    "Laws and rules",
+    [
+     [
+      "Fitts's law",
+      "Big, near targets are quicker to hit"
+     ],
+     [
+      "Hick's law",
+      "More choices slow decisions"
+     ],
+     [
+      "Jakob's law",
+      "Users expect familiar patterns"
+     ],
+     [
+      "8-point grid",
+      "Spacing in multiples of 8"
+     ],
+     [
+      "60-30-10",
+      "Neutral, secondary and accent colour balance"
+     ]
+    ]
+   ],
+   [
+    "Accessibility",
+    [
+     [
+      "Normal text contrast",
+      "At least 4.5 to 1"
+     ],
+     [
+      "Large text contrast",
+      "At least 3 to 1"
+     ],
+     [
+      "Touch target",
+      "About 44 by 44 pt or 48 by 48 dp"
+     ],
+     [
+      "Colour",
+      "Never the only signal"
+     ]
+    ]
+   ],
+   [
+    "Figma shortcuts",
+    [
+     [
+      "V",
+      "Move"
+     ],
+     [
+      "F",
+      "Frame"
+     ],
+     [
+      "R / O / L",
+      "Rectangle / Ellipse / Line"
+     ],
+     [
+      "T",
+      "Text"
+     ],
+     [
+      "P",
+      "Pen"
+     ],
+     [
+      "Ctrl or Cmd + D",
+      "Duplicate"
+     ],
+     [
+      "Shift + A",
+      "Add auto layout"
+     ],
+     [
+      "Ctrl + Alt + K (Win) / Cmd + Option + K (Mac)",
+      "Create component"
+     ],
+     [
+      "Shift + 1 / Shift + 2",
+      "Zoom to fit / zoom to selection"
+     ]
+    ]
+   ],
+   [
+    "Figma building blocks",
+    [
+     [
+      "Frame",
+      "Screen or section container"
+     ],
+     [
+      "Constraint",
+      "Behaviour on resize"
+     ],
+     [
+      "Style",
+      "Reusable colour, text or effect"
+     ],
+     [
+      "Component and instance",
+      "Master and linked copy"
+     ],
+     [
+      "Variant",
+      "Version of a component"
+     ],
+     [
+      "Variable and mode",
+      "Reusable value and theme set"
+     ]
+    ]
+   ],
+   [
+    "Prototype",
+    [
+     [
+      "Trigger",
+      "On click, drag, hover, after delay"
+     ],
+     [
+      "Action",
+      "Navigate, overlay, scroll, back"
+     ],
+     [
+      "Animation",
+      "Instant, dissolve, smart animate, push"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "UX",
+   "User experience: how a person feels while using a product to reach a goal."
+  ],
+  [
+   "UI",
+   "User interface: the visible screens, controls and style of a product."
+  ],
+  [
+   "Persona",
+   "A fictional but research-based user profile that represents a group of users."
+  ],
+  [
+   "Wireframe",
+   "A simple layout drawing that shows structure and priority without final styling."
+  ],
+  [
+   "Prototype",
+   "A clickable model of a design used for testing before development."
+  ],
+  [
+   "Heuristic evaluation",
+   "A review of a design against usability rules of thumb."
+  ],
+  [
+   "Visual hierarchy",
+   "Arranging elements so the most important one is noticed first."
+  ],
+  [
+   "Accessibility",
+   "Designing so that people with different abilities can use a product."
+  ],
+  [
+   "WCAG",
+   "Web Content Accessibility Guidelines with measurable accessibility targets."
+  ],
+  [
+   "Frame",
+   "A Figma container that works like a screen or section."
+  ],
+  [
+   "Auto layout",
+   "A Figma feature where a frame arranges and resizes its children automatically."
+  ],
+  [
+   "Component",
+   "A reusable master design element in Figma."
+  ],
+  [
+   "Variant",
+   "One version of a component, such as a state or type."
+  ],
+  [
+   "Design system",
+   "A shared set of tokens, components and guidelines for consistent products."
+  ],
+  [
+   "Dark pattern",
+   "An interface trick that pushes users into choices against their interest."
+  ]
+ ],
+ "interview": [
+  [
+   "What is the difference between UX and UI?",
+   "UX is the whole experience of reaching a goal, including research, flows and ease of use. UI is the visual layer of screens, including colour, type and components. A good product needs both."
+  ],
+  [
+   "Walk me through your design process.",
+   "I start by understanding users through research, define a clear problem, generate ideas, prototype the best one, test with real users and iterate. I explain how each step changed my decisions."
+  ],
+  [
+   "How do you decide what to design first?",
+   "I focus on the main user task and the biggest user problem found in research, then design that flow before secondary features."
+  ],
+  [
+   "How do you make a design accessible?",
+   "I check text contrast, use touch targets of about 44 points or more, never rely on colour alone, add labels and alternative text, and test with larger text sizes."
+  ],
+  [
+   "What is a design system and why is it useful?",
+   "It is a shared library of tokens, components and guidelines. It gives consistency, saves time and helps designers and developers work from the same source."
+  ],
+  [
+   "Explain auto layout and components in Figma.",
+   "Auto layout makes frames adjust automatically to content. Components are reusable masters with instances that follow them. Together they create flexible, consistent interfaces."
+  ],
+  [
+   "How do you handle feedback you disagree with?",
+   "I ask what problem the person is seeing, compare it with research or test data, and look for evidence. If the data supports my choice I explain it, and if not I change the design."
+  ],
+  [
+   "How do you test a design with limited time and budget?",
+   "I run a small test with about five representative users on a prototype, give them realistic tasks, observe, and fix the most serious problems before repeating."
+  ],
+  [
+   "How do you hand off a design to developers?",
+   "I organise the file, use components and variables, show all states, add behaviour notes, set export settings and mark screens ready for development, then walk the developer through it."
+  ],
+  [
+   "Tell me about a project in your portfolio.",
+   "I describe the user problem, my role, the research, the key decisions, the final design and the result or lesson. I mention what I would improve next."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}

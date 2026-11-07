@@ -1,0 +1,2226 @@
+{
+ "id": "red-team-vs-blue-team",
+ "title": "Red Team vs Blue Team",
+ "category": "Cyber Security",
+ "level": "Intermediate",
+ "hours": 9,
+ "short": "Understand how attackers and defenders work, map attacks with the Kill Chain and MITRE ATT&CK, and run a purple team cycle that improves detection.",
+ "prerequisites": [
+  "linux-fundamentals",
+  "cyber-security-fundamentals"
+ ],
+ "learn": [
+  "Explain the roles of red, blue, purple and white teams and the legal basis for each",
+  "Describe the Cyber Kill Chain and the structure of MITRE ATT&CK",
+  "Walk through the phases of an authorised red team engagement and the matching defences",
+  "Explain how logs, SIEM detections and tuning work in a blue team",
+  "Follow the incident response lifecycle and apply basic hardening",
+  "Plan and measure a purple team exercise in a safe lab"
+ ],
+ "lessons": [
+  {
+   "title": "Red, Blue and Purple: Roles in Cyber Defence",
+   "minutes": 20,
+   "notes": [
+    {
+     "p": "Security teams borrow words from military exercises. A **red team** plays the attacker. A **blue team** plays the defender. Together they find weaknesses before real criminals do. In this course you will learn what each team does, how they think, which tools they use and how both sides work together to make an organisation safer. Everything here is taught from a defensive, ethical point of view. Every attack idea is practised ONLY inside the rootjavs lab or on machines that you own, and each one is paired with its detection and fix."
+    },
+    {
+     "h": "What is a red team?"
+    },
+    {
+     "p": "A red team is a group of trained security professionals who are given written permission to attack an organisation in a realistic way. The goal is not to break things for fun. The goal is to test whether the organisation's people, processes and technology can detect and stop a real attacker. A red team tries to reach an objective, such as reading a fake customer database or gaining control of a test domain controller, using the same methods as real criminals."
+    },
+    {
+     "h": "What is a blue team?"
+    },
+    {
+     "p": "A blue team is the defending side. It includes security operations centre analysts, incident responders, system and network administrators, and security engineers. Blue team members monitor systems, collect logs, detect suspicious behaviour, respond to incidents and harden systems so that attacks become hard and noisy."
+    },
+    {
+     "h": "What is a purple team?"
+    },
+    {
+     "p": "Purple is the mix of red and blue. In a purple team exercise the attackers and defenders work side by side. The red team performs an action, the blue team checks whether they saw it, and they improve detection together on the spot. Purple teaming is a method, not always a separate group. Many companies prefer it because learning is faster than in a secret contest."
+    },
+    {
+     "diagram": "Animated three-circle diagram. A red circle labelled 'Attack' and a blue circle labelled 'Defend' overlap in the middle to form a purple area labelled 'Improve together'. Arrows loop between them: red launches an action, blue shows whether an alert appeared, and a new detection rule drops into the purple area. A counter at the bottom shows the number of detected techniques rising as the student clicks 'Run next exercise'."
+    },
+    {
+     "h": "Other colours you may hear"
+    },
+    {
+     "tbl": [
+      [
+       "Team",
+       "Role"
+      ],
+      [
+       "White team",
+       "Referees and managers of the exercise. They set the rules and judge the result."
+      ],
+      [
+       "Green team",
+       "Sometimes used for teams that improve detection tools and automation."
+      ],
+      [
+       "Yellow team",
+       "Software builders whose work is tested for security."
+      ],
+      [
+       "Orange team",
+       "Used by some organisations for people who teach and train other teams."
+      ]
+     ]
+    },
+    {
+     "p": "These extra colours are not standardised, so always check how an organisation uses them. The red, blue, purple and white teams are the ones you will meet most often."
+    },
+    {
+     "h": "How red teaming differs from penetration testing"
+    },
+    {
+     "tbl": [
+      [
+       "Point",
+       "Penetration test",
+       "Red team exercise"
+      ],
+      [
+       "Goal",
+       "Find as many weaknesses as possible",
+       "Reach a chosen objective as an attacker would"
+      ],
+      [
+       "Scope",
+       "Defined systems",
+       "Whole organisation including people and processes"
+      ],
+      [
+       "Time",
+       "Days to a few weeks",
+       "Weeks to months"
+      ],
+      [
+       "Awareness",
+       "Defenders usually know",
+       "Often only a few senior people know"
+      ],
+      [
+       "Noise",
+       "Can be loud",
+       "Tries to stay quiet to test detection"
+      ],
+      [
+       "Result",
+       "List of vulnerabilities",
+       "Story of how defences held or failed"
+      ]
+     ]
+    },
+    {
+     "h": "The legal and ethical base"
+    },
+    {
+     "warn": "Red teaming without written authorisation is a crime. In India, unauthorised access to a computer is punishable under the Information Technology Act, 2000. Every real engagement begins with a signed contract and a document called the **rules of engagement**, which lists what may be tested, when, how, who to call in an emergency and what is strictly out of bounds. Students must practise only in the rootjavs lab or in their own virtual machines."
+    },
+    {
+     "h": "What the rules of engagement contain"
+    },
+    {
+     "ul": [
+      "Scope: which networks, systems, people and buildings may be tested.",
+      "Out of scope: systems that must never be touched, such as hospital equipment or payment gateways in live use.",
+      "Allowed techniques and forbidden techniques, such as no denial of service.",
+      "Testing window: dates and times.",
+      "Emergency contact and a stop word that ends the test at once.",
+      "Handling of data: how any real data seen during the test is protected and deleted."
+     ]
+    },
+    {
+     "h": "Career paths"
+    },
+    {
+     "p": "Red team careers include penetration tester, red team operator and adversary emulation specialist. Blue team careers include SOC analyst, threat hunter, incident responder, detection engineer and digital forensics analyst. In India, banks, IT services firms, telecom companies and consulting firms hire for both sides. A good defender understands attacks, and a good attacker understands detection. Learning both makes you far more valuable."
+    },
+    {
+     "h": "A simple story to remember"
+    },
+    {
+     "p": "Imagine a college wants to test its security. The red team sends a harmless fake phishing email to staff, with permission. Some staff click. The red team uses the click to reach a lab server in the test environment. Meanwhile the blue team watches the email gateway and server logs. After the exercise, both sides sit together. The blue team sees which signs they missed, such as an unusual login time. They write a new alert and run the test again to confirm that the alert fires. The college is now safer, and nobody was harmed."
+    },
+    {
+     "flip": [
+      [
+       "What is a red team?",
+       "A group that legally acts as an attacker to test an organisation's defences."
+      ],
+      [
+       "What is a blue team?",
+       "The defenders who monitor, detect, respond and harden systems."
+      ],
+      [
+       "What is purple teaming?",
+       "Red and blue working together so that detection improves quickly."
+      ],
+      [
+       "What are rules of engagement?",
+       "A written document that sets scope, limits, timing and emergency contacts for a test."
+      ],
+      [
+       "What is the white team?",
+       "The referees who manage and judge the exercise."
+      ],
+      [
+       "How does a red team exercise differ from a penetration test?",
+       "It aims at a realistic objective across people, process and technology, often with fewer defenders aware."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Imagine your college is planning a security exercise. Write a half-page rules of engagement draft with scope, out of scope items, testing window, forbidden techniques and an emergency contact."
+    }
+   ],
+   "quiz": [
+    [
+     "Which team plays the attacker in a security exercise?",
+     [
+      "Red team",
+      "Green team",
+      "Blue team",
+      "White team"
+     ],
+     0,
+     "The red team simulates the attacker. Blue defends and white referees."
+    ],
+    [
+     "What is the main benefit of purple teaming?",
+     [
+      "No documentation",
+      "Faster learning because attackers and defenders work together",
+      "Lower cost of tools",
+      "Secrecy"
+     ],
+     1,
+     "Working side by side lets detections be tested and improved immediately."
+    ],
+    [
+     "What document defines what a red team may and may not do?",
+     [
+      "Password list",
+      "Network diagram only",
+      "Rules of engagement",
+      "Marketing brochure"
+     ],
+     2,
+     "Rules of engagement set scope, limits and contacts."
+    ],
+    [
+     "Which of the following is true about unauthorised testing?",
+     [
+      "It is allowed on any website",
+      "It is legal if done for learning",
+      "It is allowed at night",
+      "It is a crime under the IT Act even with good intent"
+     ],
+     3,
+     "Authorisation is essential. Good intent does not make unauthorised access legal."
+    ],
+    [
+     "What is a typical blue team job?",
+     [
+      "SOC analyst",
+      "Phishing kit builder",
+      "Exploit seller",
+      "Red team operator"
+     ],
+     0,
+     "SOC analysts monitor and respond, which is blue team work."
+    ]
+   ],
+   "practice": [
+    "Write one paragraph each explaining red, blue and purple teams in your own words.",
+    "Make a table of five careers with the team they belong to and one skill each needs.",
+    "List four items you would include in a rules of engagement document for a college lab."
+   ]
+  },
+  {
+   "title": "Adversary Thinking: Kill Chain and MITRE ATT&CK",
+   "minutes": 24,
+   "notes": [
+    {
+     "p": "To defend well, you must understand how attackers work step by step. Two frameworks help both teams speak the same language. The **Cyber Kill Chain** shows the stages of an attack from start to finish. **MITRE ATT&CK** is a detailed catalogue of the techniques attackers use. In this lesson you will learn both, and you will see how red teams plan with them and how blue teams build detections from them."
+    },
+    {
+     "h": "The Cyber Kill Chain"
+    },
+    {
+     "p": "The kill chain was developed by Lockheed Martin. It breaks an attack into seven stages. If the defender breaks any link in the chain, the attack fails."
+    },
+    {
+     "tbl": [
+      [
+       "Stage",
+       "What the attacker does",
+       "Defender's chance"
+      ],
+      [
+       "1. Reconnaissance",
+       "Collects information about the target",
+       "Limit public information, monitor for scanning"
+      ],
+      [
+       "2. Weaponisation",
+       "Prepares a harmful file or tool",
+       "Hard to see, threat intelligence helps"
+      ],
+      [
+       "3. Delivery",
+       "Sends it, for example by phishing email",
+       "Email filters, user awareness"
+      ],
+      [
+       "4. Exploitation",
+       "Uses a weakness or a user mistake to run code",
+       "Patching, hardening, application controls"
+      ],
+      [
+       "5. Installation",
+       "Installs a backdoor for persistence",
+       "Endpoint detection, application allow lists"
+      ],
+      [
+       "6. Command and control",
+       "Contacts the attacker's server",
+       "Network monitoring, DNS and web filtering"
+      ],
+      [
+       "7. Actions on objectives",
+       "Steals data, encrypts files or damages systems",
+       "Data loss prevention, backups, segmentation"
+      ]
+     ]
+    },
+    {
+     "diagram": "Animated seven-stage chain. Seven linked chain rings are labelled with the stages. A red arrow travels along the chain. The student can click a ring to add a blue shield (for example an email filter on Delivery). When a shield is placed on a ring, the red arrow stops there and the ring breaks with a small crack animation, showing that one control can stop the whole attack."
+    },
+    {
+     "h": "Why a framework is not enough"
+    },
+    {
+     "p": "The kill chain is simple and good for teaching, but real attacks do not always follow a straight line. Attackers go back and forth, and after they get in, they often repeat steps inside the network. MITRE ATT&CK describes this in much more detail."
+    },
+    {
+     "h": "MITRE ATT&CK"
+    },
+    {
+     "p": "ATT&CK stands for Adversarial Tactics, Techniques and Common Knowledge. It is a free public knowledge base built from real attacks that were observed and reported. It is organised in a matrix."
+    },
+    {
+     "ul": [
+      "**Tactics** are the goals of the attacker at a stage, such as getting initial access or moving sideways.",
+      "**Techniques** are the ways to achieve a tactic, such as sending a phishing message.",
+      "**Sub-techniques** give more detail, such as a phishing link or a phishing attachment.",
+      "**Procedures** are the exact steps a particular group used."
+     ]
+    },
+    {
+     "tbl": [
+      [
+       "Tactic (the goal)",
+       "Example technique (the way)"
+      ],
+      [
+       "Reconnaissance",
+       "Gathering information about the victim's employees"
+      ],
+      [
+       "Initial Access",
+       "Phishing"
+      ],
+      [
+       "Execution",
+       "Running commands through a built-in scripting tool"
+      ],
+      [
+       "Persistence",
+       "Creating a scheduled task or a startup entry"
+      ],
+      [
+       "Privilege Escalation",
+       "Abusing a misconfigured permission"
+      ],
+      [
+       "Defence Evasion",
+       "Hiding or disabling security tools"
+      ],
+      [
+       "Credential Access",
+       "Stealing saved passwords"
+      ],
+      [
+       "Discovery",
+       "Looking around to learn about the network"
+      ],
+      [
+       "Lateral Movement",
+       "Using stolen credentials to reach another computer"
+      ],
+      [
+       "Collection and Exfiltration",
+       "Gathering data and sending it out"
+      ],
+      [
+       "Impact",
+       "Encrypting data or deleting backups"
+      ]
+     ]
+    },
+    {
+     "p": "Each technique has an identifier such as T1566 for phishing. Each page lists how it works, which groups use it, how to detect it and how to mitigate it. For defenders, the detection and mitigation sections are the most valuable."
+    },
+    {
+     "h": "How the red team uses ATT&CK"
+    },
+    {
+     "p": "A red team plans an **adversary emulation**. It picks a real threat group that targets the industry, such as a group known for attacking banks, and reads the report of that group's techniques. The red team then performs the same techniques in the test, in the same order. This makes the exercise realistic and tells the organisation whether it can handle the threats it is most likely to face."
+    },
+    {
+     "h": "How the blue team uses ATT&CK"
+    },
+    {
+     "p": "A blue team builds a **coverage map**. It lists the techniques that matter, checks which ones can be detected today and marks gaps. It then writes detections for the gaps, starting with the most common and most dangerous techniques. ATT&CK Navigator is a free tool that lets you colour a matrix to show coverage."
+    },
+    {
+     "tbl": [
+      [
+       "Colour on the map",
+       "Meaning"
+      ],
+      [
+       "Green",
+       "Detected reliably and tested"
+      ],
+      [
+       "Yellow",
+       "Partly detected or not fully tested"
+      ],
+      [
+       "Red",
+       "No detection yet"
+      ],
+      [
+       "Grey",
+       "Not relevant to this organisation"
+      ]
+     ]
+    },
+    {
+     "h": "An example in detail: scheduled task persistence"
+    },
+    {
+     "p": "Suppose a red team in the lab wants to stay on a test Windows machine after reboot. It creates a scheduled task that runs a harmless program at logon. This is the technique 'Scheduled Task' under Persistence. The blue team can detect it by turning on logging of process creation and task creation, and by searching for tasks created by unusual users or that run programs from temporary folders. The fix for the organisation is to restrict who may create tasks, to keep full logs and to alert on new tasks on important servers. Notice how the same technique shows up from both sides."
+    },
+    {
+     "h": "Threat-informed defence"
+    },
+    {
+     "p": "This approach is called **threat-informed defence**. Instead of guessing, the organisation studies the attackers most likely to target it, maps their techniques and focuses detection and prevention on those techniques first. Indian banks, for example, would study groups that target financial services, and a hospital would study ransomware groups."
+    },
+    {
+     "warn": "The examples in this course are described at the level of ideas, so that defenders can detect them. Practise any hands-on step only in the rootjavs lab or on your own virtual machines, and never on systems you do not own."
+    },
+    {
+     "flip": [
+      [
+       "What are the seven stages of the Cyber Kill Chain?",
+       "Reconnaissance, weaponisation, delivery, exploitation, installation, command and control, actions on objectives."
+      ],
+      [
+       "What is a tactic in ATT&CK?",
+       "The attacker's goal at a stage, such as initial access."
+      ],
+      [
+       "What is a technique?",
+       "A way of reaching a tactic, such as phishing."
+      ],
+      [
+       "What is adversary emulation?",
+       "Copying the techniques of a real threat group in a test."
+      ],
+      [
+       "What is a coverage map?",
+       "A matrix that shows which techniques the defenders can detect."
+      ],
+      [
+       "What is threat-informed defence?",
+       "Focusing defences on techniques used by attackers likely to target you."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Pick a phishing attack that leads to stolen credentials. Write the seven stages of the kill chain for it. Next to each stage, add one blue team control. Then look up the phishing technique page on the MITRE ATT&CK website and note two detection ideas from it."
+    }
+   ],
+   "quiz": [
+    [
+     "How many stages does the Cyber Kill Chain have?",
+     [
+      "Five",
+      "Seven",
+      "Ten",
+      "Fourteen"
+     ],
+     1,
+     "The model has seven stages from reconnaissance to actions on objectives."
+    ],
+    [
+     "In ATT&CK, what is a tactic?",
+     [
+      "A tool",
+      "A firewall rule",
+      "The attacker's goal at a stage",
+      "A virus name"
+     ],
+     2,
+     "Tactics are goals. Techniques are the ways to reach them."
+    ],
+    [
+     "Which stage includes the attacker contacting its own server?",
+     [
+      "Exploitation",
+      "Delivery",
+      "Reconnaissance",
+      "Command and control"
+     ],
+     3,
+     "Command and control is the communication channel between the implant and the attacker."
+    ],
+    [
+     "What is the purpose of an ATT&CK coverage map?",
+     [
+      "To show which techniques are detected and which are gaps",
+      "To list passwords",
+      "To draw network cables",
+      "To store malware"
+     ],
+     0,
+     "It helps defenders see and fix detection gaps."
+    ],
+    [
+     "What is adversary emulation?",
+     [
+      "Deleting logs",
+      "Reproducing the techniques of a real threat group in a controlled test",
+      "Blocking all traffic",
+      "Buying malware"
+     ],
+     1,
+     "The red team copies real attacker behaviour to test defences realistically."
+    ]
+   ],
+   "practice": [
+    "Draw the kill chain for a ransomware attack and add one defence per stage.",
+    "Choose five ATT&CK tactics and write one technique and one detection idea for each.",
+    "Explain in your own words why defenders study attackers."
+   ]
+  },
+  {
+   "title": "Red Team Methods: How Authorised Attackers Plan and Operate",
+   "minutes": 24,
+   "notes": [
+    {
+     "p": "This lesson explains how a red team works from planning to reporting, at the level of method rather than step-by-step exploitation. You need to understand these methods to defend against them. All techniques mentioned are performed only with written authorisation, inside a lab or an approved scope. After each method you will see what the blue team can detect and how to fix the weakness."
+    },
+    {
+     "h": "Phase 1: planning and objectives"
+    },
+    {
+     "p": "A red team begins with the client's goals. A bank might say: show whether an outsider can reach the test customer database. The team agrees on the objective, the rules of engagement, the timeline, the people who know about the test and the safe-stop process. They also choose which threat group to emulate. Good planning prevents harm."
+    },
+    {
+     "h": "Phase 2: reconnaissance"
+    },
+    {
+     "p": "The team collects information that is publicly available about the organisation. This is called open source intelligence, or OSINT. It includes the company's website, job advertisements that reveal technology, employee profiles on professional networks, domain names and leaked data that is already public. The information helps the team understand the target. Reconnaissance is mostly passive, which means it does not touch the target's systems."
+    },
+    {
+     "ul": [
+      "**Blue team view**: limit what the company shares publicly, train staff about oversharing and monitor for brand-impersonating domains.",
+      "**Fix**: review job posts and public documents for sensitive technical detail."
+     ]
+    },
+    {
+     "h": "Phase 3: initial access"
+    },
+    {
+     "p": "The team gets its first foothold. Common real-world routes are phishing, stolen or weak passwords, exposed services and weaknesses in public applications. In an authorised exercise, the team may send controlled phishing messages to volunteers or approved staff, and the results show how many people reported the message and how many clicked."
+    },
+    {
+     "ul": [
+      "**Blue team view**: email security, reporting buttons, multi-factor authentication, alerts for impossible travel logins and repeated failed logins.",
+      "**Fix**: multi-factor authentication, patching, closing unneeded internet-facing services, user training that rewards reporting."
+     ]
+    },
+    {
+     "diagram": "Animated red team campaign map. A horizontal pipeline shows Plan, Recon, Initial Access, Foothold, Escalate, Move, Objective and Report. A small red token moves along the pipeline. Under each stage, a blue panel lists the signals a defender could see at that moment, and a green panel lists the fix. The student can pause the token and click any stage to expand its notes."
+    },
+    {
+     "h": "Phase 4: foothold and persistence"
+    },
+    {
+     "p": "After the first success, the team establishes a stable way to keep access. In the lab this uses harmless test tools. Real attackers use backdoors, scheduled tasks or stolen sessions. The red team records every action carefully, with exact time, so the blue team can compare logs later."
+    },
+    {
+     "ul": [
+      "**Blue team view**: watch for new services, scheduled tasks, startup entries and unusual outbound connections.",
+      "**Fix**: application allow lists, endpoint detection, egress filtering and least privilege."
+     ]
+    },
+    {
+     "h": "Phase 5: privilege escalation and credential access"
+    },
+    {
+     "p": "Attackers want higher rights, because ordinary accounts have limited reach. They look for misconfigurations such as a service running with too much power, weak permissions on files, or credentials stored in readable places. They also look for passwords saved by users. The defence is to follow the principle of least privilege, to remove old accounts and to store secrets in a proper secrets manager."
+    },
+    {
+     "ul": [
+      "**Blue team view**: alerts for new administrators, unusual use of administrative tools and access to credential stores.",
+      "**Fix**: least privilege, separate admin accounts, regular permission reviews, secrets management and multi-factor authentication."
+     ]
+    },
+    {
+     "h": "Phase 6: discovery and lateral movement"
+    },
+    {
+     "p": "Once inside, the team studies the network: which computers exist, which accounts have access and where valuable data lives. Then it moves from computer to computer, usually with valid credentials, which makes it blend in with normal work. This stage is where good logging pays off, because a legitimate account behaving in an unusual way is the signal."
+    },
+    {
+     "ul": [
+      "**Blue team view**: baseline normal behaviour, then alert on a user logging in to many computers quickly or at odd hours.",
+      "**Fix**: network segmentation, limited admin rights, remote access only from approved jump hosts."
+     ]
+    },
+    {
+     "h": "Phase 7: reaching the objective"
+    },
+    {
+     "p": "The team demonstrates the objective without causing damage, for example by reading a marked test file and taking a screenshot as proof, instead of copying real customer data. Real data must not be taken out of the organisation unless the rules say so, and it must be handled carefully."
+    },
+    {
+     "h": "Phase 8: cleanup and reporting"
+    },
+    {
+     "p": "A red team removes anything it installed, checks that systems return to their normal state, and then writes a report. The report is the most important output. It should tell a clear story: what the team did, in what order, what the defenders noticed and when, where defences worked, where they failed and what to fix first."
+    },
+    {
+     "h": "Operational security of the red team"
+    },
+    {
+     "p": "A red team also protects the engagement. It uses its own infrastructure, records activity, never touches out-of-scope systems and stops when the stop word is given. Careless red teams can cause real outages, so discipline matters as much as skill."
+    },
+    {
+     "h": "Common tooling categories"
+    },
+    {
+     "tbl": [
+      [
+       "Category",
+       "Purpose",
+       "Defender's counter"
+      ],
+      [
+       "Reconnaissance tools",
+       "Gather public information",
+       "Reduce exposure, monitor brand abuse"
+      ],
+      [
+       "Phishing simulation platforms",
+       "Test user behaviour with consent",
+       "Mail filtering, reporting button, training"
+      ],
+      [
+       "Command and control frameworks (authorised use)",
+       "Manage test access",
+       "Network monitoring, endpoint detection"
+      ],
+      [
+       "Credential and permission checkers",
+       "Find weak configuration",
+       "Hardening, least privilege"
+      ],
+      [
+       "Reporting tools",
+       "Record evidence and timeline",
+       "Compare with blue team logs"
+      ]
+     ]
+    },
+    {
+     "warn": "These tool categories are named so that you understand what defenders face. Do not download or use attack frameworks outside the rootjavs lab or your own isolated machines, and never against organisations without written permission."
+    },
+    {
+     "flip": [
+      [
+       "What is OSINT?",
+       "Information collected from public sources, used in reconnaissance."
+      ],
+      [
+       "What is lateral movement?",
+       "Moving from one compromised computer to others in the same network."
+      ],
+      [
+       "What is the best fix against stolen passwords?",
+       "Multi-factor authentication, together with monitoring for unusual logins."
+      ],
+      [
+       "What is the principle of least privilege?",
+       "Giving each account only the rights it needs."
+      ],
+      [
+       "What is the most important output of a red team?",
+       "A clear report that tells the story and recommends fixes."
+      ],
+      [
+       "What is a stop word?",
+       "A pre-agreed phrase that ends the exercise immediately in an emergency."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Take the eight phases from this lesson and build a table with four columns: phase, what a red team does, what the blue team could see, and one fix. Use a fictional Indian company, such as an online grocery startup, to make the examples concrete."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the main goal of the reconnaissance phase?",
+     [
+      "To damage systems",
+      "To delete logs",
+      "To collect information about the target",
+      "To write the report"
+     ],
+     2,
+     "Reconnaissance gathers information, mostly from public sources, to plan the attack."
+    ],
+    [
+     "Which control is the strongest single defence against stolen passwords?",
+     [
+      "A bigger monitor",
+      "Faster Wi-Fi",
+      "Longer file names",
+      "Multi-factor authentication"
+     ],
+     3,
+     "A second factor stops an attacker who has only the password."
+    ],
+    [
+     "What is lateral movement?",
+     [
+      "Moving between computers inside the network",
+      "Moving the office",
+      "Moving backups",
+      "Moving files to the recycle bin"
+     ],
+     0,
+     "Attackers use valid accounts to reach other machines after the first foothold."
+    ],
+    [
+     "Why should a red team use marked test data to prove access?",
+     [
+      "It is faster",
+      "To avoid taking or exposing real customer data",
+      "Real data is not important",
+      "To confuse the blue team"
+     ],
+     1,
+     "Proving access does not require copying real private data."
+    ],
+    [
+     "What is the most valuable output of a red team exercise?",
+     [
+      "A collection of tools",
+      "A set of passwords",
+      "A clear report with findings and fixes",
+      "A screenshot of the desktop"
+     ],
+     2,
+     "The report turns the exercise into improvement."
+    ]
+   ],
+   "practice": [
+    "Choose a fictional company and write a three-line objective for a red team exercise.",
+    "For each of the eight phases, list one log source a blue team would check.",
+    "Explain why a stop word is important in a real red team engagement."
+   ]
+  },
+  {
+   "title": "Blue Team Foundations: Logging, Monitoring and Detection",
+   "minutes": 25,
+   "notes": [
+    {
+     "p": "Detection is the heart of blue team work. You cannot stop what you cannot see. In this lesson you will learn what the blue team collects, how it turns raw logs into alerts and how it keeps the number of false alarms under control. The aim is a simple idea: every attacker action leaves a trace somewhere, and the blue team's job is to collect those traces and understand them."
+    },
+    {
+     "h": "What is a log?"
+    },
+    {
+     "p": "A **log** is a record of an event on a system, such as a user logging in, a program starting or a firewall blocking a connection. Each log line has a time, a source, and details. On their own, logs are just text. When they are collected together and searched, they tell the story of an attack."
+    },
+    {
+     "tbl": [
+      [
+       "Source",
+       "What it records",
+       "Example question it answers"
+      ],
+      [
+       "Windows Security log",
+       "Logons, account changes, process creation if enabled",
+       "Who logged in to this server at 3 AM?"
+      ],
+      [
+       "Linux auth and system logs",
+       "SSH logins, sudo use, service events",
+       "Who used sudo on this server today?"
+      ],
+      [
+       "Firewall logs",
+       "Allowed and blocked connections",
+       "Which computer contacted a strange foreign address?"
+      ],
+      [
+       "DNS logs",
+       "Domain name lookups",
+       "Which computers asked for a newly registered domain?"
+      ],
+      [
+       "Web proxy logs",
+       "Websites visited",
+       "Who downloaded a file from a risky site?"
+      ],
+      [
+       "Email gateway logs",
+       "Messages, attachments and blocked mail",
+       "Who received the phishing message?"
+      ],
+      [
+       "Endpoint detection logs",
+       "Process trees, file and network activity on devices",
+       "Which program started the command shell?"
+      ],
+      [
+       "Cloud audit logs",
+       "Administrative actions in a cloud account",
+       "Who created a new access key?"
+      ]
+     ]
+    },
+    {
+     "h": "Centralised logging and the SIEM"
+    },
+    {
+     "p": "A single computer's logs can be erased by an attacker who controls that computer. So blue teams send logs to a central system immediately. A **SIEM** (Security Information and Event Management) collects logs from many sources, normalises them into a common format, stores them, lets analysts search and runs detection rules that create alerts. Examples include Splunk, Microsoft Sentinel, Elastic Security and open source tools such as Wazuh."
+    },
+    {
+     "diagram": "Animated logging pipeline. Icons for laptops, servers, firewall, email and cloud send small coloured log packets to a central box labelled 'SIEM'. Inside the SIEM, packets are sorted into a common format, stored in a database and passed through a rule filter. A few packets turn red and drop into an 'Alerts' tray where an analyst icon picks them up. The student can click a source to turn it off and see which alerts disappear."
+    },
+    {
+     "h": "Which events matter most?"
+    },
+    {
+     "p": "Collecting everything is expensive and noisy. Start with events that give the most value for attack detection."
+    },
+    {
+     "ul": [
+      "Failed and successful logins, especially many failures followed by one success.",
+      "New user accounts and changes to administrator groups.",
+      "Process creation with the full command line.",
+      "Use of powerful administrative tools and scripting engines.",
+      "New services, scheduled tasks and startup entries.",
+      "Outbound connections to rare destinations and unusual DNS requests.",
+      "Clearing of logs, which is almost always suspicious.",
+      "Changes to security tools, such as turning off antivirus."
+     ]
+    },
+    {
+     "h": "From event to detection"
+    },
+    {
+     "p": "A **detection** is a rule or a model that recognises suspicious behaviour in logs. A simple rule has a condition and a threshold. For example: if one account has more than ten failed logins within five minutes, followed by a success, raise an alert named 'possible password guessing'. In plain words, written as pseudo code, it looks like this."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "IF failed_logins(user) >= 10 within 5 minutes\n   AND successful_login(user) happens within 10 minutes after\nTHEN raise alert 'Possible password guessing' severity HIGH\n     include: user, source IP, time, target system"
+     }
+    },
+    {
+     "p": "Another example: when a word processor starts a command shell, raise an alert. Office programs have no normal reason to do that, so the alert is accurate and valuable."
+    },
+    {
+     "h": "True positives, false positives and tuning"
+    },
+    {
+     "tbl": [
+      [
+       "Result",
+       "Meaning",
+       "Effect"
+      ],
+      [
+       "True positive",
+       "Alert fired and the activity was really malicious",
+       "Good, the team acts"
+      ],
+      [
+       "False positive",
+       "Alert fired but the activity was normal",
+       "Wastes time, may cause alert fatigue"
+      ],
+      [
+       "False negative",
+       "Real attack happened but no alert fired",
+       "Dangerous gap"
+      ],
+      [
+       "True negative",
+       "Normal activity, no alert",
+       "Good"
+      ]
+     ]
+    },
+    {
+     "p": "A team has to balance these. Too many false positives and analysts start ignoring alerts, which is called **alert fatigue**. Too strict a tuning causes false negatives. A good detection engineer tests each rule on real historical logs and adjusts it until it is useful."
+    },
+    {
+     "h": "Detection quality: the idea of coverage and depth"
+    },
+    {
+     "ul": [
+      "**Coverage**: how many attacker techniques can we see at all? (Use the ATT&CK map.)",
+      "**Depth**: for each technique, how many ways of doing it can we see? A single alert that checks one variation is easy to bypass.",
+      "**Resilience**: does the detection survive small changes by the attacker? Behaviour-based rules are more resilient than rules that look for one file name."
+     ]
+    },
+    {
+     "h": "The Windows and Linux basics a defender must know"
+    },
+    {
+     "p": "On Windows, a defender should know that logon events record successful and failed logins, that process creation logging can be enabled to see command lines, and that the Sysmon tool from Microsoft can add rich detail on processes, network connections and file changes. On Linux, the main places are the authentication log, the system journal and audit records. You already practised reading some of these in the Linux Fundamentals course."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "# On a Linux lab machine you own: failed SSH logins in the last log\nsudo grep \"Failed password\" /var/log/auth.log | tail -n 5\n\n# Count failed attempts per source address\nsudo grep \"Failed password\" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head"
+     }
+    },
+    {
+     "h": "Time matters"
+    },
+    {
+     "p": "To join logs from different systems, their clocks must agree. Use the Network Time Protocol to keep all systems in sync and store times in a single standard, usually UTC. Without correct time, you cannot build a reliable timeline of an attack."
+    },
+    {
+     "h": "Protect the logs"
+    },
+    {
+     "ul": [
+      "Send logs to a central server that normal users and attackers cannot change.",
+      "Restrict who can delete or edit logs, and alert if log clearing happens.",
+      "Keep logs for a suitable period. Many organisations keep three to twelve months online and longer in cheap storage, depending on law and policy.",
+      "Remember privacy rules: logs may contain personal data, so access must be limited and purposeful."
+     ]
+    },
+    {
+     "warn": "Monitoring other people's systems or traffic without authority is illegal. Practise log analysis only on your own machines, on the rootjavs lab or on training log files provided for study."
+    },
+    {
+     "flip": [
+      [
+       "What is a SIEM?",
+       "A system that collects, stores, searches and analyses logs from many sources and raises alerts."
+      ],
+      [
+       "What is a false positive?",
+       "An alert for activity that was actually harmless."
+      ],
+      [
+       "What is alert fatigue?",
+       "When analysts start ignoring alerts because there are too many false ones."
+      ],
+      [
+       "Why send logs to a central server?",
+       "So an attacker cannot erase the evidence by cleaning one computer."
+      ],
+      [
+       "Which suspicious event is almost always worth an alert?",
+       "Clearing of security logs."
+      ],
+      [
+       "Why do all systems need synchronised time?",
+       "So events from different sources can be placed in a correct timeline."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Write two detection rules in plain words, in the pseudo code style shown. One should look for password guessing and one for a document program starting a command shell. For each rule, say what normal activity might cause a false positive and how you would reduce it."
+    }
+   ],
+   "quiz": [
+    [
+     "What does a SIEM mainly do?",
+     [
+      "Encrypt disks",
+      "Create backups",
+      "Assign IP addresses",
+      "Collect and analyse logs from many sources"
+     ],
+     3,
+     "A SIEM centralises logs, enables search and generates alerts."
+    ],
+    [
+     "What is a false positive?",
+     [
+      "An alert on harmless activity",
+      "A blocked IP address",
+      "A successful attack",
+      "A missed attack"
+     ],
+     0,
+     "False positives waste analyst time and can cause alert fatigue."
+    ],
+    [
+     "Why is clearing the security log a strong warning sign?",
+     [
+      "It saves disk space",
+      "Attackers often do it to hide their actions",
+      "It is required daily",
+      "It speeds up Windows"
+     ],
+     1,
+     "Removing evidence is a common attacker behaviour."
+    ],
+    [
+     "Which approach makes a detection more resilient?",
+     [
+      "Using a shorter rule",
+      "Matching one exact file name",
+      "Looking at behaviour that is hard to avoid",
+      "Turning off logging"
+     ],
+     2,
+     "Behaviour-based rules survive small changes by the attacker."
+    ],
+    [
+     "Why must system clocks be synchronised?",
+     [
+      "It is not necessary",
+      "To reduce power use",
+      "For nicer screens",
+      "To build a correct timeline across systems"
+     ],
+     3,
+     "Mismatched clocks make it impossible to order events across logs."
+    ]
+   ],
+   "practice": [
+    "List ten log sources in a typical company and one question each answers.",
+    "Write a plain-language detection for 'a new administrator account was created at night'.",
+    "Explain the difference between false positive and false negative with a real-life example."
+   ]
+  },
+  {
+   "title": "Incident Response and Hardening: The Blue Team in Action",
+   "minutes": 25,
+   "notes": [
+    {
+     "p": "Detection is only the beginning. When an alert is real, the blue team must respond quickly and carefully. In this lesson you will learn the standard incident response process, how to triage alerts and how the team uses what it learns to harden systems. These skills connect directly to the rootjavs SOC Analyst and DFIR courses."
+    },
+    {
+     "h": "What is an incident?"
+    },
+    {
+     "p": "A security **event** is any observable occurrence, such as a failed login. An **incident** is an event, or a group of events, that harms or threatens the confidentiality, integrity or availability of information or systems. A ransomware infection, an account takeover and a data leak are all incidents. In India, certain incidents must be reported to the national agency CERT-In within a short time, and organisations should know the current reporting rules for their sector."
+    },
+    {
+     "h": "The incident response lifecycle"
+    },
+    {
+     "p": "A common model, from NIST, has four main phases that repeat in a cycle."
+    },
+    {
+     "ol": [
+      "**Preparation**: policies, tools, contacts, training and practice exercises, done before anything happens.",
+      "**Detection and analysis**: finding out whether an alert is real, how big it is and what is affected.",
+      "**Containment, eradication and recovery**: stopping the spread, removing the cause and restoring normal operation.",
+      "**Post-incident activity**: lessons learned and improvements."
+     ]
+    },
+    {
+     "diagram": "Animated circular lifecycle. Four arcs labelled Preparation, Detection and Analysis, Containment Eradication and Recovery, and Lessons Learned form a loop. A pulse travels around the loop. When the student clicks 'Alert received', the pulse enters at Detection and moves through the arcs, and at the end an arrow returns to Preparation carrying a note labelled 'new detection rule'."
+    },
+    {
+     "h": "Triage: is this alert real?"
+    },
+    {
+     "p": "A SOC analyst handles many alerts every day, so a quick structured check is essential. Ask these questions."
+    },
+    {
+     "ul": [
+      "What triggered the alert and which system and user are involved?",
+      "Is this normal for this user or system? Check history.",
+      "What else happened around that time on the same host and from the same source?",
+      "Does threat intelligence know the related address, domain or file?",
+      "How important is the asset? A test laptop and a payment server need different urgency.",
+      "What is the potential impact if this is real?"
+     ]
+    },
+    {
+     "p": "The result is a decision: close as false positive, monitor, or escalate as an incident with a severity level."
+    },
+    {
+     "h": "Containment options"
+    },
+    {
+     "tbl": [
+      [
+       "Action",
+       "When to use it",
+       "Caution"
+      ],
+      [
+       "Isolate the computer from the network",
+       "Active malware or suspected hands-on attacker",
+       "Keep it powered on if memory evidence is needed"
+      ],
+      [
+       "Disable or reset an account",
+       "Stolen credentials",
+       "Check for services that depend on the account"
+      ],
+      [
+       "Block an address, domain or hash",
+       "Known malicious indicator",
+       "Attackers may change quickly"
+      ],
+      [
+       "Revoke sessions and tokens",
+       "Account takeover",
+       "Users may be logged out suddenly"
+      ],
+      [
+       "Take a service offline",
+       "Serious vulnerability under active attack",
+       "Business impact, needs management approval"
+      ]
+     ]
+    },
+    {
+     "p": "Containment decisions balance speed against business impact and evidence needs. For serious incidents, the decision belongs to the incident commander and management, not to a single analyst."
+    },
+    {
+     "h": "Eradication and recovery"
+    },
+    {
+     "p": "Eradication removes the attacker's access: deleting malware and persistence, closing the weakness that let them in, resetting credentials and checking other systems. Recovery brings systems back to normal, often from clean backups or a fresh build. After recovery, the team watches closely for signs of the attacker returning."
+    },
+    {
+     "h": "Evidence handling"
+    },
+    {
+     "p": "Keep careful notes of every action and time. When legal action is possible, evidence must be preserved properly: copying disks or memory with trusted tools, calculating hashes and recording who handled what. This is called the **chain of custody**. The DFIR course covers this in detail."
+    },
+    {
+     "h": "Communication during an incident"
+    },
+    {
+     "ul": [
+      "Use a small, trusted group and an agreed channel, because attackers may read normal email.",
+      "Give regular, factual updates to management.",
+      "Do not speculate in public.",
+      "Involve legal and communications teams where data has leaked.",
+      "Report to the authorities, such as CERT-In, as the rules require."
+     ]
+    },
+    {
+     "h": "Post-incident review"
+    },
+    {
+     "p": "After the incident, hold a blameless review. Ask what happened, how it was detected, how long each stage took, what worked, what did not and what will change. Write specific actions with owners and dates. The most valuable result is a new or improved detection and a fixed weakness."
+    },
+    {
+     "tbl": [
+      [
+       "Measure",
+       "Meaning"
+      ],
+      [
+       "Time to detect",
+       "From attacker action to first alert"
+      ],
+      [
+       "Time to respond",
+       "From alert to first containment action"
+      ],
+      [
+       "Time to recover",
+       "From incident start to normal operation"
+      ]
+     ]
+    },
+    {
+     "h": "Hardening: reducing what attackers can use"
+    },
+    {
+     "p": "**Hardening** means configuring systems to be more secure and removing what is not needed. It is the blue team's way to make red team techniques harder."
+    },
+    {
+     "ul": [
+      "Apply patches regularly, starting with systems that face the internet.",
+      "Remove unneeded software, services and accounts.",
+      "Use multi-factor authentication everywhere possible, especially for administrators and remote access.",
+      "Apply least privilege and separate administrator accounts from daily accounts.",
+      "Restrict which programs can run using allow lists.",
+      "Segment the network so that one infected computer cannot reach everything.",
+      "Turn on useful logging and send it to a central place.",
+      "Keep tested, offline backups.",
+      "Follow trusted benchmarks, such as the CIS Benchmarks, for secure settings."
+     ]
+    },
+    {
+     "h": "Linking back to the red team"
+    },
+    {
+     "p": "For every red team finding, the blue team asks three things: could we have prevented it, could we have detected it, and how fast could we have responded? The answers become projects. This loop is what makes security programs mature over time."
+    },
+    {
+     "warn": "Practise containment and response steps only in your lab or in simulated exercises. On real systems, follow your organisation's incident plan and get approval before taking actions that affect business services."
+    },
+    {
+     "flip": [
+      [
+       "What are the phases of incident response?",
+       "Preparation, detection and analysis, containment eradication and recovery, and post-incident activity."
+      ],
+      [
+       "What is triage?",
+       "A quick check to decide whether an alert is real and how urgent it is."
+      ],
+      [
+       "What is the chain of custody?",
+       "A record of who handled evidence and when, to prove it was not changed."
+      ],
+      [
+       "What is hardening?",
+       "Configuring systems to reduce weaknesses and remove what is not needed."
+      ],
+      [
+       "Why hold a blameless review?",
+       "To learn and improve without people hiding mistakes."
+      ],
+      [
+       "Which agency receives major incident reports in India?",
+       "CERT-In, the Indian Computer Emergency Response Team."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Write a one-page incident plan for a fictional student account takeover: how you would triage, contain, recover, communicate and review. Include three hardening actions that would have made the attack harder."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the difference between an event and an incident?",
+     [
+      "An incident harms or threatens security, an event is any observable occurrence",
+      "An incident is only a power cut",
+      "There is none",
+      "An event is worse"
+     ],
+     0,
+     "Many events are harmless. An incident is an event or group of events with security impact."
+    ],
+    [
+     "What is the first phase in the NIST incident response lifecycle?",
+     [
+      "Lessons learned",
+      "Preparation",
+      "Recovery",
+      "Containment"
+     ],
+     1,
+     "Preparation happens before incidents and makes the rest effective."
+    ],
+    [
+     "Which action isolates a suspected infected computer?",
+     [
+      "Turn off the firewall",
+      "Format all other computers",
+      "Disconnect it from the network",
+      "Delete the logs"
+     ],
+     2,
+     "Network isolation stops spread and communication with the attacker."
+    ],
+    [
+     "Why is a blameless review useful?",
+     [
+      "To punish staff",
+      "To avoid reporting",
+      "To skip documentation",
+      "To learn honestly and improve"
+     ],
+     3,
+     "People share facts when they are not afraid of blame."
+    ],
+    [
+     "Which control best limits the damage of one infected computer spreading?",
+     [
+      "Network segmentation",
+      "Longer passwords only",
+      "A bigger monitor",
+      "More browser tabs"
+     ],
+     0,
+     "Segmentation limits the reach of an attacker from one machine."
+    ]
+   ],
+   "practice": [
+    "Write a triage checklist with at least six questions.",
+    "List five hardening steps for a small college server and why each matters.",
+    "Create a table of three containment actions with their business impact."
+   ]
+  },
+  {
+   "title": "Purple Teaming: Testing, Improving and Measuring Together",
+   "minutes": 24,
+   "notes": [
+    {
+     "p": "Purple teaming is where red and blue become one learning loop. Instead of a red team attacking in secret and a blue team finding out weeks later in a report, the two sides test a technique together, check whether it was detected, fix gaps and test again. In this final lesson you will learn how to run a purple team exercise, how to measure it and how to build a lasting security improvement cycle. Everything is done in the lab or in an authorised environment, with a defensive purpose."
+    },
+    {
+     "h": "Why purple teaming works"
+    },
+    {
+     "ul": [
+      "The feedback is immediate. A detection gap is found and fixed in hours instead of months.",
+      "Both sides learn. Defenders see real attacker behaviour, and attackers see what defenders can and cannot see.",
+      "It is safer, because there is no surprise and the tests use controlled methods.",
+      "It is efficient, because each test directly produces an improvement."
+     ]
+    },
+    {
+     "h": "The purple team cycle"
+    },
+    {
+     "ol": [
+      "**Choose**: pick a technique from ATT&CK that matters to your organisation.",
+      "**Plan**: agree on the exact test, the test machines and a safe, harmless way to perform the behaviour.",
+      "**Execute**: the red side performs the test and records the time.",
+      "**Observe**: the blue side checks logs, the SIEM and endpoint tools. Was there an alert? Was there a log? Was it clear?",
+      "**Improve**: if there was no detection, write or tune one. If there was a log but no alert, create an alert. If there was an alert but it was unclear, improve the message.",
+      "**Retest**: repeat the same test and confirm the improved detection fires.",
+      "**Record**: update the coverage map and notes."
+     ]
+    },
+    {
+     "diagram": "Animated purple cycle. Seven stations arranged in a ring: Choose, Plan, Execute, Observe, Improve, Retest, Record. A purple token moves around the ring. At Observe the screen splits into three outcomes (no log, log but no alert, alert fired) with different colours, and the token takes the matching path to Improve or directly to Record. A coverage bar at the center grows each time the token completes a lap."
+    },
+    {
+     "h": "Three possible results for each test"
+    },
+    {
+     "tbl": [
+      [
+       "Result",
+       "Meaning",
+       "Next step"
+      ],
+      [
+       "Blocked",
+       "A preventive control stopped the behaviour",
+       "Record as prevented, check whether an alert also fired"
+      ],
+      [
+       "Detected",
+       "The behaviour was allowed but an alert fired",
+       "Check alert quality and response speed"
+      ],
+      [
+       "Logged only",
+       "Evidence exists in logs but no alert",
+       "Write a detection rule"
+      ],
+      [
+       "Missed",
+       "No useful evidence at all",
+       "Turn on logging or deploy a tool, then write a rule"
+      ]
+     ]
+    },
+    {
+     "h": "An example exercise: new scheduled task"
+    },
+    {
+     "p": "In the rootjavs lab, the red side creates a scheduled task on a test Windows machine that runs a harmless program at logon. The blue side checks. First result: the event is in the Windows logs, but no alert. The team writes a detection: alert when a scheduled task is created by a non-administrator account or runs a program from a temporary folder. They run the test again, and now the alert fires with the user name, task name and program path. They also record a response step: check who created the task, delete it and reset the account if it was not approved. The whole cycle takes less than an hour."
+    },
+    {
+     "h": "Choosing what to test first"
+    },
+    {
+     "ul": [
+      "Techniques used by threat groups that target your industry.",
+      "Techniques that appeared in recent real incidents in your region.",
+      "Techniques at the start of the chain, where detection stops attacks early.",
+      "Techniques on your most important systems, such as identity and payment systems."
+     ]
+    },
+    {
+     "h": "Test safely"
+    },
+    {
+     "p": "A purple exercise uses harmless ways to produce the same observable behaviour as an attack. The point is to generate the log and process patterns, not to cause damage. Open source projects publish small, controlled tests mapped to ATT&CK techniques so that defenders can run them in labs. Always review what a test does before running it, run it only on machines you own or are authorised to test, and have a way to undo it."
+    },
+    {
+     "warn": "Never run attack simulations on production systems without approval, a plan to undo changes and the knowledge of the people who operate those systems. In the rootjavs course, use only the lab."
+    },
+    {
+     "h": "Measuring success"
+    },
+    {
+     "tbl": [
+      [
+       "Metric",
+       "What it tells you"
+      ],
+      [
+       "Technique coverage",
+       "Percent of prioritised techniques with a tested detection"
+      ],
+      [
+       "Time to detect",
+       "How fast the alert appears after the action"
+      ],
+      [
+       "Time to respond",
+       "How fast the team acts on the alert"
+      ],
+      [
+       "Alert quality",
+       "Share of alerts that are true positives"
+      ],
+      [
+       "Prevention rate",
+       "Share of tested behaviours that were blocked"
+      ],
+      [
+       "Gaps closed",
+       "How many missing detections were created and verified this month"
+      ]
+     ]
+    },
+    {
+     "p": "Choose metrics that lead to action. A big number of rules means little if they are untested. A smaller set of tested, reliable detections is worth much more."
+    },
+    {
+     "h": "Documentation that lasts"
+    },
+    {
+     "p": "Record every test in a shared table: technique, date, test details, result, detection created, owner and retest date. Over time the table becomes a living map of the organisation's defences. New team members learn from it, and managers can see progress."
+    },
+    {
+     "h": "Automation"
+    },
+    {
+     "p": "As the program grows, teams automate routine tests so that detections are checked every week and broken rules are noticed quickly. Software changes, logging settings drift and rules stop working. Continuous testing keeps defences honest. This approach is often called continuous security validation."
+    },
+    {
+     "h": "Working well as a team"
+    },
+    {
+     "ul": [
+      "Respect: attackers and defenders are on the same side, the organisation's.",
+      "Honesty: record real results, including embarrassing misses.",
+      "Clarity: write findings in simple language that helps the next person.",
+      "Curiosity: ask why a detection failed and how an attacker might vary the technique.",
+      "Ethics: stay inside scope, protect data and follow the law."
+     ]
+    },
+    {
+     "h": "Your path from here"
+    },
+    {
+     "p": "To grow on the blue side, continue with the rootjavs SOC Analyst, DFIR, Threat Hunting and Threat Intelligence courses. To grow on the red side, continue with Ethical Hacking and Penetration Testing, Active Directory Security and Web Application Security. The best security professionals learn both views."
+    },
+    {
+     "flip": [
+      [
+       "What are the stages of a purple team cycle?",
+       "Choose, plan, execute, observe, improve, retest and record."
+      ],
+      [
+       "What does logged only mean?",
+       "Evidence exists in logs but no alert was raised, so a detection must be written."
+      ],
+      [
+       "Why retest after improving a detection?",
+       "To confirm that the new detection really fires."
+      ],
+      [
+       "What is a good first technique to test?",
+       "One used by threat groups that target your industry, on an important system."
+      ],
+      [
+       "What is continuous security validation?",
+       "Running tests regularly to keep detections working."
+      ],
+      [
+       "Why use harmless tests?",
+       "To produce the observable behaviour without causing damage."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Plan a purple team test for one ATT&CK technique of your choice in the rootjavs lab. Write the technique, the safe test, expected logs, the detection you will write, the retest and the metric you will use to measure success."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the key difference between purple teaming and a traditional red team exercise?",
+     [
+      "Purple teaming is illegal",
+      "Red and blue work together with immediate feedback",
+      "Purple teaming uses no tools",
+      "Purple teaming is secret"
+     ],
+     1,
+     "Collaboration and instant improvement define purple teaming."
+    ],
+    [
+     "If a test is logged but no alert fires, what is the next step?",
+     [
+      "Ignore it",
+      "Delete the logs",
+      "Write a detection rule",
+      "Turn off logging"
+     ],
+     2,
+     "The evidence exists, so the gap is the missing alert."
+    ],
+    [
+     "Why should a purple team test use harmless methods?",
+     [
+      "They avoid documentation",
+      "They are easier to find online",
+      "They are slower",
+      "They create observable behaviour without damage"
+     ],
+     3,
+     "The aim is to test detection safely."
+    ],
+    [
+     "Which metric shows the share of prioritised techniques with tested detections?",
+     [
+      "Technique coverage",
+      "Disk size",
+      "Bandwidth",
+      "Screen brightness"
+     ],
+     0,
+     "Coverage tracks how much of the important attack surface is visible."
+    ],
+    [
+     "Why should every test be recorded?",
+     [
+      "To impress customers",
+      "To build a lasting record of progress and gaps",
+      "It is not needed",
+      "To fill disk space"
+     ],
+     1,
+     "A shared table lets the team track and improve over time."
+    ]
+   ],
+   "practice": [
+    "Design a purple team table with columns for technique, test, result, detection, owner and retest date, and fill in two example rows.",
+    "Choose three techniques you would test first for an Indian bank and explain why.",
+    "Write a short message to management explaining the benefit of purple teaming in simple language."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "simulator",
+  "name": "Mission: Purple Team Day at Rootjavs Bank",
+  "story": "Rootjavs Bank is a fictional training bank. You join its first purple team day. The simulator provides a test network with a few Windows and Linux machines and a small SIEM. The red side performs only harmless, pre-built tests. Your job is to observe, check the logs, write detections, retest and record the results. Nothing here can harm real systems.",
+  "steps": [
+   {
+    "goal": "Open the rules of engagement for the exercise and write down one in-scope and one out-of-scope item.",
+    "hint": "Use the simulator's document viewer.",
+    "check": "Notes list the test subnet as in scope and the live payment gateway as out of scope"
+   },
+   {
+    "goal": "Choose the technique to test first from the ATT&CK matrix: Scheduled Task (Persistence).",
+    "hint": "Select it in the matrix view.",
+    "check": "select T1053"
+   },
+   {
+    "goal": "Ask the red side to run the harmless scheduled task test and note the exact time.",
+    "hint": "Use the Execute button and copy the timestamp.",
+    "check": "run test T1053 and a timestamp is recorded"
+   },
+   {
+    "goal": "Search the SIEM for the process creation or task creation event around that time.",
+    "hint": "Search for the host name and the time window.",
+    "check": "search host=WIN-LAB01 event=task_created"
+   },
+   {
+    "goal": "Classify the result: blocked, detected, logged only or missed.",
+    "hint": "An event exists but no alert fired.",
+    "check": "logged only"
+   },
+   {
+    "goal": "Write a detection rule that alerts when a scheduled task is created by a non-admin account or runs a program from a temp folder.",
+    "hint": "Use IF and THEN style conditions.",
+    "check": "Rule contains task_created, non-admin condition and temp folder path condition"
+   },
+   {
+    "goal": "Run the same test again and confirm the alert fires.",
+    "hint": "Retest after saving the rule.",
+    "check": "alert 'Suspicious scheduled task' appears"
+   },
+   {
+    "goal": "Write the response step for this alert.",
+    "hint": "Who created it, is it approved, delete it, reset the account.",
+    "check": "Steps include verify creator, remove task and reset account if not approved"
+   },
+   {
+    "goal": "Test password guessing: ask the red side to generate ten failed logins followed by one success against a lab account.",
+    "hint": "Use the harmless login generator in the simulator.",
+    "check": "run test T1110"
+   },
+   {
+    "goal": "Search the logs for the failed logins and count them.",
+    "hint": "Group by account and source address.",
+    "check": "10 failed and 1 successful logon for the lab account"
+   },
+   {
+    "goal": "Create a detection: 10 or more failures within 5 minutes followed by a success.",
+    "hint": "Use a threshold and a time window.",
+    "check": "Rule with threshold 10, window 5 minutes and follow-up success"
+   },
+   {
+    "goal": "Retest and confirm the alert includes user, source address and time.",
+    "hint": "Open the alert details.",
+    "check": "alert contains user, source IP and time"
+   },
+   {
+    "goal": "Triage the alert: decide if it is a true positive and set a severity.",
+    "hint": "The test was created by the red side, but treat it as real in practice.",
+    "check": "severity HIGH, true positive, escalate"
+   },
+   {
+    "goal": "Choose a containment action for a real account takeover and say why.",
+    "hint": "Reset the account and revoke sessions.",
+    "check": "disable or reset the account and revoke sessions"
+   },
+   {
+    "goal": "Update the coverage map with both techniques as green.",
+    "hint": "Open the Navigator view.",
+    "check": "T1053 and T1110 coloured green"
+   },
+   {
+    "goal": "Record both tests in the results table with owner and retest date.",
+    "hint": "Fill the table columns.",
+    "check": "Table has technique, date, result, detection, owner and retest date for two rows"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which team plays the attacker in an authorised exercise?",
+   [
+    "White team",
+    "Blue team",
+    "Yellow team",
+    "Red team"
+   ],
+   3,
+   "The red team simulates attackers with permission."
+  ],
+  [
+   "What is the white team's role?",
+   [
+    "Attacking",
+    "Monitoring only",
+    "Referee and manager of the exercise",
+    "Writing malware"
+   ],
+   2,
+   "The white team sets rules and judges the exercise."
+  ],
+  [
+   "What is purple teaming?",
+   [
+    "A secret attack",
+    "A malware family",
+    "Red and blue working together to improve detection",
+    "A firewall type"
+   ],
+   2,
+   "It is a collaborative method with fast feedback."
+  ],
+  [
+   "What document sets scope, limits and emergency contacts for a red team engagement?",
+   [
+    "Rules of engagement",
+    "Network inventory",
+    "Help desk list",
+    "Marketing plan"
+   ],
+   0,
+   "Rules of engagement are written before testing starts."
+  ],
+  [
+   "Under which Indian law is unauthorised computer access an offence?",
+   [
+    "Motor Vehicles Act",
+    "Companies Act",
+    "Information Technology Act, 2000",
+    "Consumer Protection Act"
+   ],
+   2,
+   "The IT Act covers unauthorised access and related offences."
+  ],
+  [
+   "How many stages are in the Cyber Kill Chain?",
+   [
+    "Twelve",
+    "Five",
+    "Seven",
+    "Six"
+   ],
+   2,
+   "There are seven stages."
+  ],
+  [
+   "Which kill chain stage is the attacker sending a phishing email?",
+   [
+    "Delivery",
+    "Actions on objectives",
+    "Reconnaissance",
+    "Installation"
+   ],
+   0,
+   "Delivery is how the harmful content reaches the victim."
+  ],
+  [
+   "In MITRE ATT&CK, what do tactics represent?",
+   [
+    "Users",
+    "Software names",
+    "The attacker's goals",
+    "Firewalls"
+   ],
+   2,
+   "Tactics are goals and techniques are the methods."
+  ],
+  [
+   "What does T1566 refer to in ATT&CK?",
+   [
+    "Password hashing",
+    "VPN",
+    "Disk encryption",
+    "Phishing"
+   ],
+   3,
+   "T1566 is the technique identifier for phishing."
+  ],
+  [
+   "What is adversary emulation?",
+   [
+    "Blocking all traffic",
+    "Reproducing a real threat group's techniques in a test",
+    "Deleting logs",
+    "Buying malware"
+   ],
+   1,
+   "It makes testing realistic and relevant."
+  ],
+  [
+   "What is lateral movement?",
+   [
+    "Moving between computers inside a network",
+    "Deleting backups",
+    "Sending email",
+    "Updating software"
+   ],
+   0,
+   "Attackers reuse accounts to reach more systems."
+  ],
+  [
+   "Which is the strongest single defence against stolen passwords?",
+   [
+    "Multi-factor authentication",
+    "Faster Internet",
+    "Larger monitors",
+    "Long file names"
+   ],
+   0,
+   "A second factor blocks attackers with only the password."
+  ],
+  [
+   "Why do blue teams send logs to a central server?",
+   [
+    "To save disk space on laptops",
+    "So attackers cannot erase the evidence locally",
+    "To avoid backups",
+    "To slow attackers"
+   ],
+   1,
+   "Central, protected storage keeps evidence safe."
+  ],
+  [
+   "What does a SIEM do?",
+   [
+    "Collects and analyses logs and raises alerts",
+    "Encrypts email",
+    "Creates backups only",
+    "Assigns IP addresses"
+   ],
+   0,
+   "It centralises logs and runs detections."
+  ],
+  [
+   "What is a false positive?",
+   [
+    "A successful block",
+    "A real attack with no alert",
+    "A new patch",
+    "An alert for harmless activity"
+   ],
+   3,
+   "False positives waste time and can cause alert fatigue."
+  ],
+  [
+   "What is alert fatigue?",
+   [
+    "Slow Wi-Fi",
+    "A disk error",
+    "Tired servers",
+    "Analysts ignoring alerts because of too many false ones"
+   ],
+   3,
+   "Too many false alarms make people miss real ones."
+  ],
+  [
+   "Which event is almost always suspicious?",
+   [
+    "A user logging in",
+    "Clearing of security logs",
+    "A file download",
+    "A software update"
+   ],
+   1,
+   "Clearing logs is typical of attackers hiding their actions."
+  ],
+  [
+   "What is the first phase of the NIST incident response lifecycle?",
+   [
+    "Preparation",
+    "Recovery",
+    "Reporting",
+    "Eradication"
+   ],
+   0,
+   "Preparation comes before incidents occur."
+  ],
+  [
+   "What is triage?",
+   [
+    "A quick check to decide if an alert is real and how urgent",
+    "Updating a server",
+    "A type of backup",
+    "Deleting an alert"
+   ],
+   0,
+   "Triage guides the decision to close, monitor or escalate."
+  ],
+  [
+   "Which action isolates a suspected infected computer?",
+   [
+    "Install games",
+    "Disconnect it from the network",
+    "Delete the log files",
+    "Disable the firewall"
+   ],
+   1,
+   "Network isolation stops spread and attacker communication."
+  ],
+  [
+   "What is the chain of custody?",
+   [
+    "A kind of backup",
+    "A record of who handled evidence and when",
+    "A network protocol",
+    "A password policy"
+   ],
+   1,
+   "It proves that evidence was not tampered with."
+  ],
+  [
+   "Which result means evidence exists but no alert fired in a purple team test?",
+   [
+    "Missed",
+    "Blocked",
+    "Detected",
+    "Logged only"
+   ],
+   3,
+   "Logged only means a rule is needed."
+  ],
+  [
+   "Why retest after writing a detection?",
+   [
+    "To skip documentation",
+    "To bore the team",
+    "To delete logs",
+    "To confirm it works"
+   ],
+   3,
+   "Retesting proves that the new detection fires."
+  ],
+  [
+   "Which metric measures how fast an alert appears after an attacker action?",
+   [
+    "Uptime",
+    "Disk size",
+    "Time to detect",
+    "Bandwidth"
+   ],
+   2,
+   "Time to detect is a key measurement of defence."
+  ],
+  [
+   "What is the right way to practise attack techniques as a student?",
+   [
+    "On any website you find",
+    "Only in the rootjavs lab or your own isolated machines",
+    "On your neighbour's Wi-Fi",
+    "On your college server without permission"
+   ],
+   1,
+   "Unauthorised testing is illegal even with good intent."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "Rootjavs Bank has asked you to lead a one-day purple team exercise on a test network inside the rootjavs lab. You must plan the exercise, test two ATT&CK techniques, create detections, retest and deliver a short summary for the management. Use only the lab.",
+  "tasks": [
+   {
+    "task": "Write the scope, out-of-scope items and a stop word for the exercise.",
+    "check": "Scope names the test subnet, out-of-scope names live systems and a stop word is written"
+   },
+   {
+    "task": "Choose two ATT&CK techniques that matter for a bank and explain why.",
+    "check": "Two valid techniques, such as phishing and valid accounts, with a reason for each"
+   },
+   {
+    "task": "Run the harmless test for the first technique and record the exact time.",
+    "check": "A timestamp is recorded and the test name is noted"
+   },
+   {
+    "task": "Search the SIEM and classify the result as blocked, detected, logged only or missed.",
+    "check": "Result matches the simulator evidence"
+   },
+   {
+    "task": "Write a detection rule for the first technique.",
+    "check": "Rule has a clear condition, threshold or time window and output fields"
+   },
+   {
+    "task": "Retest and confirm the alert fires.",
+    "check": "Alert is shown with user and host details"
+   },
+   {
+    "task": "Repeat the cycle for the second technique.",
+    "check": "Second technique has a result, rule and retest"
+   },
+   {
+    "task": "Write a triage note and a containment decision for one alert.",
+    "check": "Note includes severity, true or false positive decision and a containment action"
+   },
+   {
+    "task": "List three hardening actions that reduce the chance of these techniques succeeding.",
+    "check": "Examples include multi-factor authentication, least privilege and application allow lists"
+   },
+   {
+    "task": "Write a five-line summary for management with metrics.",
+    "check": "Summary states coverage gained, time to detect and next steps"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "Red vs Blue Team Cheat Sheet",
+  "sections": [
+   [
+    "Teams",
+    [
+     [
+      "Red team",
+      "Authorised attackers testing the organisation"
+     ],
+     [
+      "Blue team",
+      "Defenders: SOC, response, hardening"
+     ],
+     [
+      "Purple team",
+      "Collaboration between red and blue"
+     ],
+     [
+      "White team",
+      "Referees and managers"
+     ]
+    ]
+   ],
+   [
+    "Kill Chain",
+    [
+     [
+      "1 Reconnaissance",
+      "Collect information"
+     ],
+     [
+      "2 Weaponisation",
+      "Prepare harmful content"
+     ],
+     [
+      "3 Delivery",
+      "Send it to the victim"
+     ],
+     [
+      "4 Exploitation",
+      "Run code through a weakness or user action"
+     ],
+     [
+      "5 Installation",
+      "Establish persistence"
+     ],
+     [
+      "6 Command and control",
+      "Communicate with the attacker"
+     ],
+     [
+      "7 Actions on objectives",
+      "Steal, encrypt, destroy"
+     ]
+    ]
+   ],
+   [
+    "ATT&CK ideas",
+    [
+     [
+      "Tactic",
+      "The goal"
+     ],
+     [
+      "Technique",
+      "The method"
+     ],
+     [
+      "Sub-technique",
+      "A specific variation"
+     ],
+     [
+      "Procedure",
+      "How a group did it"
+     ],
+     [
+      "Navigator",
+      "Tool to colour a coverage map"
+     ]
+    ]
+   ],
+   [
+    "Blue team basics",
+    [
+     [
+      "Log",
+      "A record of an event"
+     ],
+     [
+      "SIEM",
+      "Central log search and alerting"
+     ],
+     [
+      "True positive",
+      "Real attack, alert fired"
+     ],
+     [
+      "False positive",
+      "Harmless activity, alert fired"
+     ],
+     [
+      "False negative",
+      "Real attack, no alert"
+     ]
+    ]
+   ],
+   [
+    "Incident response",
+    [
+     [
+      "Preparation",
+      "Plans, tools, training"
+     ],
+     [
+      "Detection and analysis",
+      "Is it real, how big"
+     ],
+     [
+      "Containment, eradication, recovery",
+      "Stop, remove, restore"
+     ],
+     [
+      "Lessons learned",
+      "Review and improve"
+     ]
+    ]
+   ],
+   [
+    "Purple cycle",
+    [
+     [
+      "Choose",
+      "Pick a technique"
+     ],
+     [
+      "Execute",
+      "Run a safe test"
+     ],
+     [
+      "Observe",
+      "Check logs and alerts"
+     ],
+     [
+      "Improve",
+      "Write or tune detection"
+     ],
+     [
+      "Retest",
+      "Confirm it fires"
+     ],
+     [
+      "Record",
+      "Update the coverage map"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "Red team",
+   "A group that legally plays the attacker to test an organisation."
+  ],
+  [
+   "Blue team",
+   "The defenders who monitor, detect, respond and harden."
+  ],
+  [
+   "Purple team",
+   "A joint effort where attackers and defenders improve detection together."
+  ],
+  [
+   "Rules of engagement",
+   "A written agreement that sets scope, limits and contacts for a test."
+  ],
+  [
+   "Kill Chain",
+   "A seven-stage model of how an attack progresses."
+  ],
+  [
+   "MITRE ATT&CK",
+   "A public catalogue of attacker tactics and techniques."
+  ],
+  [
+   "Adversary emulation",
+   "Copying a real threat group's techniques in a controlled test."
+  ],
+  [
+   "SIEM",
+   "A system that collects and analyses logs and raises alerts."
+  ],
+  [
+   "False positive",
+   "An alert on activity that is actually harmless."
+  ],
+  [
+   "Lateral movement",
+   "Moving from one compromised computer to others."
+  ],
+  [
+   "Triage",
+   "A quick check to decide how real and urgent an alert is."
+  ],
+  [
+   "Hardening",
+   "Securing systems by removing weaknesses and unneeded features."
+  ],
+  [
+   "Chain of custody",
+   "A record of who handled evidence and when."
+  ],
+  [
+   "Detection engineering",
+   "Designing, testing and tuning detection rules."
+  ]
+ ],
+ "interview": [
+  [
+   "What is the difference between a red team and a penetration test?",
+   "A penetration test finds as many weaknesses as possible in a defined scope. A red team exercise pursues a realistic objective across people, process and technology, often over a longer time and with limited defender awareness, to test detection and response."
+  ],
+  [
+   "What is purple teaming and why is it useful?",
+   "It is a collaborative approach where red and blue work together, test a technique, check detection, improve it and retest. It gives fast feedback and turns attack knowledge into tested defences."
+  ],
+  [
+   "Explain the Cyber Kill Chain.",
+   "It models an attack in seven stages: reconnaissance, weaponisation, delivery, exploitation, installation, command and control and actions on objectives. Breaking any stage can stop the attack."
+  ],
+  [
+   "How does MITRE ATT&CK help a blue team?",
+   "It gives a shared list of techniques, with detection and mitigation guidance. Teams map their detections to it, find gaps and prioritise based on threats relevant to them."
+  ],
+  [
+   "How would you reduce false positives in a detection?",
+   "Test the rule on historical logs, add context such as asset importance and user role, exclude known approved activity carefully and review results regularly."
+  ],
+  [
+   "What do you do when you receive a suspicious login alert?",
+   "Triage: check the user, source, time and history, look for related events, check intelligence, decide severity, contain if real by resetting the account and revoking sessions, and document."
+  ],
+  [
+   "What is lateral movement and how can you detect it?",
+   "It is movement between computers using valid credentials or tools. Detect it with logs of logins to many hosts quickly, unusual administrative tool use and remote service creation. Prevent with segmentation and least privilege."
+  ],
+  [
+   "What would you include in a rules of engagement document?",
+   "Scope, out-of-scope systems, allowed and forbidden techniques, testing window, contacts, a stop word, data handling and legal authorisation."
+  ],
+  [
+   "How do you measure the success of a purple team program?",
+   "Technique coverage with tested detections, time to detect and respond, alert quality, gaps closed and the share of tested behaviours prevented."
+  ],
+  [
+   "Why must students practise only in labs?",
+   "Unauthorised testing is illegal under the IT Act even with good intent and can cause real harm, so learning must happen in lab environments or on systems you own."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}

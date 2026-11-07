@@ -160,9 +160,25 @@ RJ.renderNotes = blocks => blocks.map(b=>{
   if(b.ol) return `<ol>${b.ol.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol>`;
   if(b.tip) return `<div class="callout">${RJ.icon("bolt")}<div><b>Pro tip</b>${RJ.fmt(b.tip)}</div></div>`;
   if(b.tbl) return `<div class="tbl"><table><thead><tr>${b.tbl[0].map(c=>`<th>${RJ.fmt(c)}</th>`).join("")}</tr></thead><tbody>${b.tbl.slice(1).map(r=>`<tr>${r.map(c=>`<td>${RJ.fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  if(b.task) return `<div class="task-box"><h3>${RJ.icon("target")} Real task: do this on your computer</h3><ol>${b.task.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol></div>`;
+  if(b.task) return `<div class="task-box"><h3>${RJ.icon("target")} Real task: do this on your computer</h3><ol>${[].concat(b.task).map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol></div>`;
+  /* blocks used by the new course format */
+  if(b.warn) return `<div class="callout warn">${RJ.icon("alert")}<div><b>Warning</b>${RJ.fmt(b.warn)}</div></div>`;
+  if(b.code) return `<div class="codeblk"><div class="codebar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="mono">${RJ.esc(b.code.lang||"code")}</span><button class="copybtn" type="button" data-copy aria-label="Copy code">${RJ.icon("copy")}</button></div><pre><code>${RJ.esc(b.code.text||"")}</code></pre></div>`;
+  if(b.diagram) return `<figure class="diagram-box">${RJ.icon("map")}<figcaption><b>Diagram</b>${RJ.fmt(typeof b.diagram==="string"?b.diagram:(b.diagram.text||""))}</figcaption></figure>`;
+  if(b.flip) return `<div class="flips">${b.flip.map(f=>`<button type="button" class="flipc" aria-pressed="false"><span class="fr"><small>Question</small>${RJ.fmt(f[0])}</span><span class="bk"><small>Answer</small>${RJ.fmt(f[1])}</span></button>`).join("")}</div><p class="small muted" style="margin-top:-6px">Tap a card to flip it.</p>`;
   return "";
 }).join("");
+document.addEventListener("click",e=>{
+  const f=e.target.closest&&e.target.closest(".flipc"); if(f){ f.classList.toggle("on"); f.setAttribute("aria-pressed",f.classList.contains("on")); return; }
+  const cp=e.target.closest&&e.target.closest("[data-copy]"); if(cp){ const t=cp.closest(".codeblk").querySelector("code").textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>RJ.toast("Copied")).catch(()=>{}); }
+});
+/* the same new blocks for PDFs */
+RJ.pdfExtra = (k,b)=>{
+  if(b.warn) k.box("Warning",b.warn,[255,236,238],[200,40,60]);
+  if(b.code) k.box("Code"+(b.code.lang?" - "+b.code.lang:""),b.code.text||"",[240,244,250],[60,80,120]);
+  if(b.diagram) k.box("Diagram",typeof b.diagram==="string"?b.diagram:(b.diagram.text||""),[238,246,255],[47,100,240]);
+  if(b.flip) k.table([["Question","Answer"],...b.flip]);
+};
 
 /* ---------------- PDF ---------------- */
 const pdfSafe = s => RJ.plain(s).replace(/₹/g,"Rs. ").replace(/[–—]/g,"-").replace(/→/g,"->").replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/×/g,"x").replace(/[^\x09\x0A\x0D\x20-\x7E\u2022]/g,"");
@@ -203,7 +219,8 @@ RJ.notesPDF = (c,li)=>{
     if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1}));
     if(b.tbl) k.table(b.tbl);
     if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]);
-    if(b.task) k.box("Real task - do this on your computer",b.task.map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]);
+    if(b.task) k.box("Real task - do this on your computer",[].concat(b.task).map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]);
+    RJ.pdfExtra(k,b);
   }
   k.y+=4; k.box("Quick revision quiz",L.quiz.map((q,i)=>`${i+1}. ${q[0]}`).join("\n"),[245,247,251],[90,100,125]);
   k.finish(`rootjavs-${c.id}-lesson-${li+1}.pdf`);
@@ -216,7 +233,7 @@ RJ.coursePDF = (c)=>{
   k.h2("What you will learn"); c.learn.forEach(x=>k.text("•  "+x,{indent:3,gap:1}));
   c.lessons.forEach((L,li)=>{ k.d.addPage(); k.y=28; k.d.setFillColor(11,17,32); k.d.rect(0,0,210,16,"F"); k.d.setFillColor(91,140,255); k.d.rect(0,16,210,1.2,"F"); k.d.setTextColor(255,255,255); k.d.setFont("helvetica","bold"); k.d.setFontSize(11); k.d.text("rootjavs",16,10.3);
     k.text(`LESSON ${li+1}`,{size:8.5,style:"bold",color:[56,140,200],gap:2}); k.text(L.title,{size:19,style:"bold",color:[14,22,48],gap:4,lh:0.45});
-    for(const b of L.notes){ if(b.h) k.h2(b.h); if(b.p) k.text(b.p); if(b.ul) b.ul.forEach(x=>k.text("•  "+x,{indent:3,gap:1})); if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1})); if(b.tbl) k.table(b.tbl); if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]); if(b.task) k.box("Real task",b.task.map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]); }
+    for(const b of L.notes){ if(b.h) k.h2(b.h); if(b.p) k.text(b.p); if(b.ul) b.ul.forEach(x=>k.text("•  "+x,{indent:3,gap:1})); if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1})); if(b.tbl) k.table(b.tbl); if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]); if(b.task) k.box("Real task",[].concat(b.task).map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]); RJ.pdfExtra(k,b); }
   });
   k.finish(`rootjavs-${c.id}-complete-notes.pdf`);
 };
@@ -273,7 +290,7 @@ RJ.courseCard = c => {
   const p=RJ.progress(c), st=RJ.started(c);
   return `<a class="card hover ccard" href="course.html?c=${c.id}">
    <div class="top"><span class="icon ${c.cat==="Office"?"cyan":""}">${RJ.icon(c.icon)}</span>${p.complete?`<span class="chip ok">${RJ.icon("check")} Completed</span>`:st?`<span class="chip blue">In progress</span>`:`<span class="chip">${RJ.esc(c.level)}</span>`}</div>
-   <div><span class="eyebrow" style="font-size:11px">${RJ.esc(c.cat)}</span><h3 style="margin-top:6px">${RJ.esc(c.title)}</h3></div>
+   <div><span class="eyebrow" style="font-size:11px">${c.no?`#${c.no} · `:""}${RJ.esc(c.isOld?c.cat:(c.track||c.cat))}${c.dupOf?' · <span class="vtag new">New version</span>':c.hasNew?' · <span class="vtag old">Old version</span>':""}</span><h3 style="margin-top:6px">${RJ.esc(c.title)}</h3></div>
    <p>${RJ.esc(c.short)}</p>
    ${st?`<div><div class="pbar"><i style="width:${p.pct}%"></i></div><small class="muted">${p.pct}% complete</small></div>`:""}
    <div class="meta"><span>${RJ.icon("book")} ${c.lessons.length} lessons</span><span>${RJ.icon("clock")} ${c.hours} h</span><span>${RJ.icon("flask")} Lab</span><span>${RJ.icon("award")} Certificate</span></div></a>`;

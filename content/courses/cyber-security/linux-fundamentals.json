@@ -1,0 +1,2681 @@
+{
+ "id": "linux-fundamentals",
+ "title": "Linux Fundamentals",
+ "category": "Cyber Security",
+ "level": "Beginner",
+ "hours": 8,
+ "short": "Use the Linux terminal with confidence to navigate the file system, manage files, users, permissions, processes, software and basic networking.",
+ "prerequisites": [],
+ "learn": [
+  "Explain the difference between the kernel, shell and a distribution, and choose a safe way to practise Linux",
+  "Navigate the Linux directory tree with absolute and relative paths",
+  "Create, copy, move, read and delete files and folders safely from the terminal",
+  "Read and set file permissions, ownership and sudo access using the principle of least privilege",
+  "Search, filter and count text with grep, find, pipes and redirection",
+  "Manage processes, install software with apt, control services with systemctl and check basic network settings"
+ ],
+ "lessons": [
+  {
+   "title": "What Is Linux? Kernel, Distributions and Getting Started",
+   "minutes": 20,
+   "notes": [
+    {
+     "p": "Linux is the operating system that quietly runs most of the internet. When you open a website, watch a video, pay through UPI or book a train ticket, there is a very good chance that a Linux server is doing the work behind the screen. Almost every Android phone runs a Linux-based system. Supercomputers, cloud platforms, smart TVs, car dashboards and many network routers also run Linux. For anyone who wants a career in cyber security, cloud, development or AI, Linux is not optional. It is the foundation."
+    },
+    {
+     "h": "A short history"
+    },
+    {
+     "p": "In 1991, a Finnish student named Linus Torvalds started writing a small operating system **kernel** as a hobby and shared it publicly. Developers around the world began improving it. The kernel was combined with tools from the GNU project, which had been building free software since the 1980s. The result is what we call Linux. Because the source code is open, anyone can read it, change it and share it. This is called **open source** software."
+    },
+    {
+     "h": "Kernel, shell and distribution"
+    },
+    {
+     "p": "Three words appear again and again in Linux, and it is important to understand each one clearly."
+    },
+    {
+     "ul": [
+      "**Kernel**: the core of the operating system. It talks to the hardware (CPU, memory, disk, network card) and decides which program gets to use what. You never talk to the kernel directly.",
+      "**Shell**: a program that takes the commands you type and passes them to the kernel. The most common shell is **bash**. The window where you type is called the **terminal**.",
+      "**Distribution (distro)**: a complete package made of the Linux kernel plus tools, a package manager, a desktop and default settings. Ubuntu, Debian, Fedora, Kali Linux and Arch are all distributions."
+     ]
+    },
+    {
+     "diagram": "Animated layered diagram: at the bottom the Hardware layer (CPU, RAM, disk, network card), above it the Kernel layer, above that the Shell, and at the top Applications and the User. A glowing packet travels upward and downward when the student clicks 'Run ls', showing the command moving from the user, through the shell, into the kernel, to the disk, and the result returning back up."
+    },
+    {
+     "h": "Why Linux is different from Windows"
+    },
+    {
+     "tbl": [
+      [
+       "Point",
+       "Linux",
+       "Windows"
+      ],
+      [
+       "Cost",
+       "Free in almost all cases",
+       "Paid licence is included in most computers"
+      ],
+      [
+       "Source code",
+       "Open, anyone can read and modify",
+       "Closed, owned by Microsoft"
+      ],
+      [
+       "Main interface for admins",
+       "Command line (terminal)",
+       "Graphical interface, with PowerShell for admins"
+      ],
+      [
+       "Use on servers",
+       "Very common",
+       "Common, mostly for Microsoft products"
+      ],
+      [
+       "Malware targeting desktops",
+       "Much less common",
+       "Very common because of its large user base"
+      ],
+      [
+       "Customisation",
+       "Almost everything can be changed",
+       "Limited"
+      ]
+     ]
+    },
+    {
+     "p": "Linux does not make you safe automatically. A badly configured Linux server can be hacked just like any other system. The difference is that Linux gives you full control and full visibility, so a trained person can secure it properly."
+    },
+    {
+     "h": "Popular distributions and who they are for"
+    },
+    {
+     "tbl": [
+      [
+       "Distribution",
+       "Best for",
+       "Notes"
+      ],
+      [
+       "Ubuntu",
+       "Beginners, desktops, cloud servers",
+       "Easy to install, huge community, very good documentation"
+      ],
+      [
+       "Debian",
+       "Stable servers",
+       "Ubuntu is built on top of Debian"
+      ],
+      [
+       "Fedora",
+       "Developers who want newer software",
+       "Sponsored by Red Hat"
+      ],
+      [
+       "Red Hat Enterprise Linux (RHEL) and Rocky Linux",
+       "Company servers",
+       "Common in banks and large Indian IT companies"
+      ],
+      [
+       "Kali Linux",
+       "Security testing and learning",
+       "Comes with many security tools pre-installed"
+      ],
+      [
+       "Arch Linux",
+       "Advanced users",
+       "You build the system yourself"
+      ]
+     ]
+    },
+    {
+     "p": "In this course we use **Ubuntu** commands, because they work on Debian and Kali as well. About 90 percent of what you learn here also works on every other distribution."
+    },
+    {
+     "h": "Ways to start using Linux safely"
+    },
+    {
+     "p": "You do not have to remove Windows from your computer. There are four safe ways to practise."
+    },
+    {
+     "ol": [
+      "**The rootjavs lab**: a Linux terminal inside your browser. This is the fastest way to start and needs no installation.",
+      "**WSL (Windows Subsystem for Linux)**: runs Ubuntu inside Windows 10 or 11. You can install it from the Microsoft Store or with the command wsl --install in PowerShell.",
+      "**A virtual machine**: install VirtualBox or VMware and run Ubuntu in a window. If you break something, you simply delete the virtual machine and start again.",
+      "**Dual boot**: install Linux next to Windows. This is for later, after you are comfortable, because a mistake can affect your Windows files."
+     ]
+    },
+    {
+     "tip": "For a student laptop with 8 GB of RAM, a virtual machine with 2 to 4 GB of RAM and 25 GB of disk is a good starting point. Always take a snapshot of the virtual machine before you try something risky."
+    },
+    {
+     "h": "Your first commands"
+    },
+    {
+     "p": "When you open a terminal you will see a **prompt**. It usually looks like this: the username, an at sign, the computer name, a colon, the current folder and a dollar sign. The dollar sign means you are a normal user. A hash sign means you are the administrator, called **root**. Type the commands below and press [[Enter]] after each one."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "whoami          # shows your username\nhostname        # shows the computer name\ndate            # shows current date and time\nuname -a        # shows kernel and system information\ncat /etc/os-release   # shows which distribution you are using\nclear           # cleans the screen (or press Ctrl+L)"
+     }
+    },
+    {
+     "p": "A command has three parts: the **command name**, **options** (also called flags) that change how it behaves, and **arguments** that tell it what to work on. For example, in the line ls -l /home the command is ls, the option is -l, and the argument is /home. Options with one dash are usually short letters. Options with two dashes are usually full words, such as --help."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls --help        # quick help for a command\nman ls           # full manual page (press q to quit)\nwhatis ls        # one-line description"
+     }
+    },
+    {
+     "warn": "Linux commands are case sensitive. ls and LS are different. File names are also case sensitive, so Notes.txt and notes.txt are two different files. Also, Linux never asks 'Are you sure?' for most commands. Read before you press Enter."
+    },
+    {
+     "h": "Useful keyboard habits"
+    },
+    {
+     "ul": [
+      "[[Tab]] completes file and command names. Press it twice to see all options.",
+      "[[Up]] and [[Down]] arrows bring back old commands.",
+      "[[Ctrl+C]] stops a running command.",
+      "[[Ctrl+L]] clears the screen.",
+      "[[Ctrl+A]] and [[Ctrl+E]] jump to the start and end of the line."
+     ]
+    },
+    {
+     "h": "Linux in the real world of India"
+    },
+    {
+     "p": "When you use a government portal, an IRCTC booking page, a bank net banking page or a UPI payment app, the request is often handled by Linux servers in data centres. Many Indian IT companies, such as those that run banking and telecom systems, hire Linux administrators every year. In cyber security, Security Operations Centre analysts read logs on Linux, penetration testers use Kali Linux, and forensic investigators examine Linux disks. Learning Linux well opens doors in all these roles."
+    },
+    {
+     "flip": [
+      [
+       "What is the kernel?",
+       "The core of the operating system that talks to the hardware and manages memory, CPU and devices."
+      ],
+      [
+       "What is a shell?",
+       "A program that reads your typed commands and passes them to the kernel. Bash is the most common one."
+      ],
+      [
+       "What is a distribution?",
+       "A complete Linux system made from the kernel plus tools, a package manager and default settings, such as Ubuntu or Kali."
+      ],
+      [
+       "What does the $ sign in the prompt mean?",
+       "You are logged in as a normal user. A # sign means you are root, the administrator."
+      ],
+      [
+       "What does the man command do?",
+       "It opens the manual page of a command so you can read how to use it."
+      ],
+      [
+       "Why are Linux commands called case sensitive?",
+       "Because uppercase and lowercase letters are treated as different characters, so ls and LS are not the same."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Open the rootjavs Linux terminal. Run whoami, hostname, date and uname -a. Then run cat /etc/os-release and write down the name of the distribution. Finally, run man ls, scroll down with the arrow keys, find the meaning of the -a option, and press q to quit."
+    }
+   ],
+   "quiz": [
+    [
+     "Which part of Linux directly manages the CPU, memory and devices?",
+     [
+      "Kernel",
+      "Shell",
+      "Desktop",
+      "Terminal"
+     ],
+     0,
+     "The kernel is the core that controls hardware. The shell only passes your commands to it, the terminal is the window you type in, and the desktop is just the graphical layer."
+    ],
+    [
+     "Ubuntu, Fedora and Kali are examples of:",
+     [
+      "File systems",
+      "Distributions",
+      "Kernels",
+      "Shells"
+     ],
+     1,
+     "A distribution bundles the kernel with tools and settings. They are not kernels, shells or file systems."
+    ],
+    [
+     "In the command ls -l /home, what is /home?",
+     [
+      "A shell",
+      "An option",
+      "An argument",
+      "The command"
+     ],
+     2,
+     "The argument tells the command what to work on. ls is the command and -l is the option."
+    ],
+    [
+     "What does the # sign at the end of a prompt usually mean?",
+     [
+      "The command failed",
+      "You are a normal user",
+      "The terminal is closed",
+      "You are root"
+     ],
+     3,
+     "A hash sign shows the root (administrator) account. A normal user sees a dollar sign."
+    ],
+    [
+     "Which command opens the full manual of the ls command?",
+     [
+      "man ls",
+      "help me ls",
+      "info ls --short",
+      "whatis ls"
+     ],
+     0,
+     "man opens the manual page. whatis only gives a one-line description and the others are not valid commands."
+    ]
+   ],
+   "practice": [
+    "Run five different commands from this lesson and write down what each one printed.",
+    "Use --help with three commands of your choice and note one option from each.",
+    "Install WSL or a VirtualBox Ubuntu virtual machine on your own computer and take a snapshot."
+   ]
+  },
+  {
+   "title": "The File System and Navigation",
+   "minutes": 22,
+   "notes": [
+    {
+     "p": "In Windows you have drives such as C: and D:. In Linux there is only **one tree**, and every file, folder, disk and device hangs from a single starting point called **root**, written as a single slash (/). Once you understand this tree, you can find almost anything on any Linux machine. This lesson teaches you how the tree is organised and how to move around in it using the terminal."
+    },
+    {
+     "h": "The directory tree"
+    },
+    {
+     "p": "A **directory** is the Linux word for a folder. The Filesystem Hierarchy Standard decides what each main directory is used for. Almost every distribution follows it."
+    },
+    {
+     "tbl": [
+      [
+       "Directory",
+       "What it contains"
+      ],
+      [
+       "/",
+       "The top of the tree, called root directory. Not the same as the root user."
+      ],
+      [
+       "/home",
+       "Personal folders of normal users, such as /home/asha"
+      ],
+      [
+       "/root",
+       "Home folder of the root user"
+      ],
+      [
+       "/etc",
+       "System configuration files. Very important for administrators."
+      ],
+      [
+       "/var",
+       "Variable data such as logs (/var/log), mail and website files"
+      ],
+      [
+       "/bin and /usr/bin",
+       "Programs and commands such as ls and cat"
+      ],
+      [
+       "/sbin and /usr/sbin",
+       "System administration commands"
+      ],
+      [
+       "/tmp",
+       "Temporary files, usually cleared on reboot"
+      ],
+      [
+       "/dev",
+       "Devices shown as files, such as disks and terminals"
+      ],
+      [
+       "/proc",
+       "Live information about processes and the kernel"
+      ],
+      [
+       "/opt",
+       "Optional third-party software"
+      ],
+      [
+       "/mnt and /media",
+       "Places where disks and pen drives are attached"
+      ]
+     ]
+    },
+    {
+     "diagram": "Animated folder-tree diagram. A single node '/' sits at the top and branches into home, etc, var, bin, tmp, dev and root. When the student clicks a branch it expands (for example /home expands to /home/asha and /home/ravi, and /var expands to /var/log). A moving highlight follows the path as the student types cd /var/log, showing each step of the journey."
+    },
+    {
+     "h": "Where am I? The pwd command"
+    },
+    {
+     "p": "At every moment your terminal is 'standing' inside one directory. This is called the **current working directory**. The command pwd stands for print working directory and shows it."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "pwd\n# /home/asha"
+     }
+    },
+    {
+     "h": "What is here? The ls command"
+    },
+    {
+     "p": "The ls command lists the contents of a directory. Its options are used very often, so learn them well."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls              # simple list\nls -l           # long list with permissions, owner, size and date\nls -a           # show hidden files (names that start with a dot)\nls -la          # long list including hidden files\nls -lh          # sizes in human readable form such as 4.0K or 2.3M\nls -lt          # newest files first\nls /etc         # list another directory without moving there"
+     }
+    },
+    {
+     "p": "Hidden files in Linux are not secret. They are simply files whose names begin with a dot, such as .bashrc. They usually store settings. Attackers and malware also like to hide in such files, which is why investigators always check with ls -a."
+    },
+    {
+     "h": "Moving around: the cd command"
+    },
+    {
+     "p": "The cd command means change directory. You give it a **path**, which is the address of a directory."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cd /var/log     # go to an absolute path\ncd ..           # go one level up\ncd ../..        # go two levels up\ncd ~            # go to your home directory\ncd              # same as cd ~\ncd -            # go back to the previous directory"
+     }
+    },
+    {
+     "h": "Absolute and relative paths"
+    },
+    {
+     "p": "An **absolute path** starts from root and begins with a slash, for example /home/asha/notes/week1.txt. It works from anywhere. A **relative path** starts from where you are now. If you are in /home/asha, then notes/week1.txt points to the same file. Two special names help in relative paths: a single dot (.) means the current directory, and two dots (..) mean the parent directory."
+    },
+    {
+     "tbl": [
+      [
+       "You are in",
+       "Command",
+       "You arrive at"
+      ],
+      [
+       "/home/asha",
+       "cd notes",
+       "/home/asha/notes"
+      ],
+      [
+       "/home/asha/notes",
+       "cd ..",
+       "/home/asha"
+      ],
+      [
+       "/home/asha/notes",
+       "cd /etc",
+       "/etc"
+      ],
+      [
+       "/etc",
+       "cd ~",
+       "/home/asha"
+      ],
+      [
+       "/var/log",
+       "cd ../..",
+       "/"
+      ]
+     ]
+    },
+    {
+     "tip": "Press [[Tab]] while typing a path. Linux completes the name for you. This saves time and prevents spelling mistakes. If you type cd /va and press Tab, it becomes cd /var/."
+    },
+    {
+     "h": "Names with spaces"
+    },
+    {
+     "p": "Spaces in file names confuse the shell because it uses spaces to separate arguments. To handle a name such as My Notes, either put it in quotes, as in cd \"My Notes\", or escape the space with a backslash, as in cd My\\ Notes. A good habit is to use underscores or dashes in names you create, such as my_notes."
+    },
+    {
+     "h": "Looking at the whole tree"
+    },
+    {
+     "p": "The tree command, if installed, draws a directory as a tree. It is very helpful to understand structure. Install it with sudo apt install tree on Ubuntu."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "tree -L 2 /home/asha    # show two levels only\nfile /bin/ls            # tells what kind of file this is\nstat notes.txt          # shows detailed information about a file"
+     }
+    },
+    {
+     "h": "Everything is a file"
+    },
+    {
+     "p": "A famous idea in Linux is that **everything is a file**. A text document is a file, a directory is a special kind of file, and even your keyboard, disk and network settings are shown as files. This is why the same few commands work in so many places. For example, you can read information about your processor with the command cat /proc/cpuinfo, and you can see the list of users with cat /etc/passwd."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cat /proc/cpuinfo | head      # first lines of CPU information\ncat /proc/meminfo | head      # memory information\ncat /etc/hostname             # the computer name stored in a file"
+     }
+    },
+    {
+     "h": "Important places for a security student"
+    },
+    {
+     "ul": [
+      "**/var/log** holds logs of logins, system events and services. Analysts read these first when something goes wrong.",
+      "**/etc/passwd** lists user accounts. **/etc/shadow** holds password hashes and can be read only by root.",
+      "**/etc/ssh/sshd_config** controls how remote login works.",
+      "**/tmp** is writable by everyone, so attackers often drop files there. Defenders check it.",
+      "**/home** holds user data. Forensic investigators copy it first as evidence."
+     ]
+    },
+    {
+     "warn": "Exploring is safe, but do not delete or edit files in /etc, /bin or /usr unless you are told to do so in a lab or a virtual machine you own. Changing system files by mistake can stop the computer from starting."
+    },
+    {
+     "flip": [
+      [
+       "What does pwd print?",
+       "The full path of the directory you are currently in."
+      ],
+      [
+       "What is the difference between absolute and relative paths?",
+       "An absolute path starts from / and works anywhere. A relative path starts from your current directory."
+      ],
+      [
+       "What do . and .. mean in a path?",
+       "A single dot is the current directory and two dots are the parent directory."
+      ],
+      [
+       "Where are system logs usually stored?",
+       "In /var/log."
+      ],
+      [
+       "What makes a file hidden in Linux?",
+       "Its name starts with a dot, such as .bashrc."
+      ],
+      [
+       "What does cd - do?",
+       "It takes you back to the previous directory you were in."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Start with cd ~ and then pwd. Walk through this journey using only the commands you learned: go to /var/log, list the files with ls -lh, go up to /var, go to /etc, list hidden files in your home directory with ls -la ~, and return home with cd. At each step run pwd to confirm where you are."
+    }
+   ],
+   "quiz": [
+    [
+     "Which command shows the directory you are currently in?",
+     [
+      "where",
+      "pwd",
+      "ls",
+      "cd"
+     ],
+     1,
+     "pwd prints the working directory. ls lists contents, cd changes directory and where is not the right command."
+    ],
+    [
+     "Which directory normally stores log files?",
+     [
+      "/bin",
+      "/mnt",
+      "/var/log",
+      "/etc"
+     ],
+     2,
+     "Logs live under /var/log. /etc holds configuration, /bin holds commands and /mnt is for mounting disks."
+    ],
+    [
+     "You are in /home/asha/notes. What does cd ../.. take you to?",
+     [
+      "/",
+      "/home/asha",
+      "/notes",
+      "/home"
+     ],
+     3,
+     "Each .. goes one level up. From /home/asha/notes, the first .. leads to /home/asha and the second leads to /home. It does not reach / because that would need a third .."
+    ],
+    [
+     "Which option of ls shows hidden files?",
+     [
+      "-a",
+      "-t",
+      "-l",
+      "-h"
+     ],
+     0,
+     "-a shows all files including those starting with a dot. -l is long format, -h makes sizes readable and -t sorts by time."
+    ],
+    [
+     "A path that starts with / is called:",
+     [
+      "Hidden path",
+      "Absolute path",
+      "Relative path",
+      "Parent path"
+     ],
+     1,
+     "A path that begins from the root slash is absolute and works from any location."
+    ]
+   ],
+   "practice": [
+    "Draw the Linux directory tree on paper from memory with at least eight directories and one line about each.",
+    "Use tree -L 2 on your home directory and explain what you see.",
+    "Find the path of five different commands using the command which, for example which ls."
+   ]
+  },
+  {
+   "title": "Working with Files and Directories",
+   "minutes": 25,
+   "notes": [
+    {
+     "p": "Now that you can move around the file system, it is time to create, copy, move, read and delete things. These are the commands you will use every single day as a Linux user, administrator, developer or security analyst. Practise each one until it feels natural. In this lesson, work only inside your own home directory or the rootjavs lab, so that a mistake cannot damage anything important."
+    },
+    {
+     "h": "Creating directories and files"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "mkdir projects                 # create one directory\nmkdir -p projects/web/css      # create nested directories in one go\ntouch notes.txt                # create an empty file (or update its time)\ntouch a.txt b.txt c.txt        # create several files at once\necho \"Hello rootjavs\" > hello.txt   # create a file with text inside"
+     }
+    },
+    {
+     "p": "The -p option of mkdir means 'parents'. Without it, mkdir fails if the parent directory does not exist. The touch command is really meant to update the time stamp of a file, but when the file does not exist it creates an empty one."
+    },
+    {
+     "h": "Copying, moving and renaming"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cp notes.txt backup.txt          # copy a file\ncp -r projects projects_backup   # copy a whole directory (-r means recursive)\nmv backup.txt old_notes.txt      # rename a file\nmv old_notes.txt projects/       # move a file into a directory\nmv projects/old_notes.txt .      # move it back to the current directory"
+     }
+    },
+    {
+     "p": "Linux has no separate rename command. The mv command is used for both moving and renaming, because renaming is just moving a file to a new name. Be careful: if the destination file already exists, both cp and mv will overwrite it silently. Use the -i option to get a question first."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cp -i notes.txt backup.txt    # asks before overwriting\nmv -i a.txt b.txt             # asks before overwriting"
+     }
+    },
+    {
+     "diagram": "Animated before-and-after diagram of a folder. The student chooses a command from a menu (cp, mv, rm) and the diagram animates the result: cp makes a second copy of the file icon, mv slides the same icon into a new folder, and rm makes the icon fade away with a red cross, with a label showing that it does not go to a recycle bin."
+    },
+    {
+     "h": "Deleting safely"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "rm c.txt                  # delete a file\nrm -i b.txt               # ask before deleting\nrmdir emptydir            # delete an empty directory\nrm -r projects_backup     # delete a directory and everything inside it"
+     }
+    },
+    {
+     "warn": "There is no recycle bin in the terminal. A file removed with rm is gone. Never run rm -rf with a path you have not checked, and never run it as root. A single misplaced space, such as rm -rf / home, could try to delete the entire system. Always run ls first to see exactly what you are about to remove."
+    },
+    {
+     "h": "Reading files"
+    },
+    {
+     "tbl": [
+      [
+       "Command",
+       "Use"
+      ],
+      [
+       "cat file",
+       "Print the whole file. Good for short files."
+      ],
+      [
+       "less file",
+       "Read long files page by page. Use arrow keys, / to search and q to quit."
+      ],
+      [
+       "head file",
+       "Show the first 10 lines. Use head -n 5 for five lines."
+      ],
+      [
+       "tail file",
+       "Show the last 10 lines. Very useful for logs."
+      ],
+      [
+       "tail -f file",
+       "Follow a file live as new lines are added. Press Ctrl+C to stop."
+      ],
+      [
+       "wc file",
+       "Count lines, words and characters. wc -l counts lines only."
+      ]
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cat hello.txt\nhead -n 3 /var/log/syslog\ntail -n 20 /var/log/auth.log\nwc -l /etc/passwd"
+     }
+    },
+    {
+     "p": "On many systems, log files such as /var/log/auth.log can be read only with administrator rights. In that case you would add sudo in front of the command. You will learn exactly why in the next lesson."
+    },
+    {
+     "h": "Writing to files with a text editor"
+    },
+    {
+     "p": "Sooner or later you must edit a configuration file. **nano** is the easiest terminal editor for beginners. Type nano notes.txt to open it. The commands are shown at the bottom of the screen: the caret sign means the [[Ctrl]] key. Use [[Ctrl+O]] to save, [[Enter]] to confirm the name, and [[Ctrl+X]] to exit. Another famous editor is **vim**. It is powerful but harder to learn, so keep it for later. If you ever open vim by accident, press [[Esc]], type :q! and press [[Enter]] to leave without saving."
+    },
+    {
+     "h": "Wildcards: working with many files at once"
+    },
+    {
+     "p": "A **wildcard** is a special character that stands for other characters. The shell expands wildcards before the command runs, so you can work on many files in one line."
+    },
+    {
+     "tbl": [
+      [
+       "Wildcard",
+       "Meaning",
+       "Example"
+      ],
+      [
+       "*",
+       "Any number of any characters",
+       "ls *.txt lists every file ending in .txt"
+      ],
+      [
+       "?",
+       "Exactly one character",
+       "ls file?.txt matches file1.txt but not file10.txt"
+      ],
+      [
+       "[abc]",
+       "One character from the set",
+       "ls file[12].txt matches file1.txt and file2.txt"
+      ],
+      [
+       "[0-9]",
+       "One character in a range",
+       "ls log[0-9].txt"
+      ]
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls *.txt\ncp *.txt backup/\nrm -i *.tmp          # always use -i when a wildcard is involved"
+     }
+    },
+    {
+     "tip": "Before you delete with a wildcard, first run the same pattern with ls. For example, run ls *.tmp. If the list is exactly what you expect, then replace ls with rm."
+    },
+    {
+     "h": "Links: shortcuts in Linux"
+    },
+    {
+     "p": "A **symbolic link** (symlink) is a shortcut that points to another file or directory. It is created with ln -s. If the original is deleted, the link breaks. A **hard link** is a second name for the same data and stays valid even if the original name is removed. Beginners use symbolic links most of the time."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ln -s /var/log mylogs     # create a shortcut called mylogs\nls -l mylogs              # the output shows mylogs -> /var/log"
+     }
+    },
+    {
+     "h": "File types and extensions"
+    },
+    {
+     "p": "Linux does not depend on file extensions such as .txt or .jpg to understand what a file is. Extensions are only a habit that helps humans. The file command looks inside a file to find its real type, which is a very useful skill for security work. A file named invoice.pdf that is in reality a program should never be trusted."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "file hello.txt\nfile /bin/ls"
+     }
+    },
+    {
+     "h": "A small practice project"
+    },
+    {
+     "p": "Let us put all this together. Imagine you are keeping notes for your college subjects. You will create a folder structure, add files, copy a backup and clean up."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cd ~\nmkdir -p college/sem1/linux college/sem1/python\ntouch college/sem1/linux/week1.txt college/sem1/linux/week2.txt\necho \"Learned cd, ls and pwd\" > college/sem1/linux/week1.txt\ncp -r college college_backup\nls -R college_backup\nrm -r college_backup"
+     }
+    },
+    {
+     "p": "Read each line and predict the result before pressing Enter. This habit of predicting makes you a much better administrator, because you will rarely be surprised by what a command does."
+    },
+    {
+     "flip": [
+      [
+       "Which option makes mkdir create parent directories?",
+       "-p, as in mkdir -p a/b/c."
+      ],
+      [
+       "How do you rename a file in Linux?",
+       "With mv, for example mv old.txt new.txt."
+      ],
+      [
+       "Which command copies a directory and its contents?",
+       "cp -r source destination."
+      ],
+      [
+       "How can you watch a log file as new lines arrive?",
+       "tail -f filename, and stop with Ctrl+C."
+      ],
+      [
+       "What does the * wildcard match?",
+       "Any number of any characters."
+      ],
+      [
+       "Is there a recycle bin for rm?",
+       "No. Files deleted with rm are removed immediately."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: In your home directory create a folder named practice with two sub folders called docs and images. Create three files in docs named a.txt, b.txt and c.txt. Copy all .txt files into images using a wildcard. Rename c.txt in docs to final.txt. Use ls -R practice to check the result and then remove the entire practice folder."
+    }
+   ],
+   "quiz": [
+    [
+     "Which command renames report.txt to final.txt?",
+     [
+      "cp report.txt final.txt",
+      "rename report.txt final.txt",
+      "mv report.txt final.txt",
+      "touch final.txt"
+     ],
+     2,
+     "mv moves a file to a new name, which is how Linux renames. cp would leave the old file in place and touch only creates an empty file."
+    ],
+    [
+     "What does rm -r foldername do?",
+     [
+      "Renames the folder",
+      "Restores the folder",
+      "Reads the folder",
+      "Deletes the folder and everything inside it"
+     ],
+     3,
+     "The -r option means recursive, so rm removes the folder and all its contents. It cannot be undone."
+    ],
+    [
+     "Which command shows the last lines of a log file as they are written?",
+     [
+      "tail -f",
+      "cat -f",
+      "less -f",
+      "head -f"
+     ],
+     0,
+     "tail -f follows the end of a file live. head shows the start, cat prints the whole file once."
+    ],
+    [
+     "What does the pattern ls file?.txt match?",
+     [
+      "file10.txt",
+      "file1.txt and fileA.txt",
+      "file.txt only",
+      "Every txt file"
+     ],
+     1,
+     "The ? wildcard stands for exactly one character, so file1.txt and fileA.txt match but file10.txt does not."
+    ],
+    [
+     "Why is rm -rf run as root with a wrong path dangerous?",
+     [
+      "It is slow",
+      "It asks too many questions",
+      "It can delete important system files with no recovery",
+      "It only deletes hidden files"
+     ],
+     2,
+     "rm -rf deletes without asking and root can delete almost anything, so a mistyped path can destroy the system."
+    ]
+   ],
+   "practice": [
+    "Create a directory tree for your own college subjects using one mkdir -p command.",
+    "Use head, tail and wc -l on /etc/passwd and explain each output.",
+    "Create a symbolic link to /var/log in your home directory and list it with ls -l."
+   ]
+  },
+  {
+   "title": "Users, Groups and Permissions",
+   "minutes": 25,
+   "notes": [
+    {
+     "p": "Linux was designed from the start as a multi-user system. Many people can use the same computer at the same time, and the system must stop one person from reading or damaging another person's files. The tool that does this is the **permission system**. It is one of the most important topics in Linux and in cyber security, because wrong permissions are a very common reason for hacked servers."
+    },
+    {
+     "h": "Users and groups"
+    },
+    {
+     "p": "Every person or program that uses Linux has a **user account**. Each user has a name and a number called the **UID** (user ID). Users can be placed into **groups**, and each group has a **GID**. A group makes it easy to give the same access to many users, such as all members of a college lab team."
+    },
+    {
+     "ul": [
+      "**Root** is the administrator, always with UID 0. Root can do anything.",
+      "**Normal users** are real people, with UIDs usually starting from 1000.",
+      "**System users** are used by services such as the web server. They normally cannot log in."
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "whoami            # your username\nid                # your UID, GID and groups\ngroups            # groups you belong to\ncat /etc/passwd   # list of accounts\ncat /etc/group    # list of groups"
+     }
+    },
+    {
+     "p": "Each line in /etc/passwd has seven fields separated by colons: username, a placeholder for the password, UID, GID, description, home directory and login shell. The real password hashes are stored in /etc/shadow, which only root can read. Note that Linux never stores passwords in readable form, only as hashes."
+    },
+    {
+     "h": "Using sudo"
+    },
+    {
+     "p": "Logging in as root all the time is dangerous because any mistake or any malware then has full power. Instead, you work as a normal user and use **sudo** (superuser do) in front of a single command that needs administrator rights. You type your own password, not root's, and the action is recorded in a log."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sudo apt update          # run one command as root\nsudo whoami              # prints root\nsudo -l                  # shows what you are allowed to run\nsu - asha                # switch to another user (needs that user's password)"
+     }
+    },
+    {
+     "warn": "Use sudo only when you understand the command. Never copy and paste a command from a website with sudo in front of it unless you know exactly what it does. Attackers publish harmful commands that look helpful."
+    },
+    {
+     "h": "Creating and managing users"
+    },
+    {
+     "p": "On your own virtual machine you can practise user management. These commands need sudo."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sudo adduser ravi              # create user with a home folder and password prompt\nsudo usermod -aG sudo ravi     # add ravi to the sudo group (the -a means append)\nsudo groupadd labteam          # create a group\nsudo usermod -aG labteam ravi  # add ravi to labteam\nsudo passwd ravi               # change password\nsudo deluser ravi              # remove the user"
+     }
+    },
+    {
+     "tip": "Always use -aG together when adding a user to a group. If you forget the -a, the user is removed from all other groups and only stays in the new one."
+    },
+    {
+     "h": "Reading permissions"
+    },
+    {
+     "p": "Run ls -l and look at the first column of the output. It looks like this: -rwxr-xr-- and is followed by an owner name, a group name, the size, the date and the file name."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls -l report.sh\n# -rwxr-xr--  1 asha labteam  120 Nov  8 10:00 report.sh"
+     }
+    },
+    {
+     "p": "The first character shows the type: a dash means a normal file, d means a directory and l means a link. The next nine characters are three sets of three. The sets are for the **owner** (user), the **group** and **others** (everybody else). In each set, r means read, w means write and x means execute. A dash means that permission is missing."
+    },
+    {
+     "tbl": [
+      [
+       "Permission",
+       "On a file",
+       "On a directory"
+      ],
+      [
+       "r (read)",
+       "View the content",
+       "List the names inside"
+      ],
+      [
+       "w (write)",
+       "Change the content",
+       "Create, rename or delete files inside"
+      ],
+      [
+       "x (execute)",
+       "Run it as a program",
+       "Enter it with cd"
+      ]
+     ]
+    },
+    {
+     "diagram": "Interactive permission calculator. Nine toggle boxes arranged in three rows (owner, group, others) and three columns (read, write, execute). As the student toggles each box, the diagram shows the string such as rwxr-xr-- and the number such as 754 updating live, with the values 4, 2 and 1 shown beside each column."
+    },
+    {
+     "h": "Changing permissions with chmod"
+    },
+    {
+     "p": "The chmod command changes permissions. It works in two ways. In **symbolic mode** you use letters: u for user (owner), g for group, o for others and a for all, with a plus or minus sign to add or remove permissions. In **numeric mode** each permission has a value: read is 4, write is 2 and execute is 1. You add the values for each set."
+    },
+    {
+     "tbl": [
+      [
+       "Number",
+       "Meaning",
+       "Letters"
+      ],
+      [
+       "7",
+       "4 + 2 + 1",
+       "rwx"
+      ],
+      [
+       "6",
+       "4 + 2",
+       "rw-"
+      ],
+      [
+       "5",
+       "4 + 1",
+       "r-x"
+      ],
+      [
+       "4",
+       "read only",
+       "r--"
+      ],
+      [
+       "0",
+       "no access",
+       "---"
+      ]
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "chmod u+x script.sh        # let the owner execute\nchmod g-w notes.txt        # remove write from the group\nchmod o-rwx secret.txt     # remove all access from others\nchmod 755 script.sh        # rwxr-xr-x\nchmod 644 notes.txt        # rw-r--r--\nchmod 600 key.pem          # rw------- only the owner can read and write"
+     }
+    },
+    {
+     "p": "A script you write cannot run with ./script.sh until it has the execute permission. Common safe values are 644 for normal files, 755 for programs and folders, and 600 for private files such as SSH keys. The value 777 gives everyone full access and should almost never be used. Beginners often use 777 to 'fix' a problem, but this creates a serious security hole."
+    },
+    {
+     "h": "Changing owners with chown and chgrp"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sudo chown ravi report.txt          # change owner\nsudo chown ravi:labteam report.txt  # change owner and group\nsudo chgrp labteam report.txt       # change group only\nsudo chown -R ravi projects/        # change a folder and everything in it"
+     }
+    },
+    {
+     "h": "Default permissions and umask"
+    },
+    {
+     "p": "When you create a new file, Linux starts with 666 for files and 777 for directories and then removes the bits listed in the **umask**. A common umask is 022, which makes new files 644 and new directories 755. Run the command umask to see yours."
+    },
+    {
+     "h": "Special permissions you should recognise"
+    },
+    {
+     "ul": [
+      "**setuid (s in the owner's x place)**: the program runs with the permissions of its owner. The passwd command uses this so that you can change your own password. Unneeded setuid programs owned by root are a common target in privilege escalation, so defenders search for them.",
+      "**sticky bit (t at the end)**: in a shared folder such as /tmp, users can delete only their own files."
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls -l /usr/bin/passwd   # shows an s in the permission string\nls -ld /tmp             # shows a t at the end: drwxrwxrwt"
+     }
+    },
+    {
+     "p": "A real example: if a web server folder is set to 777 and the site has an upload feature, an attacker who uploads a malicious script can have it run. The fix is to give the web server user only the permissions it needs, for example 755 for folders and 644 for files, and to keep upload folders from running programs. This idea is called the **principle of least privilege**, which means everyone and every program gets only the access that is needed and nothing more."
+    },
+    {
+     "warn": "Practise changing permissions and owners only on files you create yourself in your home folder or in the rootjavs lab. Never run chmod -R or chown -R on system folders such as /etc, /bin or /usr, because the machine may stop working."
+    },
+    {
+     "flip": [
+      [
+       "What do r, w and x have as numeric values?",
+       "Read is 4, write is 2 and execute is 1."
+      ],
+      [
+       "What does chmod 600 mean?",
+       "Owner can read and write. Group and others have no access."
+      ],
+      [
+       "Why use sudo instead of working as root?",
+       "Because limiting root power to single commands reduces the damage of mistakes or malware, and sudo is logged."
+      ],
+      [
+       "What is the principle of least privilege?",
+       "Giving users and programs only the minimum access they need."
+      ],
+      [
+       "What does x mean on a directory?",
+       "Permission to enter the directory with cd."
+      ],
+      [
+       "Where are password hashes stored?",
+       "In /etc/shadow, readable only by root."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: In your home folder create a file named secret.txt with some text. Show its permissions with ls -l. Make it readable and writable only by you using chmod 600 and check the result. Create a script called hello.sh containing echo Hello, add execute permission with chmod u+x hello.sh, and run it with ./hello.sh. Convert rwxr-x--- to a number by hand and then verify it with chmod and ls -l."
+    }
+   ],
+   "quiz": [
+    [
+     "What number represents the permission rwxr-xr--?",
+     [
+      "750",
+      "755",
+      "644",
+      "754"
+     ],
+     3,
+     "Owner rwx is 7, group r-x is 5 and others r-- is 4, so the value is 754."
+    ],
+    [
+     "Which command lets a normal user run a single command with administrator rights?",
+     [
+      "sudo",
+      "chown",
+      "su -",
+      "umask"
+     ],
+     0,
+     "sudo runs one command as root after you enter your own password. su switches users, chown changes ownership and umask sets default permissions."
+    ],
+    [
+     "Why is chmod 777 considered dangerous?",
+     [
+      "It deletes the file",
+      "It gives every user full access to the file",
+      "It hides the file",
+      "It makes the file read only"
+     ],
+     1,
+     "777 gives read, write and execute to the owner, the group and everyone else, which breaks the principle of least privilege."
+    ],
+    [
+     "Which file stores the password hashes of Linux users?",
+     [
+      "/var/log/auth.log",
+      "/etc/passwd",
+      "/etc/shadow",
+      "/etc/group"
+     ],
+     2,
+     "Hashes are in /etc/shadow, which only root can read. /etc/passwd lists accounts but is readable by everyone."
+    ],
+    [
+     "What does the execute permission mean on a directory?",
+     [
+      "You can delete it",
+      "You can run the directory as a program",
+      "You can hide it",
+      "You can enter it with cd"
+     ],
+     3,
+     "On a directory, x allows entering it and accessing items inside, which is needed to use cd."
+    ]
+   ],
+   "practice": [
+    "Run id and explain each number and group you see.",
+    "Make three files and set them to 600, 644 and 755. Check each with ls -l and explain who can do what.",
+    "Search your system for setuid programs with find /usr/bin -perm -4000 and write down three names."
+   ]
+  },
+  {
+   "title": "Searching, Redirection and Pipes",
+   "minutes": 25,
+   "notes": [
+    {
+     "p": "The real strength of Linux is not any single command. It is the ability to join small commands together so that each one does one job well. Using **redirection** and **pipes**, you can search thousands of lines of logs, count how many times something happened and sort the result, all in one line. A Security Operations Centre analyst does this every day. This lesson teaches you the building blocks."
+    },
+    {
+     "h": "Standard input, output and error"
+    },
+    {
+     "p": "Every command in Linux has three data channels, called **streams**."
+    },
+    {
+     "tbl": [
+      [
+       "Stream",
+       "Number",
+       "Default",
+       "Purpose"
+      ],
+      [
+       "stdin",
+       "0",
+       "Keyboard",
+       "Data going into the command"
+      ],
+      [
+       "stdout",
+       "1",
+       "Screen",
+       "Normal results"
+      ],
+      [
+       "stderr",
+       "2",
+       "Screen",
+       "Error messages"
+      ]
+     ]
+    },
+    {
+     "p": "Redirection changes where these streams go."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls /etc > files.txt        # save output to a file (overwrites it)\nls /var >> files.txt       # add output to the end of a file\nls /nonexistent 2> err.txt # save only the error messages\nls /etc /nonexistent > out.txt 2> err.txt   # split results and errors\nls /etc > all.txt 2>&1     # send both streams to the same file\nls /nonexistent 2> /dev/null   # throw errors away"
+     }
+    },
+    {
+     "p": "The special file /dev/null accepts any data and throws it away. It is used to silence unwanted messages. Be careful with a single greater-than sign, because it replaces the whole file. Use two signs to append."
+    },
+    {
+     "h": "Pipes"
+    },
+    {
+     "p": "A **pipe** is written with the vertical bar (|). It connects the output of one command to the input of the next one. The commands run at the same time and data flows from left to right, like water through a pipe."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ls /etc | wc -l                  # how many items are in /etc\ncat /etc/passwd | sort           # sorted list of accounts\nls -l /etc | head -n 5           # first five lines only\ndmesg | tail -n 10               # last ten kernel messages"
+     }
+    },
+    {
+     "diagram": "Animated pipeline diagram showing three boxes joined by pipes: 'cat auth.log' then 'grep Failed' then 'wc -l'. A stream of small log lines flows out of the first box, most of them are filtered out and dropped by the second box, and a single count appears at the end. A speed slider lets the student watch the data move step by step."
+    },
+    {
+     "h": "Searching inside files with grep"
+    },
+    {
+     "p": "The grep command prints only the lines that match a pattern. It is probably the most used text tool in Linux."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "grep root /etc/passwd            # lines containing root\ngrep -i error app.log            # ignore upper or lower case\ngrep -v debug app.log            # lines that do NOT match\ngrep -n Failed auth.log          # show line numbers\ngrep -c Failed auth.log          # count matching lines\ngrep -r \"password\" /home/asha/projects   # search inside all files in a folder\ngrep -E \"error|warning\" app.log  # match either word"
+     }
+    },
+    {
+     "p": "Imagine a college server shows many failed logins. The following command counts how many failed password attempts are in the authentication log. It needs sudo because the log is protected."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sudo grep \"Failed password\" /var/log/auth.log | wc -l"
+     }
+    },
+    {
+     "h": "Finding files with find"
+    },
+    {
+     "p": "While grep looks inside files, **find** looks for the files themselves, by name, type, size, owner, permission or age."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "find /home/asha -name \"*.txt\"           # by name\nfind /home/asha -iname \"report*\"         # by name, ignoring case\nfind /var/log -type f -size +10M         # files bigger than 10 MB\nfind /home/asha -type d -name backup     # directories only\nfind /home/asha -mtime -2                # modified in the last 2 days\nfind /usr/bin -perm -4000                # setuid programs\nfind /home/asha -user ravi               # owned by a user"
+     }
+    },
+    {
+     "p": "Two quicker tools exist as well. The **which** command shows the location of a program, such as which python3. The **locate** command searches a pre-built list of file names and is very fast, but its list is updated only now and then, so new files may be missing."
+    },
+    {
+     "h": "Sorting and counting"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sort names.txt              # alphabetical order\nsort -n numbers.txt         # numeric order\nsort -r names.txt           # reverse order\nuniq names.txt              # remove repeated neighbouring lines\nsort names.txt | uniq -c    # count how many times each line occurs\nsort names.txt | uniq -c | sort -nr   # most frequent at the top"
+     }
+    },
+    {
+     "p": "Notice that uniq only removes lines that are repeated one after the other. That is why it is almost always used after sort."
+    },
+    {
+     "h": "Cutting and transforming text"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cut -d: -f1 /etc/passwd         # first field of each line, using : as separator\ncut -d: -f1,7 /etc/passwd       # fields 1 and 7\ntr 'a-z' 'A-Z' < names.txt      # change lowercase to uppercase\nawk -F: '{print $1, $3}' /etc/passwd    # print username and UID\nsed 's/old/new/g' file.txt      # replace text and print the result"
+     }
+    },
+    {
+     "p": "The cut command picks columns. The option -d sets the delimiter, which is the character that separates fields, and -f chooses the field number. The awk and sed tools are full small languages, and you will use them more and more as you grow. For now, remember that awk is good for columns and sed is good for replacing text. Neither of them changes the original file unless you ask them to."
+    },
+    {
+     "h": "A real mini investigation"
+    },
+    {
+     "p": "Suppose a file called access.log contains lines from a web server. Each line starts with the visitor's IP address. You want to know which visitors made the most requests. You can do this with a pipeline of four small commands."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "cut -d' ' -f1 access.log | sort | uniq -c | sort -nr | head -n 5"
+     }
+    },
+    {
+     "p": "Read it from left to right. First, cut takes the first column, which is the IP. Then sort groups equal IPs together. Next, uniq -c counts each group. After that, sort -nr puts the biggest numbers first. Finally, head shows the top five. A very large number from one address may mean a scanner or a brute force attempt, and this is how analysts spot it. The defence is to block or rate limit the address and to alert on unusual counts."
+    },
+    {
+     "warn": "Run these techniques only on your own logs, on files you are authorised to read, or in the rootjavs lab. Reading other people's logs or data without permission is illegal under the IT Act of India, even if the file is technically readable."
+    },
+    {
+     "h": "Other useful helpers"
+    },
+    {
+     "ul": [
+      "**tee** writes output to the screen and to a file at the same time, such as ls | tee list.txt.",
+      "**xargs** turns lines of input into arguments for another command.",
+      "**diff** shows the differences between two files.",
+      "**history** lists the commands you typed before. Use !! to repeat the last one."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "What does the > operator do?",
+       "Sends output to a file and replaces the file if it exists."
+      ],
+      [
+       "What does >> do?",
+       "Adds output to the end of a file without removing old data."
+      ],
+      [
+       "What does a pipe do?",
+       "Passes the output of one command as the input of the next."
+      ],
+      [
+       "What is the difference between grep and find?",
+       "grep searches for text inside files. find searches for files by name, type, size, owner and so on."
+      ],
+      [
+       "Why do we use sort before uniq?",
+       "Because uniq removes only repeated lines that are next to each other."
+      ],
+      [
+       "What is /dev/null?",
+       "A special file that discards everything written to it."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Create a file named fruits.txt with ten lines of fruit names, using some names more than once. Use sort and uniq -c to count each fruit, then sort the counts from highest to lowest. Next, use grep to find every line in /etc/passwd that contains the word bash, and use cut to show only the usernames."
+    }
+   ],
+   "quiz": [
+    [
+     "Which command appends text to the end of an existing file?",
+     [
+      "echo hi >> file",
+      "echo hi > file",
+      "echo hi < file",
+      "echo hi | file"
+     ],
+     0,
+     "Two greater-than signs append. A single sign would overwrite the file, a pipe passes data to a command and < reads input from a file."
+    ],
+    [
+     "Which command counts the lines that contain the word error in app.log?",
+     [
+      "sort error app.log",
+      "grep -c error app.log",
+      "find error app.log",
+      "cut -f error app.log"
+     ],
+     1,
+     "grep -c prints the number of matching lines. The others do not search for text in this way."
+    ],
+    [
+     "What does cut -d: -f1 /etc/passwd print?",
+     [
+      "Only the first line",
+      "The shell of each user",
+      "The first field of each line, which is the username",
+      "The number of users"
+     ],
+     2,
+     "-d sets the separator to a colon and -f1 picks the first field, which in /etc/passwd is the username."
+    ],
+    [
+     "Which command finds all files bigger than 10 MB in /var/log?",
+     [
+      "locate 10M",
+      "grep -size 10M /var/log",
+      "ls -big /var/log",
+      "find /var/log -type f -size +10M"
+     ],
+     3,
+     "find with -size +10M filters by size. grep looks inside files and ls has no -big option."
+    ],
+    [
+     "Why does sort names.txt | uniq -c work better than uniq -c names.txt?",
+     [
+      "uniq only collapses repeated lines that are adjacent, and sort puts equal lines together",
+      "uniq cannot count",
+      "sort deletes duplicates",
+      "uniq needs root"
+     ],
+     0,
+     "Without sort, equal lines may be far apart and uniq would count them separately."
+    ]
+   ],
+   "practice": [
+    "Use grep -r to find all files in your home folder that contain a word of your choice.",
+    "Write a pipeline that shows the five largest files in a directory using ls -lS and head.",
+    "Save the output of ls /etc into a file, then append the output of ls /var, and count the lines with wc -l."
+   ]
+  },
+  {
+   "title": "Processes, Packages and Services",
+   "minutes": 24,
+   "notes": [
+    {
+     "p": "Every program that is running on your Linux system is called a **process**. When you open a browser, start a web server or run a command in the terminal, a process is born. A good administrator must be able to see what is running, stop a program that has frozen, install new software safely and manage background services. This lesson teaches all four skills."
+    },
+    {
+     "h": "What is a process?"
+    },
+    {
+     "p": "A process is a running copy of a program. Each one has a number called the **PID** (process ID), an owner, a state and a parent process that started it. The first process that starts when Linux boots is called init or systemd and has PID 1. Every other process is a descendant of it."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ps                  # processes of your current terminal\nps aux              # all processes of all users, with details\nps aux | grep ssh   # find a particular process\npstree              # show the family tree of processes\ntop                 # live view, press q to quit\nhtop                # a friendlier live view, if installed"
+     }
+    },
+    {
+     "p": "In the output of ps aux, the important columns are USER (who owns it), PID, %CPU, %MEM, and COMMAND. A process using a large share of CPU for a long time may be a heavy job, a bug or even a crypto-mining malware. Analysts always check unfamiliar processes that run from /tmp or that have strange names."
+    },
+    {
+     "diagram": "Animated process tree. PID 1 (systemd) sits at the top and branches into sshd, cron and a login shell. The shell branches further into the commands the student types. When the student clicks 'kill' on a node, the node turns red and disappears, and its children are shown being adopted by PID 1 or ended, with a short caption explaining each case."
+    },
+    {
+     "h": "Foreground and background jobs"
+    },
+    {
+     "p": "When you run a command it takes over the terminal. This is the **foreground**. You can push long running commands into the **background** so that you can keep using the terminal."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sleep 300 &       # start in the background by adding &\njobs              # list background jobs of this terminal\nfg %1             # bring job 1 to the foreground\n# press Ctrl+Z to pause the foreground job, then:\nbg %1             # let it continue in the background"
+     }
+    },
+    {
+     "h": "Stopping processes"
+    },
+    {
+     "p": "The kill command does not always kill. It sends a **signal** to a process, and the process decides how to react. The default signal asks the program to finish cleanly."
+    },
+    {
+     "tbl": [
+      [
+       "Signal",
+       "Number",
+       "Meaning"
+      ],
+      [
+       "SIGTERM",
+       "15",
+       "Please finish and exit cleanly. This is the default."
+      ],
+      [
+       "SIGKILL",
+       "9",
+       "Stop immediately. The program cannot catch it. Use only when needed."
+      ],
+      [
+       "SIGHUP",
+       "1",
+       "Hang up. Many services reload their configuration."
+      ],
+      [
+       "SIGSTOP",
+       "19",
+       "Pause the process."
+      ]
+     ]
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "kill 4321           # polite request to process 4321\nkill -9 4321        # force stop\npkill firefox       # stop by name\nkillall sleep       # stop all processes with that name"
+     }
+    },
+    {
+     "tip": "Always try the normal kill first and give the process a few seconds. Use kill -9 only when it does not respond, because a force stop gives the program no chance to save its data."
+    },
+    {
+     "warn": "Stop only processes that you started or that you understand. Killing a system process such as the display manager or sshd on a remote server can lock you out. Practise on your own virtual machine or in the rootjavs lab."
+    },
+    {
+     "h": "Installing software with a package manager"
+    },
+    {
+     "p": "In Windows you often download an installer from a website. In Linux you normally use a **package manager**, which downloads software from trusted online collections called **repositories**. It also installs the other libraries that the software needs and keeps everything updated. Ubuntu, Debian and Kali use **apt**. Fedora and Rocky Linux use **dnf**."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "sudo apt update              # refresh the list of available software\nsudo apt upgrade             # install updates of installed software\nsudo apt install tree        # install a program\napt search nginx             # search for packages\napt show nginx               # details of a package\nsudo apt remove tree         # remove a program\nsudo apt autoremove          # clean unused dependencies\ndpkg -l | grep ssh           # list installed packages that match"
+     }
+    },
+    {
+     "p": "Updating regularly is one of the most effective security habits. Most successful attacks use weaknesses that already have a fix, but the system was never updated. Repositories sign their packages with cryptographic keys, so apt can check that a package has not been changed on the way to you. Installing random files from unknown sites, or running scripts piped from the internet straight into a shell, bypasses this protection and should be avoided."
+    },
+    {
+     "h": "Services and systemd"
+    },
+    {
+     "p": "A **service** (also called a daemon) is a program that runs in the background, waiting for work. Examples are the web server, the SSH server and the cron scheduler. On modern distributions a tool named **systemd** starts, stops and monitors services using the **systemctl** command."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "systemctl status ssh              # is it running? shows recent log lines\nsudo systemctl start ssh          # start now\nsudo systemctl stop ssh           # stop now\nsudo systemctl restart ssh        # stop and start\nsudo systemctl reload ssh         # reload configuration without stopping\nsudo systemctl enable ssh         # start automatically at boot\nsudo systemctl disable ssh        # do not start at boot\nsystemctl list-units --type=service --state=running"
+     }
+    },
+    {
+     "p": "The difference between start and enable confuses many beginners. Start affects only the present moment. Enable affects the next boot. A hardening rule used in security is: if a service is not needed, stop it and disable it, because every running service is a possible door into the system."
+    },
+    {
+     "h": "Reading service logs with journalctl"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "journalctl -u ssh               # logs of one service\njournalctl -u ssh -n 20         # last 20 lines\njournalctl -f                   # follow new messages live\njournalctl --since \"1 hour ago\" # recent entries only\njournalctl -p err               # only errors"
+     }
+    },
+    {
+     "p": "When a service fails, the order of troubleshooting is simple: check systemctl status, read journalctl for that service, check the configuration file for mistakes and then restart. This habit solves most problems."
+    },
+    {
+     "h": "Scheduling tasks with cron"
+    },
+    {
+     "p": "The **cron** service runs commands automatically at times that you choose. Each user has a table of jobs, edited with crontab -e. Each line has five time fields followed by the command: minute, hour, day of month, month and day of week."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "crontab -l              # list your jobs\ncrontab -e              # edit your jobs\n# Example line: run a backup script every day at 2:30 AM\n# 30 2 * * * /home/asha/backup.sh"
+     }
+    },
+    {
+     "p": "Cron is useful for backups, cleaning old files and reports. It is also a favourite place for attackers to hide a job that restarts their malware, so incident responders always review the cron tables of every user."
+    },
+    {
+     "h": "Checking system health"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "df -h            # disk space of each partition\ndu -sh *         # size of each item in the current folder\nfree -h          # memory usage\nuptime           # how long the system has been running and the load\nlsblk            # list disks and partitions"
+     }
+    },
+    {
+     "flip": [
+      [
+       "What is a PID?",
+       "The unique number that identifies a running process."
+      ],
+      [
+       "What does kill do by default?",
+       "Sends SIGTERM, which asks the process to finish cleanly."
+      ],
+      [
+       "What is the difference between systemctl start and enable?",
+       "start runs the service now; enable makes it start at boot."
+      ],
+      [
+       "Why update the system regularly?",
+       "Updates fix known security weaknesses that attackers use."
+      ],
+      [
+       "What is a repository?",
+       "An online collection of trusted software packages used by the package manager."
+      ],
+      [
+       "Which command shows free disk space?",
+       "df -h."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Run ps aux and find your own shell process. Start sleep 600 in the background with &, find its PID with ps aux | grep sleep, and stop it with kill. Check the status of the ssh service with systemctl status ssh. Run sudo apt update, install the tree package, use it, and remove it again. Finally, check disk and memory with df -h and free -h."
+    }
+   ],
+   "quiz": [
+    [
+     "Which command shows a live, updating list of running processes?",
+     [
+      "ls",
+      "top",
+      "jobs",
+      "ps"
+     ],
+     1,
+     "top refreshes continuously. ps shows a single snapshot, ls lists files and jobs shows only background jobs of the current terminal."
+    ],
+    [
+     "What is the meaning of kill -9 4321?",
+     [
+      "Ask process 4321 to reload",
+      "Pause process 4321",
+      "Force process 4321 to stop immediately",
+      "Show process 4321"
+     ],
+     2,
+     "Signal 9 is SIGKILL, which cannot be ignored. It should be a last resort because the process cannot clean up."
+    ],
+    [
+     "Which command makes the ssh service start automatically every time the system boots?",
+     [
+      "systemctl status ssh",
+      "systemctl start ssh",
+      "systemctl reload ssh",
+      "systemctl enable ssh"
+     ],
+     3,
+     "enable configures start at boot. start only starts it now, reload re-reads settings and status shows information."
+    ],
+    [
+     "Why is it safer to install software through apt than to run random downloaded scripts?",
+     [
+      "apt verifies signed packages from trusted repositories",
+      "apt is faster",
+      "Scripts cannot run on Linux",
+      "apt does not need internet"
+     ],
+     0,
+     "Repository packages are signed and checked. Unknown scripts offer no such guarantee."
+    ],
+    [
+     "Which command lists the free and used disk space in a readable form?",
+     [
+      "ps aux",
+      "df -h",
+      "uptime",
+      "free -h"
+     ],
+     1,
+     "df -h shows disk space. free -h shows memory, ps lists processes and uptime shows load."
+    ]
+   ],
+   "practice": [
+    "Start three background jobs with sleep and then stop them one by one using jobs and kill.",
+    "Use journalctl -u ssh -n 20 and write what the lines tell you.",
+    "List all running services and pick three. For each one, write what it does and whether it is really needed."
+   ]
+  },
+  {
+   "title": "Networking, SSH and Shell Habits",
+   "minutes": 24,
+   "notes": [
+    {
+     "p": "A computer that is not connected to anything is not very useful. Almost all Linux machines work on a network, and most servers are managed remotely, with no screen or keyboard attached. In this lesson you will learn the commands to check network settings, test a connection, log in to another machine securely and set up your shell so that daily work becomes faster. You will also write your first small shell script."
+    },
+    {
+     "h": "Basic networking ideas"
+    },
+    {
+     "ul": [
+      "An **IP address** identifies a device on a network, for example 192.168.1.10. Addresses that start with 192.168, 10 or 172.16 to 172.31 are **private** addresses used inside homes and colleges.",
+      "A **port** is a numbered door on a device. A web server uses port 80 or 443 and SSH uses port 22.",
+      "A **gateway** (usually your router) is the device that takes your traffic to other networks.",
+      "**DNS** turns names such as rootjavs.com into IP addresses.",
+      "A **MAC address** is the hardware address of a network card."
+     ]
+    },
+    {
+     "h": "Looking at your network settings"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ip addr                # IP addresses of all interfaces (short form: ip a)\nip route               # routing table, shows the default gateway\nhostname -I            # just the IP addresses\ncat /etc/resolv.conf   # DNS server settings\nip link                # state of network cards"
+     }
+    },
+    {
+     "p": "Older guides use ifconfig. It still works on some systems but is deprecated, so learn the ip command. In the output of ip addr, the interface named lo is the loopback, which is the computer talking to itself with the address 127.0.0.1. The interface that carries your real traffic is often named eth0, ens33 or wlan0."
+    },
+    {
+     "diagram": "Animated packet journey. A laptop icon sends a packet that travels to the home router (gateway), then across the internet to a server. When the student clicks 'ping', a small packet goes out and returns with a time value. When the student clicks 'DNS lookup', a question mark travels to a DNS server and returns an IP address which then becomes the destination of the packet."
+    },
+    {
+     "h": "Testing connections"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ping -c 4 8.8.8.8          # send four test packets to an IP\nping -c 4 example.com      # test name resolution and connection\ntraceroute example.com     # show each hop on the way, if installed\nnslookup example.com       # ask DNS for an address\ndig example.com            # a more detailed DNS query, if installed\ncurl -I https://example.com   # fetch only the headers of a web page\nwget https://example.com/file.txt   # download a file"
+     }
+    },
+    {
+     "p": "A simple method to find where a network problem lies is to test step by step. First ping 127.0.0.1 to check that your own network software works. Then ping your gateway. Then ping a public IP such as 8.8.8.8. Finally ping a name such as example.com. If the IP works but the name does not, the problem is DNS."
+    },
+    {
+     "h": "Seeing open ports and connections"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ss -tuln          # listening TCP and UDP ports, numeric\nss -tn            # current TCP connections\nsudo ss -tulnp    # also show which program owns each port"
+     }
+    },
+    {
+     "p": "The ss command replaces the older netstat. Every listening port is something a remote user could try to talk to. Defenders review this list on every server and close what is not needed. This is called reducing the **attack surface**."
+    },
+    {
+     "warn": "Scanning or probing networks and computers that you do not own, or without written permission, is a crime. Use these commands only on your own machine, your own virtual machines or the rootjavs lab."
+    },
+    {
+     "h": "Logging in remotely with SSH"
+    },
+    {
+     "p": "**SSH** (Secure Shell) lets you control another computer by terminal over an encrypted connection. It replaced older tools such as telnet that sent passwords in plain text. System administrators use SSH to manage cloud servers every day."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ssh asha@192.168.1.20            # log in as asha to that machine\nssh -p 2222 asha@192.168.1.20    # use a non-standard port\nscp notes.txt asha@192.168.1.20:/home/asha/   # copy a file to the remote machine\nscp asha@192.168.1.20:/home/asha/report.txt .  # copy a file from it\nexit                             # leave the remote session"
+     }
+    },
+    {
+     "p": "The first time you connect, SSH shows the **fingerprint** of the server and asks if you trust it. This protects you against someone pretending to be the server. If the fingerprint changes later, SSH warns you loudly. Do not ignore that warning."
+    },
+    {
+     "h": "SSH keys instead of passwords"
+    },
+    {
+     "p": "Passwords can be guessed by automated attacks, and servers on the internet receive such attempts all day. A much stronger method is a **key pair**: a private key that stays secret on your computer and a public key that you place on the server. The server can prove that you own the private key without the key ever crossing the network."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ssh-keygen -t ed25519            # create a key pair (protect it with a passphrase)\nssh-copy-id asha@192.168.1.20    # install your public key on the server\nssh asha@192.168.1.20            # now logs in using the key\nls -l ~/.ssh                     # id_ed25519 is private, id_ed25519.pub is public"
+     }
+    },
+    {
+     "p": "The private key must have permission 600 and must never be shared, emailed or uploaded to a public code site. Many data breaches have started when a developer accidentally uploaded a private key. Hardening a server normally includes disabling password login in /etc/ssh/sshd_config by setting PasswordAuthentication no, and disabling direct root login with PermitRootLogin no, then restarting the ssh service. Always keep a second session open while you test, so that you cannot lock yourself out."
+    },
+    {
+     "h": "Environment variables and the PATH"
+    },
+    {
+     "p": "An **environment variable** is a named value that programs can read. The most important one is **PATH**, a list of directories where the shell looks for commands. When you type ls, the shell searches each directory in PATH until it finds a program named ls."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "echo $PATH                  # show the list\necho $HOME                  # your home directory\nexport NAME=\"Asha\"           # create a variable for this session\necho \"Hello $NAME\"           # use it\nenv                         # show all variables"
+     }
+    },
+    {
+     "p": "This is also a security topic. If a writable directory is placed at the front of PATH, an attacker could put a fake command there that runs instead of the real one. Keep PATH clean."
+    },
+    {
+     "h": "Aliases and history"
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "alias ll='ls -lah'          # shortcut for a long command\nalias                       # list aliases\nhistory | tail -n 10        # last ten commands\n!!                          # repeat the last command\n# Press Ctrl+R and type part of an old command to search history"
+     }
+    },
+    {
+     "p": "Aliases typed in the terminal last only for that session. To keep them, add the line to the file .bashrc in your home folder and run source ~/.bashrc. Be careful not to type passwords or secret keys inside commands, because they are stored in the history file."
+    },
+    {
+     "h": "Your first shell script"
+    },
+    {
+     "p": "A **shell script** is a text file of commands that run one after another. It saves time and prevents mistakes in repeated work. Create a file named sysinfo.sh with the following content."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "#!/bin/bash\n# sysinfo.sh - a small system report\necho \"Report for: $(hostname)\"\necho \"User: $(whoami)\"\necho \"Date: $(date)\"\necho \"Disk usage of /:\"\ndf -h / | tail -n 1\necho \"Logged in users: $(who | wc -l)\""
+     }
+    },
+    {
+     "p": "The first line, called the **shebang**, tells Linux which program should run the script. The pieces written as dollar sign and brackets run a command and place its result in the text. Give the script permission and run it."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "chmod u+x sysinfo.sh\n./sysinfo.sh"
+     }
+    },
+    {
+     "p": "Scripting is a large subject, and the rootjavs Bash Shell Scripting course covers variables, conditions and loops in depth. For now, notice how everything you learned in this course comes together inside one small file."
+    },
+    {
+     "flip": [
+      [
+       "What is the loopback address?",
+       "127.0.0.1, which means the computer talking to itself."
+      ],
+      [
+       "Which command lists listening ports?",
+       "ss -tuln."
+      ],
+      [
+       "Why are SSH keys safer than passwords?",
+       "The private key never leaves your computer and cannot be guessed by repeated login attempts."
+      ],
+      [
+       "What is PATH?",
+       "A list of directories where the shell searches for commands."
+      ],
+      [
+       "What is the shebang?",
+       "The first line of a script, such as #!/bin/bash, which names the program that runs it."
+      ],
+      [
+       "If ping to 8.8.8.8 works but ping to example.com fails, what is the likely problem?",
+       "DNS name resolution."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Find your IP address with ip addr and your default gateway with ip route. Ping your gateway and then 8.8.8.8 and then example.com. List listening ports with ss -tuln and write what each port is for. In a virtual machine you own, generate an SSH key pair with ssh-keygen and look at the permissions of the files in ~/.ssh. Finally write the sysinfo.sh script, make it executable and run it."
+    }
+   ],
+   "quiz": [
+    [
+     "Which command shows the IP addresses of your network interfaces on a modern Linux system?",
+     [
+      "show net",
+      "ls ip",
+      "ip addr",
+      "dns -a"
+     ],
+     2,
+     "ip addr is the modern command. The others are not real Linux commands for this purpose."
+    ],
+    [
+     "What does the port number 22 normally belong to?",
+     [
+      "DNS",
+      "Email",
+      "Web server over HTTPS",
+      "SSH"
+     ],
+     3,
+     "SSH uses port 22 by default. HTTPS uses 443 and DNS uses 53."
+    ],
+    [
+     "Why should you never share the file id_ed25519?",
+     [
+      "It is the private key and proves your identity to servers",
+      "It is a system file",
+      "It stores your history",
+      "It is the public key and is too big"
+     ],
+     0,
+     "The file without .pub is the private key. Anyone who holds it can log in as you."
+    ],
+    [
+     "What is the effect of PermitRootLogin no in sshd_config?",
+     [
+      "SSH is disabled",
+      "Root cannot log in directly over SSH",
+      "Passwords are removed",
+      "All users lose access"
+     ],
+     1,
+     "It blocks direct SSH login as root so attackers must first guess a normal username, and administrators use sudo instead."
+    ],
+    [
+     "What must the first line of a bash script contain so that it runs with bash?",
+     [
+      "bash:",
+      "run bash",
+      "#!/bin/bash",
+      "//bash"
+     ],
+     2,
+     "The shebang names the interpreter. Without it the system may try to use a different shell."
+    ]
+   ],
+   "practice": [
+    "Use ss -tuln on your own virtual machine and explain why each listening port is there.",
+    "Create SSH keys, copy the public key to a second virtual machine and log in without a password.",
+    "Write a script that prints your username, IP address and free disk space, and run it."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "linux",
+  "name": "Mission: First Day at the College Server Room",
+  "story": "You are a new intern in the IT team of a college. The lab server runs Linux and the senior administrator has left you a list of tasks to finish before the new semester starts. Work step by step and use only the commands you learned in this course. Everything happens inside the rootjavs practice machine.",
+  "steps": [
+   {
+    "goal": "Find out which user account you are logged in as.",
+    "hint": "One short command prints your username.",
+    "check": "whoami"
+   },
+   {
+    "goal": "Show the directory you are currently in.",
+    "hint": "The command name stands for print working directory.",
+    "check": "pwd"
+   },
+   {
+    "goal": "Create a folder named semester1 in your home directory.",
+    "hint": "Use mkdir followed by the folder name.",
+    "check": "mkdir semester1"
+   },
+   {
+    "goal": "Create nested folders semester1/linux/week1 in a single command.",
+    "hint": "Add the option that creates parent directories.",
+    "check": "mkdir -p semester1/linux/week1"
+   },
+   {
+    "goal": "Create an empty file named notes.txt inside semester1/linux/week1.",
+    "hint": "touch creates empty files. Give the full relative path.",
+    "check": "touch semester1/linux/week1/notes.txt"
+   },
+   {
+    "goal": "Write the text Welcome to Linux into the file semester1/linux/week1/notes.txt.",
+    "hint": "Use echo with a single greater-than sign.",
+    "check": "echo \"Welcome to Linux\" > semester1/linux/week1/notes.txt"
+   },
+   {
+    "goal": "Display the content of the file you just wrote.",
+    "hint": "cat prints a file.",
+    "check": "cat semester1/linux/week1/notes.txt"
+   },
+   {
+    "goal": "Copy notes.txt to a backup file named notes_backup.txt in the same folder.",
+    "hint": "cp source destination.",
+    "check": "cp semester1/linux/week1/notes.txt semester1/linux/week1/notes_backup.txt"
+   },
+   {
+    "goal": "List the folder semester1/linux/week1 with sizes in a human readable long format.",
+    "hint": "Combine the long and human readable options of ls.",
+    "check": "ls -lh semester1/linux/week1"
+   },
+   {
+    "goal": "Make notes.txt readable and writable by the owner only, with no access for anyone else.",
+    "hint": "The numeric value is 6 for the owner and 0 for the others.",
+    "check": "chmod 600 semester1/linux/week1/notes.txt"
+   },
+   {
+    "goal": "Confirm the new permissions. The line should start with -rw-------.",
+    "hint": "ls with the long option on the file.",
+    "check": "ls -l semester1/linux/week1/notes.txt"
+   },
+   {
+    "goal": "Search the file /etc/passwd for the line of the user named root.",
+    "hint": "grep word file.",
+    "check": "grep root /etc/passwd"
+   },
+   {
+    "goal": "Count how many lines the file /etc/passwd has.",
+    "hint": "wc with the line option.",
+    "check": "wc -l /etc/passwd"
+   },
+   {
+    "goal": "Show only the usernames (first column) from /etc/passwd.",
+    "hint": "cut with a colon delimiter and field number 1.",
+    "check": "cut -d: -f1 /etc/passwd"
+   },
+   {
+    "goal": "Find every file whose name ends with .txt under the semester1 folder.",
+    "hint": "find folder -name pattern. Put the pattern in quotes.",
+    "check": "find semester1 -name \"*.txt\""
+   },
+   {
+    "goal": "Show all running processes of all users and keep only the lines that mention ssh.",
+    "hint": "Pipe ps aux into grep.",
+    "check": "ps aux | grep ssh"
+   },
+   {
+    "goal": "Check whether the ssh service is running.",
+    "hint": "systemctl has a subcommand named status.",
+    "check": "systemctl status ssh"
+   },
+   {
+    "goal": "Show the free space of the disks in a readable form.",
+    "hint": "The command starts with d and f.",
+    "check": "df -h"
+   },
+   {
+    "goal": "Show the IP addresses of the machine.",
+    "hint": "Use the modern ip command with the addr object.",
+    "check": "ip addr"
+   },
+   {
+    "goal": "Remove the backup file notes_backup.txt, asking for confirmation first.",
+    "hint": "rm with the interactive option.",
+    "check": "rm -i semester1/linux/week1/notes_backup.txt"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which component of Linux directly communicates with the hardware?",
+   [
+    "Terminal emulator",
+    "Kernel",
+    "Desktop environment",
+    "Bash"
+   ],
+   1,
+   "The kernel manages the CPU, memory and devices. Bash is a shell, the terminal is a window and the desktop is a graphical layer."
+  ],
+  [
+   "Which of the following is a Linux distribution?",
+   [
+    "Bash",
+    "GNOME",
+    "systemd",
+    "Debian"
+   ],
+   3,
+   "Debian is a complete distribution. Bash is a shell, GNOME is a desktop and systemd is a service manager."
+  ],
+  [
+   "What does the dollar sign at the end of a shell prompt usually indicate?",
+   [
+    "The disk is full",
+    "The user is a normal user",
+    "The shell is closed",
+    "The user is root"
+   ],
+   1,
+   "A dollar sign is shown for a normal user and a hash sign is shown for root."
+  ],
+  [
+   "Which command prints the full path of your current directory?",
+   [
+    "cd",
+    "path",
+    "pwd",
+    "ls"
+   ],
+   2,
+   "pwd means print working directory."
+  ],
+  [
+   "Which directory holds system configuration files?",
+   [
+    "/tmp",
+    "/media",
+    "/proc",
+    "/etc"
+   ],
+   3,
+   "/etc contains configuration. /tmp is temporary space, /proc shows process information and /media is for removable disks."
+  ],
+  [
+   "What does cd .. do?",
+   [
+    "Goes to the parent directory",
+    "Goes to the root directory",
+    "Creates a directory",
+    "Goes to the home directory"
+   ],
+   0,
+   "Two dots refer to the parent directory, so cd .. moves one level up."
+  ],
+  [
+   "Which command creates nested directories a/b/c even if a and b do not exist?",
+   [
+    "mkdir a/b/c",
+    "touch a/b/c",
+    "cd -p a/b/c",
+    "mkdir -p a/b/c"
+   ],
+   3,
+   "The -p option creates the parent directories as needed. Plain mkdir fails when parents are missing."
+  ],
+  [
+   "What is the correct way to rename file one.txt to two.txt?",
+   [
+    "mv one.txt two.txt",
+    "cp one.txt two.txt",
+    "rename one.txt two.txt",
+    "ren one.txt two.txt"
+   ],
+   0,
+   "mv moves a file to a new name. cp would keep the original file."
+  ],
+  [
+   "What is the main risk of the command rm -rf with a wrong path?",
+   [
+    "It changes permissions",
+    "It permanently deletes files without confirmation",
+    "It only deletes empty folders",
+    "It is slow"
+   ],
+   1,
+   "rm -rf deletes everything under the path without asking and there is no recycle bin."
+  ],
+  [
+   "Which command lets you watch new lines being added to a log file?",
+   [
+    "wc -f log",
+    "head -f log",
+    "tail -f log",
+    "cat log"
+   ],
+   2,
+   "tail -f follows the end of a file as it grows."
+  ],
+  [
+   "What do the permissions rw-r----- mean in numeric form?",
+   [
+    "460",
+    "604",
+    "750",
+    "640"
+   ],
+   3,
+   "Owner rw is 6, group r is 4 and others have 0, giving 640."
+  ],
+  [
+   "Which command makes a script executable for its owner only?",
+   [
+    "chmod u+x script.sh",
+    "chown u+x script.sh",
+    "chmod o+x script.sh",
+    "chmod 000 script.sh"
+   ],
+   0,
+   "chmod u+x adds execute for the user (owner). o is others and 000 removes everything."
+  ],
+  [
+   "What does the principle of least privilege state?",
+   [
+    "Delete unused files",
+    "Every user should be an administrator",
+    "Give only the access that is needed to do a task",
+    "Never use passwords"
+   ],
+   2,
+   "Least privilege reduces damage if an account or program is misused."
+  ],
+  [
+   "Where are Linux password hashes stored?",
+   [
+    "/etc/shadow",
+    "/etc/passwd",
+    "/var/log",
+    "/home/user"
+   ],
+   0,
+   "/etc/shadow stores hashes and is readable only by root."
+  ],
+  [
+   "Which command is used to add an existing user ravi to the group labteam without removing other groups?",
+   [
+    "usermod -G labteam ravi",
+    "chgrp ravi labteam",
+    "usermod -aG labteam ravi",
+    "groupadd ravi labteam"
+   ],
+   2,
+   "With -a the group is appended. Without it, -G replaces the user's supplementary groups."
+  ],
+  [
+   "Which redirection sends only error messages to a file?",
+   [
+    ">",
+    "2>",
+    ">>",
+    "|"
+   ],
+   1,
+   "2> redirects stderr, which is stream number 2."
+  ],
+  [
+   "What does the following command do: cat access.log | grep 404 | wc -l?",
+   [
+    "Deletes 404 errors",
+    "Sorts the log file",
+    "Lists all files named 404",
+    "Counts the lines of access.log that contain 404"
+   ],
+   3,
+   "cat sends the file, grep keeps the matching lines and wc -l counts them."
+  ],
+  [
+   "Why is sort normally used before uniq -c?",
+   [
+    "sort removes spaces",
+    "uniq changes the case",
+    "uniq cannot read files",
+    "uniq only merges adjacent duplicate lines"
+   ],
+   3,
+   "Sorting brings identical lines next to each other so that uniq counts them correctly."
+  ],
+  [
+   "Which command finds files larger than 100 MB under /var?",
+   [
+    "ls /var --big 100M",
+    "find /var -type f -size +100M",
+    "grep -size 100M /var",
+    "du /var -find 100M"
+   ],
+   1,
+   "find supports the -size test with a plus sign meaning larger than."
+  ],
+  [
+   "What does PID 1 normally represent?",
+   [
+    "The kernel log",
+    "The terminal",
+    "The init system such as systemd",
+    "The first user"
+   ],
+   2,
+   "The first process started at boot is the init system and all other processes descend from it."
+  ],
+  [
+   "Which signal is sent by kill 1234 when no option is given?",
+   [
+    "SIGKILL",
+    "SIGTERM",
+    "SIGSTOP",
+    "SIGHUP"
+   ],
+   1,
+   "The default is SIGTERM, a polite request to terminate. SIGKILL needs kill -9."
+  ],
+  [
+   "What is the difference between systemctl start and systemctl enable?",
+   [
+    "start runs now, enable runs at boot",
+    "There is no difference",
+    "start installs, enable removes",
+    "enable runs now, start runs at boot"
+   ],
+   0,
+   "start affects the current session. enable creates the setting so that the service starts automatically at boot."
+  ],
+  [
+   "Why is it unsafe to run a command copied from an unknown website with sudo?",
+   [
+    "The command may run harmful actions with administrator power",
+    "sudo ignores the command",
+    "sudo is slow",
+    "It will not work"
+   ],
+   0,
+   "sudo gives full rights, so a harmful command can damage the system or install malware."
+  ],
+  [
+   "A user can ping 8.8.8.8 but cannot ping example.com. What is the most likely problem?",
+   [
+    "DNS resolution problem",
+    "Wrong permissions",
+    "Disk full",
+    "Broken network cable"
+   ],
+   0,
+   "The connection works, since an IP address is reachable, so name resolution is failing."
+  ],
+  [
+   "Which SSH setting improves security by stopping direct administrator login?",
+   [
+    "Port 22",
+    "X11Forwarding yes",
+    "PermitRootLogin no",
+    "PermitRootLogin yes"
+   ],
+   2,
+   "PermitRootLogin no forces attackers to guess a normal user first and encourages the use of sudo."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "You are a junior system administrator for a small Indian training institute. The owner asks you to prepare a clean workspace on the Linux practice machine for a new batch of students, review basic security of the shared files, and write a short report. Work only inside the rootjavs practice machine and your own home directory.",
+  "tasks": [
+   {
+    "task": "Create the directory structure batch2026/notes, batch2026/projects and batch2026/reports in one command.",
+    "check": "mkdir -p batch2026/notes batch2026/projects batch2026/reports"
+   },
+   {
+    "task": "Create files welcome.txt and rules.txt inside batch2026/notes, and write the line Welcome to the batch into welcome.txt.",
+    "check": "touch batch2026/notes/rules.txt and echo \"Welcome to the batch\" > batch2026/notes/welcome.txt"
+   },
+   {
+    "task": "Create a private file batch2026/reports/marks.txt that only you can read and write.",
+    "check": "touch batch2026/reports/marks.txt then chmod 600 batch2026/reports/marks.txt, and ls -l shows -rw-------"
+   },
+   {
+    "task": "Make the folder batch2026/notes readable and enterable by everybody, but writable only by you.",
+    "check": "chmod 755 batch2026/notes and ls -ld shows drwxr-xr-x"
+   },
+   {
+    "task": "Copy the whole batch2026 folder to batch2026_backup, then list it recursively to confirm.",
+    "check": "cp -r batch2026 batch2026_backup and ls -R batch2026_backup"
+   },
+   {
+    "task": "Find all files named with the .txt extension under batch2026 and count them.",
+    "check": "find batch2026 -name \"*.txt\" | wc -l prints 3"
+   },
+   {
+    "task": "List the usernames of all accounts that use the bash shell, sorted alphabetically.",
+    "check": "grep bash /etc/passwd | cut -d: -f1 | sort"
+   },
+   {
+    "task": "Show which processes are running as your own user and count them.",
+    "check": "ps -u $(whoami) | wc -l or ps aux | grep $(whoami) | wc -l"
+   },
+   {
+    "task": "Check whether the ssh service is active and show its last ten log lines.",
+    "check": "systemctl status ssh and journalctl -u ssh -n 10"
+   },
+   {
+    "task": "Write a three-line report named batch2026/reports/report.txt containing your username, the current date and the free disk space of the root partition, using commands and redirection.",
+    "check": "whoami > report.txt; date >> report.txt; df -h / | tail -n 1 >> report.txt, and cat shows three lines"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "Linux Fundamentals Cheat Sheet",
+  "sections": [
+   [
+    "Navigation",
+    [
+     [
+      "pwd",
+      "Show the current directory"
+     ],
+     [
+      "ls -la",
+      "List all files, including hidden, in long format"
+     ],
+     [
+      "cd /path",
+      "Go to an absolute path"
+     ],
+     [
+      "cd ..",
+      "Go up one level"
+     ],
+     [
+      "cd ~ or cd",
+      "Go to the home directory"
+     ],
+     [
+      "cd -",
+      "Go back to the previous directory"
+     ],
+     [
+      "tree -L 2",
+      "Show directory tree two levels deep"
+     ]
+    ]
+   ],
+   [
+    "Files and folders",
+    [
+     [
+      "mkdir -p a/b",
+      "Create nested directories"
+     ],
+     [
+      "touch f",
+      "Create an empty file"
+     ],
+     [
+      "cp -r src dst",
+      "Copy a directory"
+     ],
+     [
+      "mv a b",
+      "Move or rename"
+     ],
+     [
+      "rm -i f",
+      "Delete a file with confirmation"
+     ],
+     [
+      "rm -r d",
+      "Delete a directory and its content"
+     ],
+     [
+      "ln -s target link",
+      "Create a symbolic link"
+     ]
+    ]
+   ],
+   [
+    "Reading",
+    [
+     [
+      "cat f",
+      "Print a whole file"
+     ],
+     [
+      "less f",
+      "Read page by page"
+     ],
+     [
+      "head -n 5 f",
+      "First five lines"
+     ],
+     [
+      "tail -f f",
+      "Follow a file live"
+     ],
+     [
+      "wc -l f",
+      "Count lines"
+     ],
+     [
+      "file f",
+      "Show the real type of a file"
+     ]
+    ]
+   ],
+   [
+    "Permissions and users",
+    [
+     [
+      "chmod 755 f",
+      "Set rwxr-xr-x"
+     ],
+     [
+      "chmod u+x f",
+      "Add execute for the owner"
+     ],
+     [
+      "chown u:g f",
+      "Change owner and group"
+     ],
+     [
+      "id",
+      "Show UID, GID and groups"
+     ],
+     [
+      "sudo cmd",
+      "Run one command as root"
+     ],
+     [
+      "umask",
+      "Show default permission mask"
+     ]
+    ]
+   ],
+   [
+    "Search and text",
+    [
+     [
+      "grep -i word f",
+      "Search ignoring case"
+     ],
+     [
+      "grep -r word dir",
+      "Search in all files of a folder"
+     ],
+     [
+      "find dir -name '*.txt'",
+      "Find files by name"
+     ],
+     [
+      "sort | uniq -c",
+      "Count repeated lines"
+     ],
+     [
+      "cut -d: -f1 f",
+      "Pick a column"
+     ],
+     [
+      "cmd > f",
+      "Save output, overwriting"
+     ],
+     [
+      "cmd >> f",
+      "Append output"
+     ],
+     [
+      "cmd1 | cmd2",
+      "Send output of cmd1 to cmd2"
+     ]
+    ]
+   ],
+   [
+    "Processes and services",
+    [
+     [
+      "ps aux",
+      "List all processes"
+     ],
+     [
+      "top",
+      "Live process view"
+     ],
+     [
+      "kill PID",
+      "Ask a process to stop"
+     ],
+     [
+      "kill -9 PID",
+      "Force a process to stop"
+     ],
+     [
+      "systemctl status s",
+      "Check a service"
+     ],
+     [
+      "systemctl enable s",
+      "Start a service at boot"
+     ],
+     [
+      "journalctl -u s",
+      "Read the logs of a service"
+     ]
+    ]
+   ],
+   [
+    "Software and system",
+    [
+     [
+      "sudo apt update",
+      "Refresh package list"
+     ],
+     [
+      "sudo apt install p",
+      "Install a package"
+     ],
+     [
+      "sudo apt remove p",
+      "Remove a package"
+     ],
+     [
+      "df -h",
+      "Disk space"
+     ],
+     [
+      "free -h",
+      "Memory"
+     ],
+     [
+      "uname -a",
+      "Kernel information"
+     ]
+    ]
+   ],
+   [
+    "Network",
+    [
+     [
+      "ip addr",
+      "Show IP addresses"
+     ],
+     [
+      "ip route",
+      "Show routes and gateway"
+     ],
+     [
+      "ping -c 4 host",
+      "Test connection"
+     ],
+     [
+      "ss -tuln",
+      "Show listening ports"
+     ],
+     [
+      "curl -I url",
+      "Fetch web headers"
+     ],
+     [
+      "ssh user@host",
+      "Remote login"
+     ],
+     [
+      "ssh-keygen -t ed25519",
+      "Create an SSH key pair"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "Kernel",
+   "The core of the operating system that controls the hardware and shares it between programs."
+  ],
+  [
+   "Shell",
+   "A program that reads the commands you type and passes them to the operating system. Bash is the most common."
+  ],
+  [
+   "Distribution",
+   "A complete Linux system that combines the kernel with tools, software and settings, such as Ubuntu or Kali."
+  ],
+  [
+   "Root",
+   "The administrator account with the power to do anything on the system, with UID 0."
+  ],
+  [
+   "Directory",
+   "A folder that holds files and other directories."
+  ],
+  [
+   "Absolute path",
+   "A file address that starts from the root slash and works from any location."
+  ],
+  [
+   "Relative path",
+   "A file address that starts from the directory you are in now."
+  ],
+  [
+   "Permission",
+   "A rule that says who can read, write or execute a file or directory."
+  ],
+  [
+   "sudo",
+   "A command that runs one other command with administrator rights."
+  ],
+  [
+   "Pipe",
+   "The vertical bar symbol that sends the output of one command into another command."
+  ],
+  [
+   "Process",
+   "A running copy of a program, identified by a PID."
+  ],
+  [
+   "Package manager",
+   "A tool such as apt that installs, updates and removes software from trusted repositories."
+  ],
+  [
+   "Daemon",
+   "A background service program, such as the SSH server, that waits for requests."
+  ],
+  [
+   "SSH",
+   "Secure Shell, a protocol that gives encrypted remote access to another computer."
+  ],
+  [
+   "Least privilege",
+   "A security principle where every user and program gets only the access it really needs."
+  ]
+ ],
+ "interview": [
+  [
+   "What is the difference between Linux and a Linux distribution?",
+   "Linux is strictly the kernel. A distribution such as Ubuntu or Red Hat packages the kernel with system tools, a package manager, default settings and often a desktop, so that it can be used as a full operating system."
+  ],
+  [
+   "Explain absolute and relative paths with an example.",
+   "An absolute path starts at the root slash, for example /home/asha/notes.txt, and works from anywhere. A relative path starts from the current directory, so if you are in /home/asha, the path notes.txt points to the same file."
+  ],
+  [
+   "What does chmod 640 do?",
+   "It gives the owner read and write, the group read only, and others no access. 6 is 4 plus 2, 4 is read and 0 is nothing."
+  ],
+  [
+   "What is the difference between su and sudo?",
+   "su switches to another user and needs that user's password. sudo runs a single command with elevated rights using your own password, follows rules in the sudoers configuration, and records the action in a log, so it is safer and more accountable."
+  ],
+  [
+   "How would you find which IP addresses sent the most requests in a web server log?",
+   "Cut the IP field, sort it, count with uniq -c, sort the counts in reverse numeric order and show the top lines, for example cut -d' ' -f1 access.log | sort | uniq -c | sort -nr | head."
+  ],
+  [
+   "What is the difference between a hard link and a symbolic link?",
+   "A symbolic link is a shortcut that holds the path of another file and breaks if that file is removed. A hard link is another name for the same data on disk, so the data remains until all names are removed."
+  ],
+  [
+   "A service has stopped working. How do you troubleshoot it?",
+   "Check systemctl status for the service, read its logs with journalctl -u, verify the configuration file for mistakes, confirm that disk space and memory are available with df -h and free -h, fix the problem and restart the service."
+  ],
+  [
+   "Why is it a bad idea to log in as root for daily work?",
+   "Any typing mistake or malicious program running as root can damage the whole system. Using a normal account with sudo limits the power to single commands and creates a record."
+  ],
+  [
+   "How do you secure SSH on a server?",
+   "Use key based login, disable password login and direct root login in sshd_config, keep the system updated, allow only the needed users, and monitor the authentication logs for repeated failures."
+  ],
+  [
+   "What does everything is a file mean in Linux?",
+   "Files, directories, devices and even process information are exposed through the file system, so the same tools such as cat, ls and grep can be used on many different things, for example reading /proc/cpuinfo."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}

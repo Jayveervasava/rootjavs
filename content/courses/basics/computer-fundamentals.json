@@ -1,0 +1,2818 @@
+{
+ "id": "computer-fundamentals",
+ "title": "Computer Fundamentals: From Windows to Office and Online Safety",
+ "category": "Basics",
+ "level": "Beginner",
+ "hours": 14,
+ "short": "Use a computer confidently: manage Windows and files, browse and email safely, create documents, spreadsheets and presentations, and protect yourself from online fraud.",
+ "prerequisites": [],
+ "learn": [
+  "Explain the parts of a computer and how hardware, software and the operating system work together",
+  "Manage Windows settings, user accounts, updates and files with a clean folder structure and a 3-2-1 backup",
+  "Browse, search and send professional emails while checking websites and links for safety",
+  "Create a formatted Word report with styles, tables, page numbers and an automatic table of contents",
+  "Build an Excel sheet with formulas, IF, lookups, charts and conditional formatting",
+  "Design and present a clear PowerPoint deck, and use shortcut keys and online safety habits such as 2FA and UPI fraud checks every day"
+ ],
+ "lessons": [
+  {
+   "title": "How a Computer Works",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "What is a computer?"
+    },
+    {
+     "p": "A **computer** is an electronic machine that accepts data, follows a set of instructions to process it, stores the result and shows the output. That is the whole idea. A laptop, a smartphone, an ATM, a billing machine at a petrol pump and the system that prints your railway ticket are all computers. They look different, but they all do the same four jobs."
+    },
+    {
+     "p": "Every time you send a UPI payment, a computer in your phone takes your input (amount and PIN), processes it, sends it to the bank's computers, stores a record and gives you an output (the success message). Once you see this pattern, every device becomes easier to understand."
+    },
+    {
+     "h": "The four-step cycle: Input, Process, Output, Storage"
+    },
+    {
+     "diagram": "Animated loop of four boxes: INPUT (keyboard, mouse, microphone icons) -> PROCESS (CPU chip glowing) -> OUTPUT (monitor, printer, speaker) with a branch down to STORAGE (SSD icon). Show a data packet (a small coloured dot) travelling through each box when the student clicks Play, with a label describing what happens at each stage."
+    },
+    {
+     "ul": [
+      "**Input**: data going in. Keyboard, mouse, touchpad, microphone, webcam, scanner, fingerprint reader.",
+      "**Process**: the CPU works on the data by following instructions.",
+      "**Output**: results coming out. Monitor, speaker, printer, headphones.",
+      "**Storage**: saving data for later. SSD, hard disk, pen drive, memory card, cloud."
+     ]
+    },
+    {
+     "h": "Hardware: the parts you can touch"
+    },
+    {
+     "p": "**Hardware** means the physical parts of a computer. Software means the programs that run on it. A computer without software is like a classroom with no teacher: everything is present, but nothing useful happens."
+    },
+    {
+     "tbl": [
+      [
+       "Part",
+       "What it does",
+       "Easy comparison"
+      ],
+      [
+       "CPU (processor)",
+       "Executes instructions and does calculations",
+       "The brain"
+      ],
+      [
+       "RAM",
+       "Temporary, fast memory for programs that are running now",
+       "Your study desk"
+      ],
+      [
+       "SSD / HDD",
+       "Permanent storage for files and programs",
+       "Your cupboard"
+      ],
+      [
+       "Motherboard",
+       "Circuit board that connects every part together",
+       "The road network of a city"
+      ],
+      [
+       "GPU",
+       "Draws images, video and games; also used for AI work",
+       "A specialist artist"
+      ],
+      [
+       "Power supply / battery",
+       "Gives electricity to all parts",
+       "The heart pumping blood"
+      ],
+      [
+       "Display",
+       "Shows the output",
+       "The notice board"
+      ]
+     ]
+    },
+    {
+     "h": "RAM versus storage: the most common confusion"
+    },
+    {
+     "p": "Many beginners think RAM and storage are the same. They are not. **RAM** (Random Access Memory) is very fast but temporary. Everything in RAM disappears when the computer switches off. **Storage** is slower but permanent. When you open a Word file, the computer copies it from storage into RAM so that the CPU can work with it quickly. When you press Save, it is written back to storage."
+    },
+    {
+     "p": "This explains a common problem. If a laptop has only 4 GB of RAM and you open twenty browser tabs, a game and a video call, the RAM fills up and the computer becomes slow. Adding RAM or closing programs fixes it. If instead your storage is full, you cannot save new files or install updates. These are two different problems with two different solutions."
+    },
+    {
+     "h": "The CPU in simple words"
+    },
+    {
+     "p": "The CPU executes billions of tiny instructions every second. Two numbers matter when you read a specification: **cores** and **clock speed**. A core is one worker inside the CPU. A quad-core CPU has four workers who can handle four jobs at the same time. Clock speed, measured in GHz, tells how fast each worker moves. Popular CPU families include Intel Core (i3, i5, i7), AMD Ryzen, and Apple M-series chips. Most Android phones use Snapdragon, MediaTek or similar chips."
+    },
+    {
+     "p": "A higher number is not always better. A newer i5 can be faster than an older i7. Always compare the generation of the processor along with the name."
+    },
+    {
+     "h": "Software: the instructions"
+    },
+    {
+     "ul": [
+      "**System software**: runs the machine. The operating system (Windows, Linux, macOS, Android, iOS) is the most important example.",
+      "**Application software**: helps you do a task. MS Word, Chrome, WhatsApp, Tally, VLC player.",
+      "**Utility software**: maintains the computer. Antivirus, disk clean-up, file compression tools."
+     ]
+    },
+    {
+     "p": "The **operating system (OS)** is the manager between you, the hardware and the applications. It decides which program gets how much RAM, lets you save files, connects to Wi-Fi and shows the desktop. Without an OS, a computer cannot do anything useful."
+    },
+    {
+     "h": "How computers store data: bits and bytes"
+    },
+    {
+     "p": "A computer only understands two states: on and off. We write them as 1 and 0. Each 1 or 0 is a **bit**. Eight bits make a **byte**, and one byte can store one English letter. Larger sizes are built from bytes."
+    },
+    {
+     "tbl": [
+      [
+       "Unit",
+       "Approximate size",
+       "Example"
+      ],
+      [
+       "1 KB (kilobyte)",
+       "1,000 bytes",
+       "A short text file"
+      ],
+      [
+       "1 MB (megabyte)",
+       "1,000 KB",
+       "One phone photo is about 3 to 5 MB"
+      ],
+      [
+       "1 GB (gigabyte)",
+       "1,000 MB",
+       "A 15 minute HD video"
+      ],
+      [
+       "1 TB (terabyte)",
+       "1,000 GB",
+       "About 250,000 photos"
+      ]
+     ]
+    },
+    {
+     "p": "Strictly, computers also use 1,024 as the multiplier, which is why a 500 GB drive shows a little less in Windows. You only need to remember that each step is roughly one thousand times bigger."
+    },
+    {
+     "h": "Types of computers"
+    },
+    {
+     "ul": [
+      "**Desktop**: powerful, not portable, easy to upgrade. Common in offices and cyber cafes.",
+      "**Laptop**: portable with a built-in screen, keyboard and battery.",
+      "**Tablet and smartphone**: touch based, very portable.",
+      "**Server**: a powerful computer that serves data to others. When you open a website, a server sends it to you.",
+      "**Supercomputer**: thousands of processors working together for science and weather forecasting. India has built its own PARAM series of supercomputers through C-DAC."
+     ]
+    },
+    {
+     "h": "Ports and peripherals"
+    },
+    {
+     "p": "A **port** is a socket on the computer. A **peripheral** is a device you connect to it. Today you will meet these ports most often: USB-A (the classic rectangle), USB-C (small, reversible, also used for charging), HDMI (sends video to a TV or projector), the headphone jack and the Ethernet port (wired internet)."
+    },
+    {
+     "tip": "Buying a laptop for college? For study and office work, choose at least 8 GB RAM and an SSD instead of a hard disk. An SSD makes the computer start in seconds and feels faster than any other single upgrade."
+    },
+    {
+     "warn": "Always shut down using the Start menu instead of pressing the power button for a long time, and use Safely Remove Hardware before pulling a pen drive. Sudden power loss can corrupt files that were open."
+    },
+    {
+     "flip": [
+      [
+       "What are the four steps of the computing cycle?",
+       "Input, Process, Output, Storage."
+      ],
+      [
+       "Which memory loses its data when power is off?",
+       "RAM. It is temporary working memory."
+      ],
+      [
+       "What does the operating system do?",
+       "It manages hardware, memory and programs, and gives you the desktop to work on."
+      ],
+      [
+       "How many bits are in one byte?",
+       "Eight."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Open the Settings app on your computer, go to System, then About. Write down your processor name, installed RAM and Windows version. Then open File Explorer and note how much storage is used and free on drive C."
+    }
+   ],
+   "quiz": [
+    [
+     "Which part of a computer is called its brain?",
+     [
+      "RAM",
+      "CPU",
+      "Motherboard",
+      "Monitor"
+     ],
+     1,
+     "The CPU executes instructions and performs calculations. RAM is temporary memory, the motherboard connects parts and the monitor only displays output."
+    ],
+    [
+     "What happens to the data in RAM when the computer is switched off?",
+     [
+      "It is saved forever",
+      "It moves to the cloud",
+      "It is erased",
+      "It becomes smaller"
+     ],
+     2,
+     "RAM is volatile memory, so its contents are lost when power is removed. Permanent data lives in storage such as an SSD."
+    ],
+    [
+     "Which of the following is an example of an output device?",
+     [
+      "Scanner",
+      "Microphone",
+      "Printer",
+      "Keyboard"
+     ],
+     2,
+     "A printer gives results out of the computer. The other three send data into it, so they are input devices."
+    ],
+    [
+     "How many bits make one byte?",
+     [
+      "4",
+      "8",
+      "16",
+      "1024"
+     ],
+     1,
+     "One byte equals eight bits. 1024 is the multiplier between larger units such as KB and MB."
+    ],
+    [
+     "Which is system software?",
+     [
+      "MS Word",
+      "Chrome",
+      "Windows",
+      "VLC player"
+     ],
+     2,
+     "Windows is an operating system, which is system software. The others are application software used for specific tasks."
+    ]
+   ],
+   "practice": [
+    "Make a table of five devices you used today and mark whether each one is a computer, with its input and output.",
+    "Find your computer's RAM and storage size and explain in one sentence what each is used for.",
+    "Look at the ports on your laptop or phone charger and name each one."
+   ]
+  },
+  {
+   "title": "Windows Essentials",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "Why learn Windows first?"
+    },
+    {
+     "p": "Windows is the operating system on most laptops and desktops in Indian colleges, offices and homes. Every other skill in this course, from Word to Excel to online safety, happens on top of it. If you move comfortably inside Windows, everything else becomes faster. This lesson uses Windows 11, but almost everything also works in Windows 10. Note that Microsoft stopped giving free security updates for Windows 10 in October 2025, so a computer that can run Windows 11 should be upgraded."
+    },
+    {
+     "h": "The desktop and its parts"
+    },
+    {
+     "diagram": "Interactive mock Windows desktop. Hovering over each region highlights it and shows a label: Desktop with icons, Taskbar at the bottom, Start button, Search box, pinned apps, System tray (Wi-Fi, volume, battery, clock), Notification and Quick Settings panel. Student must click the correct region when a question pops up."
+    },
+    {
+     "ul": [
+      "**Desktop**: the main screen where icons and your wallpaper appear.",
+      "**Taskbar**: the strip at the bottom. It shows pinned apps, running apps, search and the system tray.",
+      "**Start menu**: opens with the Windows key. It lists pinned apps, recent files and the power button.",
+      "**System tray**: small icons near the clock for Wi-Fi, sound, battery and notifications.",
+      "**Quick Settings**: click on the Wi-Fi, sound and battery icons together to turn Wi-Fi, Bluetooth, airplane mode and battery saver on or off."
+     ]
+    },
+    {
+     "h": "Windows, snapping and virtual desktops"
+    },
+    {
+     "p": "Every program opens in a **window** that you can minimise (hide to the taskbar), maximise (fill the screen) or close. To work with two windows side by side, drag a window to the left or right edge of the screen, or press [[Win]] + [[Left]] or [[Win]] + [[Right]]. This is called **snapping** and is very useful when you read notes on one side and type on the other."
+    },
+    {
+     "p": "Press [[Alt]] + [[Tab]] to switch between open apps quickly. Press [[Win]] + [[Tab]] to see all windows and **virtual desktops**. A virtual desktop is a separate workspace. For example, keep college work on Desktop 1 and entertainment on Desktop 2."
+    },
+    {
+     "h": "Settings: where you control the computer"
+    },
+    {
+     "p": "Open Settings with [[Win]] + [[I]]. The sections you will use most are:"
+    },
+    {
+     "tbl": [
+      [
+       "Section",
+       "What you can do there"
+      ],
+      [
+       "System",
+       "Display brightness, sound, battery, storage, About (RAM and processor details)"
+      ],
+      [
+       "Bluetooth and devices",
+       "Pair headphones, printers, mouse"
+      ],
+      [
+       "Network and internet",
+       "Connect to Wi-Fi, set up a hotspot, airplane mode"
+      ],
+      [
+       "Personalisation",
+       "Wallpaper, colours, dark mode, taskbar position"
+      ],
+      [
+       "Apps",
+       "Uninstall programs, choose default apps"
+      ],
+      [
+       "Accounts",
+       "Your user account, sign-in options such as PIN"
+      ],
+      [
+       "Time and language",
+       "Date, time zone, keyboard languages such as Hindi and Gujarati"
+      ],
+      [
+       "Privacy and security",
+       "App permissions for camera, microphone and location"
+      ],
+      [
+       "Windows Update",
+       "Download security fixes and new features"
+      ]
+     ]
+    },
+    {
+     "h": "User accounts and permissions"
+    },
+    {
+     "p": "A Windows account can be a **Microsoft account** (your email, which syncs settings and OneDrive) or a **local account** (stays only on that computer). Accounts also have types. An **Administrator** can install software and change system settings. A **Standard** user cannot make big changes without an administrator's permission."
+    },
+    {
+     "p": "A good habit is to use a Standard account for daily work and keep the Administrator account for installing software. When something unexpected asks for permission to change your device, a small blue or yellow box called User Account Control appears. Read it before clicking Yes. If you did not start the action yourself, click No."
+    },
+    {
+     "h": "Installing and removing programs safely"
+    },
+    {
+     "p": "Install software only from trusted sources: the Microsoft Store or the official website of the publisher. Pirated or cracked software is a major way for malware to enter a computer. To remove a program, go to Settings, Apps, Installed apps, click the three dots next to the program and choose Uninstall. Never delete a program's folder by hand."
+    },
+    {
+     "warn": "Free cracked versions of paid software, fake download buttons and unknown pen drives are the most common ways that viruses reach student laptops. Download only from the official site and check the web address carefully."
+    },
+    {
+     "h": "Updates and security"
+    },
+    {
+     "p": "Windows Update installs fixes for security holes. Attackers look for computers that have not been updated, so keeping updates on is one of the best defences that costs nothing. Windows also includes **Windows Security** (Microsoft Defender), a built-in antivirus. Open it from the Start menu and make sure Virus and threat protection, Firewall and Device security show green ticks. A **firewall** is a filter that decides which network traffic may enter or leave your computer."
+    },
+    {
+     "h": "Task Manager: when a program hangs"
+    },
+    {
+     "p": "Sometimes a program stops responding. Press [[Ctrl]] + [[Shift]] + [[Esc]] to open **Task Manager**. In the Processes tab you can see how much CPU, memory and disk each app is using. Select the frozen app and click End task. The Startup apps tab lists programs that launch when you switch on the computer. Disabling the ones you do not need makes start-up faster."
+    },
+    {
+     "h": "Shut down, sleep, restart"
+    },
+    {
+     "ul": [
+      "**Sleep**: saves your session in RAM and uses very little power. Wake up in seconds.",
+      "**Restart**: closes everything and starts fresh. This fixes many small problems after an update.",
+      "**Shut down**: turns the computer off fully.",
+      "**Lock** ([[Win]] + [[L]]): hides the screen but keeps your work open. Always lock before leaving a shared computer, even for two minutes."
+     ]
+    },
+    {
+     "h": "Useful built-in tools"
+    },
+    {
+     "ul": [
+      "**Snipping Tool** ([[Win]] + [[Shift]] + [[S]]): take a screenshot of any area.",
+      "**Clipboard history** ([[Win]] + [[V]]): paste things you copied earlier.",
+      "**Calculator, Notepad, Paint**: always available, no installation needed.",
+      "**Recycle Bin**: deleted files wait here until you empty it."
+     ]
+    },
+    {
+     "tip": "If your PC is slow, restart it first, check Task Manager for a program using too much memory, free up storage with Settings, System, Storage, and make sure Windows Update is not stuck. These four steps solve most slow-computer problems."
+    },
+    {
+     "flip": [
+      [
+       "How do you open Task Manager directly?",
+       "Press Ctrl + Shift + Esc."
+      ],
+      [
+       "Which account type can install software for everyone?",
+       "Administrator."
+      ],
+      [
+       "What does Win + L do?",
+       "It locks the computer instantly."
+      ],
+      [
+       "Where should you install software from?",
+       "The Microsoft Store or the publisher's official website."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Switch your computer to dark mode from Settings, Personalisation. Then pin your favourite app to the taskbar, take a screenshot using Win + Shift + S and open Task Manager to find which program uses the most memory."
+    }
+   ],
+   "quiz": [
+    [
+     "Which key combination locks a Windows computer instantly?",
+     [
+      "Win + D",
+      "Win + L",
+      "Ctrl + L",
+      "Alt + F4"
+     ],
+     1,
+     "Win + L locks the session. Win + D shows the desktop and Alt + F4 closes the active window."
+    ],
+    [
+     "Which shortcut opens Task Manager directly?",
+     [
+      "Ctrl + Alt + C",
+      "Ctrl + Shift + Esc",
+      "Win + T",
+      "Alt + Esc"
+     ],
+     1,
+     "Ctrl + Shift + Esc opens Task Manager immediately, which helps when an app is frozen."
+    ],
+    [
+     "Why should you keep Windows Update turned on?",
+     [
+      "To get free wallpapers",
+      "To install security fixes",
+      "To increase RAM",
+      "To remove the taskbar"
+     ],
+     1,
+     "Updates fix security weaknesses that attackers could use. They do not change hardware such as RAM."
+    ],
+    [
+     "Which account type can install software and change system settings?",
+     [
+      "Guest",
+      "Standard",
+      "Administrator",
+      "Child"
+     ],
+     2,
+     "Administrators have full control. Standard users need permission for big changes."
+    ],
+    [
+     "What is the safest way to install a new program?",
+     [
+      "From a link in a WhatsApp forward",
+      "From a cracked version on a random site",
+      "From the Microsoft Store or the official website",
+      "From any pen drive"
+     ],
+     2,
+     "Official sources reduce the risk of malware. Forwards, cracked software and unknown pen drives are common infection routes."
+    ]
+   ],
+   "practice": [
+    "Snap two windows side by side using the keyboard only.",
+    "Open Windows Security and write down the status of the firewall and virus protection.",
+    "Change the keyboard language settings to add Hindi or Gujarati and switch between languages using Win + Space."
+   ]
+  },
+  {
+   "title": "File and Folder Management",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "Files, folders and drives"
+    },
+    {
+     "p": "A **file** is a named piece of data: a photo, a Word document, a song or a program. A **folder** is a container that holds files and other folders, like a physical folder in a cupboard. A **drive** is a storage area. On most Windows computers drive C holds Windows and your programs, and other drives such as D hold extra data. A pen drive usually appears as E or F."
+    },
+    {
+     "p": "Good file management saves time. Students who cannot find their assignment five minutes before submission know why. The goal of this lesson is to build habits so that you can always find any file in under ten seconds."
+    },
+    {
+     "h": "File Explorer"
+    },
+    {
+     "p": "Open **File Explorer** with [[Win]] + [[E]]. The left pane (Navigation pane) shows Home, Gallery, OneDrive, This PC and drives. The main pane shows the contents of the current folder. The address bar at the top shows where you are. The search box at the top right searches inside the current folder."
+    },
+    {
+     "diagram": "Animated folder tree. A root drive C: expands into Users, then Student, then Documents, with sub-folders Semester1, Semester2, Projects. A glowing path builds up as the student hovers, and the full path text C:\\Users\\Student\\Documents\\Semester1\\Maths.docx is typed out character by character beneath the tree."
+    },
+    {
+     "h": "Understanding file paths"
+    },
+    {
+     "p": "A **path** is the full address of a file. It starts with a drive letter and lists every folder separated by a backslash."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "C:\\Users\\Riya\\Documents\\Semester1\\Maths-Assignment1.docx\n\nC:\\                = the drive\nUsers\\Riya\\        = the user's folder\nDocuments\\         = a folder inside it\nSemester1\\         = a sub-folder\nMaths-Assignment1.docx = the file name and its extension"
+     }
+    },
+    {
+     "p": "The part after the last dot is the **extension**. It tells Windows which program can open the file."
+    },
+    {
+     "tbl": [
+      [
+       "Extension",
+       "Type",
+       "Opens with"
+      ],
+      [
+       ".docx",
+       "Word document",
+       "MS Word"
+      ],
+      [
+       ".xlsx",
+       "Excel workbook",
+       "MS Excel"
+      ],
+      [
+       ".pptx",
+       "PowerPoint presentation",
+       "MS PowerPoint"
+      ],
+      [
+       ".pdf",
+       "Portable document",
+       "Browser or PDF reader"
+      ],
+      [
+       ".jpg / .png",
+       "Pictures",
+       "Photos app"
+      ],
+      [
+       ".mp3 / .mp4",
+       "Audio and video",
+       "Media player"
+      ],
+      [
+       ".zip",
+       "Compressed folder",
+       "File Explorer"
+      ],
+      [
+       ".exe",
+       "Program that runs code",
+       "Windows itself"
+      ]
+     ]
+    },
+    {
+     "h": "Create, rename, copy, move, delete"
+    },
+    {
+     "ol": [
+      "**Create**: right-click in an empty space, choose New, then Folder.",
+      "**Rename**: select the item and press [[F2]], type the new name and press Enter.",
+      "**Copy**: select, press [[Ctrl]] + [[C]], go to the new place and press [[Ctrl]] + [[V]]. The original stays.",
+      "**Move (cut)**: select, press [[Ctrl]] + [[X]], go to the new place and paste. The original is removed.",
+      "**Delete**: press [[Delete]]. The file goes to the Recycle Bin and can be restored.",
+      "**Select many**: hold [[Ctrl]] and click each item, or press [[Ctrl]] + [[A]] to select all."
+     ]
+    },
+    {
+     "p": "Copy and move are easy to mix up. Copy makes a duplicate. Move relocates the original. When you are not sure, copy first, check the result and then delete the original."
+    },
+    {
+     "warn": "[[Shift]] + [[Delete]] permanently deletes a file without sending it to the Recycle Bin. Files on a pen drive also skip the Recycle Bin. Think twice before deleting from external drives."
+    },
+    {
+     "h": "Naming files like a professional"
+    },
+    {
+     "ul": [
+      "Use meaningful names: Physics-Lab-Report-Unit2.docx is better than final.docx.",
+      "Avoid spaces and special characters where possible. Use hyphens or underscores.",
+      "Add dates in year-month-day form such as 2026-11-08 so files sort correctly.",
+      "Add version numbers (v1, v2) instead of names like final-final-new.",
+      "Keep the same pattern across all your files."
+     ]
+    },
+    {
+     "h": "Organising a folder structure"
+    },
+    {
+     "p": "A simple structure for a college student could be: Documents, then a folder for each semester, then a folder for each subject, then Assignments, Notes and Projects. Put downloads you want to keep into the right folder immediately. Delete installer files and duplicates once a month."
+    },
+    {
+     "h": "Viewing, sorting and searching"
+    },
+    {
+     "p": "Use the View menu to switch between large icons, list and details. In the Details view you can sort by name, date modified, type or size. To find a file, type part of its name in the search box. You can search by type, for example **kind:=document**, or by date, for example **datemodified:this week**. Press [[Ctrl]] + [[F]] to jump to the search box."
+    },
+    {
+     "tip": "Turn on File name extensions from View, Show, File name extensions. Seeing the full name of a file protects you from tricks such as a file named invoice.pdf.exe that looks like a PDF but is really a program."
+    },
+    {
+     "h": "Compressing files with ZIP"
+    },
+    {
+     "p": "A **ZIP** file packs one or more files into a single smaller file. It is perfect for emailing a project folder. Select the items, right-click, choose Compress to ZIP file. To open a zip, right-click and choose Extract All. If a ZIP file arrives from an unknown sender, do not extract it. Scan it first."
+    },
+    {
+     "h": "Backups: the 3-2-1 rule"
+    },
+    {
+     "p": "Hard disks fail, laptops get stolen and phones fall into water. A backup is a second copy of your important files. A well known rule is **3-2-1**: keep **3** copies of your data, on **2** different types of storage (for example laptop and pen drive), with **1** copy somewhere else such as cloud storage like Google Drive or OneDrive. If ransomware locks the files on your laptop, a safe backup lets you recover without paying anyone."
+    },
+    {
+     "h": "Safely removing external drives"
+    },
+    {
+     "p": "Click the Safely Remove Hardware icon in the system tray, or right-click the drive in File Explorer and choose Eject, before pulling it out. Windows may still be writing data in the background even when the copy bar looks finished."
+    },
+    {
+     "flip": [
+      [
+       "What is a file extension?",
+       "The letters after the last dot in a file name, such as .docx. It shows the file type."
+      ],
+      [
+       "Which key renames a selected file?",
+       "F2."
+      ],
+      [
+       "What is the 3-2-1 backup rule?",
+       "Three copies, on two types of storage, with one copy in a different location."
+      ],
+      [
+       "What is the difference between copy and move?",
+       "Copy keeps the original. Move removes it from the old place."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Create the folder structure Documents, Semester1, Maths with sub-folders Notes and Assignments. Create a text file in Notes, rename it with a good name, copy it to Assignments, then delete the copy and restore it from the Recycle Bin."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the extension of a Word document?",
+     [
+      ".xlsx",
+      ".pptx",
+      ".docx",
+      ".pdf"
+     ],
+     2,
+     ".docx is the Word format. .xlsx is Excel and .pptx is PowerPoint."
+    ],
+    [
+     "Which key renames a selected file in File Explorer?",
+     [
+      "F1",
+      "F2",
+      "F5",
+      "F12"
+     ],
+     1,
+     "F2 puts the file name in edit mode. F5 refreshes the view."
+    ],
+    [
+     "What does Shift + Delete do?",
+     [
+      "Moves a file to the Recycle Bin",
+      "Permanently deletes it",
+      "Copies it",
+      "Hides it"
+     ],
+     1,
+     "Shift + Delete bypasses the Recycle Bin, so the file is gone unless you have a backup."
+    ],
+    [
+     "Which backup plan follows the 3-2-1 rule?",
+     [
+      "One copy on one laptop",
+      "Two copies on the same disk",
+      "Three copies, two storage types, one off-site",
+      "Three copies in the same folder"
+     ],
+     2,
+     "The rule is three copies, two kinds of media and one copy kept elsewhere such as the cloud."
+    ],
+    [
+     "Why should you show file extensions?",
+     [
+      "To make files smaller",
+      "To spot disguised files such as invoice.pdf.exe",
+      "To speed up the computer",
+      "To rename drives"
+     ],
+     1,
+     "Hidden extensions let attackers disguise programs as documents. Showing them helps you notice the real type."
+    ]
+   ],
+   "practice": [
+    "Build your own semester folder structure and move at least ten existing files into it with proper names.",
+    "Compress a project folder into a ZIP, extract it in a new location and compare file sizes.",
+    "Make a backup of your most important folder to a pen drive or a cloud drive and note the date."
+   ]
+  },
+  {
+   "title": "Internet, Browser and Email",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "What is the internet?"
+    },
+    {
+     "p": "The **internet** is a giant network of networks. Millions of computers, phones and servers around the world are connected through cables under the sea, mobile towers, satellites and fibre lines. Your internet service provider (ISP), such as Jio, Airtel, BSNL or a local fibre company, connects you to this network. The **World Wide Web** is only one service that runs on the internet. It is the collection of websites. Email, UPI and video calls also use the internet but are not the web."
+    },
+    {
+     "h": "What happens when you open a website"
+    },
+    {
+     "diagram": "Step by step animation of a request journey. A laptop sends a request for www.example.com. Step 1: browser asks a DNS server which turns the name into an IP address, shown as a phone book lookup. Step 2: the request travels through the router and ISP across several hops to a web server. Step 3: the server sends the page back in small packets which assemble into the web page on the laptop. Each step has a Next button and a short caption."
+    },
+    {
+     "ol": [
+      "You type an address such as **www.irctc.co.in** in the browser.",
+      "The browser asks a **DNS** (Domain Name System) server to find the numeric address of that name. DNS works like the contacts list of the internet.",
+      "The browser sends a request to the **web server** at that **IP address**.",
+      "The server replies with the page, which is split into small **packets** that travel and are reassembled.",
+      "The browser draws the page on your screen."
+     ]
+    },
+    {
+     "p": "An **IP address** identifies a device on a network, for example 192.168.1.5 inside your home. Every home Wi-Fi has a **router** that shares one internet connection between your devices and gives each one a private address."
+    },
+    {
+     "h": "Anatomy of a web address (URL)"
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "https://www.digilocker.gov.in/signin?lang=en\n\nhttps          = protocol (secure)\nwww            = subdomain\ndigilocker     = domain name\n.gov.in        = domain ending: Government of India\n/signin        = page path\n?lang=en       = extra information (query)"
+     }
+    },
+    {
+     "p": "**HTTPS** means the connection between you and the website is encrypted. The padlock icon shows that it is in use. HTTPS protects data in transit but it does not prove the website is honest. A fake bank page can also use HTTPS. Always read the domain name itself. Indian government sites normally end in **.gov.in** or **.nic.in**."
+    },
+    {
+     "h": "Using a web browser well"
+    },
+    {
+     "p": "A **browser** is the program that opens websites. Chrome, Edge, Firefox, Safari and Brave are popular browsers. Learn these features:"
+    },
+    {
+     "ul": [
+      "**Tabs**: open many pages in one window. [[Ctrl]] + [[T]] opens a new tab and [[Ctrl]] + [[W]] closes it.",
+      "**Bookmarks**: save pages you visit often. [[Ctrl]] + [[D]] bookmarks the current page.",
+      "**History**: a list of sites you visited. [[Ctrl]] + [[H]] opens it.",
+      "**Downloads**: [[Ctrl]] + [[J]] shows files you downloaded.",
+      "**Incognito or private window**: does not save history on your device. It does not hide you from your ISP, your college network or the websites you visit.",
+      "**Extensions**: small add-ons. Install only a few from trusted publishers because extensions can read the pages you visit."
+     ]
+    },
+    {
+     "h": "Searching smartly"
+    },
+    {
+     "p": "Search engines return results for keywords. Short, specific words work better than a full sentence. These tricks help:"
+    },
+    {
+     "tbl": [
+      [
+       "Trick",
+       "Example",
+       "Result"
+      ],
+      [
+       "Exact phrase in quotes",
+       "\"computer fundamentals syllabus\"",
+       "Pages with that exact phrase"
+      ],
+      [
+       "Exclude a word with minus",
+       "python -snake",
+       "Python programming, not the animal"
+      ],
+      [
+       "Search one website",
+       "scholarship site:gov.in",
+       "Only government pages"
+      ],
+      [
+       "Search a file type",
+       "resume template filetype:pdf",
+       "PDF results only"
+      ]
+     ]
+    },
+    {
+     "p": "Not everything online is true. Before believing a result, check who wrote it, the date and whether other trusted sources say the same. Forwarded messages with no source are often false."
+    },
+    {
+     "h": "Useful Indian online services"
+    },
+    {
+     "ul": [
+      "**DigiLocker**: store and share government-issued documents such as marksheets and driving licence in digital form.",
+      "**UMANG** and **myGov**: portals for many government services.",
+      "**IRCTC**: railway ticket booking.",
+      "**NPTEL and SWAYAM**: free online courses from Indian institutions."
+     ]
+    },
+    {
+     "warn": "Use only the official website or the official app. Search results also show paid advertisements that imitate official pages and fake helpline numbers. Check the domain name before you enter any login or Aadhaar detail."
+    },
+    {
+     "h": "Email: your digital address"
+    },
+    {
+     "p": "An email address has two parts joined by the at sign: a user name and a domain, for example **riya.sharma@gmail.com**. Email is needed for almost every online account, job application and college portal. Gmail, Outlook and Yahoo are common services."
+    },
+    {
+     "tbl": [
+      [
+       "Field",
+       "Use"
+      ],
+      [
+       "To",
+       "The main person who must read or act"
+      ],
+      [
+       "Cc (carbon copy)",
+       "People who should know but need not act. Everyone can see them."
+      ],
+      [
+       "Bcc (blind carbon copy)",
+       "Hidden recipients. Others cannot see them. Useful for large lists."
+      ],
+      [
+       "Subject",
+       "A short, clear title"
+      ],
+      [
+       "Attachment",
+       "A file sent with the email"
+      ]
+     ]
+    },
+    {
+     "h": "Writing a professional email"
+    },
+    {
+     "p": "Emails to teachers, companies and recruiters should be short and respectful. Use a clear subject, a greeting, a brief message and a polite closing."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "Subject: Request for extension - Maths Assignment 2\n\nDear Professor Mehta,\n\nI am Riya Sharma from Section B, Roll No. 24. I was unwell for three days and could not complete Assignment 2. May I please submit it by Friday?\n\nThank you for your understanding.\n\nRegards,\nRiya Sharma\nBCA Semester 1"
+     }
+    },
+    {
+     "ul": [
+      "Choose a sensible address for jobs, such as firstname.lastname, instead of cool nicknames.",
+      "Do not write in capital letters. It looks like shouting.",
+      "Attach the file before you press Send and mention it in the message.",
+      "Use **Reply All** only when everyone really needs your answer.",
+      "Read the message once more before sending. You cannot take it back easily."
+     ]
+    },
+    {
+     "h": "Spam and unsafe emails"
+    },
+    {
+     "p": "Spam is unwanted bulk email. Some of it is dangerous. Do not click links or open attachments in emails that create urgency (your account will be blocked today), ask for an OTP or PIN, offer prizes or jobs for a fee, or come from an address that looks slightly wrong. Mark them as spam and delete them. Details on spotting phishing continue in the last lesson."
+    },
+    {
+     "tip": "When you must open a link from an email, hover your mouse over it first. The real web address appears at the bottom-left of the browser. If the address does not match the company, do not click."
+    },
+    {
+     "flip": [
+      [
+       "What does DNS do?",
+       "It converts a website name into an IP address."
+      ],
+      [
+       "What does the padlock and HTTPS show?",
+       "That the connection is encrypted. It does not prove the site is trustworthy."
+      ],
+      [
+       "Difference between Cc and Bcc?",
+       "Cc recipients are visible to all. Bcc recipients are hidden."
+      ],
+      [
+       "Which domain ending do Indian government sites normally use?",
+       ".gov.in or .nic.in."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Open a browser, search for NPTEL using the site: trick, bookmark the official page, then send an email to yourself with a subject, a short message and a small attachment. Check that you received it and the attachment opens."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the job of DNS?",
+     [
+      "Encrypt web pages",
+      "Convert domain names to IP addresses",
+      "Store emails",
+      "Block viruses"
+     ],
+     1,
+     "DNS acts like a phone book that finds the IP address for a name such as irctc.co.in."
+    ],
+    [
+     "What does HTTPS guarantee?",
+     [
+      "The website is government approved",
+      "The connection is encrypted",
+      "The site has no viruses",
+      "The site is always real"
+     ],
+     1,
+     "HTTPS encrypts data in transit. A fraud site can also use HTTPS, so you still have to check the domain name."
+    ],
+    [
+     "Which field hides the recipients from each other?",
+     [
+      "To",
+      "Cc",
+      "Bcc",
+      "Subject"
+     ],
+     2,
+     "Bcc recipients are not visible to others. Cc recipients are visible."
+    ],
+    [
+     "Which search finds only PDF files about resume templates?",
+     [
+      "resume template pdf only",
+      "resume template filetype:pdf",
+      "resume template -pdf",
+      "pdf: resume template"
+     ],
+     1,
+     "The filetype: operator limits the results to that file type. The minus sign would exclude PDF."
+    ],
+    [
+     "Does incognito mode hide your activity from the college network?",
+     [
+      "Yes, completely",
+      "Only on weekends",
+      "No, it only avoids saving history on your device",
+      "Yes, if you use Chrome"
+     ],
+     2,
+     "Incognito stops local history saving. Your network administrator and websites can still see traffic."
+    ]
+   ],
+   "practice": [
+    "Write a professional email to a teacher asking for notes and check the subject, greeting and closing.",
+    "Find the real login address of IRCTC and DigiLocker and write down the full domain of each.",
+    "Use three search tricks to find a free online course on a topic you like."
+   ]
+  },
+  {
+   "title": "MS Word: Documents from Start to Finish",
+   "minutes": 35,
+   "notes": [
+    {
+     "h": "What is Word used for?"
+    },
+    {
+     "p": "**Microsoft Word** is a word processor. You use it to write letters, assignments, project reports, resumes, notices and books. Its files use the **.docx** extension. Learning Word well means that your documents look neat, you finish them faster and your reports follow the same rules as a professional office. Free alternatives such as Google Docs and LibreOffice Writer work in a very similar way, so these skills transfer."
+    },
+    {
+     "h": "Getting around the Word window"
+    },
+    {
+     "diagram": "Annotated Word window. Clickable regions: Title bar, Quick Access toolbar, Ribbon tabs (Home, Insert, Design, Layout, References, Review, View), Ribbon groups (Font, Paragraph, Styles), Ruler, Document page, Status bar with page and word count, Zoom slider. Each click opens a tooltip explaining the region and the most used button there."
+    },
+    {
+     "ul": [
+      "**Ribbon**: the strip of tabs and buttons across the top. Each tab groups related tools.",
+      "**Home tab**: font, paragraph, styles, find and replace. You will use it most.",
+      "**Insert tab**: tables, pictures, shapes, page numbers, headers and footers.",
+      "**Layout tab**: margins, orientation, size and columns.",
+      "**References tab**: table of contents, citations and captions.",
+      "**Review tab**: spelling, comments and Track Changes.",
+      "**Status bar**: shows page number, word count and zoom."
+     ]
+    },
+    {
+     "h": "Create, save and open"
+    },
+    {
+     "p": "Press [[Ctrl]] + [[N]] for a new blank document and [[Ctrl]] + [[S]] to save. Give the file a good name and keep it in a folder you will remember. Turn on **AutoSave** if your file is on OneDrive. If Word closes unexpectedly, reopen it and look for the recovered document on the left side."
+    },
+    {
+     "h": "Typing and selecting text"
+    },
+    {
+     "p": "Click where you want to type. Do not press Enter at the end of every line. Word wraps text automatically. Press Enter only when a new paragraph starts. To select a word, double-click it. To select a paragraph, triple-click. To select everything, press [[Ctrl]] + [[A]]."
+    },
+    {
+     "h": "Formatting text"
+    },
+    {
+     "p": "Formatting changes how text looks. Select the text first, then apply the change."
+    },
+    {
+     "tbl": [
+      [
+       "Action",
+       "Shortcut",
+       "Where on the ribbon"
+      ],
+      [
+       "Bold",
+       "Ctrl + B",
+       "Home, Font"
+      ],
+      [
+       "Italic",
+       "Ctrl + I",
+       "Home, Font"
+      ],
+      [
+       "Underline",
+       "Ctrl + U",
+       "Home, Font"
+      ],
+      [
+       "Increase font size",
+       "Ctrl + Shift + >",
+       "Home, Font"
+      ],
+      [
+       "Centre",
+       "Ctrl + E",
+       "Home, Paragraph"
+      ],
+      [
+       "Left align",
+       "Ctrl + L",
+       "Home, Paragraph"
+      ],
+      [
+       "Justify",
+       "Ctrl + J",
+       "Home, Paragraph"
+      ]
+     ]
+    },
+    {
+     "p": "For academic work a common standard is a clear font such as Calibri or Times New Roman at 11 or 12 points, line spacing of 1.15 to 1.5 and justified or left aligned text. Follow your college guidelines if they are different. Use the **Format Painter** (the paintbrush on Home) to copy formatting from one text to another."
+    },
+    {
+     "h": "Paragraph tools"
+    },
+    {
+     "ul": [
+      "**Alignment**: left, centre, right, justify.",
+      "**Line and paragraph spacing**: space between lines and between paragraphs.",
+      "**Bullets and numbering**: for lists. Use numbers for steps and bullets for items without order.",
+      "**Indents**: move paragraph edges inward. Use the ruler or the paragraph dialog, never the spacebar."
+     ]
+    },
+    {
+     "warn": "Do not use the spacebar or repeated Enter keys to move text. It breaks when the font or page size changes. Use tabs, indents, spacing settings or a table."
+    },
+    {
+     "h": "Styles: the secret of good documents"
+    },
+    {
+     "p": "A **style** is a saved set of formatting. Instead of making each heading big and bold by hand, apply **Heading 1**, **Heading 2** or **Title** from the Styles group on the Home tab. Changing the style once updates every heading in the document. Styles also make the Navigation Pane, accessibility and automatic table of contents possible. If you want one habit that separates amateurs from professionals in Word, it is using styles."
+    },
+    {
+     "h": "Tables"
+    },
+    {
+     "p": "Go to Insert, Table and choose the number of rows and columns. Use [[Tab]] to move to the next cell. In the Table Design and Layout tabs you can merge cells, add shading and adjust borders. Use tables for data such as a timetable. Avoid using them only to place text."
+    },
+    {
+     "h": "Pictures, shapes and captions"
+    },
+    {
+     "p": "Use Insert, Pictures to add an image from your computer. Select the picture and use Wrap Text to control how text flows around it. In reports, add a caption under every figure and table using References, Insert Caption. Pick pictures you own or that are free to use. Copying images from random websites can break copyright rules."
+    },
+    {
+     "h": "Page layout"
+    },
+    {
+     "ul": [
+      "**Margins**: space between text and page edge. The usual default is 2.54 cm (1 inch).",
+      "**Orientation**: portrait or landscape. Wide tables look better in landscape.",
+      "**Size**: A4 is standard in India.",
+      "**Page breaks**: [[Ctrl]] + [[Enter]] starts a new page. Never press Enter many times to reach the next page.",
+      "**Sections and columns**: used for newsletters and brochures."
+     ]
+    },
+    {
+     "h": "Headers, footers and page numbers"
+    },
+    {
+     "p": "A **header** appears at the top of every page and a **footer** at the bottom. Use Insert, Header or Footer to add your name, report title or college name. Use Insert, Page Number to number pages automatically. If your first page is a cover, tick Different First Page so the cover has no number."
+    },
+    {
+     "h": "Table of contents"
+    },
+    {
+     "p": "If you used Heading styles, go to References, Table of Contents and choose a style. Word builds the list with page numbers. After editing, right-click the table and choose Update Field. This is much faster and more accurate than typing page numbers by hand."
+    },
+    {
+     "h": "Review tools"
+    },
+    {
+     "ul": [
+      "**Spelling and grammar**: red and blue lines. Right-click to see suggestions. Read each suggestion before accepting it, because tools can be wrong.",
+      "**Find and Replace** ([[Ctrl]] + [[H]]): change a word everywhere.",
+      "**Comments**: leave notes for another person.",
+      "**Track Changes**: records every edit so the author can accept or reject each one. Excellent for group projects.",
+      "**Word count**: Review, Word Count."
+     ]
+    },
+    {
+     "h": "Mail Merge in one paragraph"
+    },
+    {
+     "p": "Mail Merge combines one letter with a list of names, for example from an Excel sheet, so each person gets a personal copy. It is used for invitations, certificates and fee reminders. Start it from Mailings, Start Mail Merge, choose the recipient list and insert merge fields such as Name in the right places."
+    },
+    {
+     "h": "Print and export"
+    },
+    {
+     "p": "Press [[Ctrl]] + [[P]] to see the print preview before printing. To share a document that cannot be edited by accident, use File, Export, Create PDF. Always check the PDF before you send it."
+    },
+    {
+     "tip": "Make a one-page resume template using styles and a two-column table for contact details. Save it as a template and reuse it. Keep it to one page with no photo unless the employer asks for one."
+    },
+    {
+     "flip": [
+      [
+       "What is a style in Word?",
+       "A saved set of formatting that can be applied to text in one click, such as Heading 1."
+      ],
+      [
+       "Which shortcut inserts a page break?",
+       "Ctrl + Enter."
+      ],
+      [
+       "What does Track Changes do?",
+       "It records every edit so others can accept or reject them."
+      ],
+      [
+       "Why use Heading styles?",
+       "They allow an automatic table of contents and quick navigation."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Write a one-page report titled My College Life with a Title, two Heading 1 sections, a bulleted list and a small table of your timetable. Add page numbers in the footer, then export the document as a PDF."
+    }
+   ],
+   "quiz": [
+    [
+     "Which file extension does a modern Word document use?",
+     [
+      ".doc only",
+      ".docx",
+      ".docm only",
+      ".txt"
+     ],
+     1,
+     ".docx is the standard modern format. .txt has no formatting."
+    ],
+    [
+     "What is the best way to start a new page?",
+     [
+      "Press Enter many times",
+      "Press Ctrl + Enter",
+      "Use the spacebar",
+      "Make the font bigger"
+     ],
+     1,
+     "Ctrl + Enter inserts a page break that stays correct when the content changes."
+    ],
+    [
+     "Why should headings use Heading styles?",
+     [
+      "They look colourful",
+      "They allow an automatic table of contents",
+      "They reduce file size",
+      "They stop spelling mistakes"
+     ],
+     1,
+     "Heading styles create the structure that Word needs to build and update a table of contents."
+    ],
+    [
+     "Which feature records edits so they can be accepted or rejected?",
+     [
+      "Format Painter",
+      "Track Changes",
+      "Mail Merge",
+      "Find and Replace"
+     ],
+     1,
+     "Track Changes shows insertions and deletions per author, which suits team editing."
+    ],
+    [
+     "What does Mail Merge do?",
+     [
+      "Sends email automatically to everyone",
+      "Creates personalised copies of one document from a data list",
+      "Merges two Word files into a PDF",
+      "Corrects grammar"
+     ],
+     1,
+     "Mail Merge combines a template with a list of records such as names, to produce personalised letters or certificates."
+    ]
+   ],
+   "practice": [
+    "Format a two-page document using Title, Heading 1 and Heading 2, then insert an automatic table of contents.",
+    "Create a table with five rows of your weekly timetable and apply shading to the header row.",
+    "Turn on Track Changes, edit a friend's paragraph and ask them to accept or reject your changes."
+   ]
+  },
+  {
+   "title": "MS Excel: Formulas, Charts and Data",
+   "minutes": 40,
+   "notes": [
+    {
+     "h": "What is Excel for?"
+    },
+    {
+     "p": "**Microsoft Excel** is a spreadsheet program. It stores data in rows and columns, calculates with formulas and turns numbers into charts. Teachers use it for marksheets, shopkeepers for stock and bills, and accountants for budgets. Files use the **.xlsx** extension. Once you know a few formulas, Excel saves hours of manual calculation and avoids many human errors."
+    },
+    {
+     "h": "Workbook, worksheet and cell"
+    },
+    {
+     "diagram": "Interactive grid. Columns labelled A to H and rows 1 to 10. When the student clicks a cell, its address (for example C4) appears in the Name Box, and the content appears in the Formula Bar. Dragging across cells highlights a range such as B2:B6 and displays the address of the range. The sheet tabs at the bottom show Sheet1, Sheet2 with a plus button."
+    },
+    {
+     "ul": [
+      "A **workbook** is the whole Excel file.",
+      "A **worksheet** is one page inside it, shown as a tab at the bottom.",
+      "A **cell** is one box. Its address is the column letter and row number, such as **B3**.",
+      "A **range** is a group of cells, written like **B2:B10**.",
+      "The **Name Box** shows the address of the selected cell and the **Formula Bar** shows its contents."
+     ]
+    },
+    {
+     "h": "Entering and formatting data"
+    },
+    {
+     "p": "Click a cell, type, and press [[Enter]] to move down or [[Tab]] to move right. Excel recognises text, numbers, dates and percentages. Numbers align to the right and text to the left by default. Use the Number Format list on the Home tab to show currency in rupees, percentage or dates. Use **Wrap Text**, **Merge and Centre** (sparingly) and **AutoFit Column Width** to keep sheets readable."
+    },
+    {
+     "tip": "Keep data in a clean table: one header row, one record per row, no blank rows or columns and no merged cells inside the data. Clean data works smoothly with sorting, filters, formulas and PivotTables."
+    },
+    {
+     "h": "Your first formulas"
+    },
+    {
+     "p": "Every formula starts with the equals sign. Excel calculates it and shows the result. The operators are + (add), - (subtract), * (multiply), / (divide) and ^ (power). Excel follows the usual order: brackets, powers, multiplication and division, then addition and subtraction."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "=A1+B1            adds two cells\n=B2*C2            multiplies quantity by price\n=(B2+C2+D2)/3     average of three marks\n=SUM(B2:B10)      total of a range\n=AVERAGE(B2:B10)  average\n=MAX(B2:B10)      highest value\n=MIN(B2:B10)      lowest value\n=COUNT(B2:B10)    counts numbers\n=COUNTA(A2:A10)   counts non-empty cells"
+     }
+    },
+    {
+     "p": "A formula that refers to cells updates automatically when those cells change. This is the main power of Excel. Never type the final answer by hand if a formula can calculate it."
+    },
+    {
+     "h": "Relative and absolute references"
+    },
+    {
+     "p": "When you copy a formula down a column, Excel adjusts the cell references. This is a **relative reference**. Sometimes you want one cell to stay fixed, for example a GST rate in cell F1. Put dollar signs around it to make it **absolute**, using [[F4]] while editing."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "Price in B2, GST rate stored in F1\n\n=B2*$F$1       GST amount (F1 stays fixed when copied down)\n=B2+B2*$F$1    final price including GST"
+     }
+    },
+    {
+     "h": "The IF function: making decisions"
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "=IF(B2>=40,\"Pass\",\"Fail\")\n\nParts: =IF(condition, value if true, value if false)\n\nGrade example:\n=IF(B2>=75,\"A\",IF(B2>=60,\"B\",IF(B2>=40,\"C\",\"Fail\")))"
+     }
+    },
+    {
+     "p": "Use IF to label results, apply discounts and flag late payments. For counting by condition use **COUNTIF**, and for adding by condition use **SUMIF**."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "=COUNTIF(C2:C50,\"Pass\")        number of students who passed\n=SUMIF(B2:B50,\"Fruit\",D2:D50)  total sales for category Fruit"
+     }
+    },
+    {
+     "h": "Looking up data"
+    },
+    {
+     "p": "Lookup functions fetch a value from a table. In a college sheet you may enter a roll number and want the student name to appear. **XLOOKUP** is available in current versions of Excel. **VLOOKUP** is older but still widespread, so you must recognise it."
+    },
+    {
+     "code": {
+      "lang": "text",
+      "text": "=XLOOKUP(E2,A2:A100,B2:B100,\"Not found\")\n=VLOOKUP(E2,A2:C100,2,FALSE)\n\nVLOOKUP uses FALSE for an exact match and counts columns from the first column of the range."
+     }
+    },
+    {
+     "h": "Sorting and filtering"
+    },
+    {
+     "p": "Select any cell in your data table and choose Data, Sort to order by marks or name. Use Data, Filter to show only certain rows, such as students from Section B. Filtering does not delete anything. It only hides rows temporarily."
+    },
+    {
+     "h": "Charts"
+    },
+    {
+     "p": "Select your data and choose Insert, Recommended Charts. Choose a chart that matches the question:"
+    },
+    {
+     "tbl": [
+      [
+       "Chart",
+       "Best for"
+      ],
+      [
+       "Column or bar",
+       "Comparing categories, such as marks by subject"
+      ],
+      [
+       "Line",
+       "Change over time, such as monthly sales"
+      ],
+      [
+       "Pie",
+       "Parts of a whole with only a few slices"
+      ],
+      [
+       "Scatter",
+       "Relationship between two numbers"
+      ]
+     ]
+    },
+    {
+     "p": "Always add a title, label the axes and remove clutter. A chart without a title or labels confuses the reader."
+    },
+    {
+     "h": "Conditional formatting"
+    },
+    {
+     "p": "Go to Home, Conditional Formatting to colour cells automatically. For example, highlight marks below 40 in red or show data bars for sales. The colours update when the numbers change."
+    },
+    {
+     "h": "Freeze panes, tables and PivotTables"
+    },
+    {
+     "ul": [
+      "**Freeze Panes** (View tab) keeps the header row visible while scrolling.",
+      "**Format as Table** ([[Ctrl]] + [[T]]) adds filters and makes formulas easier to read.",
+      "**PivotTable** (Insert tab) summarises large data quickly, such as total sales by month and product, without writing formulas."
+     ]
+    },
+    {
+     "h": "Common errors and what they mean"
+    },
+    {
+     "tbl": [
+      [
+       "Error",
+       "Meaning",
+       "Typical fix"
+      ],
+      [
+       "#DIV/0!",
+       "Division by zero or an empty cell",
+       "Check the divisor or wrap with IF"
+      ],
+      [
+       "#NAME?",
+       "Excel does not recognise a function name or text",
+       "Fix the spelling or add quotes"
+      ],
+      [
+       "#VALUE!",
+       "Wrong type of data in the calculation",
+       "Remove text from numeric cells"
+      ],
+      [
+       "#REF!",
+       "A cell the formula used was deleted",
+       "Rebuild the reference"
+      ],
+      [
+       "#N/A",
+       "Lookup value not found",
+       "Check the spelling and exact match"
+      ],
+      [
+       "#####",
+       "Column too narrow",
+       "Widen the column"
+      ]
+     ]
+    },
+    {
+     "warn": "Rounding and typing mistakes in finance sheets cause real losses. When a sheet is used for fees, salaries or GST, have another person check the formulas, and keep a backup before making large changes."
+    },
+    {
+     "h": "A worked example: class marksheet"
+    },
+    {
+     "ol": [
+      "Columns A to F: Roll No, Name, Maths, Science, English, Total.",
+      "In F2 write =SUM(C2:E2) and copy down.",
+      "In G2 write =F2/3 for the average.",
+      "In H2 write =IF(G2>=40,\"Pass\",\"Fail\").",
+      "Add conditional formatting to turn Fail red.",
+      "Insert a column chart of the totals by student."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "What does every Excel formula begin with?",
+       "The equals sign (=)."
+      ],
+      [
+       "What does $A$1 mean?",
+       "An absolute reference. It does not change when the formula is copied."
+      ],
+      [
+       "Which function counts cells that meet a condition?",
+       "COUNTIF."
+      ],
+      [
+       "Which chart best shows change over time?",
+       "A line chart."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Make a monthly expense sheet with categories (rent, food, travel, mobile recharge), use SUM for the total, add a percentage column showing each category share of the total, and insert a pie chart."
+    }
+   ],
+   "quiz": [
+    [
+     "What is the address of the cell in column C and row 5?",
+     [
+      "5C",
+      "C5",
+      "C:5",
+      "R5C"
+     ],
+     1,
+     "Excel addresses cells by column letter first and row number second, so C5."
+    ],
+    [
+     "Which formula adds the values from B2 to B10?",
+     [
+      "=B2+B10",
+      "=ADD(B2:B10)",
+      "=SUM(B2:B10)",
+      "=TOTAL(B2,B10)"
+     ],
+     2,
+     "SUM adds every cell in the range. B2+B10 would add only two cells."
+    ],
+    [
+     "Why use $F$1 in a formula?",
+     [
+      "To change colour",
+      "To lock the cell reference when copying",
+      "To make it a text value",
+      "To add a dollar sign"
+     ],
+     1,
+     "Dollar signs create an absolute reference that stays fixed while the formula is copied."
+    ],
+    [
+     "What does =IF(B2>=40,\"Pass\",\"Fail\") return when B2 is 35?",
+     [
+      "Pass",
+      "Fail",
+      "35",
+      "An error"
+     ],
+     1,
+     "35 is not greater than or equal to 40, so the false result Fail is returned."
+    ],
+    [
+     "Which error shows when a formula divides by zero?",
+     [
+      "#REF!",
+      "#NAME?",
+      "#DIV/0!",
+      "#N/A"
+     ],
+     2,
+     "#DIV/0! is the specific error for division by zero or by an empty cell."
+    ]
+   ],
+   "practice": [
+    "Build a marksheet for five students with total, average, grade and pass or fail results using formulas only.",
+    "Create a bill with quantity, rate, amount and 18 percent GST, using an absolute reference for the rate.",
+    "Insert a column chart and a pie chart for the same data and explain which one is clearer."
+   ]
+  },
+  {
+   "title": "MS PowerPoint: Presentations That Work",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "What makes a good presentation?"
+    },
+    {
+     "p": "**Microsoft PowerPoint** creates slide shows with the extension **.pptx**. A presentation is not a document to be read from the screen. It is a visual support for what you say. Good slides help the audience follow your idea. Bad slides copy the speaker's script and put the audience to sleep. In college seminars, project reviews and job interviews, this skill is valued as much as technical knowledge."
+    },
+    {
+     "p": "The best presentations come from planning, not from decoration. Before opening PowerPoint, answer three questions on paper: Who is my audience? What is the one main message? What do I want them to do or remember afterwards?"
+    },
+    {
+     "h": "Plan the story first"
+    },
+    {
+     "diagram": "Animated storyboard. Six blank slide thumbnails appear in a row labelled Title, Problem, Idea, Details, Result, Conclusion and Questions. As the student hovers, each thumbnail fills with a sample layout: big title, one picture with three short points, a chart, and a closing slide. A timeline bar below shows time allocation for a ten minute talk."
+    },
+    {
+     "ol": [
+      "**Title slide**: topic, your name and date.",
+      "**Problem or introduction**: why this matters.",
+      "**Main points**: usually three to five slides, one idea each.",
+      "**Evidence**: a chart, a photo, a real example.",
+      "**Conclusion**: the key message in one or two lines.",
+      "**Thank you and questions**: contact details if needed."
+     ]
+    },
+    {
+     "p": "A useful rule of thumb is one slide per one to two minutes of talking. A ten minute talk therefore needs about six to ten slides, not thirty."
+    },
+    {
+     "h": "The PowerPoint window"
+    },
+    {
+     "ul": [
+      "**Slide thumbnails pane** on the left to reorder and select slides.",
+      "**Slide editing area** in the centre.",
+      "**Notes pane** below the slide for your speaker notes.",
+      "**Ribbon** at the top. Home (new slide, text), Insert (pictures, charts, shapes), Design (themes), Transitions, Animations, Slide Show and Review.",
+      "**View buttons** at the bottom right for Normal, Slide Sorter and Slide Show."
+     ]
+    },
+    {
+     "h": "Creating slides"
+    },
+    {
+     "p": "Press [[Ctrl]] + [[M]] to add a new slide or use Home, New Slide. Pick a **layout** such as Title Slide, Title and Content or Two Content. Layouts hold placeholders for text and pictures, which keeps slides consistent. Type directly into the placeholders. Use [[Ctrl]] + [[D]] to duplicate a slide and drag thumbnails to reorder."
+    },
+    {
+     "h": "Design basics"
+    },
+    {
+     "p": "Choose a **theme** from the Design tab and stay with it throughout. Consistency makes a presentation look professional. Follow these rules:"
+    },
+    {
+     "ul": [
+      "**One idea per slide.** If a slide has two ideas, make two slides.",
+      "**Few words.** Use short phrases, not paragraphs. About five or six lines at most.",
+      "**Large text.** Use at least 24 points for body text and larger for titles, so the back row can read it.",
+      "**Strong contrast.** Dark text on a light background or the reverse. Avoid light yellow on white.",
+      "**Two or three fonts at most**, and sans-serif fonts such as Calibri or Arial for readability.",
+      "**Plenty of white space.** A crowded slide tires the audience."
+     ]
+    },
+    {
+     "warn": "Do not stuff slides with full sentences and then read them aloud. If the audience can read your slide, they stop listening to you. Put the detail in the speaker notes."
+    },
+    {
+     "h": "Pictures, shapes, SmartArt and charts"
+    },
+    {
+     "p": "A relevant picture communicates faster than a sentence. Use Insert, Pictures and place the image with enough size to see clearly. Only use images that you own or that carry a licence that allows use. **Shapes** and **SmartArt** (Insert, SmartArt) turn lists into process diagrams, cycles and hierarchies in seconds. For numbers, paste a chart from Excel or build one in Insert, Chart. Keep a chart simple: one message, a clear title and labelled axes."
+    },
+    {
+     "h": "Slide Master: change everything at once"
+    },
+    {
+     "p": "Open View, **Slide Master** to edit the fonts, colours and logo for the whole presentation. If every slide needs your college logo in the corner, add it once on the master instead of on forty slides. Close Master View when done."
+    },
+    {
+     "h": "Transitions and animations"
+    },
+    {
+     "p": "**Transitions** control how one slide changes into the next. **Animations** control how objects appear on a slide. Use them to support meaning, for example to reveal one point at a time. Choose simple options such as Fade or Appear. Heavy effects, sound and spinning text distract from the message."
+    },
+    {
+     "tip": "Apply one subtle transition to all slides using Apply To All in the Transitions tab. Use animation only where it helps the audience follow a sequence."
+    },
+    {
+     "h": "Speaker notes and rehearsal"
+    },
+    {
+     "p": "Type reminders and details in the Notes pane. They are visible to you in **Presenter View** but not to the audience. Rehearse with Slide Show, Rehearse Timings to check the length. Practising aloud two or three times is the single best way to reduce stage fear."
+    },
+    {
+     "h": "Presenting the slide show"
+    },
+    {
+     "ul": [
+      "[[F5]] starts the show from the first slide.",
+      "[[Shift]] + [[F5]] starts from the current slide.",
+      "Arrow keys or [[Space]] move forward and back.",
+      "[[B]] turns the screen black and [[W]] turns it white, when you want the audience to look at you.",
+      "[[Esc]] ends the show."
+     ]
+    },
+    {
+     "p": "When you connect to a projector, press [[Win]] + [[P]] and choose Duplicate or Extend. Extend lets you see your notes while the audience sees only the slides. Carry your file in two places, such as a pen drive and your email, in case one fails."
+    },
+    {
+     "h": "Sharing and accessibility"
+    },
+    {
+     "p": "Save the presentation as .pptx for editing and export to **PDF** for sharing. Add **alt text** to pictures through right-click, View Alt Text, so people who use screen readers understand them. Make sure colour is not the only way of showing meaning in charts. If the file is large, compress pictures from Picture Format, Compress Pictures."
+    },
+    {
+     "flip": [
+      [
+       "How many main ideas should one slide carry?",
+       "One."
+      ],
+      [
+       "Which key starts the slide show from the beginning?",
+       "F5."
+      ],
+      [
+       "What is the Slide Master used for?",
+       "Changing fonts, colours and logos for all slides at once."
+      ],
+      [
+       "Where do you write reminders that the audience cannot see?",
+       "In the Notes pane, shown to you in Presenter View."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Create a five-slide presentation on My Final Year Project or My Favourite Hobby. Use one theme, large text, one picture, one chart or SmartArt diagram, and speaker notes on every slide. Rehearse it once with a timer."
+    }
+   ],
+   "quiz": [
+    [
+     "Which file extension is used by a modern PowerPoint presentation?",
+     [
+      ".docx",
+      ".xlsx",
+      ".pptx",
+      ".pdf"
+     ],
+     2,
+     ".pptx is the PowerPoint format. .docx is Word and .xlsx is Excel."
+    ],
+    [
+     "Which key starts the slide show from the first slide?",
+     [
+      "F1",
+      "F5",
+      "F7",
+      "F12"
+     ],
+     1,
+     "F5 starts from the beginning. Shift + F5 starts from the current slide."
+    ],
+    [
+     "Where can you change the logo and fonts for all slides at once?",
+     [
+      "Slide Sorter",
+      "Notes pane",
+      "Slide Master",
+      "Transitions tab"
+     ],
+     2,
+     "Slide Master controls the shared design, so one edit updates every slide."
+    ],
+    [
+     "What is the best use of speaker notes?",
+     [
+      "Showing them to the audience",
+      "Putting extra detail and reminders for the speaker",
+      "Increasing font size",
+      "Hiding pictures"
+     ],
+     1,
+     "Notes hold the details you say aloud and are visible to you in Presenter View, not to the audience."
+    ],
+    [
+     "Which practice makes slides easier to read?",
+     [
+      "Full paragraphs",
+      "Tiny fonts",
+      "Short phrases with strong contrast",
+      "Many different fonts"
+     ],
+     2,
+     "Short phrases, large text and strong contrast help everyone, including those at the back of the room."
+    ]
+   ],
+   "practice": [
+    "Convert a text-heavy slide into three slides with short points and one picture each.",
+    "Add your college logo through Slide Master and check that it appears on every slide.",
+    "Present your deck to a friend using Presenter View and note whether your timing matches the plan."
+   ]
+  },
+  {
+   "title": "Shortcut Keys and Online Safety",
+   "minutes": 40,
+   "notes": [
+    {
+     "h": "Two skills that protect your time and your money"
+    },
+    {
+     "p": "This last lesson joins two things every computer user needs. **Keyboard shortcuts** make you faster. **Online safety** keeps you from losing your accounts, your privacy and your money. A person who can type fast and work with shortcuts but falls for a fake UPI request is not a skilled computer user. A skilled user is both quick and careful."
+    },
+    {
+     "h": "Part 1: Keyboard shortcuts"
+    },
+    {
+     "p": "A shortcut is a combination of keys that does a task without using the mouse. Shortcuts save a second or two each time, and over a year that adds up to many hours. Learn a few at a time and use them until they become automatic."
+    },
+    {
+     "h": "Basic editing shortcuts"
+    },
+    {
+     "tbl": [
+      [
+       "Shortcut",
+       "Action"
+      ],
+      [
+       "Ctrl + C",
+       "Copy"
+      ],
+      [
+       "Ctrl + X",
+       "Cut"
+      ],
+      [
+       "Ctrl + V",
+       "Paste"
+      ],
+      [
+       "Ctrl + Z",
+       "Undo"
+      ],
+      [
+       "Ctrl + Y",
+       "Redo"
+      ],
+      [
+       "Ctrl + A",
+       "Select all"
+      ],
+      [
+       "Ctrl + S",
+       "Save"
+      ],
+      [
+       "Ctrl + P",
+       "Print"
+      ],
+      [
+       "Ctrl + F",
+       "Find"
+      ],
+      [
+       "Ctrl + B / I / U",
+       "Bold, italic, underline"
+      ]
+     ]
+    },
+    {
+     "h": "Windows shortcuts"
+    },
+    {
+     "tbl": [
+      [
+       "Shortcut",
+       "Action"
+      ],
+      [
+       "Win",
+       "Open Start menu"
+      ],
+      [
+       "Win + E",
+       "Open File Explorer"
+      ],
+      [
+       "Win + D",
+       "Show or hide the desktop"
+      ],
+      [
+       "Win + L",
+       "Lock the computer"
+      ],
+      [
+       "Win + I",
+       "Open Settings"
+      ],
+      [
+       "Win + V",
+       "Clipboard history"
+      ],
+      [
+       "Win + Shift + S",
+       "Screenshot of a selected area"
+      ],
+      [
+       "Alt + Tab",
+       "Switch between apps"
+      ],
+      [
+       "Alt + F4",
+       "Close the active window"
+      ],
+      [
+       "Ctrl + Shift + Esc",
+       "Open Task Manager"
+      ]
+     ]
+    },
+    {
+     "h": "Browser, Word, Excel and PowerPoint shortcuts"
+    },
+    {
+     "tbl": [
+      [
+       "Shortcut",
+       "Where",
+       "Action"
+      ],
+      [
+       "Ctrl + T / W",
+       "Browser",
+       "New tab / close tab"
+      ],
+      [
+       "Ctrl + Shift + T",
+       "Browser",
+       "Reopen closed tab"
+      ],
+      [
+       "Ctrl + L",
+       "Browser",
+       "Select the address bar"
+      ],
+      [
+       "Ctrl + Enter",
+       "Word",
+       "Page break"
+      ],
+      [
+       "Ctrl + H",
+       "Word",
+       "Find and Replace"
+      ],
+      [
+       "F2",
+       "Excel",
+       "Edit the active cell"
+      ],
+      [
+       "Ctrl + Arrow",
+       "Excel",
+       "Jump to the edge of data"
+      ],
+      [
+       "F4",
+       "Excel",
+       "Toggle absolute reference"
+      ],
+      [
+       "F5",
+       "PowerPoint",
+       "Start slide show"
+      ],
+      [
+       "Ctrl + M",
+       "PowerPoint",
+       "New slide"
+      ]
+     ]
+    },
+    {
+     "diagram": "Animated virtual keyboard. When the student clicks a shortcut name from a list such as Copy, Paste, Screenshot, the related keys light up in sequence on a drawn keyboard (Ctrl first, then C) and a small screen beside it shows the effect, such as a file being copied or a screenshot frame appearing."
+    },
+    {
+     "tip": "Learn five new shortcuts every week. Write them on a sticky note beside your screen and cross them off once your fingers remember them. Start with Ctrl + C, V, Z, S and Win + Shift + S."
+    },
+    {
+     "h": "Part 2: Staying safe online"
+    },
+    {
+     "p": "Attackers do not always break computers. Most of the time they trick people. A fraudster in another city can empty a bank account by persuading the owner to share an OTP. The good news is that a few strong habits stop the majority of attacks. This course teaches only protection. Do not try to test these tricks on other people."
+    },
+    {
+     "h": "Strong passwords"
+    },
+    {
+     "ul": [
+      "Use at least 12 characters. A long **passphrase** such as four unrelated words with a number is easier to remember and harder to guess than a short complex password.",
+      "Use a **different password for every important account**. When one site leaks passwords, attackers try the same one on email and banking.",
+      "Never use your name, date of birth, mobile number or 123456.",
+      "Store passwords in a reputable **password manager** instead of a notebook photo or a chat message.",
+      "Never share a password with anyone, including a friend or a person who claims to be from tech support."
+     ]
+    },
+    {
+     "h": "Two-factor authentication (2FA)"
+    },
+    {
+     "p": "**2FA** adds a second proof of identity after your password, such as a code from an authenticator app. If someone steals your password they still cannot enter your account. Turn on 2FA for email first, because email can reset all your other accounts. Authenticator apps are safer than SMS codes, but SMS codes are far better than nothing."
+    },
+    {
+     "h": "Phishing: the most common trick"
+    },
+    {
+     "p": "**Phishing** is a fake message that pretends to come from a trusted source such as a bank, a delivery company or a government office, to make you click a link, install an app or share secrets. Typical Indian examples are a message that your bank account or KYC will be blocked today, a request to update PAN or Aadhaar through a link, a courier that is held until you pay a small fee, an electricity bill disconnection threat and a part-time job that pays high daily earnings for liking videos."
+    },
+    {
+     "diagram": "Interactive inspection of a fake SMS and a fake web page. The student taps suspicious areas: an urgent sentence, a shortened link, a misspelt domain (sbi-kyc-update.in versus the real bank domain), a request for OTP. Each tap shows a red flag label and a green explanation of the correct safe action."
+    },
+    {
+     "p": "Signs to check:"
+    },
+    {
+     "ol": [
+      "**Urgency or fear**: block, penalty, arrest, last chance.",
+      "**Unusual sender**: strange number or an email domain that is slightly wrong.",
+      "**Suspicious link**: a short link or a domain that does not match the organisation.",
+      "**Request for secrets**: OTP, PIN, CVV, password or remote access.",
+      "**Too good to be true**: lottery, gifts, easy money."
+     ]
+    },
+    {
+     "p": "The safe response is simple: do not click, do not reply, and contact the organisation through its official app or the number printed on your card or passbook."
+    },
+    {
+     "h": "UPI and payment safety"
+    },
+    {
+     "ul": [
+      "**You never need to enter your UPI PIN to receive money.** The PIN is only for sending. If someone says they will send money and asks for your PIN, it is a fraud.",
+      "Read every **collect request** carefully before approving. Decline requests that you did not expect.",
+      "Never share an **OTP** with anyone. Banks do not ask for it by phone, SMS or chat.",
+      "Never install apps such as screen-sharing tools at the request of a caller. They give full view and control of your phone.",
+      "Check the name shown by the UPI app before you confirm a payment.",
+      "Do not scan a QR code to receive money, and be careful about codes pasted over shop QR boards.",
+      "Set transaction limits and keep the phone screen locked."
+     ]
+    },
+    {
+     "warn": "If you suspect that you have been defrauded, act quickly. Call the national cyber crime helpline 1930 and file a report on the cybercrime.gov.in portal. Tell your bank immediately so that it can try to hold the transaction. Reporting early gives the best chance of recovery."
+    },
+    {
+     "h": "Safe browsing and downloads"
+    },
+    {
+     "ul": [
+      "Check the domain name before logging in. Type important addresses yourself or use the official app.",
+      "Do not download software, films or games from unofficial sites. They are a favourite hiding place for malware.",
+      "Avoid public Wi-Fi for banking. If you must use it, prefer your own mobile data.",
+      "Log out from shared computers and never save passwords on them.",
+      "Keep Windows, your browser and your phone apps updated."
+     ]
+    },
+    {
+     "h": "Privacy and your digital footprint"
+    },
+    {
+     "p": "Everything you post leaves a **digital footprint**. Recruiters, colleges and strangers may see it. Review privacy settings on social media, limit who can see your phone number and birth date, and think before sharing photos of documents, tickets or your location. Do not post pictures of your Aadhaar, PAN, bank card or boarding pass. Be careful of friend requests from people you do not know, because fake profiles are used to cheat and blackmail."
+    },
+    {
+     "h": "Malware and ransomware basics"
+    },
+    {
+     "p": "**Malware** is harmful software. A **virus** attaches itself to files, **spyware** watches you and **ransomware** locks your files and demands payment. Defences are the same: keep systems updated, use trusted antivirus (Windows Security is a good start), do not open unknown attachments and keep offline or cloud backups so that you can restore your files without paying."
+    },
+    {
+     "h": "A simple daily safety checklist"
+    },
+    {
+     "ul": [
+      "Updates on, antivirus on.",
+      "Unique passwords with a password manager and 2FA on email and bank.",
+      "Pause before clicking any link that creates pressure.",
+      "OTP and PIN are never shared.",
+      "Backups of important files in two places."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "Do you need a UPI PIN to receive money?",
+       "No. The PIN is only needed to send money."
+      ],
+      [
+       "What is phishing?",
+       "A fake message that pretends to be a trusted source to steal information or money."
+      ],
+      [
+       "Which Indian helpline reports cyber financial fraud?",
+       "1930, along with the cybercrime.gov.in portal."
+      ],
+      [
+       "Why use a different password for every account?",
+       "So that a leak from one site cannot unlock your other accounts."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Turn on two-factor authentication for your email account, check your Windows Security status, and then write a short message for your family group explaining the three rules: never share OTP, never enter a PIN to receive money and always check the link before you click."
+    }
+   ],
+   "quiz": [
+    [
+     "Which shortcut takes a screenshot of a selected area in Windows?",
+     [
+      "Win + S",
+      "Win + Shift + S",
+      "Ctrl + P",
+      "Alt + Tab"
+     ],
+     1,
+     "Win + Shift + S opens the Snipping Tool selection. Alt + Tab switches apps."
+    ],
+    [
+     "A caller asks for your UPI PIN so that he can send you a refund. What is true?",
+     [
+      "It is normal",
+      "It is a fraud because PIN is only for sending money",
+      "It is needed for the bank",
+      "It is safe if the caller knows your name"
+     ],
+     1,
+     "Receiving money never requires your PIN. A person asking for it wants to take money from your account."
+    ],
+    [
+     "What is the main benefit of two-factor authentication?",
+     [
+      "Faster login",
+      "Protection even if your password is stolen",
+      "More storage",
+      "Free antivirus"
+     ],
+     1,
+     "The second factor blocks an attacker who has only your password."
+    ],
+    [
+     "Which of the following is a typical sign of phishing?",
+     [
+      "A message that creates urgency and asks for an OTP",
+      "A bill that arrives on the usual date in the official app",
+      "An update from your operating system settings",
+      "A calendar reminder"
+     ],
+     0,
+     "Urgency and requests for secrets are classic phishing signs. The other options are normal sources."
+    ],
+    [
+     "After a UPI fraud, what should you do first?",
+     [
+      "Wait a week",
+      "Post about it and delete the app",
+      "Call 1930 and inform your bank at once",
+      "Pay the fraudster to return the money"
+     ],
+     2,
+     "Quick reporting through 1930 and your bank gives the best chance of stopping or tracing the transaction."
+    ]
+   ],
+   "practice": [
+    "Use only the keyboard to open File Explorer, create a folder, rename it, copy a file into it and take a screenshot.",
+    "Create a passphrase, test it with a password manager's generator advice and enable 2FA on one account.",
+    "Examine three messages in your spam folder and list the warning signs you can find in each."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "simulator",
+  "name": "Mission: First Day at the Help Desk",
+  "story": "You have just joined the IT help desk of a college in Vadodara as an intern. Students bring you computers with small problems. Solve each case correctly in the rootjavs simulator using the knowledge from this course. Everything in this mission is practised only on the rootjavs simulator.",
+  "steps": [
+   {
+    "goal": "A student says the laptop is very slow when many tabs are open. Which hardware part should you check first for temporary working memory?",
+    "hint": "It is the study desk of the computer, not the cupboard.",
+    "check": "RAM"
+   },
+   {
+    "goal": "Open Task Manager using the keyboard shortcut to find the program that is using the most memory.",
+    "hint": "Three keys: Ctrl, Shift and one more key near the top left.",
+    "check": "Ctrl+Shift+Esc"
+   },
+   {
+    "goal": "Another student left a shared lab computer for a minute. Lock it instantly with a shortcut.",
+    "hint": "Windows key plus a letter that sounds like lock.",
+    "check": "Win+L"
+   },
+   {
+    "goal": "In File Explorer create a folder named Semester1 inside Documents, then rename a file report.docx to Physics-Lab-Report-2026-11-08.docx. Which key renames a selected file?",
+    "hint": "A function key near the top row.",
+    "check": "F2"
+   },
+   {
+    "goal": "A file called invoice.pdf.exe arrived by email. Which setting in File Explorer would have shown you the true file type?",
+    "hint": "Look in the View menu under Show.",
+    "check": "File name extensions"
+   },
+   {
+    "goal": "A student received an SMS: Your KYC will expire today, click the link to update. State the correct response in one word: click, ignore or report.",
+    "hint": "Fear and urgency are phishing signs. Contact the bank through its official app only.",
+    "check": "report"
+   },
+   {
+    "goal": "In the Excel simulator, enter a formula in F2 that adds the marks in C2 to E2.",
+    "hint": "Use the function that adds a range.",
+    "check": "=SUM(C2:E2)"
+   },
+   {
+    "goal": "In the Excel simulator write a formula that shows Pass if B2 is 40 or more and Fail otherwise.",
+    "hint": "IF takes a condition, a true value and a false value.",
+    "check": "=IF(B2>=40,\"Pass\",\"Fail\")"
+   },
+   {
+    "goal": "Close the mission by writing the number of the national helpline where Indian cyber financial fraud should be reported.",
+    "hint": "It is a four digit number.",
+    "check": "1930"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which part of the computer holds data only while the power is on?",
+   [
+    "SSD",
+    "RAM",
+    "Hard disk",
+    "Pen drive"
+   ],
+   1,
+   "RAM is volatile working memory. SSDs, hard disks and pen drives keep data permanently."
+  ],
+  [
+   "What is the correct order of the computing cycle?",
+   [
+    "Output, Input, Process",
+    "Input, Process, Output, Storage",
+    "Storage, Input, Output",
+    "Process, Input, Storage"
+   ],
+   1,
+   "Data goes in as input, the CPU processes it, results come out and can be stored."
+  ],
+  [
+   "Which is an example of application software?",
+   [
+    "Windows",
+    "Linux kernel",
+    "MS Excel",
+    "BIOS"
+   ],
+   2,
+   "Excel is used to do a task, which makes it application software. Windows and Linux are operating systems."
+  ],
+  [
+   "Approximately how many megabytes are in one gigabyte?",
+   [
+    "10",
+    "100",
+    "1,000",
+    "1,000,000"
+   ],
+   2,
+   "Each step in storage units is about one thousand times bigger, so one GB is roughly 1,000 MB."
+  ],
+  [
+   "Which Windows account type can install software for the whole computer?",
+   [
+    "Standard",
+    "Guest",
+    "Administrator",
+    "Visitor"
+   ],
+   2,
+   "Administrators have full rights. Standard users need approval for major changes."
+  ],
+  [
+   "Which shortcut opens Task Manager directly?",
+   [
+    "Ctrl + Alt + A",
+    "Ctrl + Shift + Esc",
+    "Win + T",
+    "Alt + F4"
+   ],
+   1,
+   "Ctrl + Shift + Esc opens Task Manager. Alt + F4 closes the active window."
+  ],
+  [
+   "Why is Windows Update important?",
+   [
+    "It adds RAM",
+    "It installs security fixes",
+    "It deletes old files",
+    "It changes the keyboard"
+   ],
+   1,
+   "Updates repair weaknesses that attackers could use."
+  ],
+  [
+   "Which key renames a selected file in File Explorer?",
+   [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+   ],
+   1,
+   "F2 turns the file name into an editable box."
+  ],
+  [
+   "What does Shift + Delete do to a file on the hard disk?",
+   [
+    "Moves it to Recycle Bin",
+    "Permanently deletes it",
+    "Copies it",
+    "Compresses it"
+   ],
+   1,
+   "Shift + Delete skips the Recycle Bin, so recovery is difficult."
+  ],
+  [
+   "Which backup rule keeps three copies on two media with one off-site?",
+   [
+    "1-1-1",
+    "2-2-2",
+    "3-2-1",
+    "4-3-2"
+   ],
+   2,
+   "The 3-2-1 rule gives strong protection against disk failure, theft and ransomware."
+  ],
+  [
+   "What does DNS do?",
+   [
+    "Encrypts data",
+    "Translates domain names into IP addresses",
+    "Stores passwords",
+    "Sends email"
+   ],
+   1,
+   "DNS acts as the phone book of the internet."
+  ],
+  [
+   "What does the padlock in the browser show?",
+   [
+    "The site is safe and honest",
+    "The connection is encrypted",
+    "The site is government owned",
+    "The site has no ads"
+   ],
+   1,
+   "HTTPS encrypts traffic but does not guarantee that the website owner is trustworthy."
+  ],
+  [
+   "In an email, which field hides the recipient addresses from others?",
+   [
+    "To",
+    "Cc",
+    "Bcc",
+    "Subject"
+   ],
+   2,
+   "Bcc recipients are hidden from all other recipients."
+  ],
+  [
+   "Which web address is most likely to be an official Indian government site?",
+   [
+    "digilocker.gov.in",
+    "digilocker-gov.com",
+    "gov-digilocker.xyz",
+    "digilocker.info"
+   ],
+   0,
+   "Official Indian government sites typically end in .gov.in or .nic.in. The others only imitate the name."
+  ],
+  [
+   "Which Word feature builds an automatic table of contents?",
+   [
+    "Bold text",
+    "Heading styles",
+    "Page colour",
+    "Spell check"
+   ],
+   1,
+   "Word creates the table from text marked with Heading styles."
+  ],
+  [
+   "Which key combination inserts a page break in Word?",
+   [
+    "Ctrl + P",
+    "Ctrl + B",
+    "Ctrl + Enter",
+    "Ctrl + Shift + P"
+   ],
+   2,
+   "Ctrl + Enter starts a new page cleanly."
+  ],
+  [
+   "Which Word tool records edits so others can accept or reject them?",
+   [
+    "Mail Merge",
+    "Track Changes",
+    "Format Painter",
+    "Word Count"
+   ],
+   1,
+   "Track Changes is designed for review and collaboration."
+  ],
+  [
+   "Which formula adds the values in B2 to B10?",
+   [
+    "=B2+B10",
+    "=SUM(B2:B10)",
+    "=ADD(B2:B10)",
+    "=TOTAL(B2:B10)"
+   ],
+   1,
+   "SUM adds all the cells in the range."
+  ],
+  [
+   "What does =IF(A1>10,\"High\",\"Low\") return when A1 is 5?",
+   [
+    "High",
+    "Low",
+    "5",
+    "Error"
+   ],
+   1,
+   "5 is not greater than 10, so the false value Low is returned."
+  ],
+  [
+   "Why use $B$1 in a formula that will be copied down?",
+   [
+    "To make it bold",
+    "To keep the reference fixed",
+    "To hide the cell",
+    "To round the value"
+   ],
+   1,
+   "The dollar signs create an absolute reference that does not move when copied."
+  ],
+  [
+   "Which chart best shows how monthly sales change over a year?",
+   [
+    "Pie chart",
+    "Line chart",
+    "Scatter chart only",
+    "No chart"
+   ],
+   1,
+   "A line chart shows change over time clearly."
+  ],
+  [
+   "Which key starts a PowerPoint slide show from the first slide?",
+   [
+    "F2",
+    "F5",
+    "F7",
+    "F10"
+   ],
+   1,
+   "F5 starts the show from the start. Shift + F5 starts from the current slide."
+  ],
+  [
+   "Where do you edit a logo that must appear on every slide?",
+   [
+    "Notes pane",
+    "Slide Sorter",
+    "Slide Master",
+    "Review tab"
+   ],
+   2,
+   "Slide Master controls the shared layout, so one edit updates all slides."
+  ],
+  [
+   "A caller says he will send you a refund and asks for your UPI PIN. What should you do?",
+   [
+    "Share it quickly",
+    "Refuse, because a PIN is not needed to receive money",
+    "Share half of it",
+    "Share it only if he knows your name"
+   ],
+   1,
+   "A UPI PIN is only for sending money. Anyone asking for it to send you money is attempting fraud."
+  ],
+  [
+   "Which is the strongest password habit?",
+   [
+    "Use one password everywhere",
+    "Use a long unique passphrase for each important account",
+    "Use your birth date",
+    "Write it on a social media post"
+   ],
+   1,
+   "Long and unique passwords limit the damage if one site leaks data."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "You are an intern at a coaching institute in Vadodara. The manager asks you to prepare the monthly progress pack for 5 students: organise the files, create the marksheet in Excel, write a short report in Word, prepare a three slide summary in PowerPoint and follow safe working habits throughout. Work only on your own machine or the rootjavs simulator.",
+  "tasks": [
+   {
+    "task": "Create the folder structure Documents\\Progress-Pack\\November with sub-folders Excel, Word and Slides, and rename the main folder to Progress-Pack-2026-11.",
+    "check": "Folder Progress-Pack-2026-11 contains the sub-folders Excel, Word and Slides"
+   },
+   {
+    "task": "In Excel enter Roll No, Name, Maths, Science and English for 5 students, then use a formula to calculate the total in column F.",
+    "check": "=SUM(C2:E2) in F2 and copied down to F6"
+   },
+   {
+    "task": "Add an IF formula in column G that shows Pass when the average of the three subjects is at least 40 and Fail otherwise.",
+    "check": "=IF(F2/3>=40,\"Pass\",\"Fail\") or an equivalent formula"
+   },
+   {
+    "task": "Insert a column chart of the totals with a chart title and axis labels.",
+    "check": "Chart exists with title Total Marks and labelled axes"
+   },
+   {
+    "task": "In Word write a one-page report with a Title, two Heading 1 sections, one bulleted list, one table and page numbers in the footer.",
+    "check": "Document uses Title and Heading 1 styles, includes a table and shows page numbers"
+   },
+   {
+    "task": "In PowerPoint create three slides: Title, Results with the chart and Conclusion. Add speaker notes to each slide.",
+    "check": "Three slides, chart on slide 2, notes present on all slides"
+   },
+   {
+    "task": "Save a PDF copy of the Word report and back up the whole folder to a second place such as a pen drive or cloud drive.",
+    "check": "PDF exists and the folder is present in a second location"
+   },
+   {
+    "task": "Before sending the pack by email, write a professional subject line and say how you would lock your screen and what you would do if a stranger asked for the OTP on the phone.",
+    "check": "Subject is clear, Win + L is named for locking and the answer says never share the OTP"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "Computer Fundamentals Cheat Sheet",
+  "sections": [
+   [
+    "Hardware and units",
+    [
+     [
+      "CPU",
+      "Brain of the computer; runs instructions"
+     ],
+     [
+      "RAM",
+      "Fast temporary memory for open programs"
+     ],
+     [
+      "SSD / HDD",
+      "Permanent storage; SSD is faster"
+     ],
+     [
+      "Bit and Byte",
+      "1 byte = 8 bits"
+     ],
+     [
+      "KB, MB, GB, TB",
+      "Each step is about 1,000 times larger"
+     ]
+    ]
+   ],
+   [
+    "Windows",
+    [
+     [
+      "Win + E",
+      "Open File Explorer"
+     ],
+     [
+      "Win + I",
+      "Settings"
+     ],
+     [
+      "Win + L",
+      "Lock the computer"
+     ],
+     [
+      "Win + V",
+      "Clipboard history"
+     ],
+     [
+      "Win + Shift + S",
+      "Screenshot an area"
+     ],
+     [
+      "Ctrl + Shift + Esc",
+      "Task Manager"
+     ],
+     [
+      "Alt + Tab",
+      "Switch apps"
+     ]
+    ]
+   ],
+   [
+    "Files",
+    [
+     [
+      "F2",
+      "Rename"
+     ],
+     [
+      "Ctrl + C / X / V",
+      "Copy / cut / paste"
+     ],
+     [
+      "Shift + Delete",
+      "Delete permanently"
+     ],
+     [
+      "3-2-1 rule",
+      "3 copies, 2 media, 1 off-site"
+     ],
+     [
+      ".docx .xlsx .pptx .pdf",
+      "Word, Excel, PowerPoint, PDF"
+     ]
+    ]
+   ],
+   [
+    "Internet and email",
+    [
+     [
+      "DNS",
+      "Turns names into IP addresses"
+     ],
+     [
+      "HTTPS",
+      "Encrypted connection"
+     ],
+     [
+      "Ctrl + T / W",
+      "New / close browser tab"
+     ],
+     [
+      "Cc / Bcc",
+      "Visible / hidden copy recipients"
+     ],
+     [
+      "site: and filetype:",
+      "Search one website or file type"
+     ]
+    ]
+   ],
+   [
+    "Word",
+    [
+     [
+      "Ctrl + B / I / U",
+      "Bold / italic / underline"
+     ],
+     [
+      "Ctrl + Enter",
+      "Page break"
+     ],
+     [
+      "Ctrl + H",
+      "Find and replace"
+     ],
+     [
+      "Heading styles",
+      "Needed for automatic table of contents"
+     ],
+     [
+      "Track Changes",
+      "Records edits for review"
+     ]
+    ]
+   ],
+   [
+    "Excel",
+    [
+     [
+      "=SUM(B2:B10)",
+      "Total of a range"
+     ],
+     [
+      "=AVERAGE(B2:B10)",
+      "Average"
+     ],
+     [
+      "=IF(B2>=40,\"Pass\",\"Fail\")",
+      "Decision formula"
+     ],
+     [
+      "=COUNTIF(range,criteria)",
+      "Count with a condition"
+     ],
+     [
+      "$A$1",
+      "Absolute reference (F4)"
+     ],
+     [
+      "#DIV/0!",
+      "Division by zero"
+     ]
+    ]
+   ],
+   [
+    "PowerPoint",
+    [
+     [
+      "F5",
+      "Start slide show"
+     ],
+     [
+      "Shift + F5",
+      "Start from current slide"
+     ],
+     [
+      "Ctrl + M",
+      "New slide"
+     ],
+     [
+      "Slide Master",
+      "Edit all slides at once"
+     ],
+     [
+      "B / W",
+      "Black or white screen during a show"
+     ]
+    ]
+   ],
+   [
+    "Online safety",
+    [
+     [
+      "OTP and UPI PIN",
+      "Never share; PIN is not needed to receive money"
+     ],
+     [
+      "2FA",
+      "Second proof after the password"
+     ],
+     [
+      "Phishing signs",
+      "Urgency, odd sender, link, secret request, too good to be true"
+     ],
+     [
+      "1930 and cybercrime.gov.in",
+      "Report cyber financial fraud quickly"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "Hardware",
+   "The physical parts of a computer that you can touch."
+  ],
+  [
+   "Software",
+   "Programs and instructions that tell hardware what to do."
+  ],
+  [
+   "Operating System",
+   "The main software that manages hardware, memory and applications, such as Windows."
+  ],
+  [
+   "CPU",
+   "The processor that carries out instructions and calculations."
+  ],
+  [
+   "RAM",
+   "Fast, temporary memory that holds the programs and data currently in use."
+  ],
+  [
+   "Storage",
+   "Permanent space for files, such as an SSD or hard disk."
+  ],
+  [
+   "File Extension",
+   "The letters after the dot in a file name that show its type."
+  ],
+  [
+   "Backup",
+   "A second copy of data kept so that it can be restored after loss."
+  ],
+  [
+   "IP Address",
+   "A number that identifies a device on a network."
+  ],
+  [
+   "DNS",
+   "The system that converts website names into IP addresses."
+  ],
+  [
+   "HTTPS",
+   "A secure way of sending data between a browser and a website."
+  ],
+  [
+   "Cell Reference",
+   "The address of a spreadsheet cell, such as B3."
+  ],
+  [
+   "Phishing",
+   "A fake message that pretends to be trusted in order to steal information or money."
+  ],
+  [
+   "Two-Factor Authentication",
+   "A login method that needs a password and a second proof, such as an app code."
+  ],
+  [
+   "Ransomware",
+   "Malware that locks files and demands payment to unlock them."
+  ]
+ ],
+ "interview": [
+  [
+   "What is the difference between RAM and storage?",
+   "RAM is fast, temporary memory used by programs that are running. It is cleared when power is off. Storage such as an SSD keeps files permanently. A computer copies a file from storage into RAM while you work on it."
+  ],
+  [
+   "What does an operating system do?",
+   "It manages the hardware, memory, files and running programs, and provides the user interface. Examples are Windows, Linux, macOS and Android."
+  ],
+  [
+   "How do you organise files on your computer?",
+   "I use a clear folder structure such as Semester, Subject and Assignments, give files meaningful names with dates, delete duplicates regularly and keep a backup following the 3-2-1 rule."
+  ],
+  [
+   "What is the difference between copy and move?",
+   "Copy creates a duplicate and leaves the original. Move, which is cut and paste, relocates the original file to a new place."
+  ],
+  [
+   "What is the use of styles in MS Word?",
+   "Styles apply saved formatting in one click and keep a document consistent. Heading styles also allow an automatic table of contents and easy navigation."
+  ],
+  [
+   "Explain the difference between relative and absolute references in Excel.",
+   "A relative reference such as B2 changes when a formula is copied. An absolute reference such as $B$2 stays fixed. I use absolute references for constants such as a tax rate."
+  ],
+  [
+   "When would you use VLOOKUP or XLOOKUP?",
+   "When I need to fetch related data from a table, for example finding a student name from a roll number. XLOOKUP is the newer and more flexible function. VLOOKUP is older and still common."
+  ],
+  [
+   "How do you make an effective presentation?",
+   "I plan the story first, keep one idea per slide, use short text, large fonts, strong contrast and a relevant visual, add notes for myself and rehearse the timing."
+  ],
+  [
+   "How can you identify a phishing message?",
+   "By urgency or threats, an unusual sender or a link that does not match the organisation, a request for OTP, PIN or password, and offers that sound too good to be true. I do not click and I contact the organisation through its official app."
+  ],
+  [
+   "What would you do if you became a victim of UPI fraud?",
+   "I would immediately call the 1930 helpline, report on cybercrime.gov.in, inform my bank to try to block or trace the transaction, and keep screenshots and transaction details as evidence."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}

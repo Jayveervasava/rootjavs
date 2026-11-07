@@ -3,7 +3,8 @@
 const RJ=window.RJ, $=RJ.$, $$=RJ.$$, esc=RJ.esc, I=RJ.icon, S=RJ.S;
 const C=window.RJ_COURSES, app=()=>$("#app");
 const PAGES={};
-const totalLessons=C.reduce((n,c)=>n+c.lessons.length,0);
+const TL=()=>C.reduce((n,c)=>n+c.lessons.length,0);
+const labName=c=>(c.lab&&c.lab.title)||labTitle[c.lab.type];
 const labTitle={laptop:"Laptop Anatomy",explorer:"File Explorer Simulator",typing:"Typing Trainer",shortcuts:"Shortcut Trainer",word:"Document Editor",excel:"Spreadsheet Lab",ppt:"Slide Builder"};
 const head=(eyebrow,title,sub,crumbs)=>`<div class="page-head fade">${crumbs?`<div class="crumbs">${crumbs}</div>`:""}<span class="eyebrow">${eyebrow}</span><h1>${title}</h1>${sub?`<p>${sub}</p>`:""}</div>`;
 const gate=(title,text,href,label)=>`<div class="card" style="max-width:620px;margin:40px auto;text-align:center;padding:36px"><span class="icon gold" style="margin:0 auto 14px">${I("lock")}</span><h2 style="font-size:24px;margin-bottom:10px">${title}</h2><p class="muted">${text}</p>${href?`<a class="btn pri" href="${href}">${label}</a>`:""}</div>`;
@@ -31,7 +32,7 @@ PAGES.home=()=>{
       <div class="foot"><span id="demoHint">Try it: change any mark and watch the formulas update</span><span>live lab preview</span></div>
     </div>
   </section>
-  <div class="band fade"><div><b>${C.length}</b><span>Courses live now</span></div><div><b>${totalLessons}</b><span>Lessons with PDF notes</span></div><div><b>${C.length}</b><span>Hands-on browser labs</span></div><div><b>${window.RJ_CHEATS.length}</b><span>Downloadable cheat sheets</span></div></div>
+  <div class="band fade"><div><b>${C.length}</b><span>Courses live now</span></div><div><b>${TL()}</b><span>Lessons with PDF notes</span></div><div><b>${C.length}</b><span>Hands-on browser labs</span></div><div><b>${window.RJ_CHEATS.length}</b><span>Downloadable cheat sheets</span></div></div>
 
   <section class="sec"><div class="sec-head"><div><span class="eyebrow">How it works</span><h2>Four steps in every course</h2><p>Reading alone does not build skill. Every rootjavs course makes you practise and prove what you learned.</p></div></div>
    <div class="steps">${[["01","Learn","Short, clear notes with tables, pro tips and a PDF you can keep.","book"],["02","Practise","Do the real task in a browser lab: a document, a spreadsheet, a file system.","flask"],["03","Test","A timed theory exam and a practical exam that checks your actual work.","quiz"],["04","Certify","Get a certificate with a unique ID anyone can verify.","award"]].map(s=>`<div class="card step"><span class="icon ${s[3]==="award"?"gold":s[3]==="flask"?"cyan":""}">${I(s[3])}</span><div class="n" style="margin-top:16px">STEP ${s[0]}</div><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join("")}</div></section>
@@ -40,7 +41,7 @@ PAGES.home=()=>{
    <div class="grid g3">${C.slice(0,6).map(RJ.courseCard).join("")}</div></section>
 
   <section class="sec"><div class="sec-head"><div><span class="eyebrow">Labs</span><h2>Real tools, right in your browser</h2><p>Every lab checks your work automatically. Files you create download in real Office formats.</p></div><a class="btn" href="labs.html">All labs ${I("arrow")}</a></div>
-   <div class="grid g4">${C.map(c=>`<a class="card hover" href="lab.html?c=${c.id}&mode=practice"><span class="icon cyan">${I(c.icon)}</span><h3 style="font-size:17px;margin:14px 0 6px">${labTitle[c.lab.type]}</h3><p class="muted small" style="margin:0">${esc(c.title)}</p></a>`).join("")}<a class="card hover" href="typing-test.html"><span class="icon gold">${I("bolt")}</span><h3 style="font-size:17px;margin:14px 0 6px">Typing Speed Test</h3><p class="muted small" style="margin:0">How fast are you? Find out in 60 seconds.</p></a></div></section>
+   <div class="grid g4">${C.map(c=>`<a class="card hover" href="lab.html?c=${c.id}&mode=practice"><span class="icon cyan">${I(c.icon)}</span><h3 style="font-size:17px;margin:14px 0 6px">${labName(c)}</h3><p class="muted small" style="margin:0">${esc(c.title)}</p></a>`).join("")}<a class="card hover" href="typing-test.html"><span class="icon gold">${I("bolt")}</span><h3 style="font-size:17px;margin:14px 0 6px">Typing Speed Test</h3><p class="muted small" style="margin:0">How fast are you? Find out in 60 seconds.</p></a></div></section>
 
   <section class="sec"><div class="sec-head"><div><span class="eyebrow">Career roadmaps</span><h2>Know exactly what to learn next</h2></div><a class="btn" href="roadmaps.html">See roadmaps ${I("arrow")}</a></div>
    <div class="grid g4">${window.RJ_ROADMAPS.map(r=>`<a class="card hover" href="roadmaps.html#${r.id}"><span class="icon">${I(r.icon)}</span><h3 style="font-size:18px;margin:14px 0 6px">${esc(r.title)}</h3><p class="muted small">${esc(r.desc)}</p><span class="chip">${I("clock")} ${r.time}</span></a>`).join("")}</div></section>
@@ -85,7 +86,7 @@ PAGES.home=()=>{
         else if(k==="courses") C.forEach(x=>out.push(`  ${x.code}  ${esc(x.title)}`));
         else if(k==="date") out.push(new Date().toString());
         else if(k==="clear") out.length=0;
-        else out.push(`command not found: ${esc(k)}  (Linux course coming soon)`); };
+        else out.push(`command not found: ${esc(k)}  (try the Linux Fundamentals course)`); };
       const draw=()=>{ $("#demo").innerHTML=`<div class="term" id="tm">${out.map(l=>`<div>${l}</div>`).join("")}<div><span class="p">student@rootjavs:~$</span> <input id="tmi" aria-label="Terminal input" autocomplete="off" spellcheck="false"></div></div>`; const i=$("#tmi"); i.onkeydown=e=>{ if(e.key==="Enter"){ run(i.value); draw(); $("#tmi").focus(); } }; $("#tm").scrollTop=1e6; };
       draw(); $("#demoHint").textContent="Try it: type whoami or courses"; }
   };
@@ -96,7 +97,7 @@ PAGES.home=()=>{
 /* ================= COURSES ================= */
 PAGES.courses=()=>{
   const cats=["All","Computer Basics","Office","Coming soon"];
-  app().innerHTML=head("Course catalogue","All courses",`${C.length} courses live, ${totalLessons} lessons, every one with notes, a lab and exams.`)+
+  app().innerHTML=head("Course catalogue","All courses",`${C.length} courses live, ${TL()} lessons, every one with notes, a lab and exams.`)+
    `<div class="row" style="justify-content:space-between;margin-bottom:6px"><div class="filters" id="flt" style="margin:0">${cats.map((c,i)=>`<button class="${i?'':'on'}" data-f="${c}">${c}</button>`).join("")}</div><label class="search"><span class="sr-only">Search courses</span>${I("search")}<input id="q" placeholder="Search courses"></label></div><div class="grid g3" id="list" style="margin-top:20px"></div>`;
   let f="All";
   const draw=()=>{ const q=$("#q").value.toLowerCase(); const live=C.filter(c=>(f==="All"||c.cat===f)&&(c.title+c.short).toLowerCase().includes(q)); const soon=window.RJ_SOON.filter(s=>(f==="All"||f==="Coming soon")&&(s.title+s.short).toLowerCase().includes(q));
@@ -115,7 +116,7 @@ PAGES.course=()=>{
   <div class="course-hero fade"><div>
     <div class="row"><span class="chip cyan">${esc(c.cat)}</span><span class="chip">${esc(c.level)}</span></div>
     <h1 style="font-size:clamp(30px,4.4vw,46px);margin:14px 0 12px">${esc(c.title)}</h1><p class="muted" style="font-size:18px;max-width:60ch">${esc(c.short)}</p>
-    <div class="row" style="gap:18px;color:var(--muted);font-size:15px;margin:16px 0 22px"><span class="row" style="gap:6px">${I("book")}${c.lessons.length} lessons</span><span class="row" style="gap:6px">${I("clock")}${c.hours} hours</span><span class="row" style="gap:6px">${I("flask")}${labTitle[c.lab.type]}</span><span class="row" style="gap:6px">${I("award")}Certificate</span></div>
+    <div class="row" style="gap:18px;color:var(--muted);font-size:15px;margin:16px 0 22px"><span class="row" style="gap:6px">${I("book")}${c.lessons.length} lessons</span><span class="row" style="gap:6px">${I("clock")}${c.hours} hours</span><span class="row" style="gap:6px">${I("flask")}${labName(c)}</span><span class="row" style="gap:6px">${I("award")}Certificate</span></div>
     <div class="row"><a class="btn pri lg" href="lesson.html?c=${c.id}&l=${nx}">${RJ.started(c)?"Continue":"Start course"} ${I("arrow")}</a><button class="btn lg" id="allpdf">${I("download")} Full notes PDF</button></div></div>
    <div class="card" style="background:var(--card-2)"><div class="result" style="gap:18px"><div class="ring" style="--p:${p.pct}"><b>${p.pct}%</b></div><div><b style="font-size:18px">${p.complete?"Course complete":"Your progress"}</b><p class="muted small" style="margin:4px 0 0">${p.passed} of ${p.n} lessons passed</p></div></div>
     <ul style="list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px">${step(p.allLessons,"All lesson quizzes",`${p.passed}/${p.n} passed (3 of 5 to pass)`)}${step(p.fin,"Final theory exam",S.final[c.id]!=null?`Best score ${S.final[c.id]}/10 · 6 to pass`:"10 questions · 15 minutes")}${step(p.prac,"Practical exam","Complete every task in the lab")}${step(p.complete,"Certificate",p.complete?"Issued":"Unlocks when all above are done")}</ul>
@@ -125,7 +126,7 @@ PAGES.course=()=>{
   <section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">Curriculum</h2><div class="lesson-list">${c.lessons.map((L,i)=>{ const sc=RJ.lessonScore(c.id,i), ok=RJ.lessonPassed(c.id,i);
     return `<a class="lrow ${ok?'done':''}" href="lesson.html?c=${c.id}&l=${i}"><span class="num">${ok?"✓":String(i+1).padStart(2,"0")}</span><span style="min-width:0"><b>${esc(L.title)}</b><small>${L.min} min read · notes + PDF · 5-question quiz</small></span><span class="chip ${ok?'ok':sc!=null?'bad':''}">${ok?`Passed ${sc}/5`:sc!=null?`${sc}/5 retry`:"Start"}</span></a>`; }).join("")}</div></section>
   <section class="sec" style="margin-top:56px"><h2 style="font-size:26px;margin-bottom:18px">Lab and final assessment</h2><div class="grid g3">
-    <div class="card"><span class="icon cyan">${I("flask")}</span><h3 style="font-size:19px;margin:14px 0 8px">${labTitle[c.lab.type]}</h3><p class="muted small">${esc(c.lab.brief)}</p><a class="btn sm" href="lab.html?c=${c.id}&mode=practice">Open practice lab</a></div>
+    <div class="card"><span class="icon cyan">${I("flask")}</span><h3 style="font-size:19px;margin:14px 0 8px">${labName(c)}</h3><p class="muted small">${esc(c.lab.brief)}</p><a class="btn sm" href="lab.html?c=${c.id}&mode=practice">Open practice lab</a></div>
     <div class="card"><span class="icon">${I("quiz")}</span><h3 style="font-size:19px;margin:14px 0 8px">Final theory exam</h3><p class="muted small">10 questions from the whole course, 15-minute timer, question navigator. Pass mark 60%.</p>${p.allLessons?`<a class="btn sm pri" href="exam.html?c=${c.id}">Start exam</a>`:`<span class="chip">${I("lock")} Pass all lessons first</span>`}</div>
     <div class="card"><span class="icon gold">${I("target")}</span><h3 style="font-size:19px;margin:14px 0 8px">Practical exam</h3><p class="muted small">New tasks in the lab, checked automatically. Complete all of them to pass.</p>${p.prac?`<span class="chip ok">${I("check")} Passed</span>`:p.allLessons?`<a class="btn sm pri" href="lab.html?c=${c.id}&mode=exam">Start practical</a>`:`<span class="chip">${I("lock")} Pass all lessons first</span>`}</div></div></section>`;
   $("#allpdf").onclick=()=>RJ.coursePDF(c);
@@ -155,8 +156,8 @@ PAGES.lesson=()=>{
     if(tab==="quiz") quiz(pane);
     if(tab==="practice"){
       const tasks=L.notes.find(b=>b.task);
-      pane.innerHTML=`<div class="grid g2"><div class="card"><span class="icon cyan">${I("flask")}</span><h3 style="font-size:20px;margin:14px 0 8px">${labTitle[c.lab.type]}</h3><p class="muted">${esc(c.lab.brief)}</p><a class="btn pri" href="lab.html?c=${c.id}&mode=practice">Open the lab ${I("arrow")}</a></div>
-        <div class="card"><span class="icon">${I("target")}</span><h3 style="font-size:20px;margin:14px 0 8px">Real task for this lesson</h3>${tasks?`<ol style="padding-left:20px;margin:0;display:grid;gap:6px">${tasks.task.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol>`:'<p class="muted">Apply what you learned on your own computer.</p>'}</div></div>`;
+      pane.innerHTML=`<div class="grid g2"><div class="card"><span class="icon cyan">${I("flask")}</span><h3 style="font-size:20px;margin:14px 0 8px">${labName(c)}</h3><p class="muted">${esc(c.lab.brief)}</p><a class="btn pri" href="lab.html?c=${c.id}&mode=practice">Open the lab ${I("arrow")}</a></div>
+        <div class="card"><span class="icon">${I("target")}</span><h3 style="font-size:20px;margin:14px 0 8px">${L.practice&&L.practice.length?"Practice tasks":"Real task for this lesson"}</h3>${L.practice&&L.practice.length?`<ol style="padding-left:20px;margin:0;display:grid;gap:6px">${L.practice.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol>`:tasks?`<ol style="padding-left:20px;margin:0;display:grid;gap:6px">${tasks.task.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol>`:'<p class="muted">Apply what you learned on your own computer.</p>'}</div></div>`;
     }
   };
   const quiz=pane=>{
@@ -164,7 +165,7 @@ PAGES.lesson=()=>{
     pane.innerHTML=`<p class="muted">5 questions. Score 3 or more to pass this lesson.${sc!=null?` Your best: <b>${sc}/5</b>.`:""}</p><form id="qf">${L.quiz.map((q,k)=>`<div class="q"><fieldset><legend><span class="qn">QUESTION ${k+1}</span>${RJ.fmt(q[0])}</legend>${q[1].map((o,j)=>`<label class="opt" for="o${k}_${j}"><input type="radio" id="o${k}_${j}" name="q${k}" value="${j}"><span>${RJ.fmt(o)}</span></label>`).join("")}</fieldset></div>`).join("")}<div id="res"></div><div class="row"><button class="btn pri lg" type="submit">Submit answers</button></div></form>`;
     $("#qf").onsubmit=e=>{ e.preventDefault(); const fd=new FormData(e.target); const miss=L.quiz.filter((_,k)=>fd.get("q"+k)===null).length;
       if(miss){ $("#res").innerHTML=`<div class="status bad" style="margin-bottom:14px">${I("alert")} Answer all questions (${miss} left).</div>`; return; }
-      let s=0; L.quiz.forEach((q,k)=>{ const v=+fd.get("q"+k); if(v===q[2]) s++; q[1].forEach((_,j)=>{ const lb=$(`label[for="o${k}_${j}"]`); lb.classList.toggle("right",j===q[2]); lb.classList.toggle("wrong",j===v&&v!==q[2]); }); });
+      let s=0; L.quiz.forEach((q,k)=>{ const v=+fd.get("q"+k); if(v===q[2]) s++; q[1].forEach((_,j)=>{ const lb=$(`label[for="o${k}_${j}"]`); lb.classList.toggle("right",j===q[2]); lb.classList.toggle("wrong",j===v&&v!==q[2]); }); if(q[3]){ const fs=$$("#qf fieldset")[k]; if(fs&&!fs.querySelector(".why")) fs.insertAdjacentHTML("beforeend",`<p class="why">${I("info")} ${RJ.fmt(q[3])}</p>`); } }); });
       RJ.setLesson(c.id,li,s); const ok=s>=RJ.PASS_LESSON, last=li===c.lessons.length-1;
       $("#res").innerHTML=`<div class="card" style="margin-bottom:16px"><div class="result"><div class="ring ${ok?'ok':'bad'}" style="--p:${s*20}"><b>${s}/5</b></div><div style="flex:1;min-width:200px"><h3 style="font-size:20px">${ok?"Lesson passed":"Not passed yet"}</h3><p class="muted" style="margin:6px 0 0">${ok?"Correct answers are highlighted in green.":"Review the green answers and the notes, then try again."}</p></div>
         <div class="row">${ok?(last?`<a class="btn pri" href="course.html?c=${c.id}">Go to final exams</a>`:`<a class="btn pri" href="lesson.html?c=${c.id}&l=${li+1}">Next lesson ${I("arrow")}</a>`):`<button type="button" class="btn" id="retry">Try again</button>`}</div></div></div>`;
@@ -178,14 +179,14 @@ PAGES.lesson=()=>{
 PAGES.lab=()=>{
   const c=RJ.course(RJ.qp("c")); if(!c){ app().innerHTML=gate("Lab not found","","labs.html","All labs"); return; }
   const exam=RJ.qp("mode")==="exam"; const p=RJ.progress(c);
-  document.title=`${labTitle[c.lab.type]} · ${exam?"Practical exam":"Practice"} · rootjavs`;
+  document.title=`${labName(c)} · ${exam?"Practical exam":"Practice"} · rootjavs`;
   if(exam&&!p.allLessons){ app().innerHTML=gate("Practical exam locked",`Pass all ${c.lessons.length} lesson quizzes in ${esc(c.title)} to unlock the practical exam. You have passed ${p.passed}.`,`course.html?c=${c.id}`,"Back to course"); return; }
   app().innerHTML=`<div class="crumbs"><a href="labs.html">Labs</a> / <a href="course.html?c=${c.id}">${esc(c.title)}</a></div>
-   <div class="lab-wrap"><aside class="card lab-brief"><span class="chip ${exam?'gold':'cyan'}">${exam?"Practical exam":"Practice mode"}</span><h1 style="font-size:24px;margin:14px 0 8px">${labTitle[c.lab.type]}</h1><p class="muted small">${exam?"Complete every task below. The lab checks your work automatically and records your result.":esc(c.lab.brief)}</p>
+   <div class="lab-wrap"><aside class="card lab-brief"><span class="chip ${exam?'gold':'cyan'}">${exam?"Practical exam":"Practice mode"}</span><h1 style="font-size:24px;margin:14px 0 8px">${labName(c)}</h1><p class="muted small">${exam?"Complete every task below. The lab checks your work automatically and records your result.":esc(c.lab.brief)}</p>
      <h3 style="font-size:13px;font-family:var(--mono);letter-spacing:.1em;color:var(--dim);margin-top:18px">TASKS</h3><ul class="tasks" id="tasks"></ul><div id="lres"></div>
      <div class="row" style="margin-top:18px">${exam?`<a class="btn sm" href="lab.html?c=${c.id}&mode=practice">Back to practice</a>`:(p.allLessons&&!p.prac?`<a class="btn sm pri" href="lab.html?c=${c.id}&mode=exam">Take practical exam</a>`:"")}<button class="btn sm" id="reset">${I("restore")} Restart</button></div></aside>
      <div class="bench" id="bench"></div></div>`;
-  const start=()=>{ RJ.stopTimers(); $("#lres").innerHTML=""; RJ.LABS[c.lab.type]($("#bench"),{mode:exam?"exam":"practice",tasksEl:$("#tasks"),onAllDone:()=>{
+  const start=()=>{ RJ.stopTimers(); $("#lres").innerHTML=""; RJ.LABS[c.lab.engine||c.lab.type]($("#bench"),{course:c,mode:exam?"exam":"practice",tasksEl:$("#tasks"),onAllDone:()=>{
       if(exam){ S.practical[c.id]=true; RJ.save(); const pp=RJ.progress(c); if(pp.complete) RJ.issueCert(c);
         $("#lres").innerHTML=`<div class="status ok">${I("checkc")} Practical exam passed</div><div class="row" style="margin-top:12px">${pp.complete?`<a class="btn gold sm" href="certificate.html?c=${c.id}">${I("award")} Get certificate</a>`:pp.fin?"":`<a class="btn pri sm" href="exam.html?c=${c.id}">Take the final theory exam</a>`}</div>`; }
       else $("#lres").innerHTML=`<div class="status ok">${I("checkc")} All practice tasks complete</div>`; }}); };
@@ -198,8 +199,8 @@ PAGES.exam=()=>{
   if(!c){ app().innerHTML=gate("Exam not found","","mock-tests.html","Mock tests"); return; }
   const p=RJ.progress(c);
   if(!mock&&!p.allLessons){ app().innerHTML=gate("Final exam locked",`Pass all lesson quizzes first (${p.passed}/${p.n} passed). You can practise with a mock test meanwhile.`,`mock-tests.html`,"Try a mock test"); return; }
-  const pool=c.lessons.flatMap(L=>L.quiz); const N=mock?15:RJ.FINAL_Q, MIN=mock?20:15;
-  const qs=RJ.shuffle(pool).slice(0,N).map(q=>{ const ord=RJ.shuffle(q[1].map((_,i)=>i)); return [q[0],ord.map(i=>q[1][i]),ord.indexOf(q[2])]; });
+  const pool=(!mock&&c.finalExam&&c.finalExam.length)?c.finalExam:c.lessons.flatMap(L=>L.quiz).concat(c.finalExam||[]); const N=mock?15:RJ.FINAL_Q, MIN=mock?20:15;
+  const qs=RJ.shuffle(pool).slice(0,N).map(q=>{ const ord=RJ.shuffle(q[1].map((_,i)=>i)); return [q[0],ord.map(i=>q[1][i]),ord.indexOf(q[2]),q[3]]; });
   const ans=Array(N).fill(null); let cur=0, left=MIN*60, done=false;
   document.title=`${mock?"Mock test":"Final exam"} · ${c.title} · rootjavs`;
   const intro=()=>{ app().innerHTML=`<div class="crumbs"><a href="course.html?c=${c.id}">${esc(c.title)}</a> / ${mock?"Mock test":"Final theory exam"}</div><div class="card" style="max-width:680px;margin:20px auto;padding:34px">
@@ -226,16 +227,16 @@ PAGES.exam=()=>{
     const pp=RJ.progress(c); if(!mock&&pp.complete) RJ.issueCert(c);
     app().innerHTML=`<div class="card" style="max-width:860px;margin:10px auto"><div class="result"><div class="ring ${pass?'ok':'bad'}" style="--p:${pct}"><b>${pct}%</b></div><div style="flex:1;min-width:220px"><span class="chip ${pass?'ok':'bad'}">${pass?"Passed":"Not passed"}</span><h1 style="font-size:28px;margin:10px 0 6px">${score} / ${N} correct</h1><p class="muted" style="margin:0">${mock?"Mock tests do not affect your progress.":pass?(pp.complete?"Course complete. Your certificate is ready.":pp.prac?"":"Now complete the practical exam to earn your certificate."):"You need 60%. Review the answers below and try again."}</p></div>
       <div class="row">${!mock&&pp.complete?`<a class="btn gold" href="certificate.html?c=${c.id}">${I("award")} Certificate</a>`:""}${!mock&&pass&&!pp.prac?`<a class="btn pri" href="lab.html?c=${c.id}&mode=exam">Practical exam</a>`:""}<a class="btn" href="${mock?'exam.html?c='+c.id+'&mock=1':'exam.html?c='+c.id}">Retake</a></div></div></div>
-      <h2 style="font-size:22px;margin:30px 0 14px">Answer review</h2>${qs.map((q,i)=>`<div class="q"><span class="qn">QUESTION ${i+1} · ${ans[i]===q[2]?'<span style="color:var(--ok)">CORRECT</span>':'<span style="color:var(--bad)">INCORRECT</span>'}</span><b>${RJ.fmt(q[0])}</b>${q[1].map((o,j)=>`<div class="opt ${j===q[2]?'right':j===ans[i]?'wrong':''}" style="cursor:default">${RJ.fmt(o)}</div>`).join("")}</div>`).join("")}`; scrollTo(0,0); };
+      <h2 style="font-size:22px;margin:30px 0 14px">Answer review</h2>${qs.map((q,i)=>`<div class="q"><span class="qn">QUESTION ${i+1} · ${ans[i]===q[2]?'<span style="color:var(--ok)">CORRECT</span>':'<span style="color:var(--bad)">INCORRECT</span>'}</span><b>${RJ.fmt(q[0])}</b>${q[1].map((o,j)=>`<div class="opt ${j===q[2]?'right':j===ans[i]?'wrong':''}" style="cursor:default">${RJ.fmt(o)}</div>`).join("")}${q[3]?`<p class="why">${I("info")} ${RJ.fmt(q[3])}</p>`:""}</div>`).join("")}`; scrollTo(0,0); };
   intro();
 };
 
 /* ================= LABS ================= */
 PAGES.labs=()=>{
   app().innerHTML=head("Hands-on labs","Practise in real tools, right in your browser","Every lab checks your work automatically. Documents, spreadsheets and presentations you build download in real Office formats.")+
-  `<div class="grid g3">${C.map(c=>`<div class="card hover" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon cyan">${I(c.icon)}</span><span class="chip">${esc(c.cat)}</span></div><h3 style="font-size:20px">${labTitle[c.lab.type]}</h3><p class="muted small" style="margin:0">${esc(c.lab.brief)}</p><p class="small" style="margin:0;color:var(--dim)">Part of ${esc(c.title)}</p><div class="row" style="margin-top:auto"><a class="btn sm pri" href="lab.html?c=${c.id}&mode=practice">Open lab</a><a class="btn sm" href="course.html?c=${c.id}">Course</a></div></div>`).join("")}
+  `<div class="grid g3">${C.map(c=>`<div class="card hover" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon cyan">${I(c.icon)}</span><span class="chip">${esc(c.cat)}</span></div><h3 style="font-size:20px">${labName(c)}</h3><p class="muted small" style="margin:0">${esc(c.lab.brief)}</p><p class="small" style="margin:0;color:var(--dim)">Part of ${esc(c.title)}</p><div class="row" style="margin-top:auto"><a class="btn sm pri" href="lab.html?c=${c.id}&mode=practice">Open lab</a><a class="btn sm" href="course.html?c=${c.id}">Course</a></div></div>`).join("")}
    <div class="card hover" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon gold">${I("bolt")}</span><span class="chip">Typing</span></div><h3 style="font-size:20px">Typing Speed Test</h3><p class="muted small" style="margin:0">Timed test with live WPM and accuracy. Save your best score.</p><div class="row" style="margin-top:auto"><a class="btn sm pri" href="typing-test.html">Start test</a></div></div>
-   ${[["Linux Terminal","terminal","A real Linux shell in your browser."],["Phishing Spotter","shield","Spot fake emails and websites."],["HTML & CSS Playground","code","Write code, see the page instantly."]].map(x=>`<div class="card soon" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon">${I(x[1])}</span><span class="chip gold">Coming soon</span></div><h3 style="font-size:20px">${x[0]}</h3><p class="muted small" style="margin:0">${x[2]}</p></div>`).join("")}</div>`;
+   ${[["Linux Terminal","terminal","A real Linux shell in your browser."],["Phishing Spotter","shield","Spot fake emails and websites."],["HTML & CSS Playground","code","Write code, see the page instantly."]].map(x=>`<div class="card soon" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon">${I(x[1])}</span><span class="chip">Being built</span></div><h3 style="font-size:20px">${x[0]}</h3><p class="muted small" style="margin:0">${x[2]}</p></div>`).join("")}</div>`;
 };
 
 /* ================= TYPING TEST ================= */
@@ -263,7 +264,7 @@ PAGES.typing=()=>{
 /* ================= MOCK TESTS ================= */
 PAGES.mock=()=>{
   app().innerHTML=head("Exam practice","Mock tests","Timed practice exams with questions from the full course. They do not affect your progress, so take them as often as you like.")+
-  `<div class="grid g3">${C.map(c=>{ const pool=c.lessons.length*5; return `<div class="card hover" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon">${I(c.icon)}</span><span class="chip">${pool} question bank</span></div><h3 style="font-size:19px">${esc(c.title)}</h3><div class="row small muted" style="gap:16px"><span class="row" style="gap:6px">${I("quiz")}15 questions</span><span class="row" style="gap:6px">${I("clock")}20 minutes</span></div><div class="row" style="margin-top:auto"><a class="btn sm pri" href="exam.html?c=${c.id}&mock=1">Start mock test</a></div></div>`; }).join("")}</div>
+  `<div class="grid g3">${C.map(c=>{ const pool=c.lessons.length*5+(c.finalExam||[]).length; return `<div class="card hover" style="display:flex;flex-direction:column;gap:12px"><div class="row" style="justify-content:space-between"><span class="icon">${I(c.icon)}</span><span class="chip">${pool} question bank</span></div><h3 style="font-size:19px">${esc(c.title)}</h3><div class="row small muted" style="gap:16px"><span class="row" style="gap:6px">${I("quiz")}15 questions</span><span class="row" style="gap:6px">${I("clock")}20 minutes</span></div><div class="row" style="margin-top:auto"><a class="btn sm pri" href="exam.html?c=${c.id}&mock=1">Start mock test</a></div></div>`; }).join("")}</div>
   <div class="card" style="margin-top:30px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="icon cyan">${I("info")}</span><div style="flex:1;min-width:240px"><b>Exam tips</b><p class="muted small" style="margin:4px 0 0">Read every option before answering. Use the navigator to skip hard questions and come back. Check the answer review after each mock to find weak lessons.</p></div></div>`;
 };
 
@@ -271,7 +272,7 @@ PAGES.mock=()=>{
 PAGES.roadmaps=()=>{
   app().innerHTML=head("Career roadmaps","Know exactly what to learn next","Step-by-step paths to real jobs. Live courses are linked; upcoming courses are marked.")+
   `<div class="grid g2">${window.RJ_ROADMAPS.map(r=>`<div class="card" id="${r.id}"><div class="row" style="justify-content:space-between"><span class="icon">${I(r.icon)}</span><span class="chip">${I("clock")} ${r.time}</span></div><h2 style="font-size:24px;margin:14px 0 8px">${esc(r.title)}</h2><p class="muted">${esc(r.desc)}</p>
-   <div class="road" style="margin-top:18px">${r.steps.map((s,i)=>{ const c=s[2]&&RJ.course(s[2]); const done=c&&RJ.progress(c).complete; return `<div class="st"><div class="row" style="justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card-2)"><span><small class="mono muted">STEP ${i+1}</small><br><b style="font-weight:600">${esc(s[0])}</b></span>${s[1]==="live"?(done?`<span class="chip ok">${I("check")} Done</span>`:`<a class="btn sm" href="course.html?c=${s[2]}">Start</a>`):`<span class="chip gold">Soon</span>`}</div></div>`; }).join("")}</div></div>`).join("")}</div>`;
+   <div class="road" style="margin-top:18px">${r.steps.map((s,i)=>{ const c=s[2]&&RJ.course(s[2]); const done=c&&RJ.progress(c).complete; return `<div class="st"><div class="row" style="justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card-2)"><span><small class="mono muted">STEP ${i+1}</small><br><b style="font-weight:600">${esc(s[0])}</b></span>${s[1]==="live"?(done?`<span class="chip ok">${I("check")} Done</span>`:`<a class="btn sm" href="course.html?c=${s[2]}">Start</a>`):(()=>{ const e=RJ.findEntry&&RJ.findEntry(s[0]); return e?`<a class="btn sm" href="course.html?c=${e.siteId}">View course</a>`:`<span class="chip">Planned</span>`; })()}</div></div>`; }).join("")}</div></div>`).join("")}</div>`;
   if(location.hash){ const t=document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView({behavior:"smooth"}),100); }
 };
 
@@ -387,7 +388,7 @@ PAGES.about=()=>{
    <div class="card"><span class="icon cyan">${I("flask")}</span><h2 style="font-size:22px;margin:14px 0 10px">How we teach</h2><p class="muted">Short notes you can download. Browser labs that behave like the real tools. A theory exam and a practical exam for every course. Certificates with IDs that anyone can verify.</p></div>
    <div class="card"><span class="icon gold">${I("user")}</span><h2 style="font-size:22px;margin:14px 0 10px">Founder</h2><p class="muted">rootjavs was founded by <b style="color:var(--text)">Jayveer Vasava</b>, an M.Tech Cyber Security student at Parul University, Vadodara, with industry internships in cyber security and web development.</p></div>
    <div class="card"><span class="icon">${I("map")}</span><h2 style="font-size:22px;margin:14px 0 10px">What is next</h2><p class="muted">Web development, Python, Linux, networking, cyber security, cloud and AI security courses, a live Linux terminal lab and a phishing simulator are on the roadmap.</p><a class="btn sm" href="roadmaps.html">See the roadmaps</a></div></div>
-  <div class="band"><div><b>${C.length}</b><span>Live courses</span></div><div><b>${totalLessons}</b><span>Lessons</span></div><div><b>${C.reduce((n,c)=>n+c.lessons.length*5,0)}</b><span>Quiz questions</span></div><div><b>${window.RJ_CHEATS.length}</b><span>Cheat sheets</span></div></div>`;
+  <div class="band"><div><b>${C.length}</b><span>Live courses</span></div><div><b>${TL()}</b><span>Lessons</span></div><div><b>${C.reduce((n,c)=>n+c.lessons.length*5,0)}</b><span>Quiz questions</span></div><div><b>${window.RJ_CHEATS.length}</b><span>Cheat sheets</span></div></div>`;
 };
 PAGES.contact=()=>{
   app().innerHTML=head("Contact","Get in touch","Questions about courses, certificates, college workshops or partnerships? We usually reply within two working days.")+
@@ -405,5 +406,6 @@ PAGES.privacy=()=>{ app().innerHTML=legal("Privacy Policy",[["What we collect","
 PAGES.terms=()=>{ app().innerHTML=legal("Terms of Use",[["Using rootjavs","You may use the courses, labs and resources for personal learning. Do not copy or resell the content."],["Certificates","Certificates confirm completion of the course requirements on rootjavs. Attempting to forge or misuse a certificate is not allowed."],["Acceptable use","Use labs and tools only for learning. Security topics are taught for defensive and ethical purposes; never test systems you do not own or have permission to test."],["Changes","We may update courses and these terms. Continued use means you accept the latest version."],["Contact","Questions about these terms: jayveervasava0710@gmail.com."]]); };
 PAGES.notfound=()=>{ app().innerHTML=gate("Page not found","The page you are looking for does not exist.","index.html","Go to home"); };
 
-document.addEventListener("DOMContentLoaded",()=>{ const p=document.body.dataset.page; (PAGES[p]||PAGES.notfound)(); });
+document.addEventListener("DOMContentLoaded",()=>{ const p=document.body.dataset.page;
+  (RJ.ready?RJ.ready(p):Promise.resolve()).then(()=>{ try{ (PAGES[p]||PAGES.notfound)(); }catch(err){ console.error(err); app().innerHTML=gate("Something went wrong","This page could not be shown. Please reload, or go back to the courses.","courses.html","Browse courses"); } }); });
 })();

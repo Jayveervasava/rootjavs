@@ -1,0 +1,2506 @@
+{
+ "id": "dbms-concepts",
+ "title": "DBMS Concepts",
+ "category": "Development",
+ "level": "Intermediate",
+ "hours": 10,
+ "short": "Design a correct relational database, query it with SQL, and explain how transactions, indexes and recovery keep data safe.",
+ "prerequisites": [],
+ "learn": [
+  "Explain why databases replace file-based storage and describe the three-schema architecture",
+  "Design a database with an ER diagram and convert it into tables with correct keys and constraints",
+  "Write SQL queries using joins, grouping, subqueries and data-changing statements",
+  "Find functional dependencies and normalize a design to 3NF and BCNF",
+  "Describe ACID, concurrency problems, locking and deadlock handling",
+  "Explain how indexes, write-ahead logging, backups and basic security protect and speed up a database"
+ ],
+ "lessons": [
+  {
+   "title": "Why Databases? Files, DBMS and Architecture",
+   "minutes": 20,
+   "notes": [
+    {
+     "h": "The problem with plain files"
+    },
+    {
+     "p": "Imagine you run a small coaching institute in Vadodara. At first you keep student details in an Excel sheet. Soon you add a second sheet for fees, a third for attendance and a fourth for exam marks. After one year, three staff members have their own copies of these files, each slightly different. This is the exact problem that led to the invention of the database."
+    },
+    {
+     "p": "When an application stores data directly in files, several problems appear. Understanding them is the best way to understand why a **Database Management System (DBMS)** exists."
+    },
+    {
+     "ul": [
+      "**Data redundancy:** the same student address is stored in the fee file and the attendance file. Storing the same fact many times wastes space.",
+      "**Data inconsistency:** the student moves house. The fee file is updated, the attendance file is not. Now the system holds two different addresses for one person.",
+      "**Difficult access:** to find all students who paid less than Rs 5,000 and scored above 70 percent, someone must write a new program every time.",
+      "**Isolation of data:** data lives in many files with different formats, so combining them is hard.",
+      "**Integrity problems:** nothing stops a user from typing a fee amount of -500 or a marks value of 900.",
+      "**No safe sharing:** if two clerks save the same file at the same moment, one change silently overwrites the other.",
+      "**Weak security:** a file is usually either fully readable or not readable. You cannot easily say that a clerk may see fees but not exam marks."
+     ]
+    },
+    {
+     "h": "Key definitions"
+    },
+    {
+     "p": "Learn these five words well. They appear in every later lesson."
+    },
+    {
+     "ul": [
+      "**Data:** raw facts, for example the number 4521 or the text Asha.",
+      "**Information:** data that has meaning, for example Asha scored 4521 rank in the entrance test.",
+      "**Database:** an organised collection of related data stored so that it can be easily accessed, managed and updated.",
+      "**DBMS:** the software that creates, stores, protects and retrieves the database. Examples: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB.",
+      "**Database system:** the database plus the DBMS plus the applications that use them."
+     ]
+    },
+    {
+     "diagram": "Animated comparison. Left side: three separate files (Fees.xlsx, Attendance.xlsx, Marks.xlsx) with the same student name repeated in each; one name changes in one file and a red warning flashes on the other two. Right side: one database box holding a single Student table; Fees, Attendance and Marks applications connect to it through a DBMS gate and the change appears everywhere at once."
+    },
+    {
+     "h": "What a DBMS gives you"
+    },
+    {
+     "tbl": [
+      [
+       "Need",
+       "File system",
+       "DBMS"
+      ],
+      [
+       "Reduce repeated data",
+       "Hard, manual",
+       "Designed in through tables and keys"
+      ],
+      [
+       "Keep data correct",
+       "Each program checks its own rules",
+       "Rules (constraints) live inside the database"
+      ],
+      [
+       "Ask new questions",
+       "Write a new program",
+       "Write a short SQL query"
+      ],
+      [
+       "Many users at once",
+       "Overwrites and conflicts",
+       "Concurrency control with locks or versions"
+      ],
+      [
+       "Recover after a crash",
+       "Restore a backup, lose recent work",
+       "Logs allow recovery to a consistent state"
+      ],
+      [
+       "Control who sees what",
+       "Operating system permissions only",
+       "Users, roles and privileges per table or column"
+      ]
+     ]
+    },
+    {
+     "h": "Schema and instance"
+    },
+    {
+     "p": "The **schema** is the design or blueprint of the database: which tables exist, what columns they have and what type each column holds. The **instance** is the actual data stored at one particular moment. The schema changes rarely. The instance changes every second."
+    },
+    {
+     "p": "Think of a blank admission form as the schema and all the filled forms in the office cupboard as the instance."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- This statement defines the SCHEMA (structure)\nCREATE TABLE student (\n  roll_no   INT PRIMARY KEY,\n  name      VARCHAR(50) NOT NULL,\n  city      VARCHAR(30)\n);\n\n-- This statement changes the INSTANCE (data)\nINSERT INTO student VALUES (101, 'Asha Patel', 'Vadodara');"
+     }
+    },
+    {
+     "h": "The three-schema architecture"
+    },
+    {
+     "p": "Most DBMS software separates the database into three levels. The goal is that a change at one level should not break the other levels."
+    },
+    {
+     "ol": [
+      "**Internal (physical) level:** how data is actually stored on disk: file layouts, indexes, compression.",
+      "**Conceptual (logical) level:** what data is stored and how it is related: tables, columns, keys, constraints. This is the level a database designer works at.",
+      "**External (view) level:** what each user group sees. The accounts clerk sees fee columns only. The teacher sees marks only. These are called **views**."
+     ]
+    },
+    {
+     "diagram": "Three stacked layers with arrows between them. Top layer: three small windows labelled Accountant view, Teacher view, Principal view. Middle layer: one large block labelled Conceptual schema with five tables. Bottom layer: a disk icon labelled Internal schema. Clicking the disk layer changes the file layout (a ripple animation) while the upper layers stay unchanged, to demonstrate data independence."
+    },
+    {
+     "h": "Data independence"
+    },
+    {
+     "p": "Data independence is the main benefit of the three levels."
+    },
+    {
+     "ul": [
+      "**Physical data independence:** you can add an index or move the database to a faster disk without changing the logical schema or the applications.",
+      "**Logical data independence:** you can add a new column to a table without breaking the existing views and applications. This is harder to achieve fully, but good design gets close."
+     ]
+    },
+    {
+     "h": "People who work with databases"
+    },
+    {
+     "ul": [
+      "**Database Administrator (DBA):** installs the DBMS, manages users and permissions, takes backups and tunes performance.",
+      "**Database designer:** decides the tables, keys and relationships.",
+      "**Application developer:** writes programs that read and write the database, for example the backend of a UPI app.",
+      "**End user:** uses the application and may never know a database exists."
+     ]
+    },
+    {
+     "h": "Main parts of a DBMS"
+    },
+    {
+     "p": "Inside every DBMS there are a few cooperating components. You do not need the details yet, but you should know the names."
+    },
+    {
+     "ul": [
+      "**Query processor:** reads your SQL, checks it, chooses an efficient plan and executes it.",
+      "**Storage manager:** reads and writes pages on disk and keeps frequently used pages in memory (the buffer).",
+      "**Transaction manager:** makes sure groups of operations finish completely or not at all, and that users do not disturb each other.",
+      "**Catalog (data dictionary):** the database's own information about itself, such as the names of tables and columns."
+     ]
+    },
+    {
+     "h": "Data models"
+    },
+    {
+     "p": "A data model is a set of ideas for describing data. The model decides how you think about the database."
+    },
+    {
+     "tbl": [
+      [
+       "Model",
+       "Basic idea",
+       "Example systems"
+      ],
+      [
+       "Relational",
+       "Data in tables of rows and columns",
+       "MySQL, PostgreSQL, Oracle"
+      ],
+      [
+       "Document",
+       "Data in flexible JSON-like documents",
+       "MongoDB"
+      ],
+      [
+       "Key-value",
+       "A key points to a value",
+       "Redis"
+      ],
+      [
+       "Graph",
+       "Nodes connected by edges",
+       "Neo4j"
+      ],
+      [
+       "Hierarchical and network",
+       "Older tree and graph structures",
+       "Early mainframe systems"
+      ]
+     ]
+    },
+    {
+     "p": "This course focuses on the **relational model**, because it is the foundation of most business systems, including banks, railway reservation and university results."
+    },
+    {
+     "h": "Two kinds of workload"
+    },
+    {
+     "p": "**OLTP** (online transaction processing) means many small reads and writes, such as thousands of UPI payments per second. **OLAP** (online analytical processing) means a few large queries over historical data, such as a yearly sales report. The two need different designs, and you will meet both in your career."
+    },
+    {
+     "tip": "When you read about any new database product, ask four questions: which data model does it use, how does it keep data consistent, how does it scale, and what is it good at? These questions let you place it on the map within minutes."
+    },
+    {
+     "flip": [
+      [
+       "What is the difference between schema and instance?",
+       "Schema is the structure or design. Instance is the data present at a given moment."
+      ],
+      [
+       "Name two problems of file-based storage.",
+       "Redundancy and inconsistency. Also isolated data, no integrity checks and unsafe sharing."
+      ],
+      [
+       "What is physical data independence?",
+       "Changing storage details without changing the logical schema or applications."
+      ],
+      [
+       "Which component chooses how a query is executed?",
+       "The query processor (the optimizer part)."
+      ],
+      [
+       "What does a view give a user?",
+       "A customised, limited picture of the data, which also improves security."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Take any real paper or Excel system you know, such as a college attendance register. Write down (1) three facts that are repeated, (2) one way they could become inconsistent and (3) three different groups of people who should each see a different part of the data."
+    }
+   ],
+   "quiz": [
+    [
+     "Which problem occurs when the same fact is stored in several places and only one copy is updated?",
+     [
+      "Data isolation",
+      "Data inconsistency",
+      "Data independence",
+      "Data encryption"
+     ],
+     1,
+     "That is inconsistency. Redundancy is the repeated storage that makes it possible. Isolation means data is scattered in separate formats, and independence is a benefit of a DBMS."
+    ],
+    [
+     "The blueprint of a database that lists tables and column types is called the:",
+     [
+      "Instance",
+      "Schema",
+      "Transaction",
+      "Index"
+     ],
+     1,
+     "The schema is the design. The instance is the data at one moment. A transaction is a unit of work and an index is a lookup structure."
+    ],
+    [
+     "Which level of the three-schema architecture shows each user group a customised picture of the data?",
+     [
+      "Internal level",
+      "Physical level",
+      "External level",
+      "Storage level"
+     ],
+     2,
+     "The external level contains views. Internal and physical describe disk storage, so they are the same idea."
+    ],
+    [
+     "Adding a new index without changing any application is an example of:",
+     [
+      "Logical data independence",
+      "Physical data independence",
+      "Data redundancy",
+      "Normalization"
+     ],
+     1,
+     "An index is a storage-level detail, so changing it shows physical independence. Logical independence concerns changes to tables and columns."
+    ],
+    [
+     "Which of these is a DBMS rather than a database?",
+     [
+      "A student table",
+      "The fee records of a college",
+      "PostgreSQL",
+      "A row with roll number 101"
+     ],
+     2,
+     "PostgreSQL is software that manages databases. The other options are data."
+    ]
+   ],
+   "practice": [
+    "List four differences between storing data in a text file and storing it in a DBMS.",
+    "Draw the three-schema architecture on paper and label one example for each level using a library system.",
+    "Name one OLTP system and one OLAP report from an Indian bank or e-commerce company."
+   ]
+  },
+  {
+   "title": "ER Modelling and the Relational Model",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "Designing before building"
+    },
+    {
+     "p": "A builder draws a plan before laying bricks. A database designer does the same. The most popular planning tool is the **Entity-Relationship (ER) model**. It is a picture-based way to agree with the customer on what data the system must store, before any table is created."
+    },
+    {
+     "p": "Consider a college library in Surat. Students borrow books. Each book has an author and a publisher. A librarian records every loan. The ER model lets us describe all of this with only three building blocks."
+    },
+    {
+     "h": "The three building blocks"
+    },
+    {
+     "ul": [
+      "**Entity:** a thing we want to store facts about. Examples: Student, Book, Librarian. In a diagram an entity is a rectangle.",
+      "**Attribute:** a fact about an entity. Examples: roll number, name, book title. In a diagram it is an oval joined to its entity.",
+      "**Relationship:** a meaningful link between entities. Example: a Student **borrows** a Book. In a diagram it is a diamond."
+     ]
+    },
+    {
+     "p": "An **entity set** is the collection of all entities of one type, such as all students. An **entity** is one member, such as the student with roll number 101."
+    },
+    {
+     "h": "Kinds of attributes"
+    },
+    {
+     "tbl": [
+      [
+       "Kind",
+       "Meaning",
+       "Example"
+      ],
+      [
+       "Simple",
+       "Cannot be split further",
+       "Roll number"
+      ],
+      [
+       "Composite",
+       "Can be split into parts",
+       "Address into street, city, pincode"
+      ],
+      [
+       "Single-valued",
+       "One value per entity",
+       "Date of birth"
+      ],
+      [
+       "Multi-valued",
+       "Several values per entity",
+       "Phone numbers"
+      ],
+      [
+       "Derived",
+       "Calculated from other data",
+       "Age from date of birth"
+      ],
+      [
+       "Key attribute",
+       "Uniquely identifies the entity",
+       "Aadhaar-style ID number (underlined)"
+      ]
+     ]
+    },
+    {
+     "diagram": "ER diagram builder. The student drags a Student rectangle, a Book rectangle and a Borrows diamond onto a canvas. Attributes pop out as ovals with the key attribute underlined. Lines show cardinality labels (1 and N). A button converts the diagram into the matching tables with a smooth animation."
+    },
+    {
+     "h": "Cardinality: how many on each side?"
+    },
+    {
+     "p": "Cardinality says how many entities on one side can be linked to entities on the other side."
+    },
+    {
+     "ul": [
+      "**One-to-one (1:1):** one person holds one passport.",
+      "**One-to-many (1:N):** one department has many teachers, but each teacher belongs to one department.",
+      "**Many-to-many (M:N):** one student can borrow many books over time, and one book can be borrowed by many students."
+     ]
+    },
+    {
+     "p": "Participation tells whether every entity must take part. If every teacher must belong to a department, participation is **total**. If a student may exist without ever borrowing a book, participation is **partial**."
+    },
+    {
+     "h": "Weak entities"
+    },
+    {
+     "p": "A **weak entity** cannot be identified by its own attributes alone. It depends on an owner entity. Example: in a bank, a Loan Instalment is identified by its instalment number, but only together with the Loan it belongs to. Instalment number 3 means nothing until you say which loan."
+    },
+    {
+     "h": "From ER diagram to tables"
+    },
+    {
+     "p": "The **relational model** stores everything in **relations**, which we draw as tables. A table has columns (attributes) and rows (tuples). The conversion rules are simple."
+    },
+    {
+     "ol": [
+      "Each strong entity becomes a table. Its key attribute becomes the primary key.",
+      "Each multi-valued attribute becomes its own table that holds the owner's key and one value per row.",
+      "A 1:N relationship is stored by placing the key of the 1 side as a foreign key in the N side table.",
+      "An M:N relationship becomes a new table whose primary key combines the two foreign keys.",
+      "A weak entity becomes a table that includes the owner's key as part of its primary key."
+     ]
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "CREATE TABLE student (\n  roll_no INT PRIMARY KEY,\n  name    VARCHAR(50) NOT NULL\n);\n\nCREATE TABLE book (\n  book_id INT PRIMARY KEY,\n  title   VARCHAR(100) NOT NULL\n);\n\n-- M:N relationship becomes its own table\nCREATE TABLE borrow (\n  roll_no   INT,\n  book_id   INT,\n  issue_date DATE,\n  PRIMARY KEY (roll_no, book_id, issue_date),\n  FOREIGN KEY (roll_no) REFERENCES student(roll_no),\n  FOREIGN KEY (book_id) REFERENCES book(book_id)\n);"
+     }
+    },
+    {
+     "h": "Terms of the relational model"
+    },
+    {
+     "ul": [
+      "**Relation:** a table.",
+      "**Tuple:** a row.",
+      "**Attribute:** a column.",
+      "**Domain:** the set of allowed values for an attribute, such as whole numbers from 0 to 100 for marks.",
+      "**Degree:** the number of columns.",
+      "**Cardinality of a relation:** the number of rows."
+     ]
+    },
+    {
+     "p": "Two properties matter. A relation has **no duplicate rows**, and the **order of rows and columns does not matter**. Each cell holds a single, atomic value."
+    },
+    {
+     "h": "Keys: the heart of the relational model"
+    },
+    {
+     "p": "Keys are how we identify rows and connect tables. Study these carefully because exams and interviews ask them often."
+    },
+    {
+     "tbl": [
+      [
+       "Key",
+       "Definition",
+       "Example in Employee(emp_id, email, phone, name)"
+      ],
+      [
+       "Super key",
+       "Any set of columns that uniquely identifies a row",
+       "{emp_id}, {emp_id, name}, {email}"
+      ],
+      [
+       "Candidate key",
+       "A minimal super key; no column can be removed",
+       "{emp_id}, {email}"
+      ],
+      [
+       "Primary key",
+       "The candidate key chosen as the main identifier; cannot be NULL",
+       "{emp_id}"
+      ],
+      [
+       "Alternate key",
+       "Candidate keys not chosen as primary",
+       "{email}"
+      ],
+      [
+       "Composite key",
+       "A key made of more than one column",
+       "{roll_no, subject_code} in a Marks table"
+      ],
+      [
+       "Foreign key",
+       "A column that refers to the primary key of another table",
+       "dept_id in Employee referring to Department"
+      ]
+     ]
+    },
+    {
+     "h": "Integrity constraints"
+    },
+    {
+     "p": "Constraints are rules the DBMS enforces automatically, so no application can break them."
+    },
+    {
+     "ul": [
+      "**Domain constraint:** values must belong to the column type, for example marks between 0 and 100.",
+      "**Entity integrity:** a primary key can never be NULL and must be unique.",
+      "**Referential integrity:** a foreign key must either be NULL or match an existing primary key in the referenced table. You cannot enrol a student in a course that does not exist.",
+      "**NOT NULL, UNIQUE and CHECK:** extra rules that restrict values further."
+     ]
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "CREATE TABLE marks (\n  roll_no INT NOT NULL,\n  subject VARCHAR(30) NOT NULL,\n  score   INT CHECK (score BETWEEN 0 AND 100),\n  PRIMARY KEY (roll_no, subject),\n  FOREIGN KEY (roll_no) REFERENCES student(roll_no)\n    ON DELETE CASCADE\n);"
+     }
+    },
+    {
+     "p": "The clause **ON DELETE CASCADE** tells the DBMS what to do when a referenced row is removed. Here, deleting a student automatically deletes that student's marks. Other options are RESTRICT, which refuses the delete, and SET NULL, which clears the foreign key."
+    },
+    {
+     "warn": "Never use a person's name as a primary key. Two students can share a name, and names change. Choose a stable identifier such as a roll number, or a system-generated number."
+    },
+    {
+     "tip": "A quick test for the table of an M:N relationship: if you cannot store the link in either of the two entity tables without repeating data or leaving blank cells, it needs its own table."
+    },
+    {
+     "flip": [
+      [
+       "What does a diamond represent in an ER diagram?",
+       "A relationship between entities."
+      ],
+      [
+       "How do you store an M:N relationship?",
+       "In a new table that holds both foreign keys, and these usually form its primary key."
+      ],
+      [
+       "Difference between a candidate key and a super key?",
+       "A candidate key is a minimal super key. A super key may contain extra columns."
+      ],
+      [
+       "What does referential integrity prevent?",
+       "A foreign key pointing to a row that does not exist."
+      ],
+      [
+       "What is a weak entity?",
+       "An entity that cannot be identified without the key of its owner entity."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Design an ER diagram on paper for an online food-ordering app with Customer, Restaurant, Dish and Order. Mark each cardinality, underline the keys, then write the CREATE TABLE statements for the final tables."
+    }
+   ],
+   "quiz": [
+    [
+     "A student can borrow many books and a book can be borrowed by many students. This relationship is:",
+     [
+      "1:1",
+      "1:N",
+      "M:N",
+      "Weak"
+     ],
+     2,
+     "Both sides allow many, so it is many-to-many and needs its own table. 1:N allows many on only one side."
+    ],
+    [
+     "Which key is a minimal set of columns that uniquely identifies a row?",
+     [
+      "Super key",
+      "Candidate key",
+      "Foreign key",
+      "Composite attribute"
+     ],
+     1,
+     "A candidate key is minimal. A super key may include extra columns, and a foreign key links to another table."
+    ],
+    [
+     "Which constraint ensures that an enrolment row cannot refer to a missing course?",
+     [
+      "Domain constraint",
+      "Entity integrity",
+      "Referential integrity",
+      "UNIQUE"
+     ],
+     2,
+     "Referential integrity governs foreign keys. Entity integrity concerns primary keys being unique and not NULL."
+    ],
+    [
+     "In an ER diagram, the age calculated from date of birth is a:",
+     [
+      "Multi-valued attribute",
+      "Derived attribute",
+      "Key attribute",
+      "Composite attribute"
+     ],
+     1,
+     "Age can be computed from another attribute, so it is derived."
+    ],
+    [
+     "In a 1:N relationship between Department and Teacher, where is the foreign key stored?",
+     [
+      "In the Department table",
+      "In the Teacher table",
+      "In both tables",
+      "In neither; a new table is mandatory"
+     ],
+     1,
+     "The key of the one side (Department) is stored on the many side (Teacher). A separate table is needed only for M:N."
+    ]
+   ],
+   "practice": [
+    "Convert this statement into an ER sketch: A hospital has doctors, patients and appointments. State the cardinality of each relationship.",
+    "For a table Vehicle(reg_no, chassis_no, owner_name, colour), list all candidate keys and choose a primary key with a reason.",
+    "Write a table definition that uses PRIMARY KEY, FOREIGN KEY and CHECK together."
+   ]
+  },
+  {
+   "title": "Relational Algebra and SQL Queries",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Two languages, one idea"
+    },
+    {
+     "p": "To get answers from a database we need a language. **Relational algebra** is the mathematical language that describes how to combine tables step by step. **SQL** (Structured Query Language) is the practical language that real databases use. SQL was built on top of relational algebra, so learning the algebra first makes SQL much easier to reason about."
+    },
+    {
+     "p": "We will use two small tables for every example in this lesson."
+    },
+    {
+     "tbl": [
+      [
+       "student: roll_no",
+       "name",
+       "city",
+       "dept_id"
+      ],
+      [
+       "101",
+       "Asha",
+       "Vadodara",
+       "1"
+      ],
+      [
+       "102",
+       "Ravi",
+       "Surat",
+       "2"
+      ],
+      [
+       "103",
+       "Meena",
+       "Vadodara",
+       "1"
+      ],
+      [
+       "104",
+       "Karan",
+       "Pune",
+       "3"
+      ]
+     ]
+    },
+    {
+     "tbl": [
+      [
+       "department: dept_id",
+       "dept_name"
+      ],
+      [
+       "1",
+       "Computer"
+      ],
+      [
+       "2",
+       "Mechanical"
+      ],
+      [
+       "3",
+       "Civil"
+      ]
+     ]
+    },
+    {
+     "h": "Core relational algebra operations"
+    },
+    {
+     "ul": [
+      "**Selection (sigma):** chooses rows that satisfy a condition. Selecting students from Vadodara returns rows 101 and 103.",
+      "**Projection (pi):** chooses columns. Projecting name and city returns only those two columns and removes duplicate rows.",
+      "**Union:** all rows that appear in either of two compatible tables.",
+      "**Intersection:** rows that appear in both.",
+      "**Difference:** rows in the first table that are not in the second.",
+      "**Cartesian product:** every row of one table paired with every row of the other.",
+      "**Join:** a Cartesian product followed by a selection that matches related rows, usually on a foreign key.",
+      "**Rename (rho):** gives a table or column a new name."
+     ]
+    },
+    {
+     "p": "Union, intersection and difference need tables that are **union compatible**, meaning they have the same number of columns with matching types."
+    },
+    {
+     "diagram": "Step-by-step animation of a join. Show the student and department tables side by side. First animate the Cartesian product (12 rows appear), then a filter sweeps across and removes every row where student.dept_id is not equal to department.dept_id, leaving 4 matched rows. A slider switches between Cartesian product, inner join and left join."
+    },
+    {
+     "h": "From algebra to SQL: the SELECT statement"
+    },
+    {
+     "p": "A SQL query has a fixed shape. The clauses are written in one order but the database thinks about them in another, which is why beginners are often surprised by errors."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "SELECT   columns or expressions        -- 5th: choose output\nFROM     tables                        -- 1st: find the data\nWHERE    row condition                 -- 2nd: filter rows\nGROUP BY columns                       -- 3rd: make groups\nHAVING   group condition               -- 4th: filter groups\nORDER BY columns                       -- 6th: sort\nLIMIT    n;                            -- 7th: cut the result"
+     }
+    },
+    {
+     "p": "Selection and projection together:"
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "SELECT name, city\nFROM student\nWHERE city = 'Vadodara'\nORDER BY name;"
+     }
+    },
+    {
+     "p": "Useful filters are **AND, OR, NOT, IN, BETWEEN, LIKE** and **IS NULL**. For example, LIKE 'A%' matches names starting with A. Remember that you test for missing values with IS NULL, never with = NULL, because NULL means unknown and nothing equals unknown."
+    },
+    {
+     "h": "Joins"
+    },
+    {
+     "p": "Joins combine tables using the foreign key. This is the main reason we split data into tables during design."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- INNER JOIN: only students that have a matching department\nSELECT s.name, d.dept_name\nFROM student s\nINNER JOIN department d ON s.dept_id = d.dept_id;\n\n-- LEFT JOIN: all departments, even those with no students\nSELECT d.dept_name, s.name\nFROM department d\nLEFT JOIN student s ON s.dept_id = d.dept_id;"
+     }
+    },
+    {
+     "tbl": [
+      [
+       "Join type",
+       "What it keeps"
+      ],
+      [
+       "INNER JOIN",
+       "Only rows that match in both tables"
+      ],
+      [
+       "LEFT JOIN",
+       "All rows from the left table, plus matches from the right (NULL if none)"
+      ],
+      [
+       "RIGHT JOIN",
+       "All rows from the right table, plus matches from the left"
+      ],
+      [
+       "FULL JOIN",
+       "All rows from both tables (not supported in every DBMS)"
+      ],
+      [
+       "CROSS JOIN",
+       "Cartesian product"
+      ]
+     ]
+    },
+    {
+     "warn": "Forgetting the ON condition in a join creates a Cartesian product. Joining two tables of 100,000 rows each would try to produce ten billion rows. Always check the join condition."
+    },
+    {
+     "h": "Aggregation and grouping"
+    },
+    {
+     "p": "Aggregate functions summarise many rows into one value: **COUNT, SUM, AVG, MIN, MAX**. GROUP BY applies them separately to each group."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- How many students are in each department?\nSELECT d.dept_name, COUNT(*) AS total\nFROM student s\nJOIN department d ON s.dept_id = d.dept_id\nGROUP BY d.dept_name\nHAVING COUNT(*) >= 2;"
+     }
+    },
+    {
+     "p": "The difference between **WHERE** and **HAVING** is one of the most asked interview questions. WHERE filters individual rows before grouping. HAVING filters whole groups after aggregation, so it can use COUNT or SUM."
+    },
+    {
+     "h": "Subqueries"
+    },
+    {
+     "p": "A subquery is a query inside another query. It lets you answer a question in two steps."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- Students who live in the same city as Asha\nSELECT name\nFROM student\nWHERE city = (SELECT city FROM student WHERE name = 'Asha');\n\n-- Departments that have at least one student\nSELECT dept_name\nFROM department d\nWHERE EXISTS (SELECT 1 FROM student s WHERE s.dept_id = d.dept_id);"
+     }
+    },
+    {
+     "h": "Changing data and structure"
+    },
+    {
+     "p": "SQL commands fall into families. Knowing the family tells you what a command does to the database."
+    },
+    {
+     "tbl": [
+      [
+       "Family",
+       "Purpose",
+       "Commands"
+      ],
+      [
+       "DDL (Data Definition)",
+       "Create or change structure",
+       "CREATE, ALTER, DROP, TRUNCATE"
+      ],
+      [
+       "DML (Data Manipulation)",
+       "Change data",
+       "INSERT, UPDATE, DELETE"
+      ],
+      [
+       "DQL (Data Query)",
+       "Read data",
+       "SELECT"
+      ],
+      [
+       "DCL (Data Control)",
+       "Permissions",
+       "GRANT, REVOKE"
+      ],
+      [
+       "TCL (Transaction Control)",
+       "Manage transactions",
+       "COMMIT, ROLLBACK, SAVEPOINT"
+      ]
+     ]
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "INSERT INTO student (roll_no, name, city, dept_id)\nVALUES (105, 'Divya', 'Rajkot', 2);\n\nUPDATE student SET city = 'Ahmedabad' WHERE roll_no = 102;\n\nDELETE FROM student WHERE roll_no = 104;"
+     }
+    },
+    {
+     "warn": "An UPDATE or DELETE without a WHERE clause changes every row in the table. Before a risky change, run the same condition as a SELECT first and check the rows it returns."
+    },
+    {
+     "h": "SQL injection: a security note"
+    },
+    {
+     "p": "When an application builds a query by joining user input into a string, an attacker can type SQL instead of a name and change the meaning of the query. This is **SQL injection**. Study and test it ONLY on the rootjavs lab or on databases you own. The defence is to use **parameterised queries** (prepared statements), where the database receives the query and the values separately, so input is never treated as code. Also give the application account only the privileges it truly needs."
+    },
+    {
+     "code": {
+      "lang": "python",
+      "text": "# Safe: the value is passed separately from the SQL text\ncursor.execute(\"SELECT * FROM student WHERE roll_no = %s\", (roll_no,))"
+     }
+    },
+    {
+     "tip": "Write a query in the logical order: first decide FROM, then the join, then WHERE, then grouping, and only at the end choose the SELECT columns. Beginners who start with SELECT often get lost."
+    },
+    {
+     "flip": [
+      [
+       "Difference between WHERE and HAVING?",
+       "WHERE filters rows before grouping. HAVING filters groups after aggregation."
+      ],
+      [
+       "Which join keeps unmatched rows of the left table?",
+       "LEFT JOIN."
+      ],
+      [
+       "How do you test for a missing value?",
+       "Use IS NULL, not = NULL."
+      ],
+      [
+       "What does a join equal in relational algebra?",
+       "A Cartesian product followed by a selection on the matching condition."
+      ],
+      [
+       "Which defence stops SQL injection?",
+       "Parameterised queries, plus least-privilege database accounts."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Using the two sample tables above, write queries to (1) list students not from Vadodara, (2) show each department with its student count including departments with zero students, (3) find the department with the most students."
+    }
+   ],
+   "quiz": [
+    [
+     "Which relational algebra operation chooses specific columns?",
+     [
+      "Selection",
+      "Projection",
+      "Union",
+      "Difference"
+     ],
+     1,
+     "Projection picks columns. Selection picks rows."
+    ],
+    [
+     "Which clause filters groups after GROUP BY?",
+     [
+      "WHERE",
+      "ORDER BY",
+      "HAVING",
+      "LIMIT"
+     ],
+     2,
+     "HAVING works on groups and can use aggregates. WHERE runs before grouping."
+    ],
+    [
+     "You want all departments, including those with no students. Which join do you use from department?",
+     [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "CROSS JOIN",
+      "None; it is impossible"
+     ],
+     1,
+     "LEFT JOIN from department keeps every department. An inner join would drop departments without matches."
+    ],
+    [
+     "What does DELETE FROM student; do?",
+     [
+      "Removes the table structure",
+      "Deletes only the first row",
+      "Deletes all rows but keeps the table",
+      "Causes a syntax error"
+     ],
+     2,
+     "Without WHERE it removes every row. DROP TABLE removes the structure."
+    ],
+    [
+     "Which technique best prevents SQL injection?",
+     [
+      "Hiding the database name",
+      "Parameterised queries",
+      "Using longer passwords only",
+      "Using uppercase SQL"
+     ],
+     1,
+     "Parameterised queries separate code from data. The other options do not stop user input being treated as SQL."
+    ]
+   ],
+   "practice": [
+    "Write a query to find the second highest mark in a Marks(roll_no, score) table.",
+    "Write one query that uses JOIN, GROUP BY and HAVING together.",
+    "Explain in two lines why the result of x = NULL is never true."
+   ]
+  },
+  {
+   "title": "Functional Dependencies and Normalization",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Why a good design matters"
+    },
+    {
+     "p": "Two designs can store exactly the same information, yet one of them can be a daily headache. Normalization is the step-by-step method for improving a design so that each fact is stored once, in the right place. It removes the redundancy that you met in lesson 1."
+    },
+    {
+     "p": "Look at this single table for a college in Ahmedabad."
+    },
+    {
+     "tbl": [
+      [
+       "roll_no",
+       "student_name",
+       "course_id",
+       "course_name",
+       "teacher",
+       "teacher_phone"
+      ],
+      [
+       "101",
+       "Asha",
+       "C1",
+       "DBMS",
+       "Dr Shah",
+       "98250xxxx1"
+      ],
+      [
+       "101",
+       "Asha",
+       "C2",
+       "Networks",
+       "Dr Mehta",
+       "98250xxxx2"
+      ],
+      [
+       "102",
+       "Ravi",
+       "C1",
+       "DBMS",
+       "Dr Shah",
+       "98250xxxx1"
+      ],
+      [
+       "103",
+       "Meena",
+       "C1",
+       "DBMS",
+       "Dr Shah",
+       "98250xxxx1"
+      ]
+     ]
+    },
+    {
+     "p": "Everything is in one place, which looks convenient. But it creates three kinds of trouble called **anomalies**."
+    },
+    {
+     "ul": [
+      "**Update anomaly:** Dr Shah changes phone number. We must edit every row where Dr Shah appears. If we miss one, the data is inconsistent.",
+      "**Insertion anomaly:** a new course with no students yet cannot be stored, because roll_no is part of the key and cannot be empty.",
+      "**Deletion anomaly:** if Meena is the only student of a course and we delete her, we also lose the fact that the course and its teacher exist."
+     ]
+    },
+    {
+     "h": "Functional dependency (FD)"
+    },
+    {
+     "p": "A **functional dependency** X → Y means: if two rows have the same value of X, they must have the same value of Y. We say X determines Y. In our table, roll_no → student_name, because one roll number belongs to only one student. Also course_id → course_name, teacher."
+    },
+    {
+     "p": "FDs are facts about the real world, not about the sample data. You find them by asking the customer, not by looking at a few rows."
+    },
+    {
+     "ul": [
+      "**Trivial FD:** Y is part of X, for example {roll_no, course_id} → roll_no.",
+      "**Full dependency:** Y depends on the whole of a composite key.",
+      "**Partial dependency:** Y depends on only part of a composite key.",
+      "**Transitive dependency:** A → B and B → C, so A → C indirectly, with B not a key."
+     ]
+    },
+    {
+     "h": "Attribute closure and finding keys"
+    },
+    {
+     "p": "The **closure** of a set of attributes X, written X+, is the set of everything X can determine, directly or through a chain of FDs. If X+ contains all attributes of the table, X is a super key. If no smaller part of X also works, X is a candidate key."
+    },
+    {
+     "p": "Worked example. Table R(A, B, C, D) with FDs: A → B, B → C, C → D."
+    },
+    {
+     "ol": [
+      "Start: A+ = {A}.",
+      "Use A → B: A+ = {A, B}.",
+      "Use B → C: A+ = {A, B, C}.",
+      "Use C → D: A+ = {A, B, C, D}. All attributes are reached, so A is a candidate key.",
+      "No other column can be a key, because nothing determines A."
+     ]
+    },
+    {
+     "diagram": "Interactive closure calculator. The student sees columns as circles and FDs as arrows. Clicking a starting attribute lights up circles one by one as the closure grows along arrows, and a counter shows when all circles are lit, marking the starting set as a key."
+    },
+    {
+     "h": "The normal forms"
+    },
+    {
+     "p": "Each normal form adds one rule. A table in a higher form satisfies the lower forms too."
+    },
+    {
+     "h": "First Normal Form (1NF)"
+    },
+    {
+     "p": "Every cell holds one atomic value, and there are no repeating groups. A column storing phone numbers as '98250xxxx1, 98250xxxx2' breaks 1NF. The fix is one phone per row, or a separate phone table."
+    },
+    {
+     "h": "Second Normal Form (2NF)"
+    },
+    {
+     "p": "The table is in 1NF and has **no partial dependency**: no non-key column depends on only part of a composite key. In our table the key is {roll_no, course_id}. But student_name depends only on roll_no, and course_name depends only on course_id. Both are partial dependencies. We split the table:"
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "student(roll_no PK, student_name)\ncourse(course_id PK, course_name, teacher, teacher_phone)\nenrolment(roll_no, course_id, PRIMARY KEY (roll_no, course_id))"
+     }
+    },
+    {
+     "h": "Third Normal Form (3NF)"
+    },
+    {
+     "p": "The table is in 2NF and has **no transitive dependency**. In the course table, course_id → teacher and teacher → teacher_phone. So teacher_phone depends on the key only through teacher. We split again:"
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "teacher(teacher_id PK, teacher_name, teacher_phone)\ncourse(course_id PK, course_name, teacher_id FK)"
+     }
+    },
+    {
+     "p": "A simple memory line: every non-key attribute should depend on **the key, the whole key and nothing but the key**."
+    },
+    {
+     "h": "Boyce-Codd Normal Form (BCNF)"
+    },
+    {
+     "p": "BCNF is stricter. For every non-trivial FD X → Y, X must be a super key. Most 3NF tables are already in BCNF. A difference appears only in unusual cases where a non-key attribute determines part of a candidate key. Example: Allocation(student, subject, teacher) where each teacher teaches only one subject (teacher → subject). Teacher is not a super key, so the table violates BCNF. Decomposing into (teacher, subject) and (student, teacher) fixes it."
+    },
+    {
+     "tbl": [
+      [
+       "Normal form",
+       "Rule in one line",
+       "Removes"
+      ],
+      [
+       "1NF",
+       "Atomic values, no repeating groups",
+       "Multi-valued cells"
+      ],
+      [
+       "2NF",
+       "No partial dependency on a composite key",
+       "Partial dependency"
+      ],
+      [
+       "3NF",
+       "No transitive dependency",
+       "Transitive dependency"
+      ],
+      [
+       "BCNF",
+       "Every determinant is a super key",
+       "Remaining FD anomalies"
+      ]
+     ]
+    },
+    {
+     "h": "Good decomposition"
+    },
+    {
+     "p": "Splitting a table must not damage the data. A decomposition should be **lossless**: joining the pieces must give back exactly the original rows, with no missing and no extra rows. It should also be **dependency preserving**, meaning each FD can still be checked inside one table. BCNF always gives a lossless result but may lose a dependency. 3NF can always give both."
+    },
+    {
+     "warn": "Splitting a table on the wrong column creates a lossy decomposition. After a join you would see rows that never existed. Always check that the common column of the pieces is a key in at least one of them."
+    },
+    {
+     "h": "Denormalization: when to break the rule"
+    },
+    {
+     "p": "Normalized designs need more joins. In reporting systems or very large read-heavy applications, designers sometimes **denormalize** on purpose by storing a copy of some data to avoid joins. This is a trade: faster reads, but extra storage and the duty to keep copies in sync. It should be a deliberate choice after measuring, not a starting point."
+    },
+    {
+     "tip": "Exam shortcut: to find the highest normal form, first find all candidate keys. Then check each FD. If the left side is not a super key, look at the right side. A right side that is part of a key points to a 3NF check, and a non-key right side points to a 2NF or 3NF violation."
+    },
+    {
+     "flip": [
+      [
+       "What does X → Y mean?",
+       "If two rows agree on X they must agree on Y."
+      ],
+      [
+       "Which anomaly stops you storing a new course with no student?",
+       "Insertion anomaly."
+      ],
+      [
+       "What is a partial dependency?",
+       "A non-key column that depends on only part of a composite key."
+      ],
+      [
+       "Memory line for 3NF?",
+       "The key, the whole key and nothing but the key."
+      ],
+      [
+       "What makes a decomposition lossless?",
+       "Joining the parts gives back exactly the original table."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Take the table Order(order_id, product_id, product_name, customer_id, customer_city, quantity). Write the FDs you expect, find the key, and normalize it to 3NF showing every resulting table."
+    }
+   ],
+   "quiz": [
+    [
+     "If two rows have the same roll_no they must have the same student_name. This is:",
+     [
+      "A multi-valued dependency",
+      "A functional dependency",
+      "A join dependency",
+      "A referential constraint"
+     ],
+     1,
+     "roll_no determines student_name, which is written roll_no → student_name."
+    ],
+    [
+     "A table with key {A, B} where column C depends only on A violates:",
+     [
+      "1NF",
+      "2NF",
+      "3NF only",
+      "No normal form"
+     ],
+     1,
+     "C depends on part of the key, a partial dependency, so 2NF is violated."
+    ],
+    [
+     "Which situation shows a transitive dependency?",
+     [
+      "A → B and B → C where B is not a key",
+      "A → A",
+      "Two keys in one table",
+      "A column holding two values"
+     ],
+     0,
+     "C depends on A through B. The other options are trivial FDs, candidate keys or a 1NF issue."
+    ],
+    [
+     "Given FDs A → B and B → C on R(A, B, C), what is A+?",
+     [
+      "{A}",
+      "{A, B}",
+      "{A, B, C}",
+      "{B, C}"
+     ],
+     2,
+     "A gives B, B gives C, so closure is A, B and C."
+    ],
+    [
+     "Why do designers sometimes denormalize?",
+     [
+      "To remove all keys",
+      "To improve read speed by reducing joins",
+      "To break atomicity rules",
+      "To avoid using SQL"
+     ],
+     1,
+     "Denormalization trades extra storage and sync work for faster reads. It is a deliberate decision."
+    ]
+   ],
+   "practice": [
+    "Find all candidate keys of R(A, B, C, D) with FDs AB → C, C → D and D → A.",
+    "Show the three anomalies in a table of your own where the same teacher details repeat in every row.",
+    "Decompose Allocation(student, subject, teacher) with teacher → subject into BCNF and say whether any FD is lost."
+   ]
+  },
+  {
+   "title": "Transactions, ACID and Concurrency Control",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "What is a transaction?"
+    },
+    {
+     "p": "A **transaction** is a group of database operations that must be treated as one single unit of work. Either all of it happens, or none of it happens."
+    },
+    {
+     "p": "Consider a UPI payment of Rs 500 from Asha to Ravi. Behind the scene, the bank must (1) subtract 500 from Asha's account and (2) add 500 to Ravi's account. Suppose the system crashes after step 1. Asha has lost money, Ravi has not received it, and the total money in the bank has changed. A transaction prevents this."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "START TRANSACTION;\n\nUPDATE account SET balance = balance - 500 WHERE acc_no = 'A101';\nUPDATE account SET balance = balance + 500 WHERE acc_no = 'R202';\n\nCOMMIT;      -- make both changes permanent\n-- ROLLBACK; -- or undo both if something went wrong"
+     }
+    },
+    {
+     "h": "The ACID properties"
+    },
+    {
+     "p": "A trustworthy DBMS guarantees four properties for every transaction. The word ACID is made from their first letters."
+    },
+    {
+     "tbl": [
+      [
+       "Letter",
+       "Property",
+       "Meaning",
+       "UPI example"
+      ],
+      [
+       "A",
+       "Atomicity",
+       "All operations happen or none",
+       "Debit and credit both succeed, or neither"
+      ],
+      [
+       "C",
+       "Consistency",
+       "A transaction moves the database from one valid state to another valid state",
+       "Total money stays the same; no negative balance if forbidden"
+      ],
+      [
+       "I",
+       "Isolation",
+       "Concurrent transactions do not see each other's half-finished work",
+       "Two payments at the same time do not mix up balances"
+      ],
+      [
+       "D",
+       "Durability",
+       "Once committed, data survives crashes",
+       "After the success message, a power cut cannot erase the payment"
+      ]
+     ]
+    },
+    {
+     "p": "Atomicity and durability are mainly the job of the **recovery system**. Isolation is the job of **concurrency control**. Consistency is shared between the DBMS, which enforces constraints, and the application, which must write correct logic."
+    },
+    {
+     "diagram": "Timeline animation of a transaction through its states: Active, Partially committed, Committed, and the failure path Failed, Aborted. A token moves along the arrows. The student can press a Crash button at any point and see the token go to Failed and Aborted, with balances returning to their old values."
+    },
+    {
+     "h": "Transaction states"
+    },
+    {
+     "ul": [
+      "**Active:** the transaction is executing.",
+      "**Partially committed:** the last statement has run, but the data is not yet safely stored.",
+      "**Committed:** the changes are permanent.",
+      "**Failed:** a problem occurred, so execution cannot continue.",
+      "**Aborted:** the changes were rolled back and the database is back to its earlier state."
+     ]
+    },
+    {
+     "h": "Why concurrency causes trouble"
+    },
+    {
+     "p": "A busy system such as IRCTC ticket booking runs thousands of transactions at once. Running them one by one would be safe but extremely slow. So the DBMS interleaves them. If it is not done carefully, three classic problems appear."
+    },
+    {
+     "ul": [
+      "**Lost update:** two transactions read the same seat count, both subtract one and write back. One of the writes disappears, and two people hold one seat.",
+      "**Dirty read:** a transaction reads data written by another transaction that later rolls back. It has used a value that never officially existed.",
+      "**Non-repeatable read:** a transaction reads the same row twice and gets different values because another transaction committed in between.",
+      "**Phantom read:** the same query run twice returns a different set of rows because another transaction inserted or deleted matching rows."
+     ]
+    },
+    {
+     "h": "Schedules and serializability"
+    },
+    {
+     "p": "A **schedule** is the order in which operations of several transactions are executed. A **serial schedule** runs one complete transaction after another. A schedule is **serializable** if its final effect is the same as some serial schedule. Serializable schedules give the safety of serial execution with the speed of interleaving."
+    },
+    {
+     "p": "Two operations **conflict** when they belong to different transactions, work on the same data item, and at least one of them is a write. Conflicts decide whether a schedule is safe."
+    },
+    {
+     "p": "To test **conflict serializability**, build a precedence graph. Draw one node for each transaction. Draw an edge from T1 to T2 whenever a conflicting operation of T1 comes before a conflicting operation of T2. If the graph has **no cycle**, the schedule is conflict serializable. A cycle means it is not."
+    },
+    {
+     "h": "Locking"
+    },
+    {
+     "p": "The most common way to enforce isolation is locking. A transaction asks for a lock on a data item before using it."
+    },
+    {
+     "ul": [
+      "**Shared lock (S):** for reading. Many transactions can hold shared locks on the same item together.",
+      "**Exclusive lock (X):** for writing. Only one transaction can hold it, and nobody else can read or write that item meanwhile."
+     ]
+    },
+    {
+     "tbl": [
+      [
+       "Lock held \\ Requested",
+       "Shared",
+       "Exclusive"
+      ],
+      [
+       "Shared",
+       "Allowed",
+       "Wait"
+      ],
+      [
+       "Exclusive",
+       "Wait",
+       "Wait"
+      ]
+     ]
+    },
+    {
+     "p": "**Two-phase locking (2PL)** is a rule that guarantees serializability. A transaction has a **growing phase**, where it may only acquire locks, followed by a **shrinking phase**, where it may only release them. Once it releases any lock it can never acquire a new one. **Strict 2PL** keeps exclusive locks until commit, which also prevents dirty reads."
+    },
+    {
+     "h": "Deadlock"
+    },
+    {
+     "p": "Locking creates a new danger. T1 holds a lock on row A and waits for row B. T2 holds B and waits for A. Neither can proceed. This is a **deadlock**."
+    },
+    {
+     "ul": [
+      "**Prevention:** impose rules so that a cycle cannot form, such as acquiring locks in a fixed order.",
+      "**Detection:** the DBMS keeps a wait-for graph. A cycle in it means deadlock. One transaction, the victim, is rolled back so the others can continue.",
+      "**Timeout:** a transaction that waits too long is aborted."
+     ]
+    },
+    {
+     "p": "Application code should be ready to **retry** a transaction that was chosen as a deadlock victim."
+    },
+    {
+     "h": "Isolation levels in SQL"
+    },
+    {
+     "p": "Full isolation costs performance, so SQL allows you to choose a weaker level when some anomalies are acceptable."
+    },
+    {
+     "tbl": [
+      [
+       "Level",
+       "Dirty read",
+       "Non-repeatable read",
+       "Phantom"
+      ],
+      [
+       "READ UNCOMMITTED",
+       "Possible",
+       "Possible",
+       "Possible"
+      ],
+      [
+       "READ COMMITTED",
+       "Prevented",
+       "Possible",
+       "Possible"
+      ],
+      [
+       "REPEATABLE READ",
+       "Prevented",
+       "Prevented",
+       "Possible by the standard"
+      ],
+      [
+       "SERIALIZABLE",
+       "Prevented",
+       "Prevented",
+       "Prevented"
+      ]
+     ]
+    },
+    {
+     "p": "Real systems differ in the details. For example, PostgreSQL's default is READ COMMITTED, while MySQL's InnoDB default is REPEATABLE READ. Always read the documentation of the database you use."
+    },
+    {
+     "h": "Optimistic and multi-version approaches"
+    },
+    {
+     "p": "Instead of locking, many modern databases use **MVCC** (multi-version concurrency control). The database keeps several versions of a row, so readers see a consistent snapshot while writers create a new version. Readers do not block writers. Another approach, **optimistic concurrency**, lets transactions run freely and checks for conflict only at commit time."
+    },
+    {
+     "warn": "Never keep a transaction open while waiting for a human, for example while a user reads a confirmation page. Open transactions hold locks and block everyone else."
+    },
+    {
+     "tip": "Keep transactions short: do the reading and thinking first, then open the transaction, make the writes and commit quickly."
+    },
+    {
+     "flip": [
+      [
+       "What does Atomicity guarantee?",
+       "All operations of a transaction happen or none of them do."
+      ],
+      [
+       "What is a dirty read?",
+       "Reading data written by a transaction that has not committed and may roll back."
+      ],
+      [
+       "When is a schedule conflict serializable?",
+       "When its precedence graph has no cycle."
+      ],
+      [
+       "What are the two phases of 2PL?",
+       "Growing phase (acquire locks) and shrinking phase (release locks)."
+      ],
+      [
+       "How is deadlock detected?",
+       "By finding a cycle in the wait-for graph."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Write two schedules by hand for transactions T1 and T2 that both read and then update the same seat count. Show how a lost update happens in one interleaving, then add shared and exclusive locks to prevent it."
+    }
+   ],
+   "quiz": [
+    [
+     "Which ACID property ensures that a committed payment is not lost after a power failure?",
+     [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability"
+     ],
+     3,
+     "Durability means committed data survives failures. Atomicity is about all-or-nothing execution."
+    ],
+    [
+     "Two transactions read the same value, both update it, and one update vanishes. This is a:",
+     [
+      "Dirty read",
+      "Phantom read",
+      "Lost update",
+      "Deadlock"
+     ],
+     2,
+     "One write overwrites the other, so one update is lost."
+    ],
+    [
+     "A precedence graph with a cycle means the schedule is:",
+     [
+      "Serial",
+      "Conflict serializable",
+      "Not conflict serializable",
+      "Recoverable"
+     ],
+     2,
+     "A cycle shows no equivalent serial order exists."
+    ],
+    [
+     "Which pair of locks can be held on the same item by two transactions at once?",
+     [
+      "Shared and shared",
+      "Shared and exclusive",
+      "Exclusive and exclusive",
+      "None"
+     ],
+     0,
+     "Many readers can share. Any exclusive lock conflicts with every other lock."
+    ],
+    [
+     "In two-phase locking, what is not allowed after a transaction releases its first lock?",
+     [
+      "Reading data",
+      "Acquiring new locks",
+      "Committing",
+      "Writing a log record"
+     ],
+     1,
+     "After the shrinking phase begins, no new locks may be acquired."
+    ]
+   ],
+   "practice": [
+    "Draw the wait-for graph for a deadlock between three transactions and mark which one you would abort.",
+    "For each of the four SQL isolation levels, give one real application where it would be a sensible choice.",
+    "Explain in your own words why a UPI debit and credit must be in one transaction."
+   ]
+  },
+  {
+   "title": "Indexing, Recovery, Security and Modern Databases",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "How a database finds data quickly"
+    },
+    {
+     "p": "Suppose a table holds ten million customer rows and you ask for the customer with phone number 98250xxxx1. Without help, the DBMS must read every row, which is called a **full table scan**. It is like finding a name by reading a telephone directory from page one. An **index** is the alphabetical section at the back of a book: it tells you directly which page to open."
+    },
+    {
+     "h": "How data is stored"
+    },
+    {
+     "p": "Databases store rows in fixed-size blocks called **pages**, commonly 4 KB to 16 KB. Reading from disk is far slower than reading from memory, so the main goal of storage design is to read as few pages as possible. A **buffer pool** keeps recently used pages in memory."
+    },
+    {
+     "h": "Indexes"
+    },
+    {
+     "p": "An index is a separate structure that stores column values in sorted order, each with a pointer to the row. The most common kind is the **B+ tree**."
+    },
+    {
+     "ul": [
+      "The tree is balanced, so every search takes the same number of steps.",
+      "Each node holds many keys, so the tree is very shallow. Even a table of hundreds of millions of rows usually needs only three or four page reads to find a key.",
+      "The bottom leaf nodes are linked in order, so range queries such as marks between 60 and 80 are fast.",
+      "Inserts and deletes keep the tree balanced by splitting or merging nodes."
+     ]
+    },
+    {
+     "diagram": "Animated B+ tree search. A three-level tree is drawn with keys in each node. The student types a search value and a highlight travels from the root through one internal node to a leaf, counting the page reads. A toggle shows the same search as a full table scan with every row lighting up one by one, so the difference is visible."
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- Speed up lookups by phone number\nCREATE INDEX idx_customer_phone ON customer(phone);\n\n-- See how the database plans to run a query\nEXPLAIN SELECT * FROM customer WHERE phone = '9825000001';\n\n-- Remove an index that is not useful\nDROP INDEX idx_customer_phone ON customer;"
+     }
+    },
+    {
+     "p": "The exact syntax of DROP INDEX differs between database products, so check the documentation of your system."
+    },
+    {
+     "h": "Types of index"
+    },
+    {
+     "tbl": [
+      [
+       "Type",
+       "Meaning",
+       "Note"
+      ],
+      [
+       "Primary index",
+       "Built on the primary key",
+       "Created automatically in most systems"
+      ],
+      [
+       "Clustered index",
+       "Rows are stored in the order of the index",
+       "Only one per table"
+      ],
+      [
+       "Secondary (non-clustered)",
+       "Separate structure with pointers to rows",
+       "Many allowed"
+      ],
+      [
+       "Composite index",
+       "Built on several columns",
+       "Column order matters"
+      ],
+      [
+       "Unique index",
+       "Rejects duplicate values",
+       "Enforces uniqueness"
+      ],
+      [
+       "Hash index",
+       "Uses a hash function",
+       "Fast for equality, useless for ranges"
+      ]
+     ]
+    },
+    {
+     "h": "The cost of an index"
+    },
+    {
+     "p": "Indexes are not free. Each index uses disk space, and every INSERT, UPDATE or DELETE must also update every index on the table. A table with too many indexes writes slowly. Create indexes for columns that appear often in WHERE, JOIN and ORDER BY, and measure the result with EXPLAIN before and after."
+    },
+    {
+     "tip": "A composite index on (city, name) helps queries that filter on city, or on city and name. It does not help a query that filters only on name, because the index is sorted by city first."
+    },
+    {
+     "h": "Query processing in brief"
+    },
+    {
+     "p": "When you send a query, the DBMS does four things: it **parses** the text, **checks** it against the catalog, the **optimizer** compares several possible plans using statistics about the data and picks the cheapest, and finally the **executor** runs the chosen plan. This is why you describe what you want in SQL and not how to get it."
+    },
+    {
+     "h": "Failures and recovery"
+    },
+    {
+     "p": "Hardware fails, power goes off and software has bugs. Recovery is the DBMS's promise that after a crash the database returns to a correct state, keeping every committed transaction and removing every uncommitted one."
+    },
+    {
+     "p": "The key tool is the **write-ahead log (WAL)**, a sequential record of every change. The rule is simple: the log record describing a change must reach safe storage **before** the changed data page itself is written. After a crash the system reads the log and does two things:"
+    },
+    {
+     "ul": [
+      "**Redo:** repeat the changes of committed transactions that may not have reached the disk.",
+      "**Undo:** reverse the changes of transactions that never committed."
+     ]
+    },
+    {
+     "p": "To avoid reading a huge log, the system periodically writes a **checkpoint**, a marker saying that everything before this point is safely on disk. Recovery then starts from the latest checkpoint."
+    },
+    {
+     "diagram": "Crash-recovery simulator. A horizontal log timeline with transactions T1 to T4, a checkpoint marker and a lightning bolt crash point. After the student clicks Recover, T1 (committed before the checkpoint) is left alone, T2 and T3 (committed after the checkpoint) get green Redo arrows, and T4 (uncommitted) gets a red Undo arrow."
+    },
+    {
+     "h": "Backups"
+    },
+    {
+     "p": "The log protects against a crash. It does not protect against a deleted disk, a ransomware attack or a developer's wrong command. For these you need **backups**."
+    },
+    {
+     "ul": [
+      "**Full backup:** a complete copy of the database.",
+      "**Incremental backup:** only the changes since the last backup.",
+      "**Replication:** a live copy on another server that can take over.",
+      "**Point-in-time recovery:** restore a backup and then replay the log up to a chosen moment, for example just before a wrong delete."
+     ]
+    },
+    {
+     "warn": "A backup that has never been restored is only a hope. Schedule regular restore tests, and keep one copy away from the main system so that ransomware or a single accident cannot destroy both."
+    },
+    {
+     "h": "Database security"
+    },
+    {
+     "p": "Databases hold what attackers want most: personal records, payment details and passwords. Security has several layers. The techniques below are for protecting systems that you own or administer."
+    },
+    {
+     "ul": [
+      "**Authentication:** prove who you are with strong passwords, and use multi-factor login for administrators.",
+      "**Authorization:** grant each account only the privileges it needs. This is the **principle of least privilege**.",
+      "**Encryption:** protect data at rest on disk and in transit over the network using TLS.",
+      "**Never store plain passwords:** store a salted hash made with a slow algorithm such as bcrypt or Argon2.",
+      "**Parameterised queries:** stop SQL injection, as seen in lesson 3.",
+      "**Auditing:** log who accessed or changed sensitive data.",
+      "**Patching and network rules:** keep the DBMS updated and never expose a database port directly to the internet."
+     ]
+    },
+    {
+     "code": {
+      "lang": "sql",
+      "text": "-- Give a reporting user read-only access to one table\nCREATE USER report_user IDENTIFIED BY 'use-a-long-random-password';\nGRANT SELECT ON college.student TO report_user;\n\n-- Remove a privilege that is no longer needed\nREVOKE SELECT ON college.student FROM report_user;"
+     }
+    },
+    {
+     "p": "In India, handling personal data also carries legal responsibility under the Digital Personal Data Protection Act, 2023. Collect only the data you need, keep it only as long as needed and protect it properly."
+    },
+    {
+     "h": "Beyond the relational model"
+    },
+    {
+     "p": "Relational databases are excellent, but some problems suit other designs. This family of systems is often called **NoSQL**, meaning not only SQL."
+    },
+    {
+     "tbl": [
+      [
+       "Type",
+       "Best for",
+       "Example"
+      ],
+      [
+       "Document",
+       "Flexible, nested records such as product catalogues",
+       "MongoDB"
+      ],
+      [
+       "Key-value",
+       "Very fast lookups such as sessions and caches",
+       "Redis"
+      ],
+      [
+       "Column-family",
+       "Huge write-heavy data spread across many servers",
+       "Cassandra"
+      ],
+      [
+       "Graph",
+       "Relationships such as friends and recommendations",
+       "Neo4j"
+      ]
+     ]
+    },
+    {
+     "p": "**Distributed databases** spread data over many servers. The **CAP theorem** says that when the network between servers breaks, a system must choose between **consistency** (all users see the same data) and **availability** (every request gets an answer). Many NoSQL systems accept **eventual consistency**: copies may differ for a short time but agree later. A bank ledger demands strong consistency, while a count of likes on a post can tolerate a short delay."
+    },
+    {
+     "p": "The choice is not relational versus NoSQL for ever. Many companies use a relational database for core records and add a cache, a search engine or a document store where it fits."
+    },
+    {
+     "flip": [
+      [
+       "Why does an index speed up search?",
+       "It keeps sorted keys with pointers, so the DBMS reads a few pages instead of the whole table."
+      ],
+      [
+       "What is the write-ahead logging rule?",
+       "The log record must be saved before the changed data page is written."
+      ],
+      [
+       "Redo or undo for an uncommitted transaction after a crash?",
+       "Undo."
+      ],
+      [
+       "What does least privilege mean?",
+       "Each account gets only the permissions it truly needs."
+      ],
+      [
+       "What does CAP force a distributed system to choose between during a network split?",
+       "Consistency or availability."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: On a practice database that you own, create a table with 100,000 generated rows, time a query on an unindexed column using EXPLAIN, add an index, and compare the plan and the time. Write down what changed."
+    }
+   ],
+   "quiz": [
+    [
+     "Which structure is most commonly used for database indexes?",
+     [
+      "Stack",
+      "B+ tree",
+      "Queue",
+      "Linked list only"
+     ],
+     1,
+     "A B+ tree is balanced, shallow and supports range scans. The others do not give these properties."
+    ],
+    [
+     "What does the write-ahead log rule require?",
+     [
+      "Data pages are written before the log",
+      "Log records are saved before data pages",
+      "Only committed data is logged",
+      "Logs are deleted on commit"
+     ],
+     1,
+     "The log must reach storage first, so recovery can redo or undo any change."
+    ],
+    [
+     "After a crash, what happens to a transaction that committed but whose data pages were not written?",
+     [
+      "It is redone",
+      "It is undone",
+      "It is ignored",
+      "The database is deleted"
+     ],
+     0,
+     "Committed work must survive, so the log is used to redo it."
+    ],
+    [
+     "Which practice protects stored user passwords best?",
+     [
+      "Plain text",
+      "Reversible encryption with a shared key",
+      "Salted slow hash such as bcrypt",
+      "Base64 encoding"
+     ],
+     2,
+     "A salted slow hash cannot be reversed and resists guessing. Base64 is only an encoding, and plain text is unsafe."
+    ],
+    [
+     "A like counter on a social post is usually fine with which model?",
+     [
+      "Eventual consistency",
+      "No storage",
+      "Manual locking only",
+      "Serial execution of the whole site"
+     ],
+     0,
+     "A short delay in the count does no harm, unlike a bank balance, so eventual consistency is acceptable."
+    ]
+   ],
+   "practice": [
+    "Choose a column for an index in a library Loan table and explain what queries it helps and what writes it slows down.",
+    "List five security measures you would apply to a database that stores student Aadhaar-style identity numbers.",
+    "Match each of these to a database type: shopping cart session, friend recommendation, bank ledger, product catalogue."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "sql",
+  "name": "Mission: Build the Library Database",
+  "story": "You are a new database intern at a college library in Vadodara. The librarian keeps records in loose Excel sheets and loses track of who has which book. Your mission is to design a small relational database, load sample data and answer the librarian's questions. Work only inside the rootjavs lab database.",
+  "steps": [
+   {
+    "goal": "Create a table named student with roll_no (integer primary key), name (text, not null) and city (text).",
+    "hint": "Use CREATE TABLE student ( ... ); Mark roll_no with PRIMARY KEY and name with NOT NULL.",
+    "check": "CREATE TABLE student with roll_no INT PRIMARY KEY, name NOT NULL and city columns executes without error"
+   },
+   {
+    "goal": "Create a table named book with book_id (integer primary key), title (text, not null) and copies (integer, at least 0).",
+    "hint": "Add a CHECK (copies >= 0) constraint to the copies column.",
+    "check": "CREATE TABLE book with book_id primary key, title NOT NULL and CHECK (copies >= 0) executes without error"
+   },
+   {
+    "goal": "Create the table borrow that links students and books. It must have roll_no, book_id and issue_date, a composite primary key and two foreign keys.",
+    "hint": "This is an M:N relationship. PRIMARY KEY (roll_no, book_id, issue_date) and one FOREIGN KEY for each of the other two tables.",
+    "check": "CREATE TABLE borrow with composite primary key and foreign keys to student(roll_no) and book(book_id) executes without error"
+   },
+   {
+    "goal": "Insert three students: (101, Asha, Vadodara), (102, Ravi, Surat), (103, Meena, Vadodara).",
+    "hint": "Use one INSERT INTO student VALUES (...), (...), (...); statement.",
+    "check": "SELECT COUNT(*) FROM student returns 3"
+   },
+   {
+    "goal": "Insert three books: (1, Database Systems, 4), (2, Computer Networks, 2), (3, Operating Systems, 0).",
+    "hint": "Columns are book_id, title, copies.",
+    "check": "SELECT COUNT(*) FROM book returns 3"
+   },
+   {
+    "goal": "Record that student 101 borrowed book 1 on 2026-11-01 and student 103 borrowed book 2 on 2026-11-03.",
+    "hint": "Insert two rows into borrow. Dates are written as 'YYYY-MM-DD'.",
+    "check": "SELECT COUNT(*) FROM borrow returns 2"
+   },
+   {
+    "goal": "Test integrity: try to insert a borrow row for roll_no 999. Read the error and note which rule blocked it.",
+    "hint": "No student has roll number 999, so a constraint should refuse the row.",
+    "check": "The insert fails with a foreign key error; the answer is: referential integrity"
+   },
+   {
+    "goal": "List the names of students who live in Vadodara, sorted alphabetically.",
+    "hint": "SELECT name FROM student WHERE city = ... ORDER BY name;",
+    "check": "Result is Asha, Meena"
+   },
+   {
+    "goal": "Show each borrowed book title with the name of the student who borrowed it, using a join.",
+    "hint": "Join borrow with student and with book using the foreign key columns.",
+    "check": "Result has two rows: Asha with Database Systems and Meena with Computer Networks"
+   },
+   {
+    "goal": "Find students who have not borrowed any book.",
+    "hint": "Use LEFT JOIN from student to borrow and keep rows where borrow.roll_no IS NULL.",
+    "check": "Result is Ravi"
+   },
+   {
+    "goal": "Count how many books each city's students have borrowed.",
+    "hint": "Join student and borrow, then GROUP BY city.",
+    "check": "Vadodara returns 2"
+   },
+   {
+    "goal": "Run the same transaction twice: START TRANSACTION, reduce the copies of book 1 by one, then ROLLBACK. Check the copies afterwards.",
+    "hint": "After ROLLBACK the UPDATE is undone. Use SELECT copies FROM book WHERE book_id = 1;",
+    "check": "SELECT copies FROM book WHERE book_id = 1 returns 4"
+   },
+   {
+    "goal": "Repeat the transaction, but this time COMMIT, and confirm that the change stays.",
+    "hint": "START TRANSACTION; UPDATE book SET copies = copies - 1 WHERE book_id = 1; COMMIT;",
+    "check": "SELECT copies FROM book WHERE book_id = 1 returns 3"
+   },
+   {
+    "goal": "Create an index on student(city) and show the query plan for a search by city.",
+    "hint": "CREATE INDEX idx_student_city ON student(city); then EXPLAIN SELECT ...",
+    "check": "CREATE INDEX executes without error and EXPLAIN output mentions idx_student_city"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which of these is a disadvantage of file-based storage compared with a DBMS?",
+   [
+    "Data redundancy and inconsistency",
+    "Faster for every query",
+    "Built-in recovery",
+    "Fine-grained user permissions"
+   ],
+   0,
+   "Files often store the same data several times, which leads to inconsistency. The other options are DBMS strengths."
+  ],
+  [
+   "The set of all data in a database at a particular moment is the:",
+   [
+    "Instance",
+    "Schema",
+    "Catalog",
+    "View"
+   ],
+   0,
+   "Instance is the current data. Schema is the structure."
+  ],
+  [
+   "Which level of the three-schema architecture describes how data is physically stored?",
+   [
+    "External",
+    "Internal",
+    "Conceptual",
+    "Logical"
+   ],
+   1,
+   "The internal level covers files, pages and indexes."
+  ],
+  [
+   "Changing a table without breaking existing user views is called:",
+   [
+    "Physical data independence",
+    "Concurrency",
+    "Logical data independence",
+    "Normalization"
+   ],
+   2,
+   "Logical data independence protects views and applications from logical schema changes."
+  ],
+  [
+   "In an ER diagram a double rectangle usually represents a:",
+   [
+    "Strong entity",
+    "Derived attribute",
+    "Weak entity",
+    "Relationship"
+   ],
+   2,
+   "Weak entities are drawn with a double border."
+  ],
+  [
+   "An attribute such as phone numbers where one person may have several is:",
+   [
+    "Composite",
+    "Multi-valued",
+    "Derived",
+    "Key"
+   ],
+   1,
+   "Several values per entity make it multi-valued."
+  ],
+  [
+   "How is an M:N relationship converted to the relational model?",
+   [
+    "Add a foreign key to one table",
+    "Merge both entities",
+    "Ignore it",
+    "Create a new table with both keys"
+   ],
+   3,
+   "A separate table holding both foreign keys is needed."
+  ],
+  [
+   "Which key can never contain NULL?",
+   [
+    "Foreign key",
+    "Primary key",
+    "Alternate key",
+    "Super key with extra columns"
+   ],
+   1,
+   "Entity integrity forbids NULL in a primary key. A foreign key may be NULL."
+  ],
+  [
+   "A table Employee(emp_id, email, name) where both emp_id and email are unique has how many candidate keys?",
+   [
+    "2",
+    "1",
+    "3",
+    "0"
+   ],
+   0,
+   "emp_id and email are both minimal keys."
+  ],
+  [
+   "Which SQL command family does GRANT belong to?",
+   [
+    "DDL",
+    "DCL",
+    "DML",
+    "TCL"
+   ],
+   1,
+   "GRANT and REVOKE are data control commands."
+  ],
+  [
+   "Which statement returns rows where the phone is missing?",
+   [
+    "WHERE phone = NULL",
+    "WHERE phone == 0",
+    "WHERE phone IS NULL",
+    "WHERE phone LIKE NULL"
+   ],
+   2,
+   "NULL comparisons need IS NULL because = NULL is never true."
+  ],
+  [
+   "What does a LEFT JOIN guarantee?",
+   [
+    "Only matching rows",
+    "All rows from the right table",
+    "All rows from the left table",
+    "No NULL values"
+   ],
+   2,
+   "Every left-table row is kept, with NULLs for missing matches."
+  ],
+  [
+   "Which clause can filter on COUNT(*)?",
+   [
+    "WHERE",
+    "FROM",
+    "LIMIT",
+    "HAVING"
+   ],
+   3,
+   "HAVING filters groups after aggregation."
+  ],
+  [
+   "What is the effect of UPDATE student SET city = 'Pune';",
+   [
+    "Updates one row",
+    "Syntax error",
+    "Updates all rows",
+    "Deletes the table"
+   ],
+   2,
+   "No WHERE means every row is changed."
+  ],
+  [
+   "A join without a join condition produces:",
+   [
+    "An empty result",
+    "A Cartesian product",
+    "An error always",
+    "Only matching rows"
+   ],
+   1,
+   "Every row pairs with every row."
+  ],
+  [
+   "If A → B and B → C hold and B is not a key, then C is:",
+   [
+    "Fully dependent on A",
+    "A trivial dependency",
+    "A candidate key",
+    "Transitively dependent on A"
+   ],
+   3,
+   "C depends on A through B, a transitive dependency."
+  ],
+  [
+   "A table in 2NF has no:",
+   [
+    "Atomic values",
+    "Partial dependencies",
+    "Primary key",
+    "Foreign keys"
+   ],
+   1,
+   "2NF removes partial dependency on a composite key."
+  ],
+  [
+   "Which normal form requires every determinant to be a super key?",
+   [
+    "1NF",
+    "BCNF",
+    "2NF",
+    "3NF"
+   ],
+   1,
+   "That is the definition of BCNF."
+  ],
+  [
+   "A lossless decomposition means:",
+   [
+    "The tables are smaller",
+    "No FD can be checked",
+    "Rows are deleted",
+    "Joining the parts returns the original data exactly"
+   ],
+   3,
+   "Joining gives the same rows with no extras or losses."
+  ],
+  [
+   "Which ACID property is mainly implemented by the recovery manager using undo?",
+   [
+    "Isolation",
+    "Consistency only",
+    "Atomicity",
+    "Normalization"
+   ],
+   2,
+   "Undo removes partial work, giving all-or-nothing behaviour."
+  ],
+  [
+   "Reading data that another transaction has changed but not yet committed is a:",
+   [
+    "Dirty read",
+    "Phantom read",
+    "Lost update",
+    "Checkpoint"
+   ],
+   0,
+   "It is a dirty read, because the other transaction may roll back."
+  ],
+  [
+   "A cycle in a precedence graph shows the schedule is:",
+   [
+    "Not conflict serializable",
+    "Serial",
+    "Conflict serializable",
+    "Deadlock free"
+   ],
+   0,
+   "A cycle means no equivalent serial order exists."
+  ],
+  [
+   "In strict two-phase locking, exclusive locks are released:",
+   [
+    "Only at commit or abort",
+    "Immediately after writing",
+    "Before the first read",
+    "Never"
+   ],
+   0,
+   "Holding them until the end prevents dirty reads."
+  ],
+  [
+   "Which index type is best for range queries such as marks between 60 and 80?",
+   [
+    "Hash index",
+    "No index",
+    "B+ tree index",
+    "Bitmap of names"
+   ],
+   2,
+   "B+ tree leaves are ordered and linked, so ranges are efficient. Hash indexes handle only equality."
+  ],
+  [
+   "According to the CAP theorem, during a network partition a system must choose between:",
+   [
+    "Speed and cost",
+    "Security and privacy",
+    "Storage and memory",
+    "Consistency and availability"
+   ],
+   3,
+   "When the network splits you cannot guarantee both consistency and availability."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "A small coaching institute in Rajkot stores course fees in a single spreadsheet that repeats student and course details on every row. As the new database engineer you must redesign it, load data and answer the owner's questions. Work only inside the rootjavs lab database.",
+  "tasks": [
+   {
+    "task": "The spreadsheet has columns (student_id, student_name, course_id, course_name, fee, paid_on). Identify the key and one partial dependency, and state the normal form it currently satisfies.",
+    "check": "Key is {student_id, course_id}; student_name depends on student_id only (partial dependency); the table is in 1NF"
+   },
+   {
+    "task": "Create normalized tables student, course and payment in 3NF with primary keys and foreign keys.",
+    "check": "Three tables exist; payment has foreign keys to student and course; no repeated student_name or course_name in payment"
+   },
+   {
+    "task": "Insert at least three students, two courses and four payments, including one student with no payment.",
+    "check": "Row counts are at least 3, 2 and 4, and one student has no row in payment"
+   },
+   {
+    "task": "Write a query that lists each course name with the total fee collected, including courses with no payments.",
+    "check": "Uses LEFT JOIN from course to payment with SUM and GROUP BY; courses with no payments show NULL or 0"
+   },
+   {
+    "task": "Write a query to find students who have made no payment.",
+    "check": "Uses LEFT JOIN with IS NULL or NOT EXISTS and returns the student with no payment"
+   },
+   {
+    "task": "Run a transaction that records a payment and reduces the student's due amount, then ROLLBACK, and show that the data is unchanged.",
+    "check": "After ROLLBACK the payment count and due amount equal their values before the transaction"
+   },
+   {
+    "task": "Create an index to speed up searching payments by paid_on and explain in one line what it speeds up and what it slows down.",
+    "check": "CREATE INDEX on payment(paid_on) succeeds; explanation says faster date searches, slower inserts and extra storage"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "DBMS Concepts Quick Reference",
+  "sections": [
+   [
+    "ER to tables",
+    [
+     [
+      "Strong entity",
+      "Becomes a table; key becomes primary key"
+     ],
+     [
+      "1:N relationship",
+      "Put the foreign key on the N side"
+     ],
+     [
+      "M:N relationship",
+      "New table with both foreign keys"
+     ],
+     [
+      "Multi-valued attribute",
+      "New table with owner key and value"
+     ],
+     [
+      "Weak entity",
+      "Table whose key includes the owner's key"
+     ]
+    ]
+   ],
+   [
+    "Keys",
+    [
+     [
+      "Super key",
+      "Any set of columns that identifies a row"
+     ],
+     [
+      "Candidate key",
+      "Minimal super key"
+     ],
+     [
+      "Primary key",
+      "Chosen candidate key; not NULL"
+     ],
+     [
+      "Foreign key",
+      "Refers to a primary key elsewhere"
+     ]
+    ]
+   ],
+   [
+    "SQL query order",
+    [
+     [
+      "FROM, JOIN",
+      "Choose and combine tables"
+     ],
+     [
+      "WHERE",
+      "Filter rows"
+     ],
+     [
+      "GROUP BY",
+      "Make groups"
+     ],
+     [
+      "HAVING",
+      "Filter groups"
+     ],
+     [
+      "SELECT",
+      "Choose columns"
+     ],
+     [
+      "ORDER BY, LIMIT",
+      "Sort and cut"
+     ]
+    ]
+   ],
+   [
+    "Joins",
+    [
+     [
+      "INNER JOIN",
+      "Only matching rows"
+     ],
+     [
+      "LEFT JOIN",
+      "All left rows plus matches"
+     ],
+     [
+      "RIGHT JOIN",
+      "All right rows plus matches"
+     ],
+     [
+      "CROSS JOIN",
+      "Cartesian product"
+     ]
+    ]
+   ],
+   [
+    "Normal forms",
+    [
+     [
+      "1NF",
+      "Atomic values"
+     ],
+     [
+      "2NF",
+      "No partial dependency"
+     ],
+     [
+      "3NF",
+      "No transitive dependency"
+     ],
+     [
+      "BCNF",
+      "Every determinant is a super key"
+     ]
+    ]
+   ],
+   [
+    "Transactions",
+    [
+     [
+      "START TRANSACTION",
+      "Begin a unit of work"
+     ],
+     [
+      "COMMIT",
+      "Save permanently"
+     ],
+     [
+      "ROLLBACK",
+      "Undo everything since the start"
+     ],
+     [
+      "ACID",
+      "Atomicity, Consistency, Isolation, Durability"
+     ]
+    ]
+   ],
+   [
+    "Concurrency",
+    [
+     [
+      "Shared lock",
+      "Read; many allowed"
+     ],
+     [
+      "Exclusive lock",
+      "Write; only one"
+     ],
+     [
+      "2PL",
+      "Grow locks, then shrink; no new locks after a release"
+     ],
+     [
+      "Deadlock",
+      "Circular wait; abort one victim"
+     ]
+    ]
+   ],
+   [
+    "Indexing and recovery",
+    [
+     [
+      "B+ tree",
+      "Balanced tree; good for equality and ranges"
+     ],
+     [
+      "EXPLAIN",
+      "Shows the query plan"
+     ],
+     [
+      "WAL",
+      "Log is written before data pages"
+     ],
+     [
+      "Checkpoint",
+      "Marker where recovery can start"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "DBMS",
+   "Software that creates, stores, protects and retrieves databases."
+  ],
+  [
+   "Schema",
+   "The design of a database: its tables, columns and types."
+  ],
+  [
+   "Instance",
+   "The data stored in a database at one moment."
+  ],
+  [
+   "Primary key",
+   "A column or set of columns that uniquely identifies each row and is never NULL."
+  ],
+  [
+   "Foreign key",
+   "A column that refers to the primary key of another table to link rows."
+  ],
+  [
+   "Normalization",
+   "Organising tables to remove repeated data and update problems."
+  ],
+  [
+   "Functional dependency",
+   "A rule saying that the value of one set of columns decides the value of another."
+  ],
+  [
+   "Transaction",
+   "A group of operations treated as one all-or-nothing unit."
+  ],
+  [
+   "ACID",
+   "Four guarantees of a reliable transaction: atomicity, consistency, isolation and durability."
+  ],
+  [
+   "Index",
+   "A sorted structure that lets the database find rows without scanning the whole table."
+  ],
+  [
+   "Deadlock",
+   "A situation where transactions wait for each other in a circle and none can continue."
+  ],
+  [
+   "Write-ahead log",
+   "A record of changes that is saved before the data pages so a crash can be recovered."
+  ],
+  [
+   "View",
+   "A saved query that appears as a virtual table and can limit what a user sees."
+  ],
+  [
+   "SQL injection",
+   "An attack where user input is treated as SQL code; prevented by parameterised queries."
+  ]
+ ],
+ "interview": [
+  [
+   "What is the difference between a DBMS and an RDBMS?",
+   "A DBMS is any software that manages databases. An RDBMS is a DBMS based on the relational model, storing data in tables with keys and constraints. MySQL and PostgreSQL are examples."
+  ],
+  [
+   "Explain ACID with an example.",
+   "In a UPI transfer, atomicity means the debit and credit both happen or neither does. Consistency means rules such as no negative balance still hold. Isolation means parallel payments do not interfere. Durability means a committed payment survives a crash."
+  ],
+  [
+   "What is normalization and why is it used?",
+   "It is the process of organising tables so that each fact is stored once. It reduces redundancy and prevents insert, update and delete anomalies. It is done using functional dependencies and normal forms such as 1NF, 2NF, 3NF and BCNF."
+  ],
+  [
+   "What is the difference between WHERE and HAVING?",
+   "WHERE filters individual rows before grouping and cannot use aggregates. HAVING filters groups after GROUP BY and can use aggregates such as COUNT and SUM."
+  ],
+  [
+   "Difference between primary key and unique key?",
+   "Both enforce uniqueness. A table has only one primary key and it cannot be NULL. A table can have several unique keys, and depending on the database they may allow NULL values."
+  ],
+  [
+   "What is an index and what is its drawback?",
+   "An index is a sorted structure, commonly a B+ tree, that speeds up searches. Its drawbacks are extra storage and slower inserts, updates and deletes, because the index must be maintained."
+  ],
+  [
+   "What is a deadlock and how can it be handled?",
+   "A deadlock is a circular wait between transactions holding locks. It is handled by prevention such as fixed lock order, by detection with a wait-for graph and rolling back a victim, or by timeouts. Applications should retry the aborted transaction."
+  ],
+  [
+   "Explain the difference between DELETE, TRUNCATE and DROP.",
+   "DELETE removes selected rows and can be rolled back in most systems. TRUNCATE removes all rows quickly and keeps the table structure. DROP removes the table itself."
+  ],
+  [
+   "When would you choose a NoSQL database?",
+   "When the data is flexible or nested, when very high write volume or horizontal scaling is needed, or when the access pattern is simple such as key lookups. For core financial records that need strong consistency, a relational database is usually the better choice."
+  ],
+  [
+   "How do you prevent SQL injection?",
+   "Use parameterised queries or prepared statements, validate input, give the application account least privilege, and avoid building SQL by joining strings."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}
