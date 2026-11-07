@@ -132,12 +132,14 @@ RJ.layout = ()=>{
     <a class="logo" href="index.html" aria-label="rootjavs home">${RJ.logo}<span>rootjavs</span></a>
     <nav class="nav" aria-label="Main">${NAV.map(([h,l])=>`<a href="${h}" class="${here===h?'on':''}">${l}</a>`).join("")}</nav>
     <div class="hdr-r">
+      <a class="xpchip" id="xpChip" href="dashboard.html" aria-label="Your rank and XP"></a>
       <button class="icon-btn" id="themeBtn" aria-label="Switch theme"></button>
       ${user?`<a class="btn sm hide-m" href="dashboard.html">${RJ.icon("user")} ${RJ.esc(user.name.split(" ")[0])}</a>`:`<a class="btn sm ghost hide-m" href="login.html">Log in</a><a class="btn sm pri hide-m" href="login.html?mode=signup">Start free</a>`}
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">${RJ.icon("menu")}</button>
     </div></div>
     <nav class="mnav" id="mnav" aria-label="Mobile">${NAV.map(([h,l])=>`<a href="${h}">${l}</a>`).join("")}<a href="dashboard.html">Dashboard</a>${user?'':'<a href="login.html">Log in / Sign up</a>'}</nav>`;
   document.body.prepend(hdr);
+  RJ.paintXp(); RJ.shell();
   RJ.$("#themeBtn").onclick=()=>applyTheme(theme()==="dark"?"light":"dark"); applyTheme(theme());
   RJ.$("#menuBtn").onclick=()=>{ const m=RJ.$("#mnav"); m.classList.toggle("open"); RJ.$("#menuBtn").setAttribute("aria-expanded",m.classList.contains("open")); };
   const f=document.createElement("footer"); f.className="ftr";
@@ -152,6 +154,37 @@ RJ.layout = ()=>{
   document.body.appendChild(f);
 };
 
+/* ---------------- rank chip + >_ terminal navigation (v2) ---------------- */
+RJ.paintXp = ()=>{ const el=RJ.$("#xpChip"); if(!el||!RJ.xp) return; const xp=RJ.xp(), r=RJ.rankOf(xp);
+  el.innerHTML=`<span class="r" style="color:${r[3]}">${r[0]}</span><span class="x">${xp.toLocaleString("en-IN")} XP</span><span>🔥 ${RJ.streak()}</span>`; };
+RJ.shell = ()=>{
+  if(RJ.$("#fab")) return;
+  const PL={home:"index.html",courses:"courses.html",labs:"labs.html",mock:"mock-tests.html",roadmaps:"roadmaps.html",cheatsheets:"cheatsheets.html",typing:"typing-test.html",interview:"interview.html",glossary:"glossary.html",dashboard:"dashboard.html",certificates:"certificate.html",verify:"verify.html",login:"login.html",about:"about.html",faq:"faq.html",contact:"contact.html"};
+  const who=()=>S.user?S.user.name.split(" ")[0].toLowerCase().replace(/[^a-z0-9._-]/g,"")||"student":"guest";
+  const w=document.createElement("div");
+  w.innerHTML=`<button type="button" class="fab" id="fab" aria-label="Open terminal navigation" title="Terminal navigation (press /)">&gt;_</button>
+   <div class="pal" id="pal" hidden><div class="palin" role="dialog" aria-modal="true" aria-label="Terminal navigation"><div class="palhead"><span>rootjavs shell · type <b>help</b></span><button type="button" id="palX" aria-label="Close">✕</button></div><div class="pallog" id="pallog"></div><form id="palForm" class="palform" autocomplete="off"><label for="palIn" id="palPs">${who()}@rootjavs:~$</label><input id="palIn" spellcheck="false" autocapitalize="off" placeholder="open courses"></form></div></div>`;
+  document.body.appendChild(w);
+  const pal=RJ.$("#pal"), log=RJ.$("#pallog"), inp=RJ.$("#palIn");
+  const pl=(h,c)=>{ const d=document.createElement("div"); if(c) d.className=c; d.innerHTML=h; log.appendChild(d); log.scrollTop=log.scrollHeight; };
+  const open=()=>{ pal.hidden=false; if(!log.childElementCount) pl(`Navigate rootjavs from here. Try <span class="c-cy">open courses</span>, <span class="c-cy">search linux</span>, <span class="c-cy">rank</span>.`,"c-mu"); inp.focus(); };
+  RJ.$("#fab").onclick=open; RJ.$("#palX").onclick=()=>pal.hidden=true; pal.onclick=e=>{ if(e.target===pal) pal.hidden=true; };
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape") pal.hidden=true; if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable){ e.preventDefault(); open(); } });
+  RJ.$("#palForm").onsubmit=e=>{ e.preventDefault(); const raw=inp.value.trim(), c=raw.toLowerCase(); inp.value=""; if(!c) return;
+    pl(`<span class="c-cy">${RJ.esc(who())}@rootjavs:~$</span> ${RJ.esc(raw)}`);
+    const m=c.match(/^(?:open|cd)\s+([\w-]+)/);
+    if(m&&PL[m[1]]){ pl(`opening ${m[1]}…`,"c-mu"); setTimeout(()=>location.href=PL[m[1]],200); }
+    else if(c.startsWith("search ")){ const q=raw.slice(7).trim(); const hits=(RJ.CATALOG||[]).filter(x=>x.title.toLowerCase().includes(q.toLowerCase())).slice(0,8);
+      if(!hits.length) pl(`no course matches "${RJ.esc(q)}"`,"c-mu"); else hits.forEach(x=>pl(`<a href="course.html?c=${x.siteId}">#${x.no} ${RJ.esc(x.title)}</a> <span class="c-mu">${RJ.esc(x.track)}</span>`)); }
+    else if(c==="help") pl(`open ${Object.keys(PL).join(" · open ")}\nsearch &lt;word&gt; · whoami · rank · xp · theme · clear`);
+    else if(c==="whoami") pl(who());
+    else if(c==="rank"||c==="xp"){ const xp=RJ.xp?RJ.xp():0, r=RJ.rankOf?RJ.rankOf(xp):["guest"]; const n=RJ.RANKS&&RJ.RANKS[RJ.RANKS.indexOf(r)+1]; pl(`rank: <span style="color:${r[3]}">${r[0]}</span> · <span class="c-yl">${xp} XP</span>${n?` · next: ${n[0]} at ${n[1].toLocaleString("en-IN")} XP`:" · you are root"}`); }
+    else if(c==="theme"){ RJ.$("#themeBtn").click(); pl("theme switched","c-mu"); }
+    else if(c==="clear") log.innerHTML="";
+    else if(c==="sudo su") pl(`<span class="c-rd">[sudo] permission denied:</span> ${RJ.esc(who())} is not in the sudoers file. Earn 1,000 XP to become a sudoer.`);
+    else pl(`<span class="c-rd">${RJ.esc(c.split(" ")[0])}: command not found.</span> Type <span class="c-cy">help</span>.`); };
+};
+
 /* ---------------- notes renderer ---------------- */
 RJ.renderNotes = blocks => blocks.map(b=>{
   if(b.p) return `<p>${RJ.fmt(b.p)}</p>`;
@@ -160,9 +193,25 @@ RJ.renderNotes = blocks => blocks.map(b=>{
   if(b.ol) return `<ol>${b.ol.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol>`;
   if(b.tip) return `<div class="callout">${RJ.icon("bolt")}<div><b>Pro tip</b>${RJ.fmt(b.tip)}</div></div>`;
   if(b.tbl) return `<div class="tbl"><table><thead><tr>${b.tbl[0].map(c=>`<th>${RJ.fmt(c)}</th>`).join("")}</tr></thead><tbody>${b.tbl.slice(1).map(r=>`<tr>${r.map(c=>`<td>${RJ.fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  if(b.task) return `<div class="task-box"><h3>${RJ.icon("target")} Real task: do this on your computer</h3><ol>${b.task.map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol></div>`;
+  if(b.task) return `<div class="task-box"><h3>${RJ.icon("target")} Real task: do this on your computer</h3><ol>${[].concat(b.task).map(x=>`<li>${RJ.fmt(x)}</li>`).join("")}</ol></div>`;
+  /* blocks used by the new course format */
+  if(b.warn) return `<div class="callout warn">${RJ.icon("alert")}<div><b>Warning</b>${RJ.fmt(b.warn)}</div></div>`;
+  if(b.code) return `<div class="codeblk"><div class="codebar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="mono">${RJ.esc(b.code.lang||"code")}</span><button class="copybtn" type="button" data-copy aria-label="Copy code">${RJ.icon("copy")}</button></div><pre><code>${RJ.esc(b.code.text||"")}</code></pre></div>`;
+  if(b.diagram) return `<figure class="diagram-box">${RJ.icon("map")}<figcaption><b>Diagram</b>${RJ.fmt(typeof b.diagram==="string"?b.diagram:(b.diagram.text||""))}</figcaption></figure>`;
+  if(b.flip) return `<div class="flips">${b.flip.map(f=>`<button type="button" class="flipc" aria-pressed="false"><span class="fr"><small>Question</small>${RJ.fmt(f[0])}</span><span class="bk"><small>Answer</small>${RJ.fmt(f[1])}</span></button>`).join("")}</div><p class="small muted" style="margin-top:-6px">Tap a card to flip it.</p>`;
   return "";
 }).join("");
+document.addEventListener("click",e=>{
+  const f=e.target.closest&&e.target.closest(".flipc"); if(f){ f.classList.toggle("on"); f.setAttribute("aria-pressed",f.classList.contains("on")); return; }
+  const cp=e.target.closest&&e.target.closest("[data-copy]"); if(cp){ const t=cp.closest(".codeblk").querySelector("code").textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>RJ.toast("Copied")).catch(()=>{}); }
+});
+/* the same new blocks for PDFs */
+RJ.pdfExtra = (k,b)=>{
+  if(b.warn) k.box("Warning",b.warn,[255,236,238],[200,40,60]);
+  if(b.code) k.box("Code"+(b.code.lang?" - "+b.code.lang:""),b.code.text||"",[240,244,250],[60,80,120]);
+  if(b.diagram) k.box("Diagram",typeof b.diagram==="string"?b.diagram:(b.diagram.text||""),[238,246,255],[47,100,240]);
+  if(b.flip) k.table([["Question","Answer"],...b.flip]);
+};
 
 /* ---------------- PDF ---------------- */
 const pdfSafe = s => RJ.plain(s).replace(/₹/g,"Rs. ").replace(/[–—]/g,"-").replace(/→/g,"->").replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/×/g,"x").replace(/[^\x09\x0A\x0D\x20-\x7E\u2022]/g,"");
@@ -203,7 +252,8 @@ RJ.notesPDF = (c,li)=>{
     if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1}));
     if(b.tbl) k.table(b.tbl);
     if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]);
-    if(b.task) k.box("Real task - do this on your computer",b.task.map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]);
+    if(b.task) k.box("Real task - do this on your computer",[].concat(b.task).map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]);
+    RJ.pdfExtra(k,b);
   }
   k.y+=4; k.box("Quick revision quiz",L.quiz.map((q,i)=>`${i+1}. ${q[0]}`).join("\n"),[245,247,251],[90,100,125]);
   k.finish(`rootjavs-${c.id}-lesson-${li+1}.pdf`);
@@ -216,7 +266,7 @@ RJ.coursePDF = (c)=>{
   k.h2("What you will learn"); c.learn.forEach(x=>k.text("•  "+x,{indent:3,gap:1}));
   c.lessons.forEach((L,li)=>{ k.d.addPage(); k.y=28; k.d.setFillColor(11,17,32); k.d.rect(0,0,210,16,"F"); k.d.setFillColor(91,140,255); k.d.rect(0,16,210,1.2,"F"); k.d.setTextColor(255,255,255); k.d.setFont("helvetica","bold"); k.d.setFontSize(11); k.d.text("rootjavs",16,10.3);
     k.text(`LESSON ${li+1}`,{size:8.5,style:"bold",color:[56,140,200],gap:2}); k.text(L.title,{size:19,style:"bold",color:[14,22,48],gap:4,lh:0.45});
-    for(const b of L.notes){ if(b.h) k.h2(b.h); if(b.p) k.text(b.p); if(b.ul) b.ul.forEach(x=>k.text("•  "+x,{indent:3,gap:1})); if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1})); if(b.tbl) k.table(b.tbl); if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]); if(b.task) k.box("Real task",b.task.map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]); }
+    for(const b of L.notes){ if(b.h) k.h2(b.h); if(b.p) k.text(b.p); if(b.ul) b.ul.forEach(x=>k.text("•  "+x,{indent:3,gap:1})); if(b.ol) b.ol.forEach((x,i)=>k.text(`${i+1}.  ${x}`,{indent:3,gap:1})); if(b.tbl) k.table(b.tbl); if(b.tip) k.box("Pro tip",b.tip,[255,248,228],[176,120,0]); if(b.task) k.box("Real task",[].concat(b.task).map((x,i)=>`${i+1}. ${RJ.plain(x)}`).join("\n"),[236,242,255],[47,100,240]); RJ.pdfExtra(k,b); }
   });
   k.finish(`rootjavs-${c.id}-complete-notes.pdf`);
 };
@@ -273,7 +323,7 @@ RJ.courseCard = c => {
   const p=RJ.progress(c), st=RJ.started(c);
   return `<a class="card hover ccard" href="course.html?c=${c.id}">
    <div class="top"><span class="icon ${c.cat==="Office"?"cyan":""}">${RJ.icon(c.icon)}</span>${p.complete?`<span class="chip ok">${RJ.icon("check")} Completed</span>`:st?`<span class="chip blue">In progress</span>`:`<span class="chip">${RJ.esc(c.level)}</span>`}</div>
-   <div><span class="eyebrow" style="font-size:11px">${RJ.esc(c.cat)}</span><h3 style="margin-top:6px">${RJ.esc(c.title)}</h3></div>
+   <div><span class="eyebrow" style="font-size:11px">${c.no?`#${c.no} · `:""}${RJ.esc(c.isOld?c.cat:(c.track||c.cat))}${c.dupOf?' · <span class="vtag new">New version</span>':c.hasNew?' · <span class="vtag old">Old version</span>':""}</span><h3 style="margin-top:6px">${RJ.esc(c.title)}</h3></div>
    <p>${RJ.esc(c.short)}</p>
    ${st?`<div><div class="pbar"><i style="width:${p.pct}%"></i></div><small class="muted">${p.pct}% complete</small></div>`:""}
    <div class="meta"><span>${RJ.icon("book")} ${c.lessons.length} lessons</span><span>${RJ.icon("clock")} ${c.hours} h</span><span>${RJ.icon("flask")} Lab</span><span>${RJ.icon("award")} Certificate</span></div></a>`;

@@ -1,0 +1,2079 @@
+{
+ "id": "cyber-security-fundamentals",
+ "title": "Cyber Security Fundamentals",
+ "category": "Cyber Security",
+ "level": "Beginner",
+ "hours": 8,
+ "short": "Understand how attacks work and apply the core defences for passwords, networks, data and incidents, starting from zero.",
+ "prerequisites": [],
+ "learn": [
+  "Explain the CIA triad and use the words asset, threat, vulnerability and risk correctly",
+  "Recognise common attackers, malware types and social engineering scams such as fake KYC messages",
+  "Read basic network information such as IP addresses, ports, DNS and HTTPS and secure a Wi-Fi network",
+  "Set up strong authentication with unique passwords, MFA and least privilege, and read Linux file permissions",
+  "Use hashing and encryption correctly and explain how HTTPS protects a connection",
+  "Follow a simple incident response plan and know how to report cyber fraud in India"
+ ],
+ "lessons": [
+  {
+   "title": "What Is Cyber Security?",
+   "minutes": 25,
+   "notes": [
+    {
+     "h": "Why cyber security matters"
+    },
+    {
+     "p": "Every time you pay with UPI, log in to your college portal or send a message to a friend, your data travels across networks and is stored on computers that you do not control. **Cyber security** is the practice of protecting computers, networks, applications and data from theft, damage and misuse. It is not a job only for experts. A student who reuses one password on five websites is part of the security problem. A student who turns on two-step verification is part of the solution."
+    },
+    {
+     "p": "Think about the scale. India handles billions of UPI transactions every month, and each one depends on secure software, secure networks and careful users. A single weakness, such as a fake payment link forwarded on a messaging app, can empty a bank account within minutes. Cyber security exists so that digital life can be trusted. In this course you will learn the ideas that every security professional uses, starting from zero."
+    },
+    {
+     "h": "The CIA triad"
+    },
+    {
+     "p": "Almost every security idea can be explained with three goals. Together they are called the **CIA triad**. When you look at any security problem, ask which of the three goals is at risk."
+    },
+    {
+     "tbl": [
+      [
+       "Goal",
+       "Meaning",
+       "Example of failure",
+       "Example of protection"
+      ],
+      [
+       "Confidentiality",
+       "Only authorised people can see the data",
+       "A database of student ID numbers is leaked online",
+       "Encryption, access control"
+      ],
+      [
+       "Integrity",
+       "Data is correct and is not changed without permission",
+       "An attacker edits the amount in a bank transfer",
+       "Hashing, digital signatures, audit logs"
+      ],
+      [
+       "Availability",
+       "Systems and data work when people need them",
+       "Ransomware locks the records of a hospital",
+       "Backups, redundancy, DDoS protection"
+      ]
+     ]
+    },
+    {
+     "diagram": "Animated triangle with Confidentiality, Integrity and Availability at the three corners. When the student clicks an incident card (data leak, tampered marksheet, website down) the matching corner glows red and the protections that fix it light up in green."
+    },
+    {
+     "p": "The three goals sometimes pull in different directions. A very strict password policy improves confidentiality but may reduce availability if people are often locked out. A good security professional does not maximise one goal blindly. They choose controls that fit the needs of the business."
+    },
+    {
+     "h": "Key words: asset, vulnerability, threat, risk"
+    },
+    {
+     "p": "Security people use four words all the time. Learn them well, because they appear in every later course."
+    },
+    {
+     "ul": [
+      "**Asset**: anything of value that needs protection, such as a database, a laptop, a website or even a company's reputation.",
+      "**Vulnerability**: a weakness that could be used to cause harm, such as an unpatched server or a password like admin123.",
+      "**Threat**: something or someone that could use a vulnerability, such as a criminal, a malware program or even a flood.",
+      "**Risk**: the chance that a threat uses a vulnerability, combined with how bad the damage would be. Risk is often described as likelihood multiplied by impact."
+     ]
+    },
+    {
+     "p": "Here is an example from college life. The asset is the examination results database. The vulnerability is an administrator account that still has the default password. The threat is a student who wants to change marks. The risk is that wrong marks are published, which damages the college and honest students. Once you see the problem in these four parts, the fix becomes clear: change the password, add two-step verification and record every change."
+    },
+    {
+     "warn": "Throughout rootjavs, every attack technique is taught only so that you can understand and defend against it. Practise only on the rootjavs lab or on your own devices. Testing any other system without written permission is illegal under the Information Technology Act, 2000."
+    },
+    {
+     "h": "Types of security controls"
+    },
+    {
+     "p": "A **control** is any measure that reduces risk. Controls are grouped by what they do and by what they are made of."
+    },
+    {
+     "tbl": [
+      [
+       "Type",
+       "Purpose",
+       "Example"
+      ],
+      [
+       "Preventive",
+       "Stops an incident before it happens",
+       "Firewall, strong password, locked server room"
+      ],
+      [
+       "Detective",
+       "Notices that something is happening or has happened",
+       "CCTV, log monitoring, intrusion alerts"
+      ],
+      [
+       "Corrective",
+       "Repairs damage and restores normal work",
+       "Restoring from backup, patching a hole"
+      ],
+      [
+       "Deterrent",
+       "Discourages people from trying",
+       "Warning banner, legal notice"
+      ]
+     ]
+    },
+    {
+     "p": "Controls can also be **technical** (software and hardware such as antivirus), **administrative** (rules and training such as a password policy) or **physical** (locks, guards, cameras). A strong defence mixes all types, because attackers look for the weakest one."
+    },
+    {
+     "h": "Defence in depth"
+    },
+    {
+     "p": "No single control is perfect. **Defence in depth** means placing several layers of protection so that if one fails, another still stops the attacker. Think of how an old fort was protected: a moat, a wall, gates, guards and then the inner palace. For a company website the layers might be a firewall, a hardened server, secure code, encrypted data, monitoring and trained staff. An attacker must defeat every layer, while the defender only needs one layer to work."
+    },
+    {
+     "h": "Authentication, authorisation and accounting"
+    },
+    {
+     "p": "These three words, often written **AAA**, describe how a system treats a user."
+    },
+    {
+     "ol": [
+      "**Authentication** proves who you are, for example by a password and an OTP.",
+      "**Authorisation** decides what you are allowed to do after you are known, for example a student can read marks but cannot edit them.",
+      "**Accounting** records what you did, for example a log entry saying who opened which file and when."
+     ]
+    },
+    {
+     "p": "Many real incidents come from confusing these ideas. A system that checks identity but forgets to check permissions lets any logged-in user see every other user's data. You will study this again in the lesson on access control."
+    },
+    {
+     "h": "Where security careers come from"
+    },
+    {
+     "p": "Cyber security is a large field with many paths. Some people defend, some test, some investigate and some manage rules."
+    },
+    {
+     "ul": [
+      "**Security Operations (SOC)**: watch alerts and respond to attacks.",
+      "**Penetration testing**: legally break into systems to find weaknesses first.",
+      "**Application security**: make software safe while it is written.",
+      "**Cloud security**: protect systems that run on cloud platforms.",
+      "**Digital forensics and incident response**: investigate what happened after an attack.",
+      "**Governance, risk and compliance (GRC)**: build policies and check that laws and standards are followed."
+     ]
+    },
+    {
+     "p": "On rootjavs your own journey follows the rank ladder: guest, user, sudoer, admin and finally root. Each rank is earned by learning and by completing labs. This course is your first step from guest to user."
+    },
+    {
+     "tip": "When you read any news about a cyber attack, practise the habit of naming the asset, the vulnerability, the threat and the CIA goal that failed. Doing this for ten news stories will make the vocabulary natural."
+    },
+    {
+     "flip": [
+      [
+       "What does CIA stand for in security?",
+       "Confidentiality, Integrity and Availability."
+      ],
+      [
+       "What is a vulnerability?",
+       "A weakness that can be used to cause harm."
+      ],
+      [
+       "What is a threat?",
+       "Something or someone that could exploit a vulnerability."
+      ],
+      [
+       "What is risk?",
+       "The chance of harm combined with how serious the harm would be."
+      ],
+      [
+       "What is defence in depth?",
+       "Using several layers of protection so one failure does not mean total failure."
+      ],
+      [
+       "What does AAA stand for?",
+       "Authentication, authorisation and accounting."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Choose any app you use daily, such as a UPI app or a college portal. Write down one asset, one possible vulnerability, one threat and the CIA goal affected. Then list one preventive, one detective and one corrective control for it."
+    }
+   ],
+   "quiz": [
+    [
+     "A hospital's patient records become unreadable because of ransomware. Which CIA goal is mainly affected?",
+     [
+      "Confidentiality",
+      "Integrity",
+      "Availability",
+      "Authentication"
+     ],
+     2,
+     "The records exist but cannot be used when needed, which is an availability failure. Confidentiality would be about unauthorised viewing, and integrity about unauthorised changes."
+    ],
+    [
+     "Which item is a vulnerability?",
+     [
+      "A criminal who wants money",
+      "An unpatched web server",
+      "A customer database",
+      "A firewall"
+     ],
+     1,
+     "A vulnerability is a weakness. The criminal is a threat, the database is an asset and the firewall is a control."
+    ],
+    [
+     "A log that records who opened a file and when supports which part of AAA?",
+     [
+      "Authentication",
+      "Authorisation",
+      "Accounting",
+      "Availability"
+     ],
+     2,
+     "Accounting means recording user actions. Authentication proves identity and authorisation decides permissions."
+    ],
+    [
+     "Which control is a detective control?",
+     [
+      "Locked server room",
+      "Log monitoring with alerts",
+      "Restoring from backup",
+      "Strong password rule"
+     ],
+     1,
+     "Monitoring notices events. The lock and password rule are preventive, and restoring from backup is corrective."
+    ],
+    [
+     "Why is defence in depth used?",
+     [
+      "Because one perfect control exists",
+      "So that failure of one layer does not lead to total failure",
+      "To make systems slower",
+      "To avoid training staff"
+     ],
+     1,
+     "No control is perfect, so several layers are used. The attacker has to beat all layers while the defender needs only one to work."
+    ]
+   ],
+   "practice": [
+    "Pick a news story about a data breach and identify the asset, vulnerability, threat and affected CIA goal.",
+    "List five controls in your college campus (physical, technical or administrative) and mark each as preventive, detective or corrective.",
+    "Explain the CIA triad to a family member in three sentences without using technical words."
+   ]
+  },
+  {
+   "title": "Threats, Attackers and Common Attacks",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Who are the attackers?"
+    },
+    {
+     "p": "Not every attacker is a genius in a dark room. Understanding who attacks, and why, helps you decide how to defend. The motive is usually money, but it can also be politics, revenge, curiosity or espionage."
+    },
+    {
+     "tbl": [
+      [
+       "Attacker type",
+       "Typical motive",
+       "Example"
+      ],
+      [
+       "Script kiddie",
+       "Fun, fame, curiosity",
+       "Uses ready-made tools without understanding them"
+      ],
+      [
+       "Cybercriminal",
+       "Money",
+       "Sends fake bank messages to steal OTPs"
+      ],
+      [
+       "Hacktivist",
+       "A political or social cause",
+       "Defaces a website to send a message"
+      ],
+      [
+       "Insider",
+       "Revenge or profit",
+       "An employee copies customer data before leaving"
+      ],
+      [
+       "Nation-state group",
+       "Spying or disruption",
+       "Long, quiet attacks on critical infrastructure"
+      ]
+     ]
+    },
+    {
+     "p": "You will also hear about hats. A **white hat** hacker works legally and with permission to improve security. A **black hat** hacker breaks the law for personal gain. A **grey hat** acts without permission but without clear criminal intent, which is still illegal in most places. On rootjavs we teach only the white hat path."
+    },
+    {
+     "h": "Malware: malicious software"
+    },
+    {
+     "p": "**Malware** is any software designed to harm a system or its user. Different types behave in different ways, and knowing the difference helps you respond correctly."
+    },
+    {
+     "tbl": [
+      [
+       "Type",
+       "How it behaves"
+      ],
+      [
+       "Virus",
+       "Attaches itself to a file and spreads when the file is opened"
+      ],
+      [
+       "Worm",
+       "Spreads by itself across a network without any user action"
+      ],
+      [
+       "Trojan",
+       "Pretends to be useful software but hides harmful code"
+      ],
+      [
+       "Ransomware",
+       "Encrypts files and demands payment for the key"
+      ],
+      [
+       "Spyware / keylogger",
+       "Secretly records activity or keystrokes"
+      ],
+      [
+       "Botnet",
+       "A group of infected machines controlled by an attacker"
+      ],
+      [
+       "RAT",
+       "Remote Access Trojan that gives the attacker control of the device"
+      ]
+     ]
+    },
+    {
+     "p": "Ransomware deserves special attention. Attackers lock the files, and many now also steal a copy first so they can threaten to publish it. Paying does not guarantee that data returns, and it encourages more attacks. The best defence is tested offline backups and fast patching, which you will study in the last lesson."
+    },
+    {
+     "h": "Social engineering: attacking people"
+    },
+    {
+     "p": "The easiest part of a system to attack is often the human. **Social engineering** tricks people into giving access or information. It works because attackers create urgency, fear or greed so that victims act before thinking."
+    },
+    {
+     "ul": [
+      "**Phishing**: a fake email that looks real and asks you to click a link or open a file.",
+      "**Smishing**: the same trick through SMS. Example: a message saying your bank KYC will expire today and asking you to click a link.",
+      "**Vishing**: the same trick through a phone call. Callers pretend to be bank staff and ask for an OTP.",
+      "**Pretexting**: building a believable story, such as pretending to be from the IT department.",
+      "**Baiting**: leaving an infected pen drive or offering free downloads.",
+      "**QR code scams**: a malicious QR code that sends the victim to a fake payment page."
+     ]
+    },
+    {
+     "p": "Several scams are common in India. A caller says that a parcel in your name contains illegal items and then claims that you are under a so-called digital arrest on a video call. No real police or investigation agency arrests anyone over a video call or demands money to close a case. Another scam sends a UPI collect request and says the victim will receive money. Remember this rule: you never need to enter your UPI PIN to receive money. The PIN is only for sending."
+    },
+    {
+     "warn": "Never enter your OTP, PIN, CVV or password because someone on a call or message asks. A genuine bank never asks for them. Practise phishing awareness only with simulated messages inside the rootjavs lab. Sending fake messages to real people is a crime."
+    },
+    {
+     "h": "Other attacks you should know"
+    },
+    {
+     "ul": [
+      "**Password attacks**: guessing or stealing passwords. Covered in lesson 4.",
+      "**Man-in-the-middle**: an attacker secretly sits between two parties, for example on an open public Wi-Fi network.",
+      "**Denial of service (DoS / DDoS)**: flooding a service with traffic so real users cannot reach it.",
+      "**SQL injection**: sending crafted input to trick a website's database. You will study this in the Web Application Security course.",
+      "**Supply chain attack**: attacking a trusted software vendor so that many customers receive harmful updates."
+     ]
+    },
+    {
+     "h": "The attack lifecycle"
+    },
+    {
+     "p": "Attacks usually follow steps. A well known model is the **Cyber Kill Chain**, which has seven stages: reconnaissance, weaponisation, delivery, exploitation, installation, command and control, and actions on objectives. In simple words, the attacker studies the target, prepares a tool, delivers it, runs it, stays inside, talks to the infected machine and finally achieves the goal such as stealing data."
+    },
+    {
+     "diagram": "A horizontal animated chain of seven links labelled with the kill chain stages. A red dot travels along the chain. At each link a green shield pops up showing one defence (awareness training at delivery, patching at exploitation, endpoint protection at installation, network monitoring at command and control). Clicking a link breaks the chain and stops the dot."
+    },
+    {
+     "p": "The lesson for defenders is powerful: you do not need to stop the attack at every stage. Breaking the chain at any single stage stops the attacker from reaching the goal. Earlier breaks are cheaper, which is why awareness and patching are so valuable."
+    },
+    {
+     "h": "How to spot a phishing message"
+    },
+    {
+     "ol": [
+      "Check the sender address carefully. A fake may use a spelling change such as an extra letter.",
+      "Look for urgency or threats, such as account blocked in one hour.",
+      "Hover over links before clicking. On a phone, press and hold to see the real address.",
+      "Be careful with unexpected attachments, especially zip files and files that ask to enable macros.",
+      "Do not use contact details inside the message. Use the official app, website or number printed on your card.",
+      "When in doubt, report it and delete it."
+     ]
+    },
+    {
+     "tip": "If a message creates strong emotion such as fear or excitement, pause for one minute. Attackers depend on you acting quickly. A calm minute breaks most scams."
+    },
+    {
+     "h": "Defences in short"
+    },
+    {
+     "ul": [
+      "Keep devices updated and use trusted antivirus or endpoint protection.",
+      "Use strong unique passwords and two-step verification.",
+      "Install apps only from official stores and check permissions.",
+      "Back up important files and keep one copy offline.",
+      "Learn the warning signs so that you can protect family members too."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "What is the difference between a virus and a worm?",
+       "A virus needs a user to run an infected file. A worm spreads by itself across networks."
+      ],
+      [
+       "What does ransomware do?",
+       "Encrypts files and demands payment for the key, often after stealing a copy."
+      ],
+      [
+       "What is smishing?",
+       "Phishing carried out through SMS messages."
+      ],
+      [
+       "Do you need your UPI PIN to receive money?",
+       "No. The PIN is only needed to send money."
+      ],
+      [
+       "Name the seven kill chain stages.",
+       "Reconnaissance, weaponisation, delivery, exploitation, installation, command and control, actions on objectives."
+      ],
+      [
+       "What is a botnet?",
+       "A network of infected machines controlled by an attacker."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Look at your last ten SMS or email messages that you did not expect. For each one, decide whether it could be phishing and write one reason. Delete any suspicious ones and never click their links."
+    }
+   ],
+   "quiz": [
+    [
+     "Which malware spreads across a network without any user action?",
+     [
+      "Virus",
+      "Worm",
+      "Trojan",
+      "Keylogger"
+     ],
+     1,
+     "A worm spreads by itself. A virus needs a user to open an infected file, a trojan pretends to be useful and a keylogger records typing."
+    ],
+    [
+     "A caller says he is from your bank and asks for the OTP to stop a fraud. What is this?",
+     [
+      "Vishing",
+      "Smishing",
+      "Baiting",
+      "DDoS"
+     ],
+     0,
+     "Vishing is phishing by voice call. A bank never asks for an OTP, so the correct action is to hang up."
+    ],
+    [
+     "When do you need to enter your UPI PIN?",
+     [
+      "To receive money",
+      "To send money",
+      "To check a collect request message",
+      "Never"
+     ],
+     1,
+     "The PIN authorises sending money. Anyone who says you must enter it to receive money is attempting fraud."
+    ],
+    [
+     "Which statement about the kill chain is correct?",
+     [
+      "The defender must stop every stage",
+      "Stopping the attacker at any stage prevents the final goal",
+      "It only applies to viruses",
+      "It has three stages"
+     ],
+     1,
+     "The chain has seven stages and breaking any one blocks the attack from completing."
+    ],
+    [
+     "Which is the best response to ransomware planning?",
+     [
+      "Pay quickly",
+      "Keep tested offline backups",
+      "Disable antivirus",
+      "Share passwords with the IT team by email"
+     ],
+     1,
+     "Offline backups let you restore without paying. Paying does not guarantee recovery and funds more attacks."
+    ]
+   ],
+   "practice": [
+    "Collect three examples of scam messages from news articles and mark the emotion each one tries to create (fear, greed, urgency).",
+    "Make a one-page poster that teaches your family five phishing warning signs.",
+    "Match each of these to a malware type: encrypts files for money, records keystrokes, spreads by itself, pretends to be a free game."
+   ]
+  },
+  {
+   "title": "Networks and the Internet for Security",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Why security people must understand networks"
+    },
+    {
+     "p": "Almost every attack travels over a network. If you understand how data normally moves, you can notice when something is wrong. A **network** is a group of devices that exchange data using agreed rules called **protocols**. The **internet** is a very large network of networks. When you open a website from your hostel room, your request passes through your Wi-Fi router, your internet provider and many other networks before reaching a server, and the answer returns the same way."
+    },
+    {
+     "h": "IP addresses and MAC addresses"
+    },
+    {
+     "p": "Every device needs an address so that data reaches the right place. An **IP address** identifies a device on a network, for example 192.168.1.10. A **MAC address** is a hardware identifier built into the network card of the device and is used inside the local network. A simple comparison: the IP address is like your postal address, which can change when you move, while the MAC address is like a serial number on the device."
+    },
+    {
+     "p": "Some IPv4 ranges are **private**, which means they are used only inside homes and offices and are not directly reachable from the internet. These are 10.0.0.0 to 10.255.255.255, 172.16.0.0 to 172.31.255.255 and 192.168.0.0 to 192.168.255.255. Your home router uses one public address to the internet and gives private addresses to your phone and laptop. A newer version, **IPv6**, exists because IPv4 addresses are running out."
+    },
+    {
+     "h": "Ports and services"
+    },
+    {
+     "p": "An IP address finds the computer, and a **port** finds the program on that computer. Think of the computer as an apartment building and each port as a door number. A web server listens on one door, an email server on another. Ports run from 0 to 65535. Attackers look for open ports because every open port is a possible way in."
+    },
+    {
+     "tbl": [
+      [
+       "Port",
+       "Protocol",
+       "Used for",
+       "Security note"
+      ],
+      [
+       "22",
+       "SSH",
+       "Secure remote login",
+       "Use keys and disable weak passwords"
+      ],
+      [
+       "23",
+       "Telnet",
+       "Old remote login",
+       "Not encrypted, avoid completely"
+      ],
+      [
+       "25",
+       "SMTP",
+       "Sending email",
+       "Often abused for spam"
+      ],
+      [
+       "53",
+       "DNS",
+       "Name lookup",
+       "Can be abused for redirection"
+      ],
+      [
+       "80",
+       "HTTP",
+       "Websites without encryption",
+       "Data can be read by others"
+      ],
+      [
+       "443",
+       "HTTPS",
+       "Websites with encryption",
+       "Preferred for all web traffic"
+      ],
+      [
+       "3389",
+       "RDP",
+       "Windows remote desktop",
+       "Never expose directly to the internet"
+      ]
+     ]
+    },
+    {
+     "h": "TCP, UDP and the three-way handshake"
+    },
+    {
+     "p": "Two main transport protocols carry most data. **TCP** is reliable. It checks that every piece arrives and in the right order, so it is used for web pages and email. **UDP** is faster but does not check delivery, so it is used for video calls and games. Before TCP sends data, the two sides perform a **three-way handshake**: the client sends SYN, the server answers SYN-ACK and the client replies ACK. Attackers can abuse this by sending thousands of SYN messages and never finishing, which is one way to overload a server."
+    },
+    {
+     "diagram": "Two computers drawn left and right. Animated arrows show SYN, SYN-ACK and ACK packets moving between them with labels. A second scene shows a crowd of fake clients sending only SYN packets while the server's connection table fills up and a real user is turned away."
+    },
+    {
+     "h": "DNS: the phonebook of the internet"
+    },
+    {
+     "p": "People remember names such as example.com, but computers need numbers. The **Domain Name System (DNS)** translates names to IP addresses. When you type a website name, your device asks a DNS server for the address. If an attacker can give you a false DNS answer, you may land on a fake site that looks like your bank. This is called DNS spoofing or poisoning. Defences include using trusted DNS resolvers, checking for the padlock and exact domain name, and using DNSSEC on the server side."
+    },
+    {
+     "h": "HTTP and HTTPS"
+    },
+    {
+     "p": "**HTTP** carries web pages in plain text, so anyone on the path, such as a person sharing the same open Wi-Fi, can read the data. **HTTPS** is HTTP protected by TLS encryption. It hides the content and verifies the website's identity using a certificate. The padlock means that the connection is encrypted. It does not mean that the website is honest, because criminals can also get certificates for fake domains. Always read the domain name carefully."
+    },
+    {
+     "h": "Devices that protect and connect networks"
+    },
+    {
+     "ul": [
+      "**Router**: connects different networks and decides where packets go.",
+      "**Switch**: connects devices inside one network.",
+      "**Firewall**: allows or blocks traffic using rules, for example allow port 443 and block everything else.",
+      "**IDS / IPS**: an intrusion detection system raises alerts about suspicious traffic and an intrusion prevention system can also block it.",
+      "**VPN**: creates an encrypted tunnel so traffic cannot be read on the way. It protects your traffic on public Wi-Fi but does not make you anonymous or immune to malware."
+     ]
+    },
+    {
+     "p": "A firewall works with simple logic. A rule says which source, destination and port are allowed. The safest approach is **default deny**: block everything and then allow only what is needed. This keeps the number of open doors small."
+    },
+    {
+     "h": "Wi-Fi security"
+    },
+    {
+     "p": "Wi-Fi is easy to join, so it is easy to attack. Use **WPA3** if your router supports it, or WPA2 with a long passphrase. Never use an open network for banking. Change the default router admin password, because lists of default passwords are public. Turn off WPS, update router firmware and give guests a separate guest network."
+    },
+    {
+     "warn": "Scanning or capturing traffic on networks that you do not own is illegal, even in a college or a cafe. Use the commands below only on your own computer, and use the rootjavs lab for anything that tests other systems."
+    },
+    {
+     "h": "Looking at your own network"
+    },
+    {
+     "p": "These Linux commands only read information about your own machine. They are safe to practise."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "ip addr            # show your IP addresses\nping -c 4 8.8.8.8  # test connectivity to a public server\nnslookup example.com   # ask DNS for an address\nss -tuln           # list ports that your machine is listening on\ntraceroute example.com # show the path to a site (may need install)"
+     }
+    },
+    {
+     "p": "In the output of ss -tuln, each line is a service waiting for connections. A laptop normally has very few. If you see a service you do not recognise, find out what it is. A good rule is that every listening port should have a reason."
+    },
+    {
+     "tip": "When you read network output, always ask three questions: who is talking, to whom, and is it expected? Security monitoring is mostly the skill of spotting unexpected conversations."
+    },
+    {
+     "h": "Defence checklist"
+    },
+    {
+     "ul": [
+      "Use HTTPS everywhere and check the domain name before logging in.",
+      "Close or block ports and services that you do not need.",
+      "Use default deny rules on firewalls.",
+      "Secure Wi-Fi with WPA3 or WPA2, a strong passphrase and a changed admin password.",
+      "Use a VPN on public Wi-Fi and avoid sensitive tasks on open networks."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "What is the difference between an IP address and a port?",
+       "The IP address finds the device and the port finds the program on it."
+      ],
+      [
+       "Which port does HTTPS use?",
+       "443."
+      ],
+      [
+       "What are the three steps of the TCP handshake?",
+       "SYN, SYN-ACK, ACK."
+      ],
+      [
+       "What does DNS do?",
+       "Translates domain names into IP addresses."
+      ],
+      [
+       "What does the HTTPS padlock prove?",
+       "That the connection is encrypted, not that the website is trustworthy."
+      ],
+      [
+       "What is default deny?",
+       "Block all traffic and allow only what is specifically needed."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: On your own computer run ip addr and note your private IP address. Then run ss -tuln and write down each listening port. For each one write the service name and decide whether you expect it to be open."
+    }
+   ],
+   "quiz": [
+    [
+     "Which of these is a private IPv4 address?",
+     [
+      "8.8.8.8",
+      "192.168.1.25",
+      "203.0.113.5",
+      "1.1.1.1"
+     ],
+     1,
+     "192.168.0.0/16 is a private range. The others are public addresses reachable from the internet."
+    ],
+    [
+     "Which protocol should you avoid for remote login because it is not encrypted?",
+     [
+      "SSH",
+      "HTTPS",
+      "Telnet",
+      "TLS"
+     ],
+     2,
+     "Telnet sends data, including passwords, in plain text. SSH is the encrypted replacement."
+    ],
+    [
+     "What does the padlock in the browser guarantee?",
+     [
+      "The website is honest",
+      "The connection is encrypted",
+      "The site has no malware",
+      "The site belongs to your bank"
+     ],
+     1,
+     "The padlock indicates encryption in transit. Criminal sites can also use certificates, so read the domain name."
+    ],
+    [
+     "A firewall that blocks everything except what is allowed uses which approach?",
+     [
+      "Default allow",
+      "Default deny",
+      "Open relay",
+      "Port mirroring"
+     ],
+     1,
+     "Default deny keeps the number of open doors small and is considered best practice."
+    ],
+    [
+     "What is the main danger of an open public Wi-Fi network?",
+     [
+      "It is always slow",
+      "Traffic can be read or redirected by others",
+      "It blocks HTTPS",
+      "It disables antivirus"
+     ],
+     1,
+     "On an open network other users may capture or alter traffic, so use HTTPS and a VPN."
+    ]
+   ],
+   "practice": [
+    "Run ss -tuln on your own machine and explain each listening service in one line.",
+    "Log in to your home router (with permission from the owner) and check the Wi-Fi security mode and whether the admin password is still the default.",
+    "Draw the path of a request from your phone to a website, naming at least five devices or services on the way."
+   ]
+  },
+  {
+   "title": "Authentication, Passwords and Access Control",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "Proving who you are"
+    },
+    {
+     "p": "Most successful attacks do not break clever technology. They simply log in using stolen credentials. **Authentication** is the process of proving identity, and it can use three kinds of evidence, called **factors**."
+    },
+    {
+     "tbl": [
+      [
+       "Factor",
+       "Meaning",
+       "Examples"
+      ],
+      [
+       "Something you know",
+       "Secret in your memory",
+       "Password, PIN"
+      ],
+      [
+       "Something you have",
+       "An object you hold",
+       "Phone app, hardware key, bank card"
+      ],
+      [
+       "Something you are",
+       "Your body",
+       "Fingerprint, face"
+      ]
+     ]
+    },
+    {
+     "p": "**Multi-factor authentication (MFA)** uses two or more different factors. A password plus an OTP from an authenticator app is MFA. Two passwords are not, because both are the same factor. MFA is powerful because a stolen password alone is no longer enough."
+    },
+    {
+     "h": "Not all second factors are equal"
+    },
+    {
+     "ul": [
+      "**SMS OTP**: better than nothing, but can be stolen by SIM swap fraud, where criminals convince a mobile operator to move your number to their SIM.",
+      "**Authenticator app (TOTP)**: generates a code on your phone that changes every 30 seconds. Stronger than SMS.",
+      "**Hardware security key / passkey**: uses public key cryptography and resists phishing because it only works with the real website. This is the strongest common option today."
+     ]
+    },
+    {
+     "p": "A fake website can ask for your password and your one-time code and pass both to the real site in seconds. That is why phishing-resistant methods such as passkeys are recommended for important accounts like email, which can reset every other account."
+    },
+    {
+     "h": "How attackers get passwords"
+    },
+    {
+     "ul": [
+      "**Brute force**: trying every possible combination. Longer passwords make this much slower.",
+      "**Dictionary attack**: trying common words and known passwords such as password123.",
+      "**Password spraying**: trying a few common passwords against many accounts to avoid lockouts.",
+      "**Credential stuffing**: using email and password pairs leaked from one website against others. This works because people reuse passwords.",
+      "**Phishing and malware**: tricking you or recording what you type."
+     ]
+    },
+    {
+     "diagram": "A race animation. On the left a short password like asha123 is cracked within a second by a fast counter. On the right a long random passphrase makes the counter crawl and stop. Below, a second scene shows one leaked password opening five different accounts as a chain of doors, then a unique password stopping the chain at the first door."
+    },
+    {
+     "h": "Good passwords"
+    },
+    {
+     "p": "Modern guidance, such as the one from NIST, focuses on **length** and **uniqueness** instead of strange symbols. A passphrase made of several random words is easy to remember and hard to guess. Forced changes every few weeks usually produce weaker passwords, so change a password when you suspect it is exposed, not on a fixed calendar."
+    },
+    {
+     "ol": [
+      "Use at least 12 to 16 characters. Longer is better.",
+      "Use a different password for every account.",
+      "Use a password manager to create and store them, protected by one strong master passphrase.",
+      "Turn on MFA for email, banking, UPI apps and social media.",
+      "Check whether your email appears in known breaches using a trusted breach notification service.",
+      "Never share passwords by chat or email, and never store them in plain files."
+     ]
+    },
+    {
+     "tip": "Protect your email account the most. Anyone who controls your email can use the forgot password link to take over everything else."
+    },
+    {
+     "h": "How websites should store passwords"
+    },
+    {
+     "p": "A well built system never stores your real password. It stores a **hash**, which is a one-way scrambled value. When you log in, the system hashes what you typed and compares the results. To stop attackers from using precomputed lists, each password gets a random **salt** before hashing. Passwords should use slow, purpose-built algorithms such as **bcrypt, scrypt or Argon2**. Fast general hashes such as MD5 or plain SHA-1 are unsuitable for passwords. You will meet hashing again in the cryptography lesson."
+    },
+    {
+     "h": "Authorisation and access control"
+    },
+    {
+     "p": "After login, the system must decide what you may do. This is **access control**. The most important rule is the **principle of least privilege**: give each person and program only the access needed for their job and nothing more. A new intern should read the reports but not delete the database."
+    },
+    {
+     "ul": [
+      "**Role-based access control (RBAC)**: permissions are given to roles such as student, teacher and admin, and users get roles.",
+      "**Separation of duties**: no single person controls a whole critical process, for example the person who raises a payment is not the one who approves it.",
+      "**Need to know**: even trusted people see only the information they need.",
+      "**Regular review**: remove access when people change roles or leave."
+     ]
+    },
+    {
+     "h": "File permissions on Linux"
+    },
+    {
+     "p": "Linux shows access rights for owner, group and others using the letters r (read), w (write) and x (execute). Each can also be written as a number: read is 4, write is 2 and execute is 1."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "whoami                 # which user you are\nid                     # your user id and groups\nls -l notes.txt        # shows for example -rw-r----- 1 asha staff 120 notes.txt\nchmod 600 notes.txt    # owner read and write, nobody else\nchmod 640 notes.txt    # owner read/write, group read, others nothing"
+     }
+    },
+    {
+     "p": "In -rw-r-----, the first dash means a normal file, then rw- is for the owner, r-- for the group and --- for everyone else. A file that holds secrets such as keys should usually be 600 so that only the owner can use it. A file that anyone can write to, with permissions like 777, is a common mistake that lets any user change it."
+    },
+    {
+     "warn": "Only change permissions on your own files and in the rootjavs lab. Changing permissions on system folders can break your computer."
+    },
+    {
+     "h": "Accounts that deserve extra care"
+    },
+    {
+     "ul": [
+      "**Admin or root accounts**: use them only when required, and use a normal account for daily work.",
+      "**Default accounts**: change default passwords on routers, cameras and software on the day you install them.",
+      "**Shared accounts**: avoid them, because you cannot tell who did what.",
+      "**Service accounts**: give them only the rights their program needs."
+     ]
+    },
+    {
+     "h": "Defence summary"
+    },
+    {
+     "ul": [
+      "Use long unique passwords with a password manager.",
+      "Enable MFA, preferring authenticator apps or passkeys over SMS.",
+      "Apply least privilege and review access regularly.",
+      "Store passwords as salted hashes using bcrypt, scrypt or Argon2.",
+      "Limit login attempts and alert on many failed logins."
+     ]
+    },
+    {
+     "flip": [
+      [
+       "What are the three authentication factors?",
+       "Something you know, something you have and something you are."
+      ],
+      [
+       "Why is SMS OTP weaker than an authenticator app?",
+       "It can be stolen through SIM swap fraud or message interception."
+      ],
+      [
+       "What is credential stuffing?",
+       "Using leaked email and password pairs from one site on other sites."
+      ],
+      [
+       "What is a salt?",
+       "A random value added to a password before hashing so equal passwords give different hashes."
+      ],
+      [
+       "What is least privilege?",
+       "Giving only the access that is needed for the job and nothing more."
+      ],
+      [
+       "What does chmod 600 file do?",
+       "Gives the owner read and write access and nobody else any access."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Install a reputable password manager, create a new master passphrase of four or more random words, and change the passwords of your email and one social account to unique generated ones. Turn on an authenticator app for both."
+    }
+   ],
+   "quiz": [
+    [
+     "Which combination is real multi-factor authentication?",
+     [
+      "Password and security question",
+      "Password and OTP from an authenticator app",
+      "Two different passwords",
+      "PIN and password"
+     ],
+     1,
+     "MFA needs different factor types. The password is something you know and the app code is something you have. The other pairs use the same factor type."
+    ],
+    [
+     "Why does credential stuffing work?",
+     [
+      "Passwords are always short",
+      "People reuse passwords on many sites",
+      "Firewalls are disabled",
+      "OTP is not used"
+     ],
+     1,
+     "Attackers reuse credentials that leaked from one site, and reuse lets them open other accounts."
+    ],
+    [
+     "Which is the best way for a website to store passwords?",
+     [
+      "Plain text",
+      "Encrypted with one shared key",
+      "Salted hash with bcrypt or Argon2",
+      "Plain MD5"
+     ],
+     2,
+     "Slow salted hashes resist guessing and cannot be reversed. Plain text and weak fast hashes are dangerous."
+    ],
+    [
+     "What does the principle of least privilege mean?",
+     [
+      "Everyone gets admin rights",
+      "Users get only the access required for their job",
+      "Passwords must be short",
+      "Only managers log in"
+     ],
+     1,
+     "Limiting access reduces the damage when an account is misused or stolen."
+    ],
+    [
+     "A file shows -rw------- on Linux. Who can read it?",
+     [
+      "Everyone",
+      "Owner only",
+      "Owner and group",
+      "Nobody"
+     ],
+     1,
+     "rw- is for the owner and the group and others have no permission."
+    ]
+   ],
+   "practice": [
+    "Estimate in your own words why a 16 character passphrase is safer than an 8 character password with symbols.",
+    "Create a small table of five of your accounts and mark which have MFA. Turn it on for the missing ones.",
+    "In a practice folder create a file and set it to 600, then to 644, and explain who can read it each time."
+   ]
+  },
+  {
+   "title": "Cryptography Basics: Protecting Data",
+   "minutes": 30,
+   "notes": [
+    {
+     "h": "What is cryptography?"
+    },
+    {
+     "p": "**Cryptography** is the science of protecting information using mathematics. It gives us three of the most valuable security properties: secrecy of data, proof that data was not changed, and proof of who created it. Every time you see the padlock in a browser, make a UPI payment or send a message in an app with end-to-end encryption, cryptography is working quietly in the background."
+    },
+    {
+     "p": "Three words are often mixed up by beginners: encoding, encryption and hashing. They look similar but have very different purposes."
+    },
+    {
+     "tbl": [
+      [
+       "Term",
+       "Purpose",
+       "Reversible?",
+       "Needs a secret key?",
+       "Example"
+      ],
+      [
+       "Encoding",
+       "Change the format so systems can handle data",
+       "Yes, by anyone",
+       "No",
+       "Base64"
+      ],
+      [
+       "Encryption",
+       "Keep data secret",
+       "Yes, with the key",
+       "Yes",
+       "AES"
+      ],
+      [
+       "Hashing",
+       "Create a fingerprint to check integrity",
+       "No, one way",
+       "No",
+       "SHA-256"
+      ]
+     ]
+    },
+    {
+     "warn": "Base64 is not security. Anyone can decode it in a second. If you ever see a password stored in Base64, treat it as stored in plain text."
+    },
+    {
+     "h": "Symmetric encryption: one shared key"
+    },
+    {
+     "p": "In **symmetric encryption** the same key locks and unlocks the data. It is fast, so it is used for large amounts of data such as files, disks and the main part of a web connection. The most widely used algorithm is **AES**, commonly with 128 or 256 bit keys. The difficulty is key sharing. If you and a friend must use the same key, how do you give it to your friend safely when an attacker may be listening?"
+    },
+    {
+     "h": "Asymmetric encryption: a key pair"
+    },
+    {
+     "p": "**Asymmetric encryption** solves the sharing problem by using two related keys: a **public key** that you can give to everyone and a **private key** that you never share. Data locked with the public key can only be opened with the private key. Think of a padlock that anyone can close but only you can open. Common algorithms are RSA and elliptic curve cryptography (ECC). Asymmetric methods are slower, so real systems use them mainly to exchange a fresh symmetric key and then use fast symmetric encryption for the data. This mixture is called **hybrid encryption**."
+    },
+    {
+     "diagram": "Animated scene with two people, Asha and Ravi. Asha publishes a public padlock. Ravi puts a message in a box, closes the padlock and sends it through a crowd of curious onlookers who cannot open it. Asha opens the box with her private key. A second scene shows the key exchange creating a shared secret key and then fast AES traffic flowing between them."
+    },
+    {
+     "h": "Hashing: digital fingerprints"
+    },
+    {
+     "p": "A **hash function** takes input of any size and produces a fixed length output, called a hash or digest. The same input always gives the same hash, but a tiny change gives a completely different result, and it is practically impossible to get the original input back from the hash. SHA-256 always produces 256 bits, which is 64 hexadecimal characters. Hashes are used to check that a downloaded file is not damaged or tampered with, to detect changes in logs and to store passwords safely with salts. Old algorithms such as MD5 and SHA-1 have known collision weaknesses and should not be used for security."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "echo -n 'hello' | sha256sum\n# 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824\n\necho -n 'Hello' | sha256sum   # capital H gives a completely different hash\n\nsha256sum report.pdf > report.sha256   # save a fingerprint\nsha256sum -c report.sha256             # later: verify the file has not changed"
+     }
+    },
+    {
+     "p": "If the file changes even by one character, the check prints FAILED. This is how software publishers allow you to confirm that the file you downloaded is the file they published."
+    },
+    {
+     "h": "Digital signatures and certificates"
+    },
+    {
+     "p": "A **digital signature** proves who created a message and that it was not changed. The sender creates a hash of the message and signs it using the private key. Anyone can verify it using the public key. This gives **integrity** and **authenticity**, and also **non-repudiation**, meaning the sender cannot easily deny sending it. Signatures are used to sign software updates, documents and the e-signature systems used in India."
+    },
+    {
+     "p": "But how do you know that a public key really belongs to your bank and not to a criminal? A **digital certificate** links a public key to an identity, such as a website's domain name. The certificate is signed by a **Certificate Authority (CA)** that your browser already trusts. If the certificate does not match the site, the browser shows a warning. Never click through such warnings on a banking or login page."
+    },
+    {
+     "h": "How HTTPS uses all of this"
+    },
+    {
+     "ol": [
+      "Your browser connects and the server sends its certificate.",
+      "The browser checks that a trusted CA signed it and that the domain name matches.",
+      "Both sides use asymmetric methods to agree on a fresh shared secret key.",
+      "From then on the data is protected using fast symmetric encryption such as AES, with integrity checks.",
+      "The key is thrown away when the session ends."
+     ]
+    },
+    {
+     "p": "The current version of the protocol is **TLS 1.3**, and TLS 1.2 is still acceptable when configured well. Older versions such as SSL and TLS 1.0 and 1.1 are obsolete and should be disabled."
+    },
+    {
+     "h": "Data at rest, in transit and in use"
+    },
+    {
+     "ul": [
+      "**Data at rest**: stored on disks, phones and databases. Protect with full disk encryption such as BitLocker or LUKS and with encrypted backups.",
+      "**Data in transit**: moving across networks. Protect with TLS, SSH and VPNs.",
+      "**Data in use**: being processed in memory. Protect with access control, secure coding and, in advanced cases, special hardware features."
+     ]
+    },
+    {
+     "h": "Encrypting a file yourself"
+    },
+    {
+     "p": "You can practise on your own computer. The OpenSSL tool can encrypt a file with a passphrase. Use only your own practice files."
+    },
+    {
+     "code": {
+      "lang": "bash",
+      "text": "echo 'my practice secret' > secret.txt\nopenssl enc -aes-256-cbc -pbkdf2 -salt -in secret.txt -out secret.enc\n# you will be asked for a passphrase\ncat secret.enc                 # unreadable bytes\nopenssl enc -d -aes-256-cbc -pbkdf2 -in secret.enc -out restored.txt\ncat restored.txt               # your text again\necho -n 'admin' | base64       # YWRtaW4=  (encoding, not security)"
+     }
+    },
+    {
+     "h": "Golden rules of cryptography"
+    },
+    {
+     "ul": [
+      "**Never invent your own algorithm.** Use well tested libraries and standard algorithms.",
+      "**Protect the keys.** Strong encryption fails if the key is saved in a public code repository or an email.",
+      "**Use current versions.** Retire MD5, SHA-1, DES and old TLS.",
+      "**Plan key management.** Keys must be generated randomly, stored safely, rotated and destroyed properly.",
+      "**Remember the human factor.** Phishing can bypass encryption by tricking you to reveal your password."
+     ]
+    },
+    {
+     "tip": "If someone says their product uses military grade encryption, ask which algorithm, which key length and how the keys are stored. Real security can answer these questions."
+    },
+    {
+     "flip": [
+      [
+       "What is the difference between encoding and encryption?",
+       "Encoding changes format and anyone can reverse it. Encryption hides data and needs a key."
+      ],
+      [
+       "What is symmetric encryption?",
+       "Encryption where the same key locks and unlocks the data, such as AES."
+      ],
+      [
+       "What is a public key used for?",
+       "Others use it to encrypt data for you or to verify your signature."
+      ],
+      [
+       "Why is a hash called one way?",
+       "You cannot practically recover the original data from the hash."
+      ],
+      [
+       "What does a digital signature provide?",
+       "Integrity, authenticity and non-repudiation."
+      ],
+      [
+       "What does a Certificate Authority do?",
+       "Signs certificates that link public keys to identities such as domain names."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Create a text file, calculate its SHA-256 hash, then change one letter and calculate again. Compare the two hashes and note how completely different they are. Then encrypt the file with openssl and decrypt it again."
+    }
+   ],
+   "quiz": [
+    [
+     "Which of these is NOT a way to protect secrecy of data?",
+     [
+      "AES encryption",
+      "RSA encryption",
+      "Base64 encoding",
+      "TLS"
+     ],
+     2,
+     "Base64 is encoding that anyone can reverse. AES, RSA and TLS use keys to provide secrecy."
+    ],
+    [
+     "Why do real systems use hybrid encryption?",
+     [
+      "Asymmetric is fast, symmetric is slow",
+      "Asymmetric solves key exchange and symmetric is fast for bulk data",
+      "It avoids using certificates",
+      "It removes the need for keys"
+     ],
+     1,
+     "Public key methods share a secret safely and symmetric methods such as AES encrypt the data quickly."
+    ],
+    [
+     "What happens to a SHA-256 hash if one character of the file changes?",
+     [
+      "It changes slightly",
+      "It changes completely",
+      "It stays the same",
+      "It becomes shorter"
+     ],
+     1,
+     "Hash functions show an avalanche effect, so any change gives a completely different value."
+    ],
+    [
+     "Which key signs a message in a digital signature?",
+     [
+      "Receiver's public key",
+      "Sender's private key",
+      "Sender's public key",
+      "Any shared password"
+     ],
+     1,
+     "The sender signs with the private key and others verify with the matching public key."
+    ],
+    [
+     "Which statement about the HTTPS padlock is true?",
+     [
+      "The site is guaranteed safe",
+      "The connection is encrypted and the certificate matched the domain",
+      "The site cannot have malware",
+      "Your password is stronger"
+     ],
+     1,
+     "The padlock indicates encrypted transport and certificate validation, but scam sites can use it too."
+    ]
+   ],
+   "practice": [
+    "Hash two identical files and one slightly modified file and compare the three outputs.",
+    "Explain in four steps how your browser and a bank website agree on a secret key.",
+    "List where your own data lives at rest, in transit and in use during a UPI payment."
+   ]
+  },
+  {
+   "title": "Defending Systems, Responding to Incidents and Staying Legal",
+   "minutes": 35,
+   "notes": [
+    {
+     "h": "Building a strong baseline"
+    },
+    {
+     "p": "Most successful attacks use known weaknesses that were never fixed. A small number of habits stop a large number of attacks. Security teams call these habits the **baseline**. They apply to a student laptop and also to a company with thousands of machines."
+    },
+    {
+     "h": "Patching and updates"
+    },
+    {
+     "p": "Software has bugs, and some bugs become **vulnerabilities**. When a vendor finds one, they release a **patch**. Attackers read the same announcements and quickly build tools to attack unpatched systems. A famous example is the WannaCry ransomware outbreak of 2017, which spread to hundreds of thousands of computers around the world, including some in India, using a flaw that already had a patch available. Turn on automatic updates for the operating system, browser and phone apps, and replace software that no longer receives updates."
+    },
+    {
+     "h": "Endpoint protection and secure configuration"
+    },
+    {
+     "ul": [
+      "Use built-in protection such as Windows Security or a reputable endpoint product and keep it updated.",
+      "Remove software that you do not use, because each program is a possible weakness.",
+      "Change default passwords, disable unused services and turn on the host firewall. This work is called **hardening**.",
+      "Use a normal account for daily work and an administrator account only when needed.",
+      "Turn on full disk encryption so a lost laptop does not mean lost data."
+     ]
+    },
+    {
+     "h": "Backups: your last line of defence"
+    },
+    {
+     "p": "When all else fails, a backup lets you recover without paying ransom. Follow the **3-2-1 rule**: keep **3** copies of important data, on **2** different types of storage, with **1** copy stored away from the main system, such as offline or in a separate cloud account. A backup that you have never restored is only a hope. Test a restore at regular times."
+    },
+    {
+     "diagram": "Animated 3-2-1 backup map. A laptop in the middle with three file icons. One copy goes to an external drive, one to a cloud account and a third stays on the laptop. A ransomware cloud attacks the laptop and the connected drive turns red, but the offline copy stays green and restores the files with a progress bar."
+    },
+    {
+     "h": "Logging and monitoring"
+    },
+    {
+     "p": "You cannot respond to what you cannot see. **Logs** record events such as logins, errors and file access. Security teams collect logs in one place, often a **SIEM** system, and look for patterns such as many failed logins followed by a success. Even on a personal computer you can check login activity and review the recent sign in page of your email account for devices you do not recognise."
+    },
+    {
+     "h": "Incident response"
+    },
+    {
+     "p": "An **incident** is an event that harms or threatens security. Organisations prepare for incidents using a lifecycle. A widely used model from NIST has four phases."
+    },
+    {
+     "ol": [
+      "**Preparation**: policies, tools, contact lists, backups and practice drills.",
+      "**Detection and analysis**: notice the event, decide whether it is a real incident and find its scope.",
+      "**Containment, eradication and recovery**: stop the spread, remove the cause and restore systems safely.",
+      "**Post-incident activity**: write a report, learn what failed and improve."
+     ]
+    },
+    {
+     "p": "A calm, organised response saves money and data. Panic often leads to mistakes such as wiping a machine before saving evidence."
+    },
+    {
+     "h": "If you become a victim of cyber fraud in India"
+    },
+    {
+     "p": "Speed matters, especially for financial fraud. Do these steps in order."
+    },
+    {
+     "ol": [
+      "Call your bank or UPI provider immediately and ask to block the card, account or UPI ID.",
+      "Call the national cybercrime helpline **1930** as soon as possible. Early reporting helps to hold or trace the money.",
+      "File a complaint on the national cybercrime reporting portal, **cybercrime.gov.in**, and keep screenshots, transaction numbers, phone numbers and links as evidence.",
+      "Change passwords of affected accounts from a clean device and turn on MFA.",
+      "Inform your family and workplace if shared accounts or data may be affected."
+     ]
+    },
+    {
+     "tip": "Do not delete the messages or call logs of a scam before reporting. They are evidence."
+    },
+    {
+     "h": "Laws and rules in India"
+    },
+    {
+     "p": "Cyber security work happens inside the law. The **Information Technology Act, 2000** is the main law for cyber offences. Among other things it covers unauthorised access and damage to computer systems, identity theft, and cheating by pretending to be someone else using a computer. **CERT-In** is the national agency that handles cyber incidents, and its directions of 2022 require many organisations to report specified incidents within six hours. The **Digital Personal Data Protection Act, 2023** sets rules for how organisations must handle personal data of individuals. You will study privacy law in detail in a later course."
+    },
+    {
+     "warn": "Ethical hackers always have written permission that defines what they may test. Testing without permission is a crime even if you mean well. On rootjavs, practise only in the provided lab environments."
+    },
+    {
+     "h": "Your personal security checklist"
+    },
+    {
+     "ul": [
+      "Automatic updates are on for the phone, laptop and apps.",
+      "A password manager is in use and email has MFA.",
+      "Important files follow the 3-2-1 backup rule.",
+      "Phone and laptop use screen locks and disk encryption.",
+      "You install apps only from official stores and review permissions.",
+      "You verify unexpected requests for money or OTP through a second channel.",
+      "You know the number 1930 and the website cybercrime.gov.in."
+     ]
+    },
+    {
+     "h": "Where to go next"
+    },
+    {
+     "p": "You now have the foundation: the CIA triad, risk vocabulary, attackers and attacks, networking, authentication, cryptography and defence. Next steps in rootjavs include Ethical Hacking, Web Application Security, SOC Analyst and Network Security. Each course builds on this one. Complete the lab and the exams below to earn your XP and move from guest toward user rank."
+    },
+    {
+     "flip": [
+      [
+       "What is the 3-2-1 backup rule?",
+       "Three copies, on two types of storage, with one copy kept away from the main system."
+      ],
+      [
+       "Why are patches important?",
+       "They fix known vulnerabilities that attackers actively try to exploit."
+      ],
+      [
+       "What are the four incident response phases?",
+       "Preparation, detection and analysis, containment eradication and recovery, post-incident activity."
+      ],
+      [
+       "Which number do you call to report cyber fraud in India?",
+       "1930."
+      ],
+      [
+       "What is hardening?",
+       "Reducing weaknesses by removing unused services, changing defaults and tightening settings."
+      ],
+      [
+       "Which Indian agency handles national cyber incidents?",
+       "CERT-In."
+      ]
+     ]
+    },
+    {
+     "task": "Try this yourself: Write a one page personal incident plan. Include who you will call, which accounts you will secure first, where your backups are, and the steps for reporting fraud. Keep a printed or offline copy."
+    }
+   ],
+   "quiz": [
+    [
+     "Why do attackers target unpatched systems?",
+     [
+      "Patches make systems slower",
+      "Vulnerabilities are publicly known and easy to exploit",
+      "Patched systems cannot be attacked at all",
+      "They like old software"
+     ],
+     1,
+     "Once a flaw is published, exploit tools appear quickly, so delay in patching gives attackers an open door."
+    ],
+    [
+     "Which backup plan follows the 3-2-1 rule?",
+     [
+      "One copy on the laptop",
+      "Two copies on the same drive",
+      "Three copies, two storage types, one kept offsite or offline",
+      "Only a cloud copy that stays synced"
+     ],
+     2,
+     "3-2-1 means three copies on two media with one away from the main system. A synced cloud copy can also be encrypted by ransomware."
+    ],
+    [
+     "What is the first thing to do after an UPI fraud?",
+     [
+      "Wait a week",
+      "Contact the bank and call 1930 quickly",
+      "Delete all messages",
+      "Post on social media"
+     ],
+     1,
+     "Early action improves the chance of freezing the money, and the evidence should be preserved."
+    ],
+    [
+     "Which phase of incident response includes writing lessons learned?",
+     [
+      "Preparation",
+      "Detection and analysis",
+      "Containment",
+      "Post-incident activity"
+     ],
+     3,
+     "Post-incident activity reviews what happened and improves the defences."
+    ],
+    [
+     "Who may legally test the security of a company's system?",
+     [
+      "Any student who is curious",
+      "A person with written permission that defines the scope",
+      "Anyone using free tools",
+      "Only people with a VPN"
+     ],
+     1,
+     "Permission and scope make the work legal. Without it, testing can break the IT Act even if the intention is good."
+    ]
+   ],
+   "practice": [
+    "Turn on automatic updates on your phone and laptop and note the date.",
+    "Test a backup by restoring one important file to a different folder.",
+    "Write the four phases of incident response and give one action for each for a college website defacement."
+   ]
+  }
+ ],
+ "lab": {
+  "type": "linux",
+  "name": "Mission 01: First Day at the SOC",
+  "story": "You are a new intern at the security operations centre of a payments company in Bengaluru. Your mentor gives you a practice server and asks you to complete five small tasks: check your identity, protect an evidence file, detect tampering, read a login log and write a short report. Everything you do stays inside the rootjavs lab.",
+  "steps": [
+   {
+    "goal": "Find out which user you are logged in as and which groups you belong to.",
+    "hint": "Use the id command. It prints your user id, group id and group list.",
+    "check": "id"
+   },
+   {
+    "goal": "Create a folder named case in your home directory and move into it.",
+    "hint": "mkdir -p ~/case and then cd ~/case. Confirm with pwd.",
+    "check": "pwd shows a path ending in /case"
+   },
+   {
+    "goal": "Create an evidence file called evidence.txt that contains the line invoice_total=48200.",
+    "hint": "echo 'invoice_total=48200' > evidence.txt and then cat evidence.txt.",
+    "check": "cat evidence.txt prints invoice_total=48200"
+   },
+   {
+    "goal": "Record the SHA-256 fingerprint of the evidence file in a file named original.sha256.",
+    "hint": "sha256sum evidence.txt > original.sha256 then cat original.sha256. The first part is 64 hexadecimal characters.",
+    "check": "cat original.sha256 shows a 64 character hash followed by evidence.txt"
+   },
+   {
+    "goal": "Simulate tampering by changing the amount to 84200, then verify the file against the saved fingerprint.",
+    "hint": "echo 'invoice_total=84200' > evidence.txt and then sha256sum -c original.sha256.",
+    "check": "evidence.txt: FAILED"
+   },
+   {
+    "goal": "Restrict the evidence file so only the owner can read and write it.",
+    "hint": "chmod 600 evidence.txt and then ls -l evidence.txt. Look at the first ten characters.",
+    "check": "ls -l evidence.txt starts with -rw-------"
+   },
+   {
+    "goal": "Build a practice login log named auth.log with four failed root logins from 203.0.113.50 and one successful login by user asha from 198.51.100.7.",
+    "hint": "for i in 1 2 3 4; do echo 'Failed password for root from 203.0.113.50' >> auth.log; done and then echo 'Accepted password for asha from 198.51.100.7' >> auth.log.",
+    "check": "grep -c 'Failed password' auth.log prints 4"
+   },
+   {
+    "goal": "Find which IP address caused the failed logins and how many attempts it made.",
+    "hint": "grep 'Failed' auth.log | awk '{print $NF}' | sort | uniq -c. The last field of each line is the IP address.",
+    "check": "4 203.0.113.50"
+   },
+   {
+    "goal": "Write a short defence report in report.txt that mentions blocking the IP, enabling MFA and disabling root login over SSH.",
+    "hint": "echo 'Block 203.0.113.50. Enable MFA. Disable root login over SSH.' > report.txt and then cat report.txt.",
+    "check": "cat report.txt contains Block 203.0.113.50, MFA and root login"
+   }
+  ]
+ },
+ "finalExam": [
+  [
+   "Which of these is NOT part of the CIA triad?",
+   [
+    "Confidentiality",
+    "Integrity",
+    "Authentication",
+    "Availability"
+   ],
+   2,
+   "The triad is confidentiality, integrity and availability. Authentication is a separate process that proves identity."
+  ],
+  [
+   "A weakness that could be used to cause harm is called a:",
+   [
+    "Threat",
+    "Vulnerability",
+    "Asset",
+    "Control"
+   ],
+   1,
+   "A vulnerability is a weakness. A threat is something that can exploit it, an asset is what has value and a control reduces risk."
+  ],
+  [
+   "Risk is best described as:",
+   [
+    "Only the attacker's skill",
+    "Only the value of the asset",
+    "The size of the firewall",
+    "The likelihood of harm combined with its impact"
+   ],
+   3,
+   "Risk considers both how likely a problem is and how serious the damage would be."
+  ],
+  [
+   "Which of these is a detective control?",
+   [
+    "Strong password rule",
+    "Locked server room",
+    "Intrusion alert system",
+    "Backup restore"
+   ],
+   2,
+   "Detective controls notice events. Passwords and locks prevent, and restoring from backup corrects."
+  ],
+  [
+   "Which part of AAA records what a user did?",
+   [
+    "Accounting",
+    "Authentication",
+    "Authorisation",
+    "Anonymity"
+   ],
+   0,
+   "Accounting keeps logs of actions. Authentication proves identity and authorisation sets permissions."
+  ],
+  [
+   "Ransomware that locks a hospital's records mainly attacks which goal?",
+   [
+    "Confidentiality",
+    "Integrity",
+    "Availability",
+    "Non-repudiation"
+   ],
+   2,
+   "The data cannot be used when needed, which is an availability failure."
+  ],
+  [
+   "An attacker secretly edits the amount in a payment record. Which goal is broken?",
+   [
+    "Integrity",
+    "Availability",
+    "Authorisation",
+    "Accounting"
+   ],
+   0,
+   "Unauthorised change of data breaks integrity."
+  ],
+  [
+   "Which malware spreads on its own through a network?",
+   [
+    "Trojan",
+    "Worm",
+    "Keylogger",
+    "Adware"
+   ],
+   1,
+   "Worms replicate without user action, unlike viruses and trojans."
+  ],
+  [
+   "A fake SMS says your bank KYC will expire today and gives a link. This is:",
+   [
+    "Smishing",
+    "Vishing",
+    "DDoS",
+    "Port scanning"
+   ],
+   0,
+   "Phishing delivered through SMS is called smishing."
+  ],
+  [
+   "For a UPI payment, when do you enter your UPI PIN?",
+   [
+    "To receive money",
+    "When someone says you won a prize",
+    "Only to send money",
+    "To check a collect request"
+   ],
+   2,
+   "The PIN authorises sending money only. Receiving never requires it."
+  ],
+  [
+   "In the cyber kill chain, which stage is the attacker gathering information about the target?",
+   [
+    "Delivery",
+    "Reconnaissance",
+    "Installation",
+    "Actions on objectives"
+   ],
+   1,
+   "Reconnaissance is the first stage, where information is collected."
+  ],
+  [
+   "Which port is normally used by HTTPS?",
+   [
+    "80",
+    "22",
+    "443",
+    "25"
+   ],
+   2,
+   "HTTPS uses port 443. Port 80 is HTTP, 22 is SSH and 25 is SMTP."
+  ],
+  [
+   "Which is the correct order of the TCP three-way handshake?",
+   [
+    "ACK, SYN, SYN-ACK",
+    "SYN, ACK, SYN-ACK",
+    "SYN-ACK, SYN, ACK",
+    "SYN, SYN-ACK, ACK"
+   ],
+   3,
+   "The client sends SYN, the server answers SYN-ACK and the client completes with ACK."
+  ],
+  [
+   "What is the risk of DNS spoofing?",
+   [
+    "Slow Wi-Fi",
+    "You may be sent to a fake site with a real looking name",
+    "Your disk fills up",
+    "Your password expires"
+   ],
+   1,
+   "False DNS answers can direct users to attacker controlled servers."
+  ],
+  [
+   "What does a VPN do on public Wi-Fi?",
+   [
+    "Removes malware",
+    "Makes you fully anonymous",
+    "Encrypts traffic between your device and the VPN server",
+    "Gives free internet"
+   ],
+   2,
+   "A VPN protects traffic from others on the same network, but does not remove malware or give complete anonymity."
+  ],
+  [
+   "Which is the strongest commonly available second factor against phishing?",
+   [
+    "SMS OTP",
+    "Security questions",
+    "Email code",
+    "Passkey or hardware security key"
+   ],
+   3,
+   "Passkeys and hardware keys only work with the real website, so fake sites cannot reuse them."
+  ],
+  [
+   "Which action best reduces the damage from credential stuffing?",
+   [
+    "Using the same strong password everywhere",
+    "Unique passwords for each site and MFA",
+    "Changing the password every day",
+    "Using only numbers"
+   ],
+   1,
+   "Unique passwords stop reuse and MFA blocks logins with stolen passwords."
+  ],
+  [
+   "Which is the correct way to store user passwords in a database?",
+   [
+    "Plain text",
+    "Base64",
+    "Salted hash with Argon2 or bcrypt",
+    "Reversible encryption with a key in the code"
+   ],
+   2,
+   "Slow salted hashes cannot be reversed and resist guessing. The others are easily broken or reversed."
+  ],
+  [
+   "On Linux, what does chmod 640 file mean?",
+   [
+    "Owner read and write, group read, others nothing",
+    "Everyone can read and write",
+    "Owner read only, group write",
+    "Only root can read"
+   ],
+   0,
+   "6 is read and write for the owner, 4 is read for the group and 0 means no access for others."
+  ],
+  [
+   "Base64 is best described as:",
+   [
+    "Strong encryption",
+    "A hash function",
+    "An encoding that anyone can reverse",
+    "A digital signature"
+   ],
+   2,
+   "Base64 changes the format of data and offers no secrecy."
+  ],
+  [
+   "Which key is used to create a digital signature?",
+   [
+    "The sender's private key",
+    "The receiver's private key",
+    "The sender's public key",
+    "A shared Wi-Fi password"
+   ],
+   0,
+   "The sender signs with the private key and anyone verifies with the public key."
+  ],
+  [
+   "How many hexadecimal characters does a SHA-256 hash have?",
+   [
+    "32",
+    "40",
+    "64",
+    "128"
+   ],
+   2,
+   "SHA-256 produces 256 bits, which is 64 hexadecimal characters."
+  ],
+  [
+   "Which backup approach follows the 3-2-1 rule?",
+   [
+    "One copy on a pen drive",
+    "Three copies, two storage types, one copy offsite or offline",
+    "Two copies on the same laptop",
+    "Only online sync"
+   ],
+   1,
+   "3-2-1 means three copies, on two types of media, with one stored away from the main system."
+  ],
+  [
+   "Which national helpline is used to report cyber financial fraud in India?",
+   [
+    "100",
+    "1098",
+    "1930",
+    "112 only"
+   ],
+   2,
+   "1930 is the national cybercrime helpline, and reports can also be filed on cybercrime.gov.in."
+  ],
+  [
+   "What makes security testing of a company's website legal?",
+   [
+    "Using free tools",
+    "Good intention",
+    "A written permission that defines the scope",
+    "A VPN connection"
+   ],
+   2,
+   "Written authorisation and scope make the work lawful. Intent and tools do not."
+  ]
+ ],
+ "practicalExam": {
+  "scenario": "A student at your college receives an SMS that says her bank account will be blocked unless she completes KYC using a link. She has not clicked it yet. Her friend also says his laptop shows an unknown service listening on a port. You are the volunteer security helper. Complete the tasks using only the rootjavs lab and your own practice files.",
+  "tasks": [
+   {
+    "task": "Classify the SMS attack type and name the first action the student should take.",
+    "check": "Smishing (phishing by SMS). Do not click the link, verify through the official bank app or number, and report or delete the message."
+   },
+   {
+    "task": "In the lab create a file named note.txt that contains the text kyc-warning and save its SHA-256 hash to note.sha256.",
+    "check": "cat note.txt shows kyc-warning and cat note.sha256 shows a 64 character hash followed by note.txt"
+   },
+   {
+    "task": "Change note.txt and prove with a command that it no longer matches the saved hash.",
+    "check": "sha256sum -c note.sha256 prints note.txt: FAILED"
+   },
+   {
+    "task": "Set note.txt so that only the owner can read and write it and show the permissions.",
+    "check": "ls -l note.txt starts with -rw-------"
+   },
+   {
+    "task": "Write three defence steps for the student's account in defence.txt. Mention MFA, a unique password and reporting to 1930 or cybercrime.gov.in.",
+    "check": "cat defence.txt includes MFA, unique password and 1930 or cybercrime.gov.in"
+   }
+  ]
+ },
+ "cheatsheet": {
+  "title": "Cyber Security Fundamentals Cheat Sheet",
+  "sections": [
+   [
+    "Core ideas",
+    [
+     [
+      "CIA triad",
+      "Confidentiality, Integrity, Availability"
+     ],
+     [
+      "Asset",
+      "Anything of value that needs protection"
+     ],
+     [
+      "Vulnerability",
+      "A weakness"
+     ],
+     [
+      "Threat",
+      "Something that can exploit a weakness"
+     ],
+     [
+      "Risk",
+      "Likelihood combined with impact"
+     ],
+     [
+      "AAA",
+      "Authentication, Authorisation, Accounting"
+     ],
+     [
+      "Defence in depth",
+      "Several layers of protection"
+     ]
+    ]
+   ],
+   [
+    "Common ports",
+    [
+     [
+      "22",
+      "SSH"
+     ],
+     [
+      "23",
+      "Telnet (avoid)"
+     ],
+     [
+      "25",
+      "SMTP"
+     ],
+     [
+      "53",
+      "DNS"
+     ],
+     [
+      "80",
+      "HTTP"
+     ],
+     [
+      "443",
+      "HTTPS"
+     ],
+     [
+      "3389",
+      "RDP"
+     ]
+    ]
+   ],
+   [
+    "Linux security commands",
+    [
+     [
+      "id",
+      "Show user id and groups"
+     ],
+     [
+      "ls -l",
+      "Show permissions"
+     ],
+     [
+      "chmod 600 file",
+      "Owner read and write only"
+     ],
+     [
+      "sha256sum file",
+      "Calculate SHA-256 hash"
+     ],
+     [
+      "sha256sum -c file.sha256",
+      "Verify a saved hash"
+     ],
+     [
+      "ip addr",
+      "Show IP addresses"
+     ],
+     [
+      "ss -tuln",
+      "List listening ports"
+     ],
+     [
+      "grep -c 'text' file",
+      "Count matching lines"
+     ]
+    ]
+   ],
+   [
+    "Cryptography",
+    [
+     [
+      "AES",
+      "Symmetric encryption"
+     ],
+     [
+      "RSA / ECC",
+      "Asymmetric algorithms"
+     ],
+     [
+      "SHA-256",
+      "Secure hash function"
+     ],
+     [
+      "bcrypt / Argon2",
+      "Password hashing"
+     ],
+     [
+      "TLS 1.3",
+      "Current secure transport protocol"
+     ],
+     [
+      "Base64",
+      "Encoding only, not security"
+     ]
+    ]
+   ],
+   [
+    "India: report and rules",
+    [
+     [
+      "1930",
+      "National cybercrime helpline"
+     ],
+     [
+      "cybercrime.gov.in",
+      "Online complaint portal"
+     ],
+     [
+      "IT Act, 2000",
+      "Main cyber law"
+     ],
+     [
+      "CERT-In",
+      "National cyber incident agency"
+     ],
+     [
+      "DPDP Act, 2023",
+      "Personal data protection law"
+     ]
+    ]
+   ]
+  ]
+ },
+ "glossary": [
+  [
+   "Asset",
+   "Anything valuable that must be protected, such as data, devices or reputation."
+  ],
+  [
+   "Vulnerability",
+   "A weakness that could be used to cause harm."
+  ],
+  [
+   "Threat",
+   "A person or event that could exploit a vulnerability."
+  ],
+  [
+   "Risk",
+   "The chance of harm combined with how serious the harm would be."
+  ],
+  [
+   "Control",
+   "A measure that reduces risk, such as a firewall or a rule."
+  ],
+  [
+   "Malware",
+   "Software designed to harm a system or steal data."
+  ],
+  [
+   "Phishing",
+   "A trick that uses fake messages to make people reveal information or install malware."
+  ],
+  [
+   "Social engineering",
+   "Manipulating people instead of breaking technology."
+  ],
+  [
+   "MFA",
+   "Multi-factor authentication, which needs two or more different proofs of identity."
+  ],
+  [
+   "Hash",
+   "A fixed length fingerprint of data that cannot be reversed."
+  ],
+  [
+   "Encryption",
+   "Scrambling data so that only someone with the key can read it."
+  ],
+  [
+   "Firewall",
+   "A system that allows or blocks network traffic using rules."
+  ],
+  [
+   "VPN",
+   "A service that creates an encrypted tunnel for network traffic."
+  ],
+  [
+   "Patch",
+   "An update that fixes a security flaw or bug."
+  ],
+  [
+   "Incident",
+   "An event that harms or threatens the security of systems or data."
+  ]
+ ],
+ "interview": [
+  [
+   "Explain the CIA triad with an example.",
+   "CIA stands for confidentiality, integrity and availability. For a bank, confidentiality means only the account owner sees the balance, integrity means the balance cannot be changed without authorisation, and availability means the app works when the customer needs it."
+  ],
+  [
+   "What is the difference between a threat, a vulnerability and a risk?",
+   "A vulnerability is a weakness, a threat is something that can use that weakness, and risk is the chance and impact of that happening. A server without updates is the vulnerability, a ransomware group is the threat, and the possible loss of data and money is the risk."
+  ],
+  [
+   "How would you explain phishing to a non-technical relative?",
+   "Phishing is a trick where a criminal pretends to be a trusted person or company to make you share a password or click a bad link. I would tell them to never share OTPs, to verify through the official app and to pause when a message creates fear or urgency."
+  ],
+  [
+   "What is the difference between encryption and hashing?",
+   "Encryption is reversible with a key and is used to keep data secret. Hashing is one way and creates a fingerprint used for integrity checks and password storage."
+  ],
+  [
+   "Why is multi-factor authentication important?",
+   "A stolen password alone is not enough to log in when a second factor is required. Phishing resistant methods such as passkeys give the best protection, while SMS OTP is weaker because of SIM swap fraud."
+  ],
+  [
+   "What does the principle of least privilege mean?",
+   "Each user and program gets only the access needed to do the job. This reduces the damage when an account is stolen or misused."
+  ],
+  [
+   "What happens when you type a website address and press enter?",
+   "The browser asks DNS for the IP address, opens a TCP connection, performs a TLS handshake that checks the certificate and agrees on keys, and then sends the HTTP request over the encrypted connection."
+  ],
+  [
+   "How should passwords be stored by a website?",
+   "As salted hashes using a slow algorithm such as bcrypt, scrypt or Argon2. Plain text, reversible encryption and fast hashes such as MD5 are not acceptable."
+  ],
+  [
+   "What would you do first if you found a suspicious open port on your server?",
+   "Identify which service uses it and whether it is needed. If not needed, close it and update the firewall rules. If it is needed, restrict access, patch the service and monitor it."
+  ],
+  [
+   "What steps would you take after a ransomware attack?",
+   "Isolate the affected machines, preserve evidence, inform the incident response team and authorities, identify the cause, remove the threat, restore from clean tested backups, and then review the incident to improve defences."
+  ]
+ ],
+ "xp": {
+  "lesson": 50,
+  "lab": 150,
+  "finalExam": 200,
+  "practicalExam": 300
+ }
+}
