@@ -137,9 +137,63 @@ PAGES.courseClassic=()=>{
 
 
 /* ================= HOME (v2 design: terminal theme, from rootjavs_home_demo.html) ================= */
+const homeGames=()=>{
+  const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* daily challenge: one question per day, +50 XP once per day */
+  const DQ=[["Which port does HTTPS use by default?",["80","443","22","8080"],1,"HTTPS listens on 443. Port 80 is plain HTTP and 22 is SSH."],["Which command shows the current folder in Linux?",["ls","cd","pwd","whoami"],2,"pwd means print working directory."],["What does the A in the CIA triad stand for?",["Access","Availability","Authority","Audit"],1,"Confidentiality, Integrity and Availability."],["Which one is a strong password?",["password123","Riya@2004","correct-horse-battery-staple-91","qwerty"],2,"Long passphrases are much harder to crack than short words with a symbol."],["A bank SMS asks for your OTP to stop a block. What should you do?",["Reply with the OTP","Call the number in the SMS","Ignore it and check in the official app","Forward it to friends"],2,"Banks never ask for an OTP. Check only through the official app or number."],["Which file permission lets only the owner read and write?",["777","644","600","755"],2,"600 = rw for the owner and nothing for anyone else."],["What does SQL stand for?",["Structured Query Language","Simple Question Logic","System Query Link","Secure Query Layer"],0,"SQL is the Structured Query Language used to work with databases."]];
+  const today=new Date().toISOString().slice(0,10), dn=Math.floor(Date.now()/864e5)%DQ.length, dq=DQ[dn], dkey="daily-"+today;
+  $("#daily").innerHTML=`<div class="tag"><span>Daily challenge</span><b class="c-yl">+50 XP</b></div><p class="q">${esc(dq[0])}</p><div class="opts">${dq[1].map((o,i)=>`<button type="button" data-a="${i}">${esc(o)}</button>`).join("")}</div><p class="fb" id="dfb">${S.bonus&&S.bonus.done[dkey]?"Done for today. Come back tomorrow for a new one.":"Answer to keep your 🔥 streak."}</p>`;
+  $$("#daily [data-a]").forEach(b=>b.onclick=()=>{ $$("#daily [data-a]").forEach(x=>{ x.disabled=true; if(+x.dataset.a===dq[2]) x.classList.add("right"); });
+    if(+b.dataset.a===dq[2]){ $("#dfb").textContent="Correct. "+dq[3]; RJ.touch(); RJ.addBonus(dkey,50); RJ.paintXp(); } else { b.classList.add("wrong"); $("#dfb").textContent="Not quite. "+dq[3]; } });
+
+  /* Phish or Not? */
+  const P=[{f:"From: SBI Alerts <alerts@sbi-secure-kyc.top>",b:"Your account will be blocked today. Update KYC now: sbi-secure-kyc.top/verify",scam:true,why:"Scam. Banks never use domains like .top, and fake urgency is a classic trick."},{f:"From: GitHub <noreply@github.com>",b:"A new SSH key was added to your account. If this wasn't you, review it in Settings.",scam:false,why:"Legit. Real domain, no link to click, and it tells you to check settings yourself."},{f:"From: +91 98xxx xxx21 (WhatsApp)",b:"Congrats! You won ₹25,000 in the Amazon Diwali lucky draw. Share the OTP to claim.",scam:true,why:"Scam. No real company ever asks for your OTP."},{f:"From: Parul University <exam@paruluniversity.ac.in>",b:"Your hall ticket is available on the student portal. Log in through the official website.",scam:false,why:"Legit. Official domain, and it sends you to the portal you already know."}];
+  let pi=0, ps=0, lock=false;
+  const showP=()=>{ const p=P[pi]; $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">+20 XP each</b></div><div class="msg"><span class="from mono">${esc(p.f)}</span><span class="body">${esc(p.b)}</span></div><div class="opts"><button type="button" data-s="1">Scam</button><button type="button" data-s="0">Legit</button></div><p class="fb" id="pfb">Read the sender and the link. Then decide.</p><span class="score mono">Round ${pi+1} of ${P.length} · score ${ps}</span>`; lock=false;
+    $$("#phish [data-s]").forEach(b=>b.onclick=()=>{ if(lock) return; lock=true; const ok=(b.dataset.s==="1")===p.scam; b.classList.add(ok?"right":"wrong"); $("#pfb").textContent=p.why; $$("#phish [data-s]").forEach(x=>x.disabled=true);
+      if(ok){ ps++; RJ.addBonus("phish-"+pi,20); RJ.paintXp(); }
+      setTimeout(()=>{ pi++; if(pi<P.length) showP(); else $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">done</b></div><p class="q">${ps===P.length?"Perfect score. You think like a security analyst.":`${ps} of ${P.length} correct.`}</p><p class="fb">Learn the warning signs in Cyber Security Fundamentals.</p><div class="row"><a class="btn sm pri" href="course.html?c=cyber-security-fundamentals">Open the course</a><button class="btn sm" id="pagain">Play again</button></div>`, $("#pagain")&&($("#pagain").onclick=()=>{ pi=0; ps=0; showP(); }); },RM?500:1400); }); };
+  showP();
+};
+/* the old home page is the default; this v2 design is kept for later at index.html?v2=1 */
 PAGES.home=()=>{
-  if(RJ.qp("classic")==="1"||!RJ.CATALOG.length) return PAGES.homeClassic();
-  document.body.classList.add("is-home");
+  if(RJ.qp("v2")==="1") return PAGES.homeV2();
+  PAGES.homeClassic();
+  if(!RJ.CATALOG.length) return;
+  const CAT=RJ.CATALOG, TR=RJ.TRACKS, READY=CAT.filter(e=>e.ready);
+  const xp=RJ.xp(), rank=RJ.rankOf(xp), ri=RJ.RANKS.indexOf(rank), next=RJ.RANKS[ri+1];
+  const sh=(eb,h,p,link)=>`<div class="sec-head"><div><span class="eyebrow">${eb}</span><h2>${h}</h2>${p?`<p>${p}</p>`:""}</div>${link||""}</div>`;
+  const html=`<div class="nh">
+  <section class="sec">${sh("All courses",`${CAT.length} courses in ${TR.length} tracks`,`${READY.length} full courses are open now. The others show their syllabus while lessons are being added.`,`<a class="btn" href="courses.html">View all courses ${I("arrow")}</a>`)}
+    <div class="filters" id="nhf" style="margin:0 0 14px">${["All",...TR].map((t,i)=>`<button class="${i?'':'on'}" data-t="${esc(t)}">${esc(t)} <span class="cnt">${t==="All"?CAT.length:CAT.filter(e=>e.track===t).length}</span></button>`).join("")}</div>
+    <div class="nh-cgrid" id="nhg"></div><div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="nhm">Show more</button></div></section>
+  <section class="sec">${sh("Your rank","Every lesson earns XP. XP earns access.","Lesson +50 · lab +150 · final exam +200 · practical exam +300. Ranks follow real Linux privilege levels, from guest to root.",`<a class="btn" href="dashboard.html">My dashboard ${I("arrow")}</a>`)}
+    <div class="nh-ladder2">${RJ.RANKS.map((k,j)=>`<div class="rung ${j<ri?"done":j===ri?"now":""}"><span class="nm" style="color:${k[3]}">${k[0]}${k[0]==="root"?" 👑":""}</span><span class="th">${k[1].toLocaleString("en-IN")} XP</span><p>${k[2]}</p></div>`).join("")}</div>
+    <div class="nh-meter"><div class="lbl"><span>${rank[0]} · ${xp.toLocaleString("en-IN")} XP</span><span>${next?`${(next[1]-xp).toLocaleString("en-IN")} XP to ${next[0]}`:"you are root"}</span></div><div class="track"><div class="fill" style="width:${next?Math.min(100,(xp-rank[1])/(next[1]-rank[1])*100):100}%"></div></div></div></section>
+  <section class="sec">${sh("Skill tree","Pick a branch. Unlock the next node.","Basics is the trunk. Full courses are open now; the rest light up as lessons are added.")}
+    <div class="nh-tree-scroll"><div class="nh-tree"><a class="node open" href="course.html?c=computer-fundamentals-new"><b>Basics</b>Computer Fundamentals</a><div class="trunk"></div>
+      <div class="branches">${TR.filter(t=>t!=="Basics").map(t=>{ const ns=CAT.filter(e=>e.track===t).sort((a,b)=>(b.ready-a.ready)||(a.no-b.no)).slice(0,3);
+        return `<div class="col ${ns.some(e=>e.ready)?"lit":""}"><span class="head">${esc(t)}</span>${ns.map((e,j)=>{ const st=e.ready?"open":"locked"; return (j?`<div class="stem ${st!=="locked"?"lit":""}"></div>`:"")+`<a class="node ${st}" href="course.html?c=${e.siteId}"><b>${esc(e.title.replace(/\s*\(.*\)$/,""))}</b>${st==="open"?"open now":"syllabus"}</a>`; }).join("")}</div>`; }).join("")}</div></div></div>
+    <div class="nh-legend"><span class="l2">open now</span><span class="l3">syllabus only</span></div></section>
+  <section class="sec" id="nh-daily">${sh("Today on rootjavs","Daily challenge and Phish or Not?","Answer the daily question to keep your streak, then spot the scam messages.")}
+    <div class="nh-duo"><div class="nh-box" id="daily"></div><div class="nh-box" id="phish"></div></div></section>
+  <section class="sec">${sh("rootjavs Arcade","Games that teach the real thing.","Each game is tied to a course. Phish or Not? is playable now; the others are being built.")}
+    <div class="nh-arcade">${[["?!","Phish or Not?","Spot the scam message before it spots you.","Cyber Security",1],["***","Password Crack Race","See how long an attacker needs to break yours.","Cyber Security"],["$_","Command Speed Run","Type the right Linux command before the timer ends.","Linux"],["⇄","Packet Journey","Route data through routers to the right server.","Networking"],["0x","Decode It","Binary, hex and Base64 hide a message. Find it.","Cryptography"],["{!}","Spot the Bug","Find the security flaw in a few lines of code.","Secure Coding"],["[#]","Cyber Escape Room","Use clues and commands to unlock the room.","Ethical Hacking"],["Aa","Typing Defender","Type falling words before they hit the ground.","Typing Mastery"]].map(g=>`<div class="game ${g[4]?"live":""}"><span class="ic mono" style="color:var(--mg)">${g[0]}</span><h3>${g[1]}</h3><p>${g[2]}</p><span class="xp mono">${g[3]} · ${g[4]?'<a href="#nh-daily">play now</a>':"being built"}</span></div>`).join("")}</div></section>
+  </div>`;
+  // the new sections go right after the old "Courses" section of the home page
+  const secs=$$("#app > section.sec"), courseSec=secs.find(x=>x.querySelector('.sec-head a[href="courses.html"]'))||secs[secs.length-1];
+  courseSec.insertAdjacentHTML("afterend",html);
+  let t="All", shown=9;
+  const drawC=()=>{ const list=CAT.filter(e=>t==="All"||e.track===t);
+    $("#nhg").innerHTML=list.slice(0,shown).map(e=>`<a class="nh-cc ${e.ready?"ready":""}" href="course.html?c=${e.siteId}"><span class="ct mono">#${e.no} · ${esc(e.track)}</span><span class="cn">${esc(e.title)}</span><span class="cf mono">${e.ready?`<span style="color:var(--accent-2)">● full course</span>`:"syllabus · lessons being added"}</span></a>`).join("");
+    $("#nhm").hidden=list.length<=shown; };
+  $$("#nhf button").forEach(b=>b.onclick=()=>{ t=b.dataset.t; shown=9; $$("#nhf button").forEach(x=>x.classList.toggle("on",x===b)); drawC(); });
+  $("#nhm").onclick=()=>{ shown+=9; drawC(); }; drawC();
+  homeGames();
+};
+PAGES.homeV2=()=>{
+  if(!RJ.CATALOG.length) return PAGES.homeClassic();
+  document.documentElement.classList.add("v2"); document.body.classList.add("is-home");
   const CAT=RJ.CATALOG, TR=RJ.TRACKS, READY=CAT.filter(e=>e.ready);
   const xp=RJ.xp(), rank=RJ.rankOf(xp), ri=RJ.RANKS.indexOf(rank), next=RJ.RANKS[ri+1];
   const who=S.user?S.user.name.split(" ")[0].toLowerCase().replace(/[^a-z0-9._-]/g,"")||"student":"guest";
@@ -244,21 +298,7 @@ PAGES.home=()=>{
   $("#pf").onsubmit=e=>{ e.preventDefault(); run($("#cmd").value); $("#cmd").value=""; };
   $$(".nh-chips button").forEach(b=>b.onclick=()=>run(b.dataset.c));
 
-  /* daily challenge: one question per day, +50 XP once per day */
-  const DQ=[["Which port does HTTPS use by default?",["80","443","22","8080"],1,"HTTPS listens on 443. Port 80 is plain HTTP and 22 is SSH."],["Which command shows the current folder in Linux?",["ls","cd","pwd","whoami"],2,"pwd means print working directory."],["What does the A in the CIA triad stand for?",["Access","Availability","Authority","Audit"],1,"Confidentiality, Integrity and Availability."],["Which one is a strong password?",["password123","Riya@2004","correct-horse-battery-staple-91","qwerty"],2,"Long passphrases are much harder to crack than short words with a symbol."],["A bank SMS asks for your OTP to stop a block. What should you do?",["Reply with the OTP","Call the number in the SMS","Ignore it and check in the official app","Forward it to friends"],2,"Banks never ask for an OTP. Check only through the official app or number."],["Which file permission lets only the owner read and write?",["777","644","600","755"],2,"600 = rw for the owner and nothing for anyone else."],["What does SQL stand for?",["Structured Query Language","Simple Question Logic","System Query Link","Secure Query Layer"],0,"SQL is the Structured Query Language used to work with databases."]];
-  const today=new Date().toISOString().slice(0,10), dn=Math.floor(Date.now()/864e5)%DQ.length, dq=DQ[dn], dkey="daily-"+today;
-  $("#daily").innerHTML=`<div class="tag"><span>Daily challenge</span><b class="c-yl">+50 XP</b></div><p class="q">${esc(dq[0])}</p><div class="opts">${dq[1].map((o,i)=>`<button type="button" data-a="${i}">${esc(o)}</button>`).join("")}</div><p class="fb" id="dfb">${S.bonus&&S.bonus.done[dkey]?"Done for today. Come back tomorrow for a new one.":"Answer to keep your 🔥 streak."}</p>`;
-  $$("#daily [data-a]").forEach(b=>b.onclick=()=>{ $$("#daily [data-a]").forEach(x=>{ x.disabled=true; if(+x.dataset.a===dq[2]) x.classList.add("right"); });
-    if(+b.dataset.a===dq[2]){ $("#dfb").textContent="Correct. "+dq[3]; RJ.touch(); RJ.addBonus(dkey,50); RJ.paintXp(); } else { b.classList.add("wrong"); $("#dfb").textContent="Not quite. "+dq[3]; } });
-
-  /* Phish or Not? */
-  const P=[{f:"From: SBI Alerts <alerts@sbi-secure-kyc.top>",b:"Your account will be blocked today. Update KYC now: sbi-secure-kyc.top/verify",scam:true,why:"Scam. Banks never use domains like .top, and fake urgency is a classic trick."},{f:"From: GitHub <noreply@github.com>",b:"A new SSH key was added to your account. If this wasn't you, review it in Settings.",scam:false,why:"Legit. Real domain, no link to click, and it tells you to check settings yourself."},{f:"From: +91 98xxx xxx21 (WhatsApp)",b:"Congrats! You won ₹25,000 in the Amazon Diwali lucky draw. Share the OTP to claim.",scam:true,why:"Scam. No real company ever asks for your OTP."},{f:"From: Parul University <exam@paruluniversity.ac.in>",b:"Your hall ticket is available on the student portal. Log in through the official website.",scam:false,why:"Legit. Official domain, and it sends you to the portal you already know."}];
-  let pi=0, ps=0, lock=false;
-  const showP=()=>{ const p=P[pi]; $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">+20 XP each</b></div><div class="msg"><span class="from mono">${esc(p.f)}</span><span class="body">${esc(p.b)}</span></div><div class="opts"><button type="button" data-s="1">Scam</button><button type="button" data-s="0">Legit</button></div><p class="fb" id="pfb">Read the sender and the link. Then decide.</p><span class="score mono">Round ${pi+1} of ${P.length} · score ${ps}</span>`; lock=false;
-    $$("#phish [data-s]").forEach(b=>b.onclick=()=>{ if(lock) return; lock=true; const ok=(b.dataset.s==="1")===p.scam; b.classList.add(ok?"right":"wrong"); $("#pfb").textContent=p.why; $$("#phish [data-s]").forEach(x=>x.disabled=true);
-      if(ok){ ps++; RJ.addBonus("phish-"+pi,20); RJ.paintXp(); }
-      setTimeout(()=>{ pi++; if(pi<P.length) showP(); else $("#phish").innerHTML=`<div class="tag"><span>Arcade · Phish or Not?</span><b class="c-yl">done</b></div><p class="q">${ps===P.length?"Perfect score. You think like a security analyst.":`${ps} of ${P.length} correct.`}</p><p class="fb">Learn the warning signs in Cyber Security Fundamentals.</p><div class="row"><a class="btn sm pri" href="course.html?c=cyber-security-fundamentals">Open the course</a><button class="btn sm" id="pagain">Play again</button></div>`, $("#pagain")&&($("#pagain").onclick=()=>{ pi=0; ps=0; showP(); }); },RM?500:1400); }); };
-  showP();
+  homeGames();
 };
 
 /* ================= COURSES (catalogue of all courses) ================= */

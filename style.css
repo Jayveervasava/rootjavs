@@ -497,8 +497,10 @@ details.faq p{color:var(--muted);padding-bottom:16px;margin:0}
    rootjavs v2 theme (2026-11): dark navy + electric blue + terminal colours.
    Only overrides and additions. Cyan = commands/success, yellow = XP/warnings,
    magenta = keywords/games, red = danger. Light mode keeps working.
+   The colour/font theme below is switched off: it applies only when <html> has class "v2".
+   The old rootjavs design stays the default. Component styles below work with both.
    ===================================================================== */
-:root{
+:root.v2{
   --bg:#050A15; --bg-2:#08101F; --card:#0B1324; --card-2:#101B31; --raise:#132039;
   --line:#1B2741; --line-2:#26365A;
   --text:#F2F5FA; --muted:#C9CFD8; --dim:#8A93A0;
@@ -512,17 +514,17 @@ details.faq p{color:var(--muted);padding-bottom:16px;margin:0}
   --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
 }
-:root[data-theme="light"]{
+:root.v2[data-theme="light"]{
   --accent:#1F6FE0; --accent-2:#0A8FA0; --accent-ink:#FFFFFF; --gold:#B07800; --ok:#0A8FA0; --ok-bg:#E0F5F7; --bad:#D63347; --bad-bg:#FCE6E9; --mg:#C0368A;
   --acc-rgb:31,111,224;
 }
-body::before{background:
+:root.v2 body::before{background:
    radial-gradient(900px 500px at 85% -10%,rgba(var(--acc-rgb),.16),transparent 60%),
    radial-gradient(700px 420px at -10% 10%,rgba(92,225,230,.06),transparent 60%),
    linear-gradient(var(--grid-line) 1px,transparent 1px) 0 0/48px 48px,
    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px) 0 0/48px 48px;}
-.eyebrow{color:var(--accent-2)}
-.logo{font-family:var(--mono);font-weight:700;letter-spacing:-.01em}
+:root.v2 .eyebrow{color:var(--accent-2)}
+:root.v2 .logo{font-family:var(--mono);font-weight:700;letter-spacing:-.01em}
 .logo .logoic{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#5CC0FF,#2F7BFF);color:#fff;font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:-.04em;box-shadow:0 0 16px rgba(59,158,255,.45)}
 
 /* header XP chip + terminal navigation */
@@ -714,3 +716,7 @@ body::before{background:
 /* fix: inline icons in course hero rows and status boxes kept their full size (old "big lab icon" bug) */
 .course-hero .row svg,.status>svg,.status svg{width:18px;height:18px;flex:none}
 .status.info{align-items:center}
+
+/* fallbacks so new components look right with the old theme */
+:root{--acc-rgb:91,140,255;--mg:#FF79C6}
+:root[data-theme="light"]{--acc-rgb:47,100,240;--mg:#C0368A}

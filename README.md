@@ -76,4 +76,4 @@ and the bundled libraries `jspdf.umd.min.js`, `xlsx.full.min.js`, `pptxgen.bundl
 - The 7 original courses in `data.js` are kept unchanged. If a ready catalogue course has the same id as an old one, the new one opens as `<id>-new` and both are shown.
 - `course-loader.js` reads the catalogue and course files, `mission-lab.js` runs the labs and practical exams of the new courses.
 - The site must be served over http(s) (GitHub Pages does this). Opening `index.html` by double-click still shows the old courses, but not the catalogue.
-- The previous home page is still available at `index.html?classic=1`.
+- The old home page and the old design are the default. A new terminal-style home and theme are kept in the code for later (`index.html?v2=1`).
