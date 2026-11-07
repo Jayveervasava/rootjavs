@@ -80,12 +80,16 @@ window.RJ_ROADMAPS = [
 ];
 
 window.RJ_FAQ = [
- ["Is rootjavs free?","Yes. All live courses, notes, labs, exams and cheat sheets are free to use."],
+ ["Is rootjavs free?","Yes. All courses, notes, labs, exams, challenges, tools and cheat sheets are free to use."],
  ["Do I need to install anything?","No. Every lab runs inside your browser. For the best experience use Chrome or Edge on a laptop or desktop."],
- ["How are courses structured?","Each course has lessons. Every lesson has notes with a PDF download, a quiz and a real task to do on your own computer. Each course has a hands-on lab, a final theory exam and a practical exam."],
- ["How do I get a certificate?","Pass all lesson quizzes, then the final theory exam (60% or more) and the practical exam. Your certificate is generated instantly with a unique ID that can be verified."],
- ["Can I download the files I make in the labs?","Yes. Documents download as Word files, spreadsheets as .xlsx and presentations as .pptx, so you can open them in Microsoft Office or Google tools."],
- ["Where is my progress saved?","On this version, progress is saved in your browser on this device. Signing in keeps your name on your certificates. Cloud sync arrives with the full launch."],
- ["I am a complete beginner. Where should I start?","Start with Computer Fundamentals, then follow the Office Professional roadmap."],
- ["Will there be cyber security courses?","Yes. Linux, Networking, Cyber Security Foundations, Cloud and AI Security are on the roadmap."]
+ ["I am a complete beginner. Where should I start?","Start with Cyber Security Fundamentals and follow the 7-day plan on the home page. If you are new to computers, begin with Computer Fundamentals."],
+ ["How are courses structured?","Each course has lessons. Every lesson has notes with a PDF download, a quiz that explains every answer and practice tasks. Each course has a mission lab, a final theory exam and a practical exam."],
+ ["How do I get a certificate?","Pass all lesson quizzes, then the final theory exam (60% or more) and the practical exam. Your certificate is generated instantly with a unique ID that can be verified on the Verify page."],
+ ["What are XP and ranks?","You earn XP for lessons (+50), labs (+150), the final exam (+200), the practical exam (+300), the daily challenge and challenges. XP moves you up from guest to user, sudoer, admin and finally root."],
+ ["Some courses say 'Lessons are being added'. When will they open?","Those courses already show their full syllabus. New lessons are added every week, and a course opens fully as soon as its lessons, lab and exams are ready."],
+ ["Is it legal to learn hacking?","Yes, learning is legal. Using it on systems you do not own or have permission to test is a crime. On rootjavs you practise only in safe, simulated labs."],
+ ["Can a lab harm my computer?","No. Labs and challenges are simulations that run inside the web page. Nothing is installed and no real system is attacked."],
+ ["Can I download the files I make in the labs?","Yes. In the Office labs, documents download as Word files, spreadsheets as .xlsx and presentations as .pptx."],
+ ["Why is my progress not on my other phone or laptop?","In this version, progress is saved in your browser on this device. Cloud sync across devices is coming later."],
+ ["How can I request a course or report a mistake?","Use the Contact page and choose 'Request a course' or 'Report a bug'. You can also message us on Instagram @rootjavs."]
 ];
